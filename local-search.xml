@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Markdown基本语法</title>
+    <link href="/2023/11/24/Markdown/"/>
+    <url>/2023/11/24/Markdown/</url>
+    
+    <content type="html"><![CDATA[<h3 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h3><p>在文字前加 # 表示标题，共支持六级标题。</p><p><strong>注：几乎所有语法符号后要跟个空格再接内容</strong></p><p>示例：</p><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs clean"># 一级标题<br>## 二级标题<br>### 三级标题<br>···以此类推···<br></code></pre></td></tr></table></figure><p>效果如下：</p><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h3 id="二、文字与排版"><a href="#二、文字与排版" class="headerlink" title="二、文字与排版"></a>二、文字与排版</h3><ul><li><strong>加粗</strong><br>在两个星号 * ··· * 之间写的内容会被加粗<br></li><li><em>斜体</em><br>将要倾斜的文字前后各用两个 * 包起来<br></li><li><em><strong>斜体加粗</strong></em><br>前后各三个 * <br></li><li><del>删除线</del><br>前后各两个 ~<br><br>注：以上不加空格<br></li><li>换行<br>&lt;br&gt;<br></li><li>引用<br>在引用的文字前加一个或多个 &gt; 即可<br>效果：<blockquote><p>引用1</p><blockquote><p>引用2<br><br></p></blockquote></blockquote></li><li>分割线<br>用三个及以上的 * 或 - 单独成行</li></ul><hr><ul><li><p>列表</p><ul><li><p>无序列表<br>用 * 或 - 或 + 都行，后接空格</p><br></li><li><p>有序列表<br>数字加点</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-bullet">1.</span> list1<br><span class="hljs-bullet">2.</span> list2<br></code></pre></td></tr></table></figure></li><li><p>嵌套列表<br>上下两级之间敲两个空格即可</p><br></li></ul></li><li><p>代码块</p><p>(&#96;&#96;&#96;&#96;&#96;&#96;) 用括号中的反引号将需要标注的块区域包起来，三个就行，但是自动补全机制写六个更省事（不加括号，自成一行）</p><p>单行代码：前后各用一个 &#96; 就行</p><p>代码块：</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">代码块<br></code></pre></td></tr></table></figure><p>单行代码：<br><code>单行代码</code></p></li></ul><h3 id="三、插入超链接和图片"><a href="#三、插入超链接和图片" class="headerlink" title="三、插入超链接和图片"></a>三、插入超链接和图片</h3><ol><li>[超链接名] (超链接地址 “超链接title”)<br>示例：[百度] (<a href="http://baidu.com/">http://baidu.com</a>)<br></li><li>[图片名] (图片地址 “图片title”)<br>同上，图片名为下标<br><br>中间不加空格，title 可不加<br>title 内容在鼠标悬停于超链接或图片上时显示</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>Learning</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>basic</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
     <link href="/2023/11/24/HelloWorld/"/>
     <url>/2023/11/24/HelloWorld/</url>
