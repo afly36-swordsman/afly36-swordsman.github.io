@@ -838,12 +838,12 @@ i.iconfont {
   --board-bg-color: #fff;
   --text-color: #3c4858;
   --sec-text-color: #718096;
-  --post-text-color: #2c3e50;
-  --post-heading-color: #1a202c;
-  --post-link-color: #0366d6;
-  --link-hover-color: #30a9de;
+  --post-text-color: #1a202c;
+  --post-heading-color: #000;
+  --post-link-color: #40e0d0;
+  --link-hover-color: #66cdaa;
   --link-hover-bg-color: #f8f9fa;
-  --line-color: #eaecef;
+  --line-color: #c0c0c0;
   --navbar-bg-color: #2f4154;
   --navbar-text-color: #fff;
   --subtitle-color: #fff;

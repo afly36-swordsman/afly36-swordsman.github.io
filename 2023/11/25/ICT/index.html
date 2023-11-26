@@ -20,7 +20,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="随笔系列4：ICT">
 <meta property="og:url" content="https://afly36-swordsman.github.io/2023/11/25/ICT/index.html">
-<meta property="og:site_name" content="Mark">
+<meta property="og:site_name" content="Mark&#39;s blog">
 <meta property="og:description" content="显示器接口 VGA接口   采用模拟协议，常用于老式显示器。目前不常用了，像一个四圆角梯形。    DVI接口   有很多种类，算是VGA到HDMI的过渡产物。    HDMI接口   音视频同时传输，支持高动态范围HDR成像，很常用，像带两个弯角的矩形。    DP接口   DP(Digital Port)，也很常用，是HDMI的竞争对手，有很大的发展前景。   DNSDNS(Domain Na">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pica.zhimg.com/80/v2-9260a9e7bb2d44713e0976a8ac2ee667_1440w.webp?source=2c26e567">
@@ -36,7 +36,7 @@
   
   
   
-  <title>随笔系列4：ICT - Mark</title>
+  <title>随笔系列4：ICT - Mark&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -74,7 +74,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"afly36-swordsman.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":40,"cursorChar":"^_^","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"afly36-swordsman.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":40,"cursorChar":"^_^","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -266,6 +266,19 @@
   <div class="row nomargin-x">
     <div class="side-col d-none d-lg-block col-lg-2">
       
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
 
     </div>
 
@@ -309,25 +322,45 @@
 <h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>DNS(Domain Name System，域名系统)，用于域名解析，是因特网上作为域名和IP地址互相映射的一个分布式数据库，能让用户更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。通过主机名，最终得到该主机对应的IP地址的过程叫做域名解析（或主机名解析）。DNS协议运行在UDP协议之上，使用端口号53。</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/186028919" title="什么是DNS？">点击查看详情</a></p>
 <h3 id="路由器相关"><a href="#路由器相关" class="headerlink" title="路由器相关"></a>路由器相关</h3><h4 id="直连"><a href="#直连" class="headerlink" title="直连"></a>直连</h4><p>用一根网线连接两台主机的网口，可以相互发送和接收数据。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">多台主机通信怎么办？<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">多台主机通信怎么办？</code></pre></div>
 
 <h4 id="集线器"><a href="#集线器" class="headerlink" title="集线器"></a>集线器</h4><p>集线器(HUB)，将网线集结起来，实现初级的网络互通，工作在物理层，半双工通信。同时可以将信号放大后再传输以扩大传输距离。</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">集线器以广播形式以<span class="hljs-string">&quot;泛红转发&quot;</span>来发送数据，无法分辨具体的主机。<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs 1c">集线器以广播形式以<span class="hljs-string">&quot;泛红转发&quot;</span>来发送数据，无法分辨具体的主机。</code></pre></div>
 
 <h4 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h4><p>交换机(Switch)，在集线器原有功能上，增加了自动寻址能力和交换作用，通过学习MAC地址（MAC地址表），查找对应的端口号，建立临时交换路径进行收发数据，工作在数据链路层，全双工通信。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">要求交换机端口上所有主机在同一个子网中。不同网段的主机怎么通信？<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs">要求交换机端口上所有主机在同一个子网中。不同网段的主机怎么通信？</code></pre></div>
 
 <h4 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h4><p>路由器(Router)，连接不同类型的网络并能选择数据传输的IP路径，充当网关的角色，能在多网络互联环境中建立灵活的连接，工作在网络层。</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">家里拉了一条宽带（一条网线，现在多为光纤），只能一个人享受上网。如果要多设备连接网络，或者享受无线上网(<span class="hljs-built_in">WiFi</span>)，那么就需要安装路由器实现IP地址分配、网络共享和无线网使用（无线路由器），甚至进行网络加速（增强）。<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs arduino">家里拉了一条宽带（一条网线，现在多为光纤），只能一个人享受上网。如果要多设备连接网络，或者享受无线上网(<span class="hljs-built_in">WiFi</span>)，那么就需要安装路由器实现IP地址分配、网络共享和无线网使用（无线路由器），甚至进行网络加速（增强）。</code></pre></div>
 
 <h4 id="猫"><a href="#猫" class="headerlink" title="猫"></a>猫</h4><p>猫(Modem)，即光猫，调制解调器，进行光电转换。为了取代之前慢速的电话线上网，目前运营商多采用光纤传输，利用高速的光信号（会被限速，按你交的钱让你使用相应的带宽）进行数据传输。光信号无法直接被设备利用，经过光猫，将其转换为数字信号，即可被设备使用。</p>
 <h4 id="IP-MAC地址"><a href="#IP-MAC地址" class="headerlink" title="IP&#x2F;MAC地址"></a>IP&#x2F;MAC地址</h4><p>IP(Internet Protocol)，即互联网协议地址，为互联网上每一个网络和每一台主机配置唯一的逻辑地址，与物理地址区分。</p>
 <p>IP地址分为IPv4和IPv6，IPv4使用32位（4字节）地址，IPv6地址长度为128位。最初设计互联网络时，为了便于寻址和层次化构造网络，每个IP地址包括两个标识码（ID），也就是网络ID和主机ID。同一个物理网络上的所有主机都使用同一个网络ID，网络上的一个主机（包括网络上工作站，服务器和路由器等）有一个主机ID与其对应。以IPv4地址为例，IP地址分为：<br>1、公有地址(Public address)，我们通过公有IP地址是可以实现直接访问因特网的。<br>2、私有地址(Private address)，分为五类：A类、B类、C类、D类、E类。其中，A、B、C类私有地址是由InternetNIC公司在全球范围内统一分配的，D、E类为特殊地址。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">A</span>类IP地址(适用于大型网络)的网络的标识(网络ID)长度为<span class="hljs-number">8</span>位，主机标识(主机ID)长度为<span class="hljs-number">24</span>位，它的范围：<span class="hljs-number">1.0.0.1</span>到<span class="hljs-number">127.255.255.254</span>；<br><br><span class="hljs-attribute">B</span>类IP地址(适用于中型网络)的网络ID为<span class="hljs-number">16</span>位，主机ID长度为<span class="hljs-number">16</span>位，它的范围：<span class="hljs-number">128.0.0.1</span>-<span class="hljs-number">191.255.255.254</span>；<br><br><span class="hljs-attribute">C</span>类IP地址(适用于小型网络)网络ID为<span class="hljs-number">24</span>位，主机ID长度为<span class="hljs-number">8</span>位，它的范围：<span class="hljs-number">192.0.0.1</span>-<span class="hljs-number">223.255.255.254</span>；<br><br><span class="hljs-attribute">D</span>类地址被叫做多播地址(multicast address)，即组播地址，它的范围：<span class="hljs-number">224.0.0.0</span>到<span class="hljs-number">239.255.255.255</span>；<br><br><span class="hljs-attribute">E</span>类地址主要用于Internet试验和开发，它的范围：<span class="hljs-number">240.0.0.0</span>~<span class="hljs-number">255.255.255.255</span><br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">A</span>类IP地址(适用于大型网络)的网络的标识(网络ID)长度为<span class="hljs-number">8</span>位，主机标识(主机ID)长度为<span class="hljs-number">24</span>位，它的范围：<span class="hljs-number">1.0.0.1</span>到<span class="hljs-number">127.255.255.254</span>；
+
+<span class="hljs-attribute">B</span>类IP地址(适用于中型网络)的网络ID为<span class="hljs-number">16</span>位，主机ID长度为<span class="hljs-number">16</span>位，它的范围：<span class="hljs-number">128.0.0.1</span>-<span class="hljs-number">191.255.255.254</span>；
+
+<span class="hljs-attribute">C</span>类IP地址(适用于小型网络)网络ID为<span class="hljs-number">24</span>位，主机ID长度为<span class="hljs-number">8</span>位，它的范围：<span class="hljs-number">192.0.0.1</span>-<span class="hljs-number">223.255.255.254</span>；
+
+<span class="hljs-attribute">D</span>类地址被叫做多播地址(multicast address)，即组播地址，它的范围：<span class="hljs-number">224.0.0.0</span>到<span class="hljs-number">239.255.255.255</span>；
+
+<span class="hljs-attribute">E</span>类地址主要用于Internet试验和开发，它的范围：<span class="hljs-number">240.0.0.0</span>~<span class="hljs-number">255.255.255.255</span></code></pre></div>
 
 <p>MAC地址（Media Access Control Address）的全称叫做媒体访问控制地址，也称作局域网地址、以太网地址或者物理地址。MAC地址用于在网络中唯一标示一个网卡，一台设备若有一或多个网卡，则每个网卡都需要并会有一个唯一的MAC地址。MAC地址共48位（6个字节），前24位由IEEE（电气和电子工程师协会）决定如何分配，后24位由实际生产该网络设备的厂商自行制定。</p>
 <p>OSI模型（Open System Interconnection Reference Model），是一种概念模型，是一个标准，一个试图使各种计算机在世界范围内互连为网络的标准框架。</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs armasm">物理层（Physical Layer）：它是提供物理链路、传递电信号或光信号用的，在局域网上传输比特流，它负责管理计算机通信设备和网络媒体之间的互通，包括针脚、电压、线缆规范、集线器、中继器、网卡、主机接口卡等。<br><br>第二层：数据链路层（<span class="hljs-meta">Data</span> Link Layer）：负责网络寻址、错误侦测和改错。当表头和表尾被加至数据包时，会形成帧（数据帧：<span class="hljs-meta">data</span> frame）。而且此层还负责MAC地址。<br><br>第三层：网络层（Network Layer）：决定数据的路径选择（数据选路）和转寄，将网络表头（NH）加至数据包，以形成分组。网络表头包含了网络数据，例如：<span class="hljs-built_in">IP</span>地址。<br><br>第四层：传输层（Transport Layer）：它会建立一个安全通道，以防数据丢失。端到端之间的连接建立。把传输表头（TH）加至数据以形成数据包。传输表头包含了所使用的协议等发送信息，例如：传输控制协议（TCP）。<br><br>第五层:会话层（Session Layer）：负责在数据传输中设置和维护计算机网络中两台计算机之间的通信连接。<br><br>第六层：表达层（Presentation Layer）：将信息数据进行加密，及数据的转化。信息数据经过加密、转换、压缩，转换为能与接收者的系统格式兼容并适合传输的格式。<br><br>第七层：应用层（Application Layer）：起调用的作用，提供为应用软件而设的接口，设置与另一应用软件之间的通信。例如: HTTP，HTTPS，FTP，TELNET，SSH，SMTP，POP3.HTML.等。<br></code></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs armasm">物理层（Physical Layer）：它是提供物理链路、传递电信号或光信号用的，在局域网上传输比特流，它负责管理计算机通信设备和网络媒体之间的互通，包括针脚、电压、线缆规范、集线器、中继器、网卡、主机接口卡等。
+
+第二层：数据链路层（<span class="hljs-meta">Data</span> Link Layer）：负责网络寻址、错误侦测和改错。当表头和表尾被加至数据包时，会形成帧（数据帧：<span class="hljs-meta">data</span> frame）。而且此层还负责MAC地址。
+
+第三层：网络层（Network Layer）：决定数据的路径选择（数据选路）和转寄，将网络表头（NH）加至数据包，以形成分组。网络表头包含了网络数据，例如：<span class="hljs-built_in">IP</span>地址。
+
+第四层：传输层（Transport Layer）：它会建立一个安全通道，以防数据丢失。端到端之间的连接建立。把传输表头（TH）加至数据以形成数据包。传输表头包含了所使用的协议等发送信息，例如：传输控制协议（TCP）。
+
+第五层:会话层（Session Layer）：负责在数据传输中设置和维护计算机网络中两台计算机之间的通信连接。
+
+第六层：表达层（Presentation Layer）：将信息数据进行加密，及数据的转化。信息数据经过加密、转换、压缩，转换为能与接收者的系统格式兼容并适合传输的格式。
+
+第七层：应用层（Application Layer）：起调用的作用，提供为应用软件而设的接口，设置与另一应用软件之间的通信。例如: HTTP，HTTPS，FTP，TELNET，SSH，SMTP，POP3.HTML.等。</code></pre></div>
 
 <p>IP地址与MAC地址的区别：<br>1、IP地址应用于OSI模型的网络层，而MAC地址应用在OSI模型的数据链路层。<br>2、地址长度、设计理念不同、分配依据不同。<br>3、IP地址未必都不一样，与地理区域等有关。MAC地址只和硬件设备有关。</p>
 <p>IP地址的提出，主要是为了减少广播的数量，可以智能学习目标地址在哪个网卡。<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/21546408" title="有了 IP 地址，为什么还要用 MAC 地址？">点击查看详情</a></p>
@@ -395,22 +428,6 @@
       
       
       
-        <div class="license-meta-item">
-          <div>Licensed under</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
-                    <i class="iconfont icon-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
     </div>
     <div class="license-icon iconfont"></div>
   </div>
@@ -451,19 +468,6 @@
 
     <div class="side-col d-none d-lg-block col-lg-2">
       
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>Table of Contents</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
 
     </div>
   </div>
@@ -536,7 +540,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://afly36-swordsman.github.io" target="_blank" rel="nofollow noopener"><span>Github</span></a> 
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
   
   
