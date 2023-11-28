@@ -93,7 +93,9 @@ Fluid.events = {
       posDisplay = right >= 50;
       topArrow.css({
         'bottom': posDisplay && scrollDisplay ? '20px' : '-60px',
-        'right' : right - 64 + 'px'
+        'right' : posDisplay ? right - 64 : 4 + 'px',
+        'min-width' : posDisplay ? 40 : 20 + 'px',
+        'min-height' : posDisplay ? 40 : 20 + 'px'
       });
     };
     setTopArrowPos();
