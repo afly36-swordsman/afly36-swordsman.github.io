@@ -16,25 +16,19 @@
   <meta name="author" content="Zenitsu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Terminology IndexIQA：图像质量评价，image quality assessment  上游任务，预训练模型，对应 low-level task；下游任务，具体的 task，对应 high-level task  Ablation study：消融实验，移除 Model 的部分&quot;feature&quot;（控制变量法），对比研究模型的性能  FPS：每秒传输帧数，fr">
-<meta property="og:type" content="article">
-<meta property="og:title" content="专业笔记">
-<meta property="og:url" content="https://afly36-swordsman.github.io/2023/11/25/Professional/index.html">
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Mark&#39;s blog">
+<meta property="og:url" content="https://afly36-swordsman.github.io/2023/11/29/Write/index.html">
 <meta property="og:site_name" content="Mark&#39;s blog">
-<meta property="og:description" content="Terminology IndexIQA：图像质量评价，image quality assessment  上游任务，预训练模型，对应 low-level task；下游任务，具体的 task，对应 high-level task  Ablation study：消融实验，移除 Model 的部分&quot;feature&quot;（控制变量法），对比研究模型的性能  FPS：每秒传输帧数，fr">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/bn.png">
-<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/ln.png">
-<meta property="article:published_time" content="2023-11-25T15:36:57.166Z">
-<meta property="article:modified_time" content="2023-11-29T16:01:43.140Z">
+<meta property="article:published_time" content="2023-11-29T15:02:29.525Z">
+<meta property="article:modified_time" content="2023-11-29T15:34:38.233Z">
 <meta property="article:author" content="Zenitsu">
-<meta property="article:tag" content="basic">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://afly36-swordsman.github.io/img/stage1/bn.png">
   
   
   
-  <title>专业笔记 - Mark&#39;s blog</title>
+  <title>Mark&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +194,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="专业笔记"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -211,8 +205,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-25 23:36" pubdate>
-          2023.11.25 23:36
+        <time datetime="2023-11-29 23:02" pubdate>
+          2023.11.29 23:02
         </time>
       </span>
     
@@ -223,7 +217,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k words
+          0 words
         
       </span>
     
@@ -234,7 +228,7 @@
         
         
         
-          12 mins
+          1 mins
         
       </span>
     
@@ -284,12 +278,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">专业笔记</h1>
+            <h1 id="seo-header"></h1>
             
               <p class="note note-info">
                 
                   
-                    Last updated on November 30, 2023 am
+                    Last updated on November 29, 2023 pm
                   
                 
               </p>
@@ -297,50 +291,7 @@
             
               <div class="markdown-body">
                 
-                <h3 id="Terminology-Index"><a href="#Terminology-Index" class="headerlink" title="Terminology Index"></a>Terminology Index</h3><div class="code-wrapper"><pre><code class="hljs mipsasm">IQA：图像质量评价，image quality assessment
-
-上游任务，预训练模型，对应 low-level task；下游任务，具体的 task，对应 high-level task
-
-Ablation study：消融实验，移除 Model 的部分<span class="hljs-string">&quot;feature&quot;</span>（控制变量法），对比研究模型的性能
-
-FPS：每秒传输帧数，frames per second
-
-Fine-tune：微调
-
-光谱（Spectrum）：复色光经过分光成为单色光，经成像系统得到按波长或者频率依次排列的光学图像
-多光谱（<span class="hljs-keyword">Multispectrum）：同时获取多个光学频谱波段（大于3个），在可见光基础上向红外、紫外两个方向扩展</span>
-<span class="hljs-keyword"></span>高光谱（Hyperspectrum）：包含成百上千的波段，可以捕获和分析一片空间区域内“逐点”的光谱
-
-Embedding：在深度学习中利用线性或非线性转换，对复杂的数据进行自动特征抽取，
-并将其features表示为向量形式，以便于输入到网络中进行处理。这个过程被称之为<span class="hljs-string">&quot;Embedding&quot;</span>
-
-<span class="hljs-keyword">BN(Batch </span><span class="hljs-keyword">Normalization)：像深度学习模型输入数据时，要对data进行归一化操作，如均值为0、方差为1的规范化处理，</span>
-<span class="hljs-keyword"></span>否则过大的特征会“淹没”小特征。这种情况不仅会在输入模型时出现，也会在层与层中存在，因为随着数据的逐级传播，
-经过损失函数（如Softmax）后会使得特征之间的差异变大，逐渐累积会对最终结果造成较大的影响。
-所以需要对层间数据也进行规范化，<span class="hljs-keyword">BN就是在两个隐藏层之间对数据在Batch方向进行Norm处理，</span>
-<span class="hljs-keyword"></span>并且最后加入了<span class="hljs-keyword">Scale </span><span class="hljs-keyword">and </span><span class="hljs-keyword">Shift操作，以提高网络对Norm的学习能力。</span>
-<span class="hljs-keyword"></span>
-LN(Layer <span class="hljs-keyword">Normalization)：与BN不同之处在于，LN是在数据的Channel方向进行Norm归一化操作。</span>
-<span class="hljs-keyword"></span><span class="hljs-keyword">BN是对一个batch的数据的对应位置上所有的feature进行归一化，而LN是对每个sample进行归一化。</span>
-<span class="hljs-keyword"></span>在三维视觉任务的情形下，可以理解为：<span class="hljs-keyword">BN对每一张图片对应位置的像素做Norm处理，LN则是对单幅图像的整体做Norm。</span>
-<span class="hljs-keyword"></span>但通常在数据传入Model前会进行数据的归一化处理，因此通常不会再使用LN。</code></pre></div>
-<p><img src="/img/stage1/bn.png" srcset="/img/loading.gif" lazyload alt="Batch Norm"><br><img src="/img/stage1/ln.png" srcset="/img/loading.gif" lazyload alt="Layer Norm"></p>
-<h3 id="距离度量"><a href="#距离度量" class="headerlink" title="距离度量"></a>距离度量</h3><div class="code-wrapper"><pre><code class="hljs arcade">欧氏距离（Euclidean <span class="hljs-built_in">Distance</span>）：两点连线长度
-城区距离（曼哈顿距离，Manhattan <span class="hljs-built_in">Distance</span>）：直角移动距离，不涉及对角线
-棋盘距离（切比雪夫距离，Chebyshev <span class="hljs-built_in">Distance</span>）：沿某个轴的距离最大值
-汉明距离（Hamming <span class="hljs-built_in">Distance</span>）：比较两等长二进制串不同值的个数
-余弦相似度（Cosine Similarity）：两向量夹角余弦表示距离，与内积有关</code></pre></div>
-
-<h3 id="图片格式"><a href="#图片格式" class="headerlink" title="图片格式"></a>图片格式</h3><div class="code-wrapper"><pre><code class="hljs mipsasm"><span class="hljs-keyword">JPEG，静态图像压缩标准，压缩比越高，质量越差</span>
-<span class="hljs-keyword"></span><span class="hljs-keyword">JPG，与JPEG类似，相当于简化版，去除了相机的拍照参数等</span>
-<span class="hljs-keyword"></span>PNG，无损压缩，位图片格式
-GIF，静态、动态图像，如动图、表情包
-TIFF，无失真压缩，占用空间较大
-TGA，兼顾 <span class="hljs-keyword">BMP </span>图像的质量与 <span class="hljs-keyword">JPEG </span>的体积
-<span class="hljs-keyword">BMP，位图 </span><span class="hljs-keyword">Bitmap，不采用压缩，占用空间大</span>
-<span class="hljs-keyword"></span>SVG，二维矢量图形格式
-RAW，经 CMOS 或 CCD 图像感应器将捕捉到的光信号转换为数字信号的原始数据
-HDR，高动态范围图像，High-Dynamic Range，记录了照明信息</code></pre></div>
+                
                 
               </div>
             
@@ -348,34 +299,6 @@ HDR，高动态范围图像，High-Dynamic Range，记录了照明信息</code><
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Learning/" class="category-chain-item">Learning</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/basic/" class="print-no-link">#basic</a>
-      
-    </div>
   
 </div>
 
@@ -385,8 +308,8 @@ HDR，高动态范围图像，High-Dynamic Range，记录了照明信息</code><
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>专业笔记</div>
-      <div>https://afly36-swordsman.github.io/2023/11/25/Professional/</div>
+      <div></div>
+      <div>https://afly36-swordsman.github.io/2023/11/29/Write/</div>
     </div>
     <div class="license-meta">
       
@@ -398,13 +321,13 @@ HDR，高动态范围图像，High-Dynamic Range，记录了照明信息</code><
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>November 25, 2023</div>
+          <div>November 29, 2023</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>November 30, 2023</div>
+          <div>November 29, 2023</div>
         </div>
       
       
@@ -419,18 +342,12 @@ HDR，高动态范围图像，High-Dynamic Range，记录了照明信息</code><
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/25/Papers/" title="文献整理·开山篇">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">文献整理·开山篇</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/25/NumericalCode/" title="随笔系列5：数码">
-                        <span class="hidden-mobile">随笔系列5：数码</span>
+                      <a href="/2023/11/25/Papers/" title="文献整理·开山篇">
+                        <span class="hidden-mobile">文献整理·开山篇</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

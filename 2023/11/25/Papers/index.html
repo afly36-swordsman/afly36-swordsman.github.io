@@ -34,16 +34,16 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/23.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/24.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/25.png">
-<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/36.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/26.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/31.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/32.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/33.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/34.png">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/36.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/35.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/37.png">
 <meta property="article:published_time" content="2023-11-25T15:43:58.212Z">
-<meta property="article:modified_time" content="2023-11-28T16:55:31.002Z">
+<meta property="article:modified_time" content="2023-11-29T15:54:24.133Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.6k words
+          6.6k words
         
       </span>
     
@@ -251,7 +251,7 @@
         
         
         
-          47 mins
+          55 mins
         
       </span>
     
@@ -306,7 +306,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on November 29, 2023 am
+                    Last updated on November 29, 2023 pm
                   
                 
               </p>
@@ -400,9 +400,9 @@ image fusion <span class="hljs-keyword">and</span> various high-<span class="hlj
 <p><img src="/img/stage1/22.png" srcset="/img/loading.gif" lazyload alt="The architecture of the real-time infrared and visible image fusion network based on gradient residual dense block."></p>
 <p><img src="/img/stage1/23.png" srcset="/img/loading.gif" lazyload alt="The specific devise of the gradient residual dense block. The Sobel operator is selected as the Gradient Operator to extract fine-grained detail information of feature maps."></p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p><img src="/img/stage1/24.png" srcset="/img/loading.gif" lazyload alt="Analysis1: fusion network"></p>
-<p><img src="/img/stage1/25.png" srcset="/img/loading.gif" lazyload alt="Analysis2: segmentation module"><br>注：分割网络是论文[SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers]的内容</p>
-<p>分割网络：<br><img src="/img/stage1/36.png" srcset="/img/loading.gif" lazyload alt="Segmentation network"></p>
+<p><img src="/img/stage1/25.png" srcset="/img/loading.gif" lazyload alt="Analysis2: segmentation module"></p>
 <p><img src="/img/stage1/26.png" srcset="/img/loading.gif" lazyload alt="Algorithm"></p>
+<p>注：分割网络的backbone采用YOLOv5网络</p>
 <h2 id="SegMiF"><a href="#SegMiF" class="headerlink" title="SegMiF"></a>SegMiF</h2><h3 id="Title-2"><a href="#Title-2" class="headerlink" title="Title"></a>Title</h3><p>Multi-interactive Feature Learning and a Full-time Multi-modality Benchmark for Image Fusion and Segmentation [ICCV]</p>
 <h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>Early efforts boost performance for only one task.</p>
 <p>This paper, SegMiF can dual-task correlation to promote the performance of both tasks (fusion and segmentation).</p>
@@ -425,7 +425,8 @@ Modality<span class="hljs-operator">-</span><span class="hljs-operator">/</span>
 <h3 id="Structure-diagram-2"><a href="#Structure-diagram-2" class="headerlink" title="Structure diagram"></a>Structure diagram</h3><p><img src="/img/stage1/31.png" srcset="/img/loading.gif" lazyload alt="Workflow of the proposed SegMiF. The left part depicts the latent interactive relationship between image fusion and segmentation. The middle part plots the concrete architecture of the SegMiF. The right part details the components of proposed hierarchical interactive attention."></p>
 <p><img src="/img/stage1/32.png" srcset="/img/loading.gif" lazyload alt="Partial zoom"></p>
 <h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p><img src="/img/stage1/33.png" srcset="/img/loading.gif" lazyload alt="Fusion network and DRDB module"></p>
-<p><img src="/img/stage1/34.png" srcset="/img/loading.gif" lazyload alt="Detailed architectures of SoAM and MoAM"></p>
+<p><img src="/img/stage1/34.png" srcset="/img/loading.gif" lazyload alt="Detailed architectures of SoAM and MoAM"><br>注：分割网络是论文[SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers]的内容</p>
+<p>分割网络：<br><img src="/img/stage1/36.png" srcset="/img/loading.gif" lazyload alt="Segmentation network"></p>
 <div class="code-wrapper"><pre><code class="hljs oxygene">HIA:
 
 <span class="hljs-number">1</span>.SoAM (Semantic-oriented attention <span class="hljs-keyword">module</span>)
@@ -458,6 +459,30 @@ Modality<span class="hljs-operator">-</span><span class="hljs-operator">/</span>
 <span class="hljs-number">2</span>.显著性图主要用来计算MSE损失中的显著性参数m
   &gt; 源自论文: Infrared <span class="hljs-keyword">and</span> visible image fusion based on visual saliency <span class="hljs-meta">map</span>
             <span class="hljs-keyword">and</span> weighted least square optimization</code></pre></div>
+
+<h3 id="相关内容"><a href="#相关内容" class="headerlink" title="相关内容"></a>相关内容</h3><div class="code-wrapper"><pre><code class="hljs mathematica">当<span class="hljs-variable">CNN</span>层数变深时，输出到输入的路径就会变得很长。
+梯度反向传播，到达输入层可能就会消失。
+<span class="hljs-variable">DenseNet</span>是一种深度卷积神经网络，引入密集连接（<span class="hljs-variable">Dense</span> <span class="hljs-variable">Connection</span>）将前面所有层与后面的层建立密集连接。
+与<span class="hljs-variable">ResNet</span>的关键区别是，<span class="hljs-variable">ResNet</span>是简单相加，<span class="hljs-variable">DenseNet</span>是进行连接。
+<span class="hljs-variable">DenseNet</span>通过基本构建单元<span class="hljs-variable">Dense</span> <span class="hljs-built_in">Block</span>实现稠密连接对特征进行重用，实现信息共享，并能增强梯度流动，避免梯度消失。
+过渡层（<span class="hljs-variable">Transition</span> <span class="hljs-variable">Layer</span>）控制通道数（稠密块会带来通道数的增加），防止模型过于复杂。
+<span class="hljs-variable">DenseNet</span>在模型精度和泛化能力上通常表现优异，训练更稳定，但结构仍比较复杂，需要消耗较多的计算资源和时间，内存占用大。
+
+<span class="hljs-variable">ResNet</span>（<span class="hljs-variable">Residual</span> <span class="hljs-variable">Neural</span> <span class="hljs-variable">Network</span>）是基于残差学习框架的神经网络，其在前向网络中增加了一些快捷连接
+<span class="hljs-variable">Shortcut</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Short</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">Connection</span><span class="hljs-operator">/</span><span class="hljs-built_in">Skip</span> <span class="hljs-variable">Connection</span>，这些连接会跳过某些层，将数据直接传到之后的层。
+<span class="hljs-variable">ResNet</span>对网络深度增加带来的梯度消失或爆炸、网络退化（由于训练和测试误差的积累导致正确率趋于饱和甚至下降，
+与过拟合（训练误差小，测试误差大，泛化能力差）不同）等问题具有一定的作用，增加了非线性，
+一定程度上抑制了语义间隙的影响，但模型表现可能略逊一筹。
+残差块（<span class="hljs-variable">Residual</span> <span class="hljs-built_in">Block</span>）是<span class="hljs-variable">ResNet</span>的基本组成成分。</code></pre></div>
+
+<div class="code-wrapper"><pre><code class="hljs arcade">空洞卷积（Dilated/Atrous Convolution）可以增加卷积核的尺寸，如原本<span class="hljs-number">3</span>*<span class="hljs-number">3</span>的卷积核可以扩充至<span class="hljs-number">5</span>*<span class="hljs-number">5</span>，
+但有效的参数个数不变，仍为<span class="hljs-number">9</span>个，剩余的位置不予考虑（空洞/零），利用超参数“扩张率”来定义卷积核处理数据时各值的间距
+（可以理解为空洞数），在扩大了感受野的同时，避免了Pooling操作，从而保持分辨率不变。
+PS：正常扩大感受野会带来计算量的增加，后面进行池化的降采样处理可以降低计算量，但是空间分辨率也随之降低了。
+
+感受野（Receptive Field）越大，捕获的图像区域越大，对图像全局的特征提取能力也就越强。
+而且对于目标检测任务而言，最后一层特征图（<span class="hljs-built_in">Feature</span> <span class="hljs-built_in">Map</span>）的感受野大小要大于等于输入图像大小，否则分类性能会不理想。
+一般而言，感受野越大、网络越深，对复杂问题求解的模型性能越好。</code></pre></div>
                 
               </div>
             
@@ -535,6 +560,12 @@ Modality<span class="hljs-operator">-</span><span class="hljs-operator">/</span>
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/11/29/Write/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
