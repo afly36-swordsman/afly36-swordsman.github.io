@@ -16,12 +16,12 @@
   <meta name="author" content="Zenitsu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="TarDALTitleTarget-aware Dual Adversarial Learning and a Multi-scenario Multi-modality Benchmark to Fuse Infrared and Visible for Object Detection [CVPR]  MotivationPrevious approaches: 1.Aiming at gen">
+    <meta name="description" content="TarDAL Title Target-aware Dual Adversarial Learning and a Multi-scenario Multi-modality Benchmark to Fuse Infrared and Visible for Object Detection [CVPR] Motivation Previous approaches: 1.Aimi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文献整理·开山篇">
 <meta property="og:url" content="https://afly36-swordsman.github.io/2023/11/25/Papers/index.html">
 <meta property="og:site_name" content="Mark&#39;s blog">
-<meta property="og:description" content="TarDALTitleTarget-aware Dual Adversarial Learning and a Multi-scenario Multi-modality Benchmark to Fuse Infrared and Visible for Object Detection [CVPR]  MotivationPrevious approaches: 1.Aiming at gen">
+<meta property="og:description" content="TarDAL Title Target-aware Dual Adversarial Learning and a Multi-scenario Multi-modality Benchmark to Fuse Infrared and Visible for Object Detection [CVPR] Motivation Previous approaches: 1.Aimi">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/11.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/12.png">
@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/35.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/37.png">
 <meta property="article:published_time" content="2023-11-25T15:43:58.212Z">
-<meta property="article:modified_time" content="2023-11-29T15:54:24.133Z">
+<meta property="article:modified_time" content="2023-12-02T05:31:42.253Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
@@ -89,7 +89,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"afly36-swordsman.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":40,"cursorChar":"✏️","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"afly36-swordsman.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":40,"cursorChar":"✨","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -217,7 +217,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="文献整理·开山篇"></span>
+            <span id="subtitle">文献整理·开山篇</span>
           
         </div>
 
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.6k words
+          7.6k words
         
       </span>
     
@@ -251,7 +251,7 @@
         
         
         
-          55 mins
+          64 mins
         
       </span>
     
@@ -306,7 +306,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on November 29, 2023 pm
+                    Last updated on December 2, 2023 pm
                   
                 
               </p>
@@ -314,8 +314,13 @@
             
               <div class="markdown-body">
                 
-                <h2 id="TarDAL"><a href="#TarDAL" class="headerlink" title="TarDAL"></a>TarDAL</h2><h3 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h3><p>Target-aware Dual Adversarial Learning and a Multi-scenario Multi-modality Benchmark to Fuse Infrared and Visible for Object Detection [CVPR] </p>
-<h3 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h3><p>Previous approaches:</p>
+                <h2 id="tardal">TarDAL</h2>
+<h3 id="title">Title</h3>
+<p>Target-aware Dual Adversarial Learning and a Multi-scenario
+Multi-modality Benchmark to Fuse Infrared and Visible for Object
+Detection [CVPR]</p>
+<h3 id="motivation">Motivation</h3>
+<p>Previous approaches:</p>
 <div class="code-wrapper"><pre><code class="hljs mipsasm"><span class="hljs-number">1</span>.Aiming <span class="hljs-built_in">at</span> generating an image of high visual quality
 
 <span class="hljs-number">2</span>.<span class="hljs-keyword">Discover </span>commons underlying the two modalities <span class="hljs-keyword">and </span>fuse
@@ -323,14 +328,20 @@ upon the common space <span class="hljs-keyword">either </span><span class="hljs
 
 <span class="hljs-number">3</span>.Neglect that modality <span class="hljs-keyword">differences </span>implying the complementary infomation
 which <span class="hljs-keyword">extremely </span>important for <span class="hljs-keyword">both </span>fusion <span class="hljs-keyword">and </span><span class="hljs-keyword">subsequent </span>detection task</code></pre></div>
-
-<h3 id="Info"><a href="#Info" class="headerlink" title="Info"></a>Info</h3><div class="code-wrapper"><pre><code class="hljs maxima">Visible <span class="hljs-built_in">image</span>, provides rich details with high spatial <span class="hljs-built_in">resolution</span>
+<h3 id="info">Info</h3>
+<div class="code-wrapper"><pre><code class="hljs maxima">Visible <span class="hljs-built_in">image</span>, provides rich details with high spatial <span class="hljs-built_in">resolution</span>
 (under welldefined lighting conditions)</code></pre></div>
 <div class="code-wrapper"><pre><code class="hljs sqf">Infrared <span class="hljs-built_in">image</span>, capturing ambient temperature variations emitted <span class="hljs-keyword">from</span> objects, 
 highlight structures of thermal <span class="hljs-built_in">targets</span> (insensive <span class="hljs-keyword">to</span> lighting changes)</code></pre></div>
-<p>Their evident appearance discrepancy, it’s challenging to fuse visually appealing images and&#x2F;or to support higher-level vision tasks (by making full use of the complementary info from the infrared and visible images)</p>
-<p>The fusion emphasizes more on “seeking commons” but neglect the differences of these two modalities on presenting structure info of targets and textural details of ambient background.</p>
-<h3 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h3><p>Fusion network: </p>
+<p>Their evident appearance discrepancy, it's challenging to fuse
+visually appealing images and/or to support higher-level vision tasks
+(by making full use of the complementary info from the infrared and
+visible images)</p>
+<p>The fusion emphasizes more on "seeking commons" but neglect the
+differences of these two modalities on presenting structure info of
+targets and textural details of ambient background.</p>
+<h3 id="method">Method</h3>
+<p>Fusion network:</p>
 <div class="code-wrapper"><pre><code class="hljs mipsasm">Composed of one generator <span class="hljs-keyword">and </span>two target-aware <span class="hljs-keyword">discriminators, </span>
 <span class="hljs-keyword">and </span>a commonly used detection network  [Detection-<span class="hljs-keyword">oriented </span>fusion]
 <span class="hljs-symbol"></span>
@@ -340,36 +351,79 @@ i.e., thermal targets(infrared image), <span class="hljs-keyword">and </span><sp
 <span class="hljs-keyword"></span>the <span class="hljs-keyword">background, </span>i.e., textural details(visible image)
 
 Derive a cooperative training <span class="hljs-keyword">scheme</span></code></pre></div>
-
-<h3 id="Structure-diagram"><a href="#Structure-diagram" class="headerlink" title="Structure diagram"></a>Structure diagram</h3><p><img src="/img/stage1/11.png" srcset="/img/loading.gif" lazyload alt="Methodology framework: (a) bilevel optimization formulation for fusion and detection, (b) target-aware adversarial dual learning network for fusion, and (c) cooperative training scheme."></p>
-<p><img src="/img/stage1/12.png" srcset="/img/loading.gif" lazyload alt="The details of network"></p>
-<p><img src="/img/stage1/13.png" srcset="/img/loading.gif" lazyload alt="The architectures of generator and discriminator"></p>
-<h3 id="Loss-function"><a href="#Loss-function" class="headerlink" title="Loss function"></a>Loss function</h3><p>Detection network backbone: YOLOv5</p>
-<p>Generator:<br>1.Structural similarity index (SSIM)</p>
+<h3 id="structure-diagram">Structure diagram</h3>
+<figure>
+<img src="/img/stage1/11.png" srcset="/img/loading.gif" lazyload
+alt="Methodology framework: (a) bilevel optimization formulation for fusion and detection, (b) target-aware adversarial dual learning network for fusion, and (c) cooperative training scheme." />
+<figcaption aria-hidden="true">Methodology framework: (a) bilevel
+optimization formulation for fusion and detection, (b) target-aware
+adversarial dual learning network for fusion, and (c) cooperative
+training scheme.</figcaption>
+</figure>
+<figure>
+<img src="/img/stage1/12.png" srcset="/img/loading.gif" lazyload alt="The details of network" />
+<figcaption aria-hidden="true">The details of network</figcaption>
+</figure>
+<figure>
+<img src="/img/stage1/13.png" srcset="/img/loading.gif" lazyload
+alt="The architectures of generator and discriminator" />
+<figcaption aria-hidden="true">The architectures of generator and
+discriminator</figcaption>
+</figure>
+<h3 id="loss-function">Loss function</h3>
+<p>Detection network backbone: YOLOv5</p>
+<p>Generator: 1.Structural similarity index (SSIM)</p>
 <blockquote>
-<p>Contributes to generate a fused image that preserves overall structures and maintains a similar intensity distribution as source images.</p>
+<p>Contributes to generate a fused image that preserves overall
+structures and maintains a similar intensity distribution as source
+images.</p>
 </blockquote>
-<p>  <img src="/img/stage1/14.png" srcset="/img/loading.gif" lazyload alt="Generator loss SSIM"></p>
+<figure>
+<img src="/img/stage1/14.png" srcset="/img/loading.gif" lazyload alt="Generator loss SSIM" />
+<figcaption aria-hidden="true">Generator loss SSIM</figcaption>
+</figure>
 <p>2.Pixel loss (based on the saliency degree weight (SDW))</p>
 <blockquote>
 <p>To balance the pixel intensity distribution of source images</p>
 </blockquote>
-<p>  <img src="/img/stage1/15.png" srcset="/img/loading.gif" lazyload alt="Pixel Loss"><br>  w1, w2 are calculated by saliency value of x and y.</p>
-<p>Target and detail discriminators:<br>Wasserstein divergence (with target mask m)</p>
+<p><img src="/img/stage1/15.png" srcset="/img/loading.gif" lazyload alt="Pixel Loss" /> w1, w2 are
+calculated by saliency value of x and y.</p>
+<p>Target and detail discriminators: Wasserstein divergence (with target
+mask m)</p>
 <blockquote>
-<p>The target discriminator D_T is used to distinguish the foreground thermal targets of fused result to the infrared while the detail discriminator D_D contributes to distinguish the background details of fused result to the visible.<br>  PS：_ 代表下标，^ 代表上标</p>
+<p>The target discriminator <span class="math inline">\(D_T\)</span> is
+used to distinguish the foreground thermal targets of fused result to
+the infrared while the detail discriminator <span
+class="math inline">\(D_D\)</span> contributes to distinguish the
+background details of fused result to the visible.</p>
 </blockquote>
-<p>  <img src="/img/stage1/16.png" srcset="/img/loading.gif" lazyload alt="Discriminator loss"></p>
-<h2 id="SeAFusion"><a href="#SeAFusion" class="headerlink" title="SeAFusion"></a>SeAFusion</h2><h3 id="Title-1"><a href="#Title-1" class="headerlink" title="Title"></a>Title</h3><p>Image fusion in the loop of high-level vision tasks: A semantic-aware real-time infrared and visible image fusion network [Image Fusion]</p>
-<h3 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h3><p>The infrared sensor captures thermal radiation emitted from objects, which could highlight salient targets, but the infrared image neglects texture and is vulnerable to noise. </p>
-<p>The visible sensor captures reflective light infomation, the visible image usually contains abundant texture and structure info, but is sensitive to the environment, such as illumination and occlusion.</p>
-<p>Complementary info: to fuse Ir and Vis image, to generate a desired image.</p>
-<p>Fused image has been broadly used as a preprocessing module for high-level vision tasks, e.g., object detection, tracking, semantic segmentation.</p>
-<h3 id="Motivation-1"><a href="#Motivation-1" class="headerlink" title="Motivation"></a>Motivation</h3><p>Pressing challenges:</p>
+<figure>
+<img src="/img/stage1/16.png" srcset="/img/loading.gif" lazyload alt="Discriminator loss" />
+<figcaption aria-hidden="true">Discriminator loss</figcaption>
+</figure>
+<h2 id="seafusion">SeAFusion</h2>
+<h3 id="title-1">Title</h3>
+<p>Image fusion in the loop of high-level vision tasks: A semantic-aware
+real-time infrared and visible image fusion network [Image Fusion]</p>
+<h3 id="intro">Intro</h3>
+<p>The infrared sensor captures thermal radiation emitted from objects,
+which could highlight salient targets, but the infrared image neglects
+texture and is vulnerable to noise.</p>
+<p>The visible sensor captures reflective light infomation, the visible
+image usually contains abundant texture and structure info, but is
+sensitive to the environment, such as illumination and occlusion.</p>
+<p>Complementary info: to fuse Ir and Vis image, to generate a desired
+image.</p>
+<p>Fused image has been broadly used as a preprocessing module for
+high-level vision tasks, e.g., object detection, tracking, semantic
+segmentation.</p>
+<h3 id="motivation-1">Motivation</h3>
+<p>Pressing challenges:</p>
 <div class="code-wrapper"><pre><code class="hljs livecodeserver"><span class="hljs-number">1.</span>The existing fusion algorithms are inclined <span class="hljs-built_in">to</span> pursue better visual quality
 <span class="hljs-keyword">and</span> higher evaluation metrics but seldom systematically consider
 whether fused image can facilitate high-level vision tasks
-  &gt; Some studies: cannot effectively enhance/boost <span class="hljs-keyword">the</span> semantic info <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> fused image
+
+Some studies: cannot effectively enhance/boost <span class="hljs-keyword">the</span> semantic info <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> fused image
 
 <span class="hljs-number">2.</span>Neither visual comparison nor quantitative evaluation (evaluation manners)
 reflects <span class="hljs-keyword">the</span> facilitation <span class="hljs-keyword">of</span> fused images <span class="hljs-keyword">for</span> high-level vision tasks
@@ -377,10 +431,11 @@ reflects <span class="hljs-keyword">the</span> facilitation <span class="hljs-ke
 <span class="hljs-number">3.</span>Not <span class="hljs-keyword">effective</span> <span class="hljs-keyword">in</span> extracting fine-grained detail features
 
 <span class="hljs-number">4.</span>Ignore <span class="hljs-keyword">the</span> demand <span class="hljs-keyword">for</span> real-<span class="hljs-built_in">time</span> image fusion</code></pre></div>
-
 <p>Ours network:</p>
-<p>SeAFusion, can be used for achieving real-time Ir &amp; Vis image fusion</p>
-<h3 id="Method-1"><a href="#Method-1" class="headerlink" title="Method"></a>Method</h3><div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-number">1.</span>Simultaneously obtaining superior performance <span class="hljs-keyword">in</span>
+<p>SeAFusion, can be used for achieving real-time Ir &amp; Vis image
+fusion</p>
+<h3 id="method-1">Method</h3>
+<div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-number">1.</span>Simultaneously obtaining superior performance <span class="hljs-keyword">in</span>
 <span class="hljs-keyword">both</span> image fusion <span class="hljs-keyword">and</span> high-<span class="hljs-keyword">level</span> vision tasks.
 
 <span class="hljs-number">2.</span>A segmentation network <span class="hljs-keyword">to</span> predict the segmentation results
@@ -395,18 +450,53 @@ so the loss can flow back <span class="hljs-keyword">to</span> the image fusion 
 <span class="hljs-number">4.</span>The authors proposed a joint low-<span class="hljs-keyword">level</span> <span class="hljs-keyword">and</span> high-<span class="hljs-keyword">level</span> adaptive training strategy
 <span class="hljs-keyword">to</span> achieve simultaneously impressive performance <span class="hljs-keyword">in</span> <span class="hljs-keyword">both</span>
 image fusion <span class="hljs-keyword">and</span> various high-<span class="hljs-keyword">level</span> vision tasks.</code></pre></div>
-
-<h3 id="Structure-diagram-1"><a href="#Structure-diagram-1" class="headerlink" title="Structure diagram"></a>Structure diagram</h3><p><img src="/img/stage1/21.png" srcset="/img/loading.gif" lazyload alt="The overall framework of the proposed semantic-aware infrared and visible image fusion algorithm."></p>
-<p><img src="/img/stage1/22.png" srcset="/img/loading.gif" lazyload alt="The architecture of the real-time infrared and visible image fusion network based on gradient residual dense block."></p>
-<p><img src="/img/stage1/23.png" srcset="/img/loading.gif" lazyload alt="The specific devise of the gradient residual dense block. The Sobel operator is selected as the Gradient Operator to extract fine-grained detail information of feature maps."></p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p><img src="/img/stage1/24.png" srcset="/img/loading.gif" lazyload alt="Analysis1: fusion network"></p>
-<p><img src="/img/stage1/25.png" srcset="/img/loading.gif" lazyload alt="Analysis2: segmentation module"></p>
-<p><img src="/img/stage1/26.png" srcset="/img/loading.gif" lazyload alt="Algorithm"></p>
+<h3 id="structure-diagram-1">Structure diagram</h3>
+<figure>
+<img src="/img/stage1/21.png" srcset="/img/loading.gif" lazyload
+alt="The overall framework of the proposed semantic-aware infrared and visible image fusion algorithm." />
+<figcaption aria-hidden="true">The overall framework of the proposed
+semantic-aware infrared and visible image fusion algorithm.</figcaption>
+</figure>
+<figure>
+<img src="/img/stage1/22.png" srcset="/img/loading.gif" lazyload
+alt="The architecture of the real-time infrared and visible image fusion network based on gradient residual dense block." />
+<figcaption aria-hidden="true">The architecture of the real-time
+infrared and visible image fusion network based on gradient residual
+dense block.</figcaption>
+</figure>
+<figure>
+<img src="/img/stage1/23.png" srcset="/img/loading.gif" lazyload
+alt="The specific devise of the gradient residual dense block. The Sobel operator is selected as the Gradient Operator to extract fine-grained detail information of feature maps." />
+<figcaption aria-hidden="true">The specific devise of the gradient
+residual dense block. The Sobel operator is selected as the Gradient
+Operator to extract fine-grained detail information of feature
+maps.</figcaption>
+</figure>
+<h3 id="分析">分析</h3>
+<figure>
+<img src="/img/stage1/24.png" srcset="/img/loading.gif" lazyload alt="Analysis1: fusion network" />
+<figcaption aria-hidden="true">Analysis1: fusion network</figcaption>
+</figure>
+<figure>
+<img src="/img/stage1/25.png" srcset="/img/loading.gif" lazyload alt="Analysis2: segmentation module" />
+<figcaption aria-hidden="true">Analysis2: segmentation
+module</figcaption>
+</figure>
+<figure>
+<img src="/img/stage1/26.png" srcset="/img/loading.gif" lazyload alt="Algorithm" />
+<figcaption aria-hidden="true">Algorithm</figcaption>
+</figure>
 <p>注：分割网络的backbone采用YOLOv5网络</p>
-<h2 id="SegMiF"><a href="#SegMiF" class="headerlink" title="SegMiF"></a>SegMiF</h2><h3 id="Title-2"><a href="#Title-2" class="headerlink" title="Title"></a>Title</h3><p>Multi-interactive Feature Learning and a Full-time Multi-modality Benchmark for Image Fusion and Segmentation [ICCV]</p>
-<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>Early efforts boost performance for only one task.</p>
-<p>This paper, SegMiF can dual-task correlation to promote the performance of both tasks (fusion and segmentation).</p>
-<h3 id="Intro-1"><a href="#Intro-1" class="headerlink" title="Intro"></a>Intro</h3><p>Contributions:</p>
+<h2 id="segmif">SegMiF</h2>
+<h3 id="title-2">Title</h3>
+<p>Multi-interactive Feature Learning and a Full-time Multi-modality
+Benchmark for Image Fusion and Segmentation [ICCV]</p>
+<h3 id="abstract">Abstract</h3>
+<p>Early efforts boost performance for only one task.</p>
+<p>This paper, SegMiF can dual-task correlation to promote the
+performance of both tasks (fusion and segmentation).</p>
+<h3 id="intro-1">Intro</h3>
+<p>Contributions:</p>
 <div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-number">1.</span>SegMiF <span class="hljs-keyword">contains</span> two modules, i.e., <span class="hljs-keyword">fusion</span> network
 <span class="hljs-keyword">and</span> common segmentation network.
 
@@ -421,46 +511,88 @@ Modality<span class="hljs-operator">-</span><span class="hljs-operator">/</span>
 <span class="hljs-number">4.</span>Interactive feature training scheme.
 
 <span class="hljs-number">5.</span>Construct an imaging <span class="hljs-keyword">system</span> (benchmark).</code></pre></div>
-
-<h3 id="Structure-diagram-2"><a href="#Structure-diagram-2" class="headerlink" title="Structure diagram"></a>Structure diagram</h3><p><img src="/img/stage1/31.png" srcset="/img/loading.gif" lazyload alt="Workflow of the proposed SegMiF. The left part depicts the latent interactive relationship between image fusion and segmentation. The middle part plots the concrete architecture of the SegMiF. The right part details the components of proposed hierarchical interactive attention."></p>
-<p><img src="/img/stage1/32.png" srcset="/img/loading.gif" lazyload alt="Partial zoom"></p>
-<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p><img src="/img/stage1/33.png" srcset="/img/loading.gif" lazyload alt="Fusion network and DRDB module"></p>
-<p><img src="/img/stage1/34.png" srcset="/img/loading.gif" lazyload alt="Detailed architectures of SoAM and MoAM"><br>注：分割网络是论文[SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers]的内容</p>
-<p>分割网络：<br><img src="/img/stage1/36.png" srcset="/img/loading.gif" lazyload alt="Segmentation network"></p>
-<div class="code-wrapper"><pre><code class="hljs oxygene">HIA:
-
-<span class="hljs-number">1</span>.SoAM (Semantic-oriented attention <span class="hljs-keyword">module</span>)
-  SoAM utilizes the token F_seg^s <span class="hljs-keyword">to</span> generate the query Q_s,
-  which represents the inhere semantic information that needs <span class="hljs-keyword">to</span> be enhanced.
-
-  The <span class="hljs-keyword">global</span> context representation <span class="hljs-keyword">of</span> <span class="hljs-keyword">each</span> can be calculated <span class="hljs-keyword">by</span> <span class="hljs-keyword">as</span>
-  K_ir^T · V_ir (G_ir) <span class="hljs-keyword">and</span> K_vis^T · V_vis (G_vis)
-  K, V ∈ <span class="hljs-comment">&#123;F_ir^s, F_vis^s&#125;</span>
-  S_ir = Q_s · G_ir, S_vis = Q_s · G_vis
-  
-  SoAM <span class="hljs-keyword">to</span> provide more semantic attention <span class="hljs-keyword">for</span> the modality feature.
-
-<span class="hljs-number">2</span>.MoAM (Modality-oriented attention <span class="hljs-keyword">module</span>)
-  MoAM introduce two modality queries Q_ir <span class="hljs-keyword">and</span> Q_vis ∈ <span class="hljs-comment">&#123;F_ir^m, F_vis^m&#125;</span>
-  
-  The <span class="hljs-keyword">global</span> context <span class="hljs-keyword">of</span> segmentation G_s <span class="hljs-keyword">by</span> K_s^T · V_s
-  M_ir = Q_ir · G_s, M_vis = Q_vis · G_s
-
-  MoAM <span class="hljs-keyword">to</span> investigate the significant feature <span class="hljs-keyword">from</span> semantic contexts.</code></pre></div>
-
-<p>目标函数：<br><img src="/img/stage1/35.png" srcset="/img/loading.gif" lazyload alt="Joint formulation"></p>
-<p>损失函数：<br><img src="/img/stage1/37.png" srcset="/img/loading.gif" lazyload alt="Loss"></p>
+<h3 id="structure-diagram-2">Structure diagram</h3>
+<figure>
+<img src="/img/stage1/31.png" srcset="/img/loading.gif" lazyload
+alt="Workflow of the proposed SegMiF. The left part depicts the latent interactive relationship between image fusion and segmentation. The middle part plots the concrete architecture of the SegMiF. The right part details the components of proposed hierarchical interactive attention." />
+<figcaption aria-hidden="true">Workflow of the proposed SegMiF. The left
+part depicts the latent interactive relationship between image fusion
+and segmentation. The middle part plots the concrete architecture of the
+SegMiF. The right part details the components of proposed hierarchical
+interactive attention.</figcaption>
+</figure>
+<figure>
+<img src="/img/stage1/32.png" srcset="/img/loading.gif" lazyload alt="Partial zoom" />
+<figcaption aria-hidden="true">Partial zoom</figcaption>
+</figure>
+<h3 id="分析-1">分析</h3>
+<figure>
+<img src="/img/stage1/33.png" srcset="/img/loading.gif" lazyload alt="Fusion network and DRDB module" />
+<figcaption aria-hidden="true">Fusion network and DRDB
+module</figcaption>
+</figure>
+<p><img src="/img/stage1/34.png" srcset="/img/loading.gif" lazyload
+alt="Detailed architectures of SoAM and MoAM" />
+注：分割网络是论文[SegFormer: Simple and Efficient Design for Semantic
+Segmentation with Transformers]的内容</p>
+<p>分割网络： <img src="/img/stage1/36.png" srcset="/img/loading.gif" lazyload
+alt="Segmentation network" /></p>
+<h4 id="hia">HIA</h4>
+<p>1.SoAM (Semantic-oriented attention module)</p>
+<blockquote>
+<p>SoAM utilizes the token <span
+class="math inline">\(F_{seg}^{s}\)</span> to generate the query <span
+class="math inline">\(Q_s\)</span>, which represents the inhere semantic
+information that needs to be enhanced.</p>
+</blockquote>
+<blockquote>
+<p>The global context representation of each can be calculated by as
+<span class="math inline">\(K_{ir}^{T}\cdot V_{ir} (G_{ir})\)</span> and
+<span class="math inline">\(K_{vis}^{T}\cdot V_{vis} (G_{vis})\)</span>
+, 其中K, V ∈ {<span class="math inline">\(F_{ir}^{s}\)</span>, <span
+class="math inline">\(F_{vis}^{s}\)</span>} <span
+class="math inline">\(S_{ir} = Q_s\cdot G_{ir}\)</span>, <span
+class="math inline">\(S_{vis} = Q_s\cdot G_{vis}\)</span></p>
+</blockquote>
+<blockquote>
+<p>SoAM to provide more semantic attention for the modality feature.</p>
+</blockquote>
+<p>2.MoAM (Modality-oriented attention module)</p>
+<blockquote>
+<p>MoAM introduce two modality queries <span
+class="math inline">\(Q_{ir}\)</span> and <span
+class="math inline">\(Q_{vis}\)</span> ∈ {<span
+class="math inline">\(F_{ir}^{m}\)</span>, <span
+class="math inline">\(F_{vis}^{m}\)</span>}</p>
+</blockquote>
+<blockquote>
+<p>The global context of segmentation <span
+class="math inline">\(G_s\)</span> by <span
+class="math inline">\(K_{s}^{T}\cdot V_s\)</span> <span
+class="math inline">\(M_{ir} = Q_{ir}\cdot G_s\)</span>, <span
+class="math inline">\(M_{vis} = Q_{vis}\cdot G_s\)</span></p>
+</blockquote>
+<blockquote>
+<p>MoAM to investigate the significant feature from semantic
+contexts.</p>
+</blockquote>
+<h4 id="目标函数">目标函数</h4>
+<figure>
+<img src="/img/stage1/35.png" srcset="/img/loading.gif" lazyload alt="Joint formulation" />
+<figcaption aria-hidden="true">Joint formulation</figcaption>
+</figure>
+<p>损失函数： <img src="/img/stage1/37.png" srcset="/img/loading.gif" lazyload alt="Loss" /></p>
 <div class="code-wrapper"><pre><code class="hljs armasm">损失函数中涉及了两个常用的概念：
 结构相似度、显著性图
 
 <span class="hljs-number">1</span>.结构相似度SSIM主要用来衡量两幅图亮度、对比度和结构的相似性
-  &gt; 详见<span class="hljs-string">&quot;专业笔记&quot;</span>中所述
+  详见<span class="hljs-string">&quot;专业笔记&quot;</span>中所述
 
 <span class="hljs-number">2</span>.显著性图主要用来计算MSE损失中的显著性参数m
-  &gt; 源自论文: Infrared <span class="hljs-keyword">and</span> visible image fusion based on visual saliency <span class="hljs-meta">map</span>
+  源自论文: Infrared <span class="hljs-keyword">and</span> visible image fusion based on visual saliency <span class="hljs-meta">map</span>
             <span class="hljs-keyword">and</span> weighted least square optimization</code></pre></div>
-
-<h3 id="相关内容"><a href="#相关内容" class="headerlink" title="相关内容"></a>相关内容</h3><div class="code-wrapper"><pre><code class="hljs mathematica">当<span class="hljs-variable">CNN</span>层数变深时，输出到输入的路径就会变得很长。
+<h3 id="相关内容">相关内容</h3>
+<div class="code-wrapper"><pre><code class="hljs mathematica">当<span class="hljs-variable">CNN</span>层数变深时，输出到输入的路径就会变得很长。
 梯度反向传播，到达输入层可能就会消失。
 <span class="hljs-variable">DenseNet</span>是一种深度卷积神经网络，引入密集连接（<span class="hljs-variable">Dense</span> <span class="hljs-variable">Connection</span>）将前面所有层与后面的层建立密集连接。
 与<span class="hljs-variable">ResNet</span>的关键区别是，<span class="hljs-variable">ResNet</span>是简单相加，<span class="hljs-variable">DenseNet</span>是进行连接。
@@ -474,7 +606,6 @@ Modality<span class="hljs-operator">-</span><span class="hljs-operator">/</span>
 与过拟合（训练误差小，测试误差大，泛化能力差）不同）等问题具有一定的作用，增加了非线性，
 一定程度上抑制了语义间隙的影响，但模型表现可能略逊一筹。
 残差块（<span class="hljs-variable">Residual</span> <span class="hljs-built_in">Block</span>）是<span class="hljs-variable">ResNet</span>的基本组成成分。</code></pre></div>
-
 <div class="code-wrapper"><pre><code class="hljs arcade">空洞卷积（Dilated/Atrous Convolution）可以增加卷积核的尺寸，如原本<span class="hljs-number">3</span>*<span class="hljs-number">3</span>的卷积核可以扩充至<span class="hljs-number">5</span>*<span class="hljs-number">5</span>，
 但有效的参数个数不变，仍为<span class="hljs-number">9</span>个，剩余的位置不予考虑（空洞/零），利用超参数“扩张率”来定义卷积核处理数据时各值的间距
 （可以理解为空洞数），在扩大了感受野的同时，避免了Pooling操作，从而保持分辨率不变。
@@ -483,6 +614,7 @@ PS：正常扩大感受野会带来计算量的增加，后面进行池化的降
 感受野（Receptive Field）越大，捕获的图像区域越大，对图像全局的特征提取能力也就越强。
 而且对于目标检测任务而言，最后一层特征图（<span class="hljs-built_in">Feature</span> <span class="hljs-built_in">Map</span>）的感受野大小要大于等于输入图像大小，否则分类性能会不理想。
 一般而言，感受野越大、网络越深，对复杂问题求解的模型性能越好。</code></pre></div>
+
                 
               </div>
             
@@ -546,7 +678,7 @@ PS：正常扩大感受野会带来计算量的增加，后面进行池化的降
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>November 29, 2023</div>
+          <div>December 2, 2023</div>
         </div>
       
       
@@ -561,9 +693,9 @@ PS：正常扩大感受野会带来计算量的增加，后面进行池化的降
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/29/Write/" title="">
+                      <a href="/2023/11/29/Write/" title="草稿">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">草稿</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -616,6 +748,12 @@ PS：正常扩大感受野会带来计算量的增加，后面进行池化的降
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -725,21 +863,6 @@ PS：正常扩大感受野会带来计算量的增加，后面进行池化的降
 <script  src="/js/plugins.js" ></script>
 
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
 
 
 
@@ -842,6 +965,49 @@ PS：正常扩大感受野会带来计算量的增加，后面进行池化的降
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
