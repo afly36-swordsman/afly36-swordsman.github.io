@@ -1,0 +1,752 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/planet.png">
+  <link rel="icon" href="/img/planet.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zenitsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="磁盘 分区知识1：簇 在磁盘（如U盘）格式化的时候，有一项是“分配单元大小”，这就是分区中的“簇”。“簇”是分区的最小存储单元。一个数据在存入硬盘前，会事先按照簇的大小将其分成N等份，然后分别存入分区中不同的簇内。例如名叫“毕业论文.pdf”的文件，大小是1600KB，将其存入磁盘时有以下情况： （1）如果分配单元大小设置为512KB，那么意味着该磁盘的“簇”大小为512KB。在数据存入前，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随笔系列6：计算机基础">
+<meta property="og:url" content="https://afly36-swordsman.github.io/2023/12/21/Computer/index.html">
+<meta property="og:site_name" content="Mark | Learning &amp; Routine">
+<meta property="og:description" content="磁盘 分区知识1：簇 在磁盘（如U盘）格式化的时候，有一项是“分配单元大小”，这就是分区中的“簇”。“簇”是分区的最小存储单元。一个数据在存入硬盘前，会事先按照簇的大小将其分成N等份，然后分别存入分区中不同的簇内。例如名叫“毕业论文.pdf”的文件，大小是1600KB，将其存入磁盘时有以下情况： （1）如果分配单元大小设置为512KB，那么意味着该磁盘的“簇”大小为512KB。在数据存入前，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-12-21T15:35:32.056Z">
+<meta property="article:modified_time" content="2023-12-21T15:37:31.906Z">
+<meta property="article:author" content="Zenitsu">
+<meta property="article:tag" content="basic">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>随笔系列6：计算机基础 - Mark | Learning &amp; Routine</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"afly36-swordsman.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":40,"cursorChar":"✨","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M.E.Mark&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/taiji.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">随笔系列6：计算机基础</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-21 23:35" pubdate>
+          2023.12.21 23:35
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.3k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          45 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">随笔系列6：计算机基础</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on December 21, 2023 pm
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="磁盘">磁盘</h3>
+<h4 id="分区知识1簇">分区知识1：簇</h4>
+<p>在磁盘（如U盘）格式化的时候，有一项是“分配单元大小”，这就是分区中的“簇”。“簇”是分区的最小存储单元。一个数据在存入硬盘前，会事先按照簇的大小将其分成N等份，然后分别存入分区中不同的簇内。例如名叫“毕业论文.pdf”的文件，大小是1600KB，将其存入磁盘时有以下情况：</p>
+<p>（1）如果分配单元大小设置为512KB，那么意味着该磁盘的“簇”大小为512KB。在数据存入前，系统会先将其分为512KB、512KB、512KB、64KB四份，然后分别存入硬盘对应的四个簇中，这样一来存在一个问题，最后的64KB不够填满一个512KB的簇，那么剩下的448KB空间也就被浪费了。其实，即使最后一个簇中仅使用了1个字节（Byte），这个簇剩下的全部空间也会被弃之不用。</p>
+<p>（2）如果将分配单元大小设置为64KB，那么数据存入前，系统会按64KB将这个数据分为25份，然后存入对应的25个簇中。</p>
+<p>将簇设置为512KB时，最后会有一部分空间被浪费，但是它存取数据时只需分成4份就完成了，因此理论上讲效率更高。而将其分成64KB时，虽然对空间的利用率更高、不容易造成浪费，但存取效率也会相对降低。故簇越小，效率越低，但浪费的空间也小；簇越大，效率越高，浪费的空间也多。在格式化时，如果不调整这个参数，系统默认将“分配单元大小”设置为4096字节，即4KB，由于在x86时代，每个内存页的大小被定义为4KB，因此认为将硬盘的块大小也分成4KB可以与内存页吻合而提升硬盘的运行效率。</p>
+<p>另外，目前市面上主流的硬盘格式有三种：APFS、NTFS、exFAT，特点如下。</p>
+<div class="code-wrapper"><pre><code class="hljs stata">APFS：优点：可靠，安全。对配合苹果电脑使用友好。缺点：不兼容Windows系统。
+NTFS：优点：采用日志式，稳定安全，Windows系统使用友好，是主流格式。缺点：<span class="hljs-keyword">Mac</span>只支持读，写入要第三方驱动。
+exFAT：优点：对Windows和<span class="hljs-keyword">MAC</span>格式都兼容，对闪存SSD硬盘优化更好。缺点：机械硬盘用这格式数据容易丢。</code></pre></div>
+<h4 id="易混淆知识1磁盘与硬盘">易混淆知识1：磁盘与硬盘</h4>
+<p>磁盘是计算机主要的存储介质，可以存储大量的二进制数据。早期的计算机使用的磁盘是软磁盘（Floppy
+Disk，简称软盘），如今常用的是硬磁盘（Hard
+disk，即硬盘）。磁盘是一个广泛概念，包括多种存储介质，如磁盘、光盘（用激光打上去的数据）等，其中磁盘以磁性原理存储数据，包括盘片、磁头、盘片主轴、控制电机、磁头控制器、数据转换器等，存储容量由扇区数、磁道数、磁头数决定。</p>
+<p>硬盘，即硬盘驱动器，英文名称是Hard Disk
+Drive，简称是HDD。硬盘可分为固态硬盘（Solid State
+Drive，SSD）、机械硬盘（Hard Disk Drive，HDD）、混合硬盘（Hybrid Hard
+Drive，SSHD or
+HHD），而硬盘就是磁盘的一种。硬盘是一种常见的外部存储设备，它将数据保存在一个磁盘上，使用一个磁头扫描磁盘上的磁道，读取或者写入数据，主要采用磁盘作为存储媒介（机械硬盘）。</p>
+<h4 id="易混淆知识2内存外存与硬盘">易混淆知识2：内存外存与硬盘</h4>
+<p>存储器分类：存储芯片种类很多，依据不同的特性有多种分类方法。</p>
+<p>1.按存取方式分类</p>
+<p>(a)随机存取存储器(Random Access Memory, RAM)
+这种存储器每个单元读写时间一样，且与各单元所在位置无关。我们平常说的手机内存，8G或者12G的，指的就是这种。
+（注：这里的读写时间一样主要强调地址译码时间相同。现在的DRAM芯片采用行缓冲，因而可能因为位置不同而使访问时间有所差别）</p>
+<p>(b)顺序存取存储器(Sequential Access Memory, SAM)
+数据按顺序从存储载体的始端读出或写入，因而存取时间的长短与信息所在位置有关。例如：磁带。</p>
+<p>(c)直接存取存储器(Direct Access Memory, DAM)
+直接定位到读写数据块，在读写数据块时按顺序进行。例如：磁盘。</p>
+<p>(d)相联存储器(Associate Memory, AM)
+按内容检索到存储位置再进行读写。例如：快表，一种高速缓冲存储器(Cache)。</p>
+<p>2.按存储介质分类</p>
+<p>(a)半导体存储器：双极型、静态SMOS型、动态DMOS型。</p>
+<p>(b)磁表面存储器：磁盘（Disk）、磁带（Tape）。</p>
+<p>(c)光存储器：CD、CD-ROM、DVD。</p>
+<p>3.按信息的可更改性分类</p>
+<p>(a)读写存储器(Read/Write Memory)：可读可写。</p>
+<p>(b)只读存储器(Read Only Memory, ROM)：只能读不能写。</p>
+<p>4.按断电后信息的可保存性分类</p>
+<p>(a)非易失性存储器(Nonvolatile
+Memory)：信息可一直保留，不需电源维持。如：ROM、磁表面存储器、光存储器等。</p>
+<p>(b)易失性存储器(Volatile
+Memory)：电源关闭时信息自动丢失，如：RAM、Cache等。</p>
+<p>5.按功能/容量/速度/所在位置分类</p>
+<p>(a)寄存器(Register)
+这种存储器封装在CPU内，用于存放当前正在执行的指令和使用的数据。用触发器实现，速度极快，容量很小（几个字节到几十字节）。</p>
+<p>(b)高速缓存(Cache)
+位于CPU内部或附近，用来存放当前要执行的局部程序段和数据。用SRAM实现，速度可与CPU匹配，容量小（几十KB到几MB）。</p>
+<p>(c)内存储器MM(又称主存储器Main(Primary) Memory)
+位于CPU之外，用来存放已被启动的程序及所用的数据。用DRAM实现，速度较快，容量较大（目前来说通常是2GB到16GB）。</p>
+<p>(d)外存储器AM(又称辅助存储器Auxiliary/Secondary Storage)
+位于主机之外，用来存放暂不运行的程序、数据或存档文件。用磁表面或光存储器实现，容量大而速度慢。</p>
+<p>目前我们讨论较多的还是按照第4种分类方式，因为这样分只有2类，描述方便，当然第3种方式也是分为两类，不过目前存储器都支持读写，只读的很少，所以一般说第4类种分法较多。这里再补充个闪存（Flash
+Memory）：内存RAM使用寄生电容充放电来表示0和1，充了电的电容需要不断的被充电维持状态，否则会很快漏电，所以需要持续供电，但是速度块。Flash闪存使用MOS管中间的一个绝缘体包括层来储备电子，充电之后可以长期保存，外部使用sense
+amp比较放大器来感受每个MOS管内的状态，从而输出0和1状态，断电后数据依然保存，比RAM慢一个数量级，但是比磁盘快多个数量级。闪存相当于一种电子式可擦除程序化只读存储器（EEPROM）的变种，与EEPROM不同的是，EEPROM能在字节水平上进行删除和重写而不是整个芯片擦写，而闪存的大部分芯片需要块擦除。</p>
+<p>前面说到，内存是保存进程的相关数据。一旦关机（断电），内存里面的数据就随之清空。对手机来说，像照片、文档什么的，并不是保存在内存中，而是存在闪存里面，也就是手机中的128G、256G等。内存越大，可以同时运行的软件就越多，闪存越大，可以存储的文件就越多。目前的手机闪存大多用的是Nand
+Flash（eMMC和UFS是两种通信协议/标准），也有少数用Nor Flash的。</p>
+<p>对电脑来说，电脑除了内存，也要有存文件的地方，那么是不是和手机一样也是闪存呢？有人马上会说：不是闪存，是固态硬盘或者机械硬盘，这种说法不完全对。接下来先从协议和接口开始简述，然后再叙述硬盘的种类。</p>
+<p>目前电脑大多使用固态硬盘SSD，SSD数据通信普遍是PCle标准。注意，M.2不是通信协议，也不是数据通道，而是接口标准。举个简单的例子：USB接口，常见的有Type-A和Type-C，拿type-c来说，它可以支持多种通信协议，比如雷达协议、dp协议等。M.2接口类型既可以走PCle通道，也可以走SATA通道，所以有双M.2的说法。值得注意是的是，PCle通道有专门的PCle接口类型。当然，SATA通道也有专门的接口类型：SATA接口。</p>
+<p>也就是说，硬盘与主板连接的接口，主要有SATA、PCIe、M.2三种形式，但从主板插槽到主板芯片之间，传输数据的总线（就是上面提到的“数据通道”）有SATA和PCIe两种。基于此，M.2接口有两种规范，一种是socket2，一种是socket3，前者支持SATA3和PCIe
+x2的总线接口，后者支持PCIe x4的总线接口。</p>
+<p>最后还有个NVMe协议。电脑bios里面硬盘的一个设置项，可选择为AHCI或者ATAPI。一块SATA接口的硬盘，可以选择使用AHCI传输协议或者ATAPI传输协议。不过ATAPI是一个并行ATA传输协议，主要用在旧式的IDE接口上，现在大多数情况下已经不再被使用。对M.2接口来说，如果走SATA通道，只能使用AHCI协议，而不能用NVMe协议；如果走PCle通道，既可采用AHCI协议，也可以采用NVMe协议。NVMe是一个专门为固态硬盘设计的协议，它比AHCI更高效，更适合高速的固态硬盘。因此，对于高性能的M.2接口固态硬盘，NVMe协议通常是首选。</p>
+<p>固态硬盘SSD是用固态电子存储芯片阵列而制成的硬盘，由闪存（FLASH）作为基础存储介质的存储设备。手机上的闪存和电脑的固态，存储介质都是Nand
+Flash，也就是说它们的存储芯片是一样的，只是控制芯片不同。FLASH的速度比机械硬盘速度快很多，所以被广泛应用到存储设备。不仅是手机的闪存和电脑的固态硬盘，目前的U盘、SD卡等都是FLASH。还有一种SSD存储介质用的是DRAM。优点：读写速度快，防震抗摔能力强，功耗和噪音低，工作温度范围大。缺点：容量小，寿命短，价格高。</p>
+<figure>
+<img
+src="https://picx.zhimg.com/v2-d2f31ec719f785b0e30e6e413ffcdb54_r.jpg?source=1def8aca" srcset="/img/loading.gif" lazyload
+alt="固态硬盘" />
+<figcaption aria-hidden="true">固态硬盘</figcaption>
+</figure>
+<p>机械硬盘HDD所有盘片装在一个旋转轴上，每张盘片都是平行的，所有磁头连在一个磁头控制器上，由控制器负责各个磁头的运动。</p>
+<p><img
+src="https://picx.zhimg.com/v2-113779599ab48ab31795c3f75856e6ae_r.jpg?source=1def8aca" srcset="/img/loading.gif" lazyload />
+<img
+src="https://picx.zhimg.com/v2-4fd207fea287e89ab87d590697eb731d_r.jpg?source=1def8aca" srcset="/img/loading.gif" lazyload
+alt="机械硬盘" /></p>
+<h4 id="分区知识2磁盘接口与分区">分区知识2：磁盘接口与分区</h4>
+<p>我们都知道一块磁盘是可以被分成多个分区（partition）的，以Windows系统来看，你会有一块磁盘并且将它分区成了C、D、E盘，这三个盘就是3个分区。</p>
+<p>个人计算机常见的磁盘接口有两种，分别是IDE接口和SATA接口，目前主流的已经是SATA接口了。我们称可连接到IDE接口的设备为IDE设备，不管是磁盘还是光盘。</p>
+<p>在Linux系统中，以IDE接口来说，主机会提供两个IDE接口，每个接口连接两个设备，所以最多可以连接到4个设备。每个接口的IDE设备又有Master和Slave之分。</p>
+<p>再以SATA接口来说，由于SATA/USB/SCSIA等磁盘接口都是使用SCSI模块来驱动的，因此这些接口的磁盘设备文件名都是使用SCSI模块来驱动的，因此这些接口的磁盘设备文件名都是/dev/sd[a-p]的格式。但是与IDE接口不同的是，SATA/USB接口的磁盘设备文件名根本就没有一定的顺序，顺序是由Linux内核检测到磁盘的顺序决定的。</p>
+<p>想了解硬盘分区，首先需要清楚硬盘的存储机制。硬盘的两个单位是扇区（Sector）和柱面（Cylinder），其中每个扇区大小为512Bytes。每个扇区的重要程度是不一样的，整块磁盘的第一个扇区特别重要，因为它记录了整块磁盘的重要信息。磁盘的第一个扇区主要记录了两个重要的信息，分别是：主引导分区（Master
+Boot Record,
+MBR）：可以安装引导加载程序的地方，有446bytes；分区表（Partition
+Table）：记录整块硬盘分区的状态，有64bytes。</p>
+<p>硬盘默认的分区表仅能写入四组分区信息，这四组分区信息我们称为主（Primary）分区或扩展（Extended）分区。当系统要写入磁盘时，一定会参考磁盘分区表，才能针对某个分区进行数据的处理。虽然分区表只有记录四组数据的空间，但不代表一块硬盘最多只能分出四个分区。扩展分区的目的是使用额外的扇区来记录分区信息，扩展分区本身并不能被拿来格式化。我们可以通过扩展分区所指向的那个区块继续作分区的记录。由扩展分区分配继续切出来的分区，就被称为逻辑分区（Logical
+partition）。</p>
+<p>逻辑分区是在扩展分区上面创建的，相当于一块存储介质，和操作系统还有别的逻辑分区、主分区没有什么关系，是独立的。逻辑分区可以看作是“裸”的分区，也就是一块“裸”的硬盘，没有操作系统在里面。逻辑分区相当于一个独立的个体，有自己的文件系统，有自己的操作系统。扩展分区则不是真正意义上的分区，它仅仅是一个指向下一个分区的指针，这种指针结构将形成一个单向链表。这样在主引导扇区中除了主分区外，仅需要存储一个被称为扩展分区的分区数据，通过这个扩展分区的数据可以找到下一个分区（逻辑磁盘）的起始位置，以此位置类推可以找到所有的分区。无论系统中建立多少个逻辑磁盘，在主引导扇区中通过一个扩展分区的参数就可以逐个找到每一个逻辑磁盘。</p>
+<p>综上，主分区与扩展分区最多可以有四个（硬盘的限制），扩展分区最多只能有一个（操作系统的限制）且无法格式化。逻辑分区是由扩展分区继续切割出来的分区，能够被格式化后作为数据存取的分区为主分区与逻辑分区。逻辑分区的数量随着操作系统不同而不同。</p>
+<p><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27926239">硬盘基础知识科普</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hust-ghtao/"
+title="这里作者记载了很多互联网知识！">互联网相关知识学习-华科小涛的博客</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Learning/" class="category-chain-item">Learning</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/basic/" class="print-no-link">#basic</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>随笔系列6：计算机基础</div>
+      <div>https://afly36-swordsman.github.io/2023/12/21/Computer/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Zenitsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>December 21, 2023</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>December 21, 2023</div>
+        </div>
+      
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/20/papers4/" title="文献整理·整合篇">
+                        <span class="hidden-mobile">文献整理·整合篇</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+
+  <div>
+    <span id="timeDate">正在载入天数...</span>
+    <span id="times">载入时分秒...</span>
+    <script>
+    var now = new Date();
+    function createtime(){
+        var grt= new Date("11/24/2023 11:30:00");
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if(String(mnum).length ==1 ){
+                  mnum = "0" + mnum;
+        }
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if(String(snum).length ==1 ){
+                  snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  
+        document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+    }
+    setInterval("createtime()",250);
+    </script>
+  </div>  
+
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+
+</div>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+
+</body>
+</html>

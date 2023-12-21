@@ -16,18 +16,21 @@
   <meta name="author" content="Zenitsu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="敬请期待~">
+    <meta name="description" content="地址：部分基于深度学习的红外与可见光图像融合模型总结  1.TC-GAN Infrared and Visible Image Fusion via Texture Conditional Generative Adversarial Network (Transactions on Circuits and Systems for Video Technology, 2021) 本文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文献整理·综述篇（二）">
 <meta property="og:url" content="https://afly36-swordsman.github.io/2023/12/20/papers3/index.html">
 <meta property="og:site_name" content="Mark | Learning &amp; Routine">
-<meta property="og:description" content="敬请期待~">
+<meta property="og:description" content="地址：部分基于深度学习的红外与可见光图像融合模型总结  1.TC-GAN Infrared and Visible Image Fusion via Texture Conditional Generative Adversarial Network (Transactions on Circuits and Systems for Video Technology, 2021) 本文">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/3_13.png">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/3_0.png">
 <meta property="article:published_time" content="2023-12-20T02:53:41.605Z">
-<meta property="article:modified_time" content="2023-12-20T02:54:12.612Z">
+<meta property="article:modified_time" content="2023-12-21T15:34:29.037Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://afly36-swordsman.github.io/img/stage2/3_13.png">
   
   
   
@@ -220,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5 words
+          6.4k words
         
       </span>
     
@@ -231,7 +234,7 @@
         
         
         
-          1 mins
+          54 mins
         
       </span>
     
@@ -286,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on December 20, 2023 am
+                    Last updated on December 21, 2023 pm
                   
                 
               </p>
@@ -294,7 +297,126 @@
             
               <div class="markdown-body">
                 
-                <p>敬请期待~</p>
+                <p>地址：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/467039982"
+title="温柔的博士师兄写的文章~">部分基于深度学习的红外与可见光图像融合模型总结</a></p>
+<hr />
+<h2 id="tc-gan">1.TC-GAN</h2>
+<p>Infrared and Visible Image Fusion via Texture Conditional Generative
+Adversarial Network (Transactions on Circuits and Systems for Video
+Technology, 2021)</p>
+<p>本文模型TC-GAN的一大亮点是使用了引导滤波器，引导滤波器首次于2013年由K.He,
+J.Sun, and
+X.Tang提出，可以充分利用相邻像素之间的相关性，让图像包含特定的一致性。具体原理是引导滤波器会用一个引导图像Y来对输入图像X进行滤波，输出图像Z便能在保持X信息的基础上获得引导图像Y的变化趋势。</p>
+<p>TC-GAN会生成一个组合纹理图来捕获梯度变化。生成器是编码器结构，用来提取细节，中间有一个SE-Net模块来提高纹理图中显著纹理信息的权重。判别器的作用是让融合图像的纹理细节更接近可见光图像。为了获得更好的纹理信息，作者们提出了一种使用组合纹理图和自适应引导滤波器的基于多决策图的融合策略。换句话说就是：组合纹理图记录了原图像的纹理，被用作自适应引导滤波器（AGF）的引导图像，然后采用AGF生成的多个决策图来设计融合策略重建融合结果。</p>
+<p><img
+src="https://pic2.zhimg.com/v2-e9276d6564b7334ca9c578aa9491cbed_r.jpg" srcset="/img/loading.gif" lazyload /></p>
+<p>首先红外与可见光图像会一起送入TC-GAN中生成组合纹理图，然后组合纹理图会被作为引导图像，用引导滤波器对源图像进行滤波，获得多个决策图。最后用多个决策图融合并重建图像。其中TC-GAN的具体结构如下图。</p>
+<p><img
+src="https://pic4.zhimg.com/v2-e2b79a5847c2d12984b2192401c3b7b3_r.jpg" srcset="/img/loading.gif" lazyload /></p>
+<p>生成器由编码器、SE-Net、解码器三部分组成。中间的SE-Net模块学习到的尺度向量对编码器提取的特征进行加权，可以在训练过程中增强有用的纹理特征，因此用在编码器后面来增强特征。要生成组合纹理图，需要在组合纹理图的监督下训练生成器，然而组合纹理图并不存在（还没生成呢）。因此本文是采用GAN的训练模式，定义了一个判别器，以包含丰富纹理细节的可见光图像作为标签来训练生成器。判别器是一个全卷积网络，对图像进行像素级别的分类，可以判断生成图像中的纹理分布是否与可见图像的纹理分布一致。</p>
+<p>损失函数的设计：生成器损失函数包含gradient loss和adversarial
+loss两个部分，梯度损失是为了让生成的纹理图包含更多的细节，将对抗损失和梯度损失加权求和得到生成器的损失。判别器引导TC-GAN生成器的训练来识别融合图像与可见光图像，促使生成器得到的融合图像包含更多纹理细节，因此判别器利用交叉熵作为损失来计算融合图像与可见光图像之间的差异。</p>
+<div class="code-wrapper"><pre><code class="hljs">对抗损失adversarial loss在所有用GAN模型的文章中都出现了，建议回顾笔记
+下面附上CSDN关于对抗Loss理解的文章链接</code></pre></div>
+<p><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38784454/article/details/112464701">对抗Loss的理解</a></p>
+<p>在经过TC-GAN获得组合纹理图作为引导图像对源图像进行滤波后，可以获得多个决策图，下面就是对这些决策图进行融合了。多决策图的融合包含两个步骤：1.基于组合纹理图创建多个决策图（组合纹理图作为引导滤波器的引导图像）；2.多决策图被用于获得初步的融合结果。最终的融合图像是通过加权法获得的。</p>
+<h2 id="attentionfgan">2.AttentionFGAN</h2>
+<p>Infrared and Visible Image Fusion Using Attention-Based Generative
+Adversarial Networks (Transactions on Multimedia, 2021)</p>
+<p>AttentionFGAN将多尺度注意力机制加入GAN来进行红外-可见光图像的融合。对于判别器，优势主要是可以限制判别器对注意力区域关注得更多，而非全图都关注；对于生成器，多尺度注意力网络被用来训练学习一个特征的权重，使重要特征被赋予更多注意，冗余特征则被忽略。为了保留注意力区域更多信息，设计了attention损失函数。判别器改用Wasserstein
+distance计算源图像和融合图像之间的差异。从结果来看AttentionFGAN对红外显著性区域保护的很不错。</p>
+<p>模型的结构如下图。生成器包含2个多尺度注意力网络和1个融合网络，两个多尺度注意力网络分别获得红外与可见光图像的注意力图，融合网络在重建图像时会更关注重点区域。2个判别器会让融合结果更好地保留像素幅度与细节信息，作用分别是区分融合图像与红外/可见光图像。</p>
+<figure>
+<img
+src="https://pic2.zhimg.com/v2-ae207cc3db61021987f911f3caf658b1_r.jpg" srcset="/img/loading.gif" lazyload
+alt="AttentionFGAN模型结构图" />
+<figcaption aria-hidden="true">AttentionFGAN模型结构图</figcaption>
+</figure>
+<p>生成器部分的两个多尺度注意力模块首先分别获得红外与可见光图像的注意力图，然后将这两个注意力图和源图像在通道维度拼接后送入融合网络。两个判别器分别用来区分融合图像与红外/可见光图像，结构完全相同，但是参数不共享。在训练阶段，将输入图像（融合图像）送入多尺度注意力网络计算注意力图，然后将注意力图和输入图像在通道维度拼接，让判别器能更关注具有区分力的区域。为了提高效果，这里用了WGAN中的Wasserstein
+distance来计算融合图像与源图像之间的距离。由于WGAN是专门计算Wasserstein
+distance的，可以看做为一个回归问题，因此在计算损失的时候将log函数去除了，判别器最后一个sigmoid层也被移除了。</p>
+<p>上图中的多尺度融合网络，在生成器中的作用是获得注意力图，在判别器中的作用是让模型更关注具有判别能力的区域，它的结构如下图。</p>
+<figure>
+<img
+src="https://pic2.zhimg.com/v2-8e772b2c1df5c6e388dbc728867b9d3d_r.jpg" srcset="/img/loading.gif" lazyload
+alt="多尺度融合模块" />
+<figcaption aria-hidden="true">多尺度融合模块</figcaption>
+</figure>
+<p>首先使用卷积层提取特征，这里用最后两个卷积层的输出作为深层特征图。单尺度的特征难以提取到有效的空间信息，因此通过多个尺寸的全局池化来获得多尺度特征。但是在池化操作会产生太多冗余特征图，最好是选择重要特征，去除冗余特征，所以这里让网络基于每个特征图的全局信息来重新计算权重。这个过程由GP+FC+Sg三个模块实现。全局池化GP结束后用全连接层和sigmoid来计算权重。</p>
+<p>获得了最终的权重后，用上采样算子对多尺度特征图进行上采样，获得相同尺寸的特征图。然后，用刚才获得的权重和上采样后的特征图乘累加，再通过一次标准化算子，最后的注意力图需要用最大选择策略，即不同尺度在各自分支获得的Features先在通道维度上拼接，再用最大值法获得最终的注意力图。以上就是多尺度融合网络的机制。</p>
+<p>生成器的损失函数包含adversarial loss、content loss、attention
+loss三项，content
+loss让生成器生成和红外图像数据分布更接近的图像，因为红外图像对热量敏感，体现在像素幅度上；attention
+loss是由于引入了多尺度注意力机制。当判别器无法区分融合图像和源图像时，判别器的两个输入应该具有相同的注意区域。例如，最终的融合结果应该从红外图像中保留足够的典型信息，然后当判别器无法区分融合图像和红外图像时，融合结果和红外图像应该具有相同的注意力图。因此为了从源图像中保留更多注意力区域的信息，设计了融合图像与源图像之间的attention
+loss，对融合图像的注意力图与源图像的注意力图之间的差异进行惩罚（约束），具体的公式参考<a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/467039982">专栏3.10</a>。</p>
+<h2 id="drf">DRF</h2>
+<p>Disentangled Representation for Visible and Infrared Image Fusion
+(Information Fusion, 2021)</p>
+<p>这篇文章的损失函数和之前的方法差异较大。本文将图像分解为场景特征图和属性向量，分别表示两个模态的共同信息和不同信息，个人认为这也是对互补信息的一种探讨。</p>
+<p>大致思想：本文将Disentangled
+representation应用于可见光和红外图像融合。根据成像原理，将可见光和红外图像中的信息来源进行分解，即分别通过相应的编码器将图像分解为与场景模态和传感器模态（属性）相关的表示。这样，由属性（传感器模态）相关表示定义的唯一信息更接近于每种传感器单独捕获的信息。因此，可以缓解独特信息提取不当的问题。然后应用不同的策略来融合这些不同类型的表示。最后融合的表示被输入到预训练的生成器中以生成融合结果。</p>
+<p>传统的图像分解方法会使用同种方法对图像进行分解，一般来说可能会造成关键信息丢失，也可能会生成冗余信息。一些方法针对不同的模态采取了不同的信息描述，例如对红外图像用像素幅度来描述，对可见光图像用梯度来描述，然而这种人工设计的信息分离方法也不能完整地描述图像信息。为了解决这个问题，应该尽可能地从源图像中的公共信息中分离出唯一信息。为此，可以从源图像的成像过程这个方向探讨信息的保留方式。无论源图像是从可见光传感器还是从红外传感器捕获的，它们都是从同一场景中拍摄的，其中包含大量（共同的）场景信息。不同之处在于这两种类型的传感器使用其特定的成像方式来捕获原始信息，具体方法是将源图像分解为两个部分：场景信息和传感器模态相关的信息。由于与传感器模态相关的信息反映了传感器或源图像的属性，我们将这类信息定义为唯一的属性表示；而来自场景的信息，即场景表示，是两者的共同信息。基于以上思考提出了新的融合模型：disentangled
+representation for visible and infrared image fusion (DRF) 。</p>
+<p>在DRF中，用disentangled
+representation来解构源图像中的场景和属性表示。场景信息通过一个场景编码器被作为公共信息来提取，属性表示通过一个属性编码器被作为唯一信息来提取，结构如下图所示。</p>
+<p><img
+src="https://pic2.zhimg.com/80/v2-2c4280d2522c317019d7b7d34a761099_720w.webp" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="/img/stage2/3_13.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img
+src="https://pic1.zhimg.com/80/v2-60b1c567cdfc12b80029083011a91f44_720w.webp" srcset="/img/loading.gif" lazyload /></p>
+<p>考虑到场景信息直接和空间、位置相关，所以场景表示就用特征图的方式来呈现（Fig
+1的形式）。而属性是和传感器模态相关的，不必捕获场景信息，所以属性更适合通过一个向量来表示。</p>
+<p>为了实现Disentangled
+representation，提出以下三个策略。首先，红外图像域X和可见光图像域Y的场景编码器最后一层参数共享，通过这样的方法就可以使两个域图像的场景特征嵌入到同一空间中了，但是共享高层权重的方式不能保证场景编码器对来自两个不同域的相同信息进行编码。所以第二个策略是对场景特征进行约束，让X和Y的场景编码器对来自两个域的相同场景特征进行编码。第三个策略，为了压缩属性空间中的场景信息，要对属性向量的分布进行约束，因此属性编码器不会对场景相关信息进行编码。</p>
+<p>接下来，为了能让场景和属性两种信息表示源图像，那么通过场景S和属性A必须能够恢复源图像，因此加了一个生成器G来学习这种逆映射。考虑到Ax和Ay对生成器来说是不一致的，并考虑到后续的融合过程，{S,Sx}到X、{S,Ay}到Y的（逆）映射过程共享一个生成器，希望G能同时具有这两种映射的能力。</p>
+<p>一方面，重建得到的x和y应该尽量和源图像x和y相似，这个容易理解。另一方面，S最好跨域X和Y捕获信息，而Ax和Ay应该捕获相应域的特定属性，而不携带域不变的场景相关线索。那么，假设X和Y是对同一场景的描述，那么<span
+class="math inline">\(s_x\)</span>和<span
+class="math inline">\(s_y\)</span>应该是相似的。相反地，给定不同的属性向量，生成器G生成的图像应该和提取属性向量那个模态的图像相同，而和没有提取属性向量那个模态的图像不同。举个例子，以<span
+class="math inline">\(s_x\)</span>和<span
+class="math inline">\(a_y\)</span>为条件，G生成的图像形式应该是这样的：<span
+class="math inline">\(y_x\)</span>是一个由X场景信息和Y的属性信息生成、重建结果看起来像Y的图像，<span
+class="math inline">\(y_x\)</span>和Y应该保持像素连续性。</p>
+<p>网络结构：场景编码器分为红外场景编码器和可见光场景编码器，结构如下图，一共包含七个层，5个残差模块和2个卷积层。</p>
+<p><img
+src="https://pic1.zhimg.com/80/v2-89bda80f8e9896e943b202242316d188_1440w.webp" srcset="/img/loading.gif" lazyload /></p>
+<p>其中残差块的结构如下图所示：</p>
+<p><img
+src="https://pic4.zhimg.com/v2-448aa9b1b001efa7af25ff28d4acc247_r.jpg" srcset="/img/loading.gif" lazyload /></p>
+<p>属性编码器结构如下图，卷积层都是5×5的卷积核搭配长度为2的步长，然后在通道维度上进行全局平均池化，属性信息就被映射到向量形式了。</p>
+<p><img
+src="https://pic2.zhimg.com/v2-d850ada815fd015ec69af01efdbf2ad1_r.jpg" srcset="/img/loading.gif" lazyload /></p>
+<p>生成器结构：</p>
+<p><img
+src="https://pic4.zhimg.com/v2-2075bda13fb90502ce9b886a0e2651ef_r.jpg" srcset="/img/loading.gif" lazyload /></p>
+<p>对场景特征，首先通过一个残差块处理，而对属性向量，会被平铺到和场景特征图一样的尺寸，这样就能和场景特征图在通道维度上进行拼接了。再经过几个残差块后用反卷积层对特征图进行上采样。场景特征图的空间分辨率降低到原始图像的四分之一，因此丢失了许多高质量的纹理细节，为了弥补损失，将场景编码器中第一个残差块的输出，和生成器中第二个反卷积层的输出进行拼接，送入后续的卷积层中。再经过多个卷积层，通道数量被削减到和输入图像通道数量一样，最后一个tanh后就是重建得到的图像。</p>
+<p>融合模块，由于场景特征共享同一场景，因此用平均策略融合<span
+class="math inline">\(s_x\)</span>和<span
+class="math inline">\(s_y\)</span>，属性特征<span
+class="math inline">\(a_x\)</span>和<span
+class="math inline">\(a_y\)</span>直接加权求和。以上两种特征图用一个预训练的生成器G来获得融合图像：<span
+class="math inline">\(f = G(s_f,a_f)\)</span></p>
+<p>损失函数由以下几项构成：</p>
+<p>(1)场景特征一致性损失Scene Feature Consistency Loss
+给定描述同一场景的源图像x和y，它们的场景特征需要类似。因此该项损失用1-范数或者Frobenius-norm进行约束。但是本文发现L1-norm更合适，因为红外和可见光传感器的成像原理不同，这两种源图像中的场景信息不可能完全相同，但是整体而言场景信息不同的区域还是非常小的，大部分区域的场景信息能保持相同就可以了，那些小部分场景信息不同的区域实在不行就算了。换句话说，希望两个模态场景信息中的差异是稀疏的，因此相比较Frobenius-norm，L1-norm更合适。</p>
+<p>(2)属性分布损失Attribute Distribution Loss 基于Disentangled
+representation的考虑，希望能在属性空间中尽量压缩场景信息，预计属性表示将与先验高斯分布一样接近。KL项会促进disentanglement，因此对x和y属性向量的分布施加约束，通过测量它们的分布和先验高斯分布之间的KL散度并对此进行约束。</p>
+<p>(3)自重建损失Self-Reconstruction Loss
+原始源图像将根据场景和与之分离的属性表示进行重建。也就是说，生成器G应该能够将场景特征和属性向量解码回原始源图像。因此，我们执行自重建损失以使重建的图像与原始图像达到高保真度：<span
+class="math inline">\(L_{reconstruction} = \Vert x - \hat {x} \Vert_1 +
+\Vert y - \hat {y} \Vert_1\)</span></p>
+<p>(4)域转换损失Domain-Translation Loss
+转换后的图像是根据一张源图像的场景特征和另一张源图像的属性向量生成的。
+<img src="/img/stage2/3_0.png" srcset="/img/loading.gif" lazyload /></p>
+<h2 id="年论文小结">19-21年论文小结</h2>
+<p>总体来说自监督模型在损失函数方面，像素幅度的信息的计算使用的还是L2-norm/MSE较多，细节纹理信息的计算使用的是SSIM和梯度算子较多。2020年之前的很多模型为修改网络结构和损失函数的形式，早期的融合规则方面有使用attention形式的规则，但仍然是人工设计的融合规则，其中非学习方式产生的显著性图不能反映原图信息的有效性，还是应该用网络来学习融合规则。早期还有用预训练好的VGG进行特征提取，然后融合特征图的方法，但是提取到的特征不一定准确，毕竟不是专门通过多模态图像训练的网络。不过也逐渐有文章开始探讨什么是互补信息，以及如何在实际的融合过程中找出图像对中每个模态的互补信息（或者说一个区域中该模态有，而其他模态没有的信息）。</p>
+<p>基于GAN的方法可以利用无监督对抗学习模型，充分利用源图像的信息。损失函数主要是设计content
+loss和adversarial
+loss。难点是生成器和判别器之间的平衡难以达到。对于图像融合的模型结构，综述Image
+fusion meets deep learning: A survey and
+perspective中认为当前用于图像融合的网络结构最有效的三种是残差连接、dense连接和双分支。提升深度学习模型的两种方式：1.设计高质量的指标用于无监督学习（高质量的评价指标不光可以用于损失函数，也对模型的真实效果评价有利）；2.构建接近真实场景的数据用于有监督学习。</p>
+<p>未来需要根据任务设计更具有针对性的网络，比如做任务驱动的模型，根据下游任务来决定融合的损失函数，例如SeAFusion，不然的话融合效果的评价还是比较主观的。</p>
 
                 
               </div>
@@ -359,7 +481,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 20, 2023</div>
+          <div>December 21, 2023</div>
         </div>
       
       
