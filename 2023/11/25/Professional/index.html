@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/bn.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/norm_vector.png">
 <meta property="article:published_time" content="2023-11-25T15:36:57.166Z">
-<meta property="article:modified_time" content="2023-12-22T15:21:13.727Z">
+<meta property="article:modified_time" content="2023-12-25T13:56:12.382Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="basic">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.9k words
+          6.2k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          24 mins
+          53 mins
         
       </span>
     
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on December 22, 2023 pm
+                    Last updated on December 25, 2023 pm
                   
                 
               </p>
@@ -400,6 +400,112 @@ HDR，高动态范围图像，High-Dynamic Range，记录了照明信息</code><
 <div class="code-wrapper"><pre><code class="hljs">几种常见的网络拓扑结构：总线型、星型、环型、树型、网状型等。</code></pre></div>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/451069548?utm_id=0"
 title="什么是拓扑结构？">详情点击此处查看</a></p>
+<h3 id="线性代数基础知识">线性代数基础知识</h3>
+<h4 id="矩阵的正定和负定">矩阵的正定和负定</h4>
+<p>矩阵Q正定的充要条件：<br /> (1) Q所有的特征值大于0 <br /> (2)
+Q各阶顺序主子式都大于0 <br /> (3) Q各阶主子式都大于0 <br /> (4)
+存在非奇异矩阵G，使得 <span class="math inline">\(Q = GG^T\)</span></p>
+<p>矩阵Q半正定（正半定）的充要条件：<br /> (1) Q所有的特征值大于等于0
+<br /> (2) Q各阶主子式都大于等于0 <br /> (3) 存在矩阵G，使得 <span
+class="math inline">\(Q = GG^T\)</span></p>
+<p>矩阵Q负定的充要条件：<br /> (1) Q所有的特征值小于0 <br /> (2)
+Q奇数阶顺序主子式都小于0，偶数阶顺序主子式都大于0 <br /> (3)
+Q奇数阶主子式都小于0，偶数阶主子式都大于0 <br /> (4)
+存在非奇异矩阵G，使得 <span class="math inline">\(-Q = GG^T\)</span></p>
+<p>矩阵Q半负定（负半定）的充要条件：<br /> (1) Q所有的特征值小于等于0
+<br /> (2) Q奇数阶主子式都小于等于0，偶数阶主子式都大于等于0 <br /> (3)
+存在矩阵G，使得 <span class="math inline">\(-Q = GG^T\)</span></p>
+<p>关于更基础的一些概念：主子式、顺序主子式、余子式、代数余子式、伴随矩阵、方向导数与梯度等内容，自行回顾学习！</p>
+<h4 id="奇异非奇异矩阵">奇异、非奇异矩阵</h4>
+<p>讨论非奇异矩阵和奇异矩阵的前提：矩阵A是n阶方阵。</p>
+<p>矩阵A可逆（非奇异）的判别方法（满足下列充要条件之一）：<br /> (1)
+<span class="math inline">\(det(A) = \vert A \vert \neq 0\)</span>
+<br /> (2) <span class="math inline">\(Rank(A) = n\)</span> 即满秩
+<br /> (3) <span class="math inline">\(A\)</span> 的所有特征值都不等于0
+<br /> (4) <span class="math inline">\(A\)</span>
+可以表示成若干个初等矩阵的乘积（初等矩阵是可逆的）</p>
+<p>矩阵A奇异的判别方法（满足下列条件之一）：<br /> (1) <span
+class="math inline">\(\vert A \vert = 0\)</span> <br /> (2) <span
+class="math inline">\(Rank(A) &lt; n\)</span> 非满秩</p>
+<p>非奇异矩阵就是可逆矩阵（满秩矩阵）。在数学上，“奇异”(singular)一词被用来形容破坏了某种优良性质的数学对象。对于矩阵来说，“可逆”是一个好的性质，表示该矩阵包含了其所能容纳的所有可用信息（不存在某几个行/列向量是线性相关的），即满秩。奇异矩阵行列式值为0，不可逆，等价于某个线性变换退化了，即变换之后有部分东西丢失了。</p>
+<p>PS(PostScript): <div class="code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">A</span>的充分条件是<span class="hljs-selector-tag">B</span>（<span class="hljs-selector-tag">B</span>是<span class="hljs-selector-tag">A</span>的充分条件，条件是<span class="hljs-selector-tag">B</span>，结论是<span class="hljs-selector-tag">A</span>），
+说明有了<span class="hljs-selector-tag">B</span>就一定有<span class="hljs-selector-tag">A</span>（充分性），
+即由条件<span class="hljs-selector-tag">B</span>可以推导出结论<span class="hljs-selector-tag">A</span>。
+
+<span class="hljs-selector-tag">A</span>的必要条件是<span class="hljs-selector-tag">B</span>（<span class="hljs-selector-tag">B</span>是<span class="hljs-selector-tag">A</span>的必要条件，即<span class="hljs-selector-tag">B</span>是必要的），
+说明没有<span class="hljs-selector-tag">B</span>就一定没有<span class="hljs-selector-tag">A</span>，
+因为<span class="hljs-selector-tag">B</span>是必要的（要作为结论），所以由<span class="hljs-selector-tag">A</span>可以推导出<span class="hljs-selector-tag">B</span>。</code></pre></div></p>
+<p>Reference: <a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/334822347">矩阵可逆的几个充要条件</a></p>
+<h4 id="特征值与特征向量">特征值与特征向量</h4>
+<p>定义：<span class="math inline">\(Ax = \lambda x\)</span>，其中 <span
+class="math inline">\(A\)</span> 是矩阵，<span
+class="math inline">\(\lambda\)</span> 是特征值（也叫本征值），非零向量
+<span class="math inline">\(x\)</span> 是特征向量。<span
+class="math inline">\(A \cdot x\)</span> 表示用矩阵对向量 <span
+class="math inline">\(x\)</span>
+进行一次线性变换（可以是拉伸+旋转，也可以只是拉伸或者只是旋转），而这种转换的效果就是一个常数
+<span class="math inline">\(\lambda\)</span> 与向量 <span
+class="math inline">\(x\)</span>
+的乘积（说明只进行了拉伸）。换句话说，就是对一个特定的矩阵 <span
+class="math inline">\(A\)</span> 来说，总存在一些特定方向的向量 <span
+class="math inline">\(x\)</span>，使得 <span
+class="math inline">\(Ax\)</span> 和 <span
+class="math inline">\(x\)</span>
+的方向一样（未发生变化），只有长度改变了。这个长度的变化就是特征值的几何含义。</p>
+<p>我们通常求特征值和特征向量就是为了求出在笛卡尔坐标系中，该矩阵能使哪些向量（当然是特征向量）只发生拉伸，使其发生拉伸的程度如何（特征值大小）。如果把矩阵看作运动，那么特征值就是运动的速度，特征向量是运动的方向。特征向量在一个矩阵的作用下作伸缩运动，伸缩的幅度由特征值确定（缩放因子）。旋转矩阵是没有实数特征向量和特征值的。这样做的意义在于，看清一个矩阵在哪些方面能产生最大的效果，并根据所产生的每个特征向量（一般研究特征值最大的那几个）进行分类讨论，可以作为主成分进行研究、减少计算量、降维等。</p>
+<p>附：笛卡尔坐标系：正交坐标系，比如直角坐标系（坐标轴互相垂直）。笛卡尔空间中，任何一个点的位置由数轴上对应的坐标设定。</p>
+<h4 id="极大线性无关组">极大线性无关组</h4>
+<h5 id="线性相关与线性无关">线性相关与线性无关</h5>
+<p>在一个线性空间中，如果一组向量 <span class="math inline">\(a_1, a_2,
+\cdots, a_s\)</span> 是线性相关的，那么存在一组不全为0的数 <span
+class="math inline">\(k_1, k_2, \cdots, k_s\)</span> ，使得 <span
+class="math inline">\(k_1a_1 + k_2a_2 + \cdots + k_sa_s = 0\)</span>
+成立。</p>
+<p>如果 <span class="math inline">\(a_{j \ (j=1,2,\ldots,s)}\)</span>
+线性无关，则 <span class="math inline">\(k_1a_1 + k_2a_2 + \cdots +
+k_sa_s = 0\)</span> 成立：当且仅当所有的 <span
+class="math inline">\(k_{j \ (j=1,2,\ldots,s)} = 0\)</span>。</p>
+<h5 id="极大线性无关组-1">极大线性无关组</h5>
+<p>设A是一个n维向量组，如果从A中取出s个向量 <span
+class="math inline">\(a_1, a_2,\cdots, a_s\)</span>
+组成向量组，该向量组线性无关，且对于A中的其他任意向量b，都有 <span
+class="math inline">\(a_1, a_2, \cdots, a_s, b\)</span>
+线性相关，那么向量组 <span class="math inline">\(a_{j \
+(j=1,2,\ldots,s)}\)</span>
+是矩阵（向量组）A的一个极大线性无关组，简称极大无关组。</p>
+<h4 id="矩阵的秩">矩阵的秩</h4>
+<p>小时候老师总是告诉我们：要有n个方程才能解出n个未知数。上了大学以后，我们知道这句话其实是不严谨的。如果你想确定的解出这n个未知数，只有n个方程是不够的，这n个方程必须都是“有用的”，也就是线性无关的才行，否则就会有某几个方程式表达重复（无用）的信息，相当于只是换了衣服而已，实质上还是同一个方程式，自然就无法求解其对应的未知元。这些真正有用的方程式个数就是（系数）矩阵的秩。从这个角度，我们可以更好地理解什么是矩阵的秩（Rank）。</p>
+<p>矩阵的秩，是矩阵中极大线性无关组的向量个数，也就是以此矩阵的元素作为系数的方程组中，线性无关的方程个数。从另一个角度说，秩是矩阵变换以后的空间维度，代表这个矩阵实际包含的信息量的多少。我们可以回顾一下初等变换的过程：对矩阵的行列式作初等行变换时，线性相关的向量（行）会被消去（成为0），即不含有用信息。</p>
+<p>线性代数，主要就是研究n元1次线性方程组（某个问题）解的存在性（有没有答案？）和解的唯一性（答案是否只有一个？）。如果存在解，如何找到这个解或者所有解？一般的含有n个未知数和m个方程的非齐次线性方程组可以表示如下：
+<span class="math display">\[ \begin{cases}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1 \\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = b_2 \\
+\qquad \qquad \qquad \quad \vdots \\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = b_m \\
+\end{cases} \]</span></p>
+<p>若 <span class="math inline">\(n\le m\)</span> ，则有以下结论：</p>
+<p>1）当方程组的系数矩阵A的秩：Rank(A) 与方程组增广矩阵 (A, b)
+的秩：Rank(A, b) 相等，并且都等于未知元个数 n 时，方程组具有唯一解；</p>
+<p>2）当方程组 Rank(A) = Rank(A, b) &lt; n 时，方程组有无穷多个解；</p>
+<p>3）当方程组 Rank(A) &lt; Rank(A, b) 时，无解。</p>
+<p>结论(1)很好理解，方程组里所有方程式互不冲突，m =
+n，信息一一对应。结论(2)，方程组里所有方程互不冲突，但是 m &lt;
+n，存在自由变量可以随意取值（约束不够），因此具有无穷多解。结论(3)，存在多个方程式有冲突，信息有互斥的成分，存在
+"0 = c" 的现象，自然无法求解。</p>
+<p>另外，根据克拉默法则：</p>
+<p>1）当系数矩阵A的行列式值：det(A) = 0
+时，线性方程组（齐次或非齐次）要么有无穷多解，要么无解。</p>
+<p>2a）对于齐次线性方程组（<span class="math inline">\(b_i =
+0\)</span>）来说，det(A)不等于0时，只有零解；det(A)等于0时，有0解和非0解。</p>
+<p>2b）对非齐次方程组（上式）来说，det(A)不等于0时，有唯一解；det(A)等于0时，有无穷多解或没有解。</p>
+<p>参考：<a
+target="_blank" rel="noopener" href="https://www.zhihu.com/question/21605094">如何理解矩阵的秩？</a></p>
+<h4 id="矩阵的行列式和迹">矩阵的行列式和迹</h4>
+<p>矩阵（方阵）A的迹：trace(A)，是矩阵A所有特征值之和。对 <span
+class="math inline">\(n \times n\)</span>
+的方阵A而言，迹等于A所有主对角线上的元素之和。</p>
+<p>矩阵（n阶方阵）A的行列式（determinant）的值：det(A)，是方阵A全部特征值的乘积。行列式描述的是一个线性变换对欧几里得空间（线性的，可以用加法和数乘表示空间中所有元素；内积空间，可以用内积表示空间向量的角度信息（一定是赋范空间）；维度有限）中“体积”造成的影响。因为特征值是在特征向量方向上放缩的程度，可以认为特征值构成了特征空间的“骨”，类似于多面体的“边”、“高”等信息，当这些特征值相乘时，可以粗略的类比为体积的概念。</p>
 
                 
               </div>
@@ -464,7 +570,7 @@ title="什么是拓扑结构？">详情点击此处查看</a></p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 22, 2023</div>
+          <div>December 25, 2023</div>
         </div>
       
       
