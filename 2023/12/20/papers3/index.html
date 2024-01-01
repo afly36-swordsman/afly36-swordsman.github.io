@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/3_13.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/3_0.png">
 <meta property="article:published_time" content="2023-12-20T02:53:41.605Z">
-<meta property="article:modified_time" content="2023-12-21T15:34:29.037Z">
+<meta property="article:modified_time" content="2024-01-01T03:25:16.317Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.4k words
+          9.3k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          54 mins
+          78 mins
         
       </span>
     
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on December 21, 2023 pm
+                    Last updated on January 1, 2024 am
                   
                 
               </p>
@@ -351,7 +351,7 @@ loss让生成器生成和红外图像数据分布更接近的图像，因为红�
 loss是由于引入了多尺度注意力机制。当判别器无法区分融合图像和源图像时，判别器的两个输入应该具有相同的注意区域。例如，最终的融合结果应该从红外图像中保留足够的典型信息，然后当判别器无法区分融合图像和红外图像时，融合结果和红外图像应该具有相同的注意力图。因此为了从源图像中保留更多注意力区域的信息，设计了融合图像与源图像之间的attention
 loss，对融合图像的注意力图与源图像的注意力图之间的差异进行惩罚（约束），具体的公式参考<a
 target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/467039982">专栏3.10</a>。</p>
-<h2 id="drf">DRF</h2>
+<h2 id="drf">3.DRF</h2>
 <p>Disentangled Representation for Visible and Infrared Image Fusion
 (Information Fusion, 2021)</p>
 <p>这篇文章的损失函数和之前的方法差异较大。本文将图像分解为场景特征图和属性向量，分别表示两个模态的共同信息和不同信息，个人认为这也是对互补信息的一种探讨。</p>
@@ -417,6 +417,41 @@ loss。难点是生成器和判别器之间的平衡难以达到。对于图像�
 fusion meets deep learning: A survey and
 perspective中认为当前用于图像融合的网络结构最有效的三种是残差连接、dense连接和双分支。提升深度学习模型的两种方式：1.设计高质量的指标用于无监督学习（高质量的评价指标不光可以用于损失函数，也对模型的真实效果评价有利）；2.构建接近真实场景的数据用于有监督学习。</p>
 <p>未来需要根据任务设计更具有针对性的网络，比如做任务驱动的模型，根据下游任务来决定融合的损失函数，例如SeAFusion，不然的话融合效果的评价还是比较主观的。</p>
+<h2 id="transmef">4.TransMEF</h2>
+<p>A Transformer-Based Multi-Exposure Image Fusion Framework using
+Self-Supervised Multi-Task Learning (AAAI, 2022)</p>
+<p>目前用CNN做融合的模型很多都把CNN用在编码器上用于特征提取，但是CNN本身存在感受野小、不能提取长程信息的问题。而图像融合中，融合图像的质量不仅和感受野内的每个像素相关，也和图像整体的像素强度与纹理信息有关，所以同时对全局和局部信息建模是有必要的。所以本文针对多曝光图像融合提出了transMEF模型，这是一种基于transformer的自监督多任务学习模型，也采用编码器-解码器结构，在大规模自然图像数据集上进行自监督训练。融合过程中，首先使用编码器提取源图像的特征图，然后用解码器生成融合图像。</p>
+<p>总结本文创新点：1.根据多曝光图像的特点提出三个自监督重建任务，基于多任务学习训练出了一个自编码器，所以模型不仅能在大规模自然图像上训练，也可以学习到多曝光图像的特点；2.为了克服CNN难以捕获长程信息的缺陷，提出了包含transformer结构的编码器结构，这样在特征提取过程中局部和全局信息都能捕获；3.在一个benchmark上和其他12种模型，依据11个指标进行了对比。</p>
+<p>模型总体结构图： <img
+src="https://pic3.zhimg.com/v2-ee6336a02679c775d68ccf9473b4789e_r.jpg" srcset="/img/loading.gif" lazyload /></p>
+<p>网络的训练和以前使用CNN的编码器-解码器融合网络类似，即直接将整体作为一个图像重建来训练自编码器。给定一个输入图像，通过三种不同的变换（Gamma-based
+transformation: TG(·), Fourier-based transformation: TF (·) and global
+region shuffling:
+TS(·)）对源图像的多个区域产生失真，产生三种不同的失真图像，然后将这些失真图像送入编码器中。编码器包含一个特征提取模块（TransBlock）和一个特征增强模块（EnhanceBlock）。其中TransBlock包含CNN和transformer，CNN的输入直接将整图输入即可，而transformer则是将图像先分为多个patch，再送入transformer中训练。TransBlock的输出再送入EnhanceBlock对特征图进行聚合与增强，完成之后送入解码器中重建图像。上述三个任务使用多任务学习同时进行。自编码器训练好后，输入图像就能通过编码器得到特征图了，用上图b的方式对特征图进行融合。</p>
+<p>基于transformer的编码器-解码器结构：前述所说第一阶段的重建训练首先要使用三种方式生成三种失真图像，具体做法是：在每种方式下，对一张输入图像随机产生10个子区域，每个子区域的宽和高是1到25之间的随机整数，然后每张图像在这10个子区域中进行变换，产生失真的子区域，替换源图像的该区域。而三种变换方式就对应TG(·)、TF
+(·) and
+TS(·)，和结构图中的三种方式一一对应。然后把这些失真图像送入TransBlock进行特征提取即可。而EnhanceBlock则是将TransBlock输出特征图的全局和局部信息进行聚合，具体是先将CNN和transformer分别输出的特征图在通道维度进行拼接，然后再送入两个卷积块（ConvBlock）中，以此来强化特征。结构图c展示了Transformer和ConVBlock模块的具体组成，每个卷积块包含两个3×3、padding为1的卷积层，解码器中的卷积块也是如此。</p>
+<p>TransBlock：该模块下的CNN部分比较简单，直接级联三个卷积块即可，输入就是完整的三类失真图像。而transformer部分则是先将三类失真图像分成多个P×P大小的patch序列，再用Linear
+projection获得embedding，将这些embedding送入L层的transformer，得到输出。Transformer的结构包含多头注意力MSA、LayerNorm、残差连接和MLP，其中MLP是两个使用RELU激活函数的线性层。</p>
+<p>损失函数：损失函数用于多任务学习，针对三类失真图像同时训练三种图像重建任务，在上面的结构图a中最上方有Loss的公式，三项分别对应三类重建任务的损失。每一项任务的损失
+<span class="math inline">\(Loss_{Task_i}\)</span>
+都不仅考虑像素级损失，还要考虑结构性损失和梯度信息。三项分别设计为：计算像素级损失的MSE、计算结构损失的SSIM和计算总变分损失的TV范数。</p>
+<p><span class="math display">\[L_{MSE} = \Vert I_{out} -
+I_{in}\Vert_2\]</span> <span class="math display">\[L_{SSIM} = 1 -
+SSIM(I_{out},I_{in})\]</span></p>
+<p>第三项的total
+variation项（TV损失）用来减少图像的虚假边缘和噪声等失真，同时能保留源图的边缘信息。计算公式如下：</p>
+<p><span class="math display">\[R(p,q) = I_{out}(p,q) -
+I_{in}(p,q)\]</span> <span class="math display">\[L_{TV} =
+\sum\limits_{p,q} (\Vert R(p,q+1) - R(p,q) \Vert_2 + \Vert R(p+1,q) -
+R(p,q)\Vert_2)\]</span></p>
+<p>从上式能看出R其实计算的是源图和重建图像之间的差分。</p>
+<p>融合规则：直接将两个原始图像经过编码器得到的F1和F2平均即可。</p>
+<p>三类图像重建任务：用于在训练编码器-解码器阶段，对原始输入图像进行变换，产生失真图像，该失真图像作为训练图像重建任务的输入图像。</p>
+<p>1.首先是使用基于Gamma的变换方式来学习场景内容和亮度信息。过曝图像对于实际场景中较暗区域的细节信息保持的较好，欠曝图像则对实际场景中较亮区域的细节保持的较好，因此希望融合图像在能保持每个区域丰富细节的同时也能让图像的亮度较为统一。所以这里用Gamma变换对源图像的多个子区域进行亮度改变，使编码器能应对不同亮度条件下保持细节和结构信息的能力。</p>
+<p>2.使用基于傅里叶变换的方式在频域学习细节和纹理信息。对一张图像进行离散傅里叶变换DFT后得到的频谱图中，振幅确定图像的强度信息，相位主要确定图像的高级语义，并包含有关图像内容和物体对象位置的信息。欠曝和过曝图像的直方图都不是很居中，所以希望网络能学习到合适的曝光度。而相位则较好地保持了物体的形状和内容信息，所以也需要网络能够捕获形状和内容信息。这一步具体做法是先把源图转换到频域，然后对子区域在频域上进行失真处理，针对振幅采用高斯模糊，针对相位对所有相位值执行np次随机交换，np是在1到5之间的随机正整数。</p>
+<p>3.使用全局shuffle学习结构和语义信息。该方法来源于Kang等人的一篇论文内容，具体做法是：对于待失真处理的每个子区域，在图像中随机选一块和该子区域尺寸相同的子区域，然后将这两个区域调换位置，重复10次就完成了一张源图的全局shuffle失真变换处理。</p>
+<p>彩色图像融合：首先将图像转换为YCbCr通道，Y通道的融合方式和上述方式保持一致，而Cb和Cr的融合使用传统的加权求和方式。</p>
 
                 
               </div>
@@ -481,7 +516,7 @@ perspective中认为当前用于图像融合的网络结构最有效的三种是
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 21, 2023</div>
+          <div>January 1, 2024</div>
         </div>
       
       

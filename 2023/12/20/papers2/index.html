@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/2_3.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/3_4.png">
 <meta property="article:published_time" content="2023-12-20T02:32:23.965Z">
-<meta property="article:modified_time" content="2023-12-21T14:47:07.608Z">
+<meta property="article:modified_time" content="2024-01-01T03:12:26.376Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on December 21, 2023 pm
+                    Last updated on January 1, 2024 am
                   
                 
               </p>
@@ -480,9 +480,10 @@ src="https://pic4.zhimg.com/v2-209f505af521d3b3abeb754e1199295b_r.jpg" srcset="/
 saliency），以此作为融合时信息量保留的基础。</p>
 <p>上面所说的是通道维度上的显著性，即channel-wise。在每个特征图上的每个像素也存在显著性差异，即pixel-wise，因此需要综合看待每个特征图上的单个像素对分类器判断为红外或可见光图像中概率较大的那个值的变化，从而计算出每个像素位置上的显著性值，即分类显著性图。</p>
 <p>有了这两个权重图，下一步和先前NestFuse模型一样，每个模态的特征图和权重图相乘再相加即可。</p>
-<p>另外，文中有一段阐述了现有人工设计融合方式的缺陷，写的很好： The
-reason why existing fusion rules are rough for fusing features is as
-follows. Because of the unexplainability and incomprehensibility of
+<p>另外，文中有一段阐述了现有人工设计融合方式的缺陷，写的很好：</p>
+<blockquote>
+<p>The reason why existing fusion rules are rough for fusing features is
+as follows. Because of the unexplainability and incomprehensibility of
 CNNs, the specific characteristics represented in feature maps are
 unknowable. For instance, some convolution kernels extract bright
 regions, some extract dark regions while some may extract lines. If this
@@ -496,6 +497,7 @@ limited choices of fusion rules and their roughness restrict the
 improvement of fusion results. Even a well-designed feature extraction
 way may fail to achieve its optimal performance because of the
 restriction of the fusion rule.</p>
+</blockquote>
 <h2 id="ganmcc">13.GANMcC</h2>
 <p>A Generative Adversarial Network With Multiclassification Constraints
 for Infrared and Visible Image Fusion (Transactions on Instrumentation
@@ -606,7 +608,7 @@ loss</a></p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 21, 2023</div>
+          <div>January 1, 2024</div>
         </div>
       
       
