@@ -25,8 +25,10 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/3_13.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/3_0.png">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/5_0.png">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/5_1.png">
 <meta property="article:published_time" content="2023-12-20T02:53:41.605Z">
-<meta property="article:modified_time" content="2024-01-01T03:25:16.317Z">
+<meta property="article:modified_time" content="2024-01-09T12:57:25.221Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.3k words
+          12k words
         
       </span>
     
@@ -234,7 +236,7 @@
         
         
         
-          78 mins
+          98 mins
         
       </span>
     
@@ -289,7 +291,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on January 1, 2024 am
+                    Last updated on January 9, 2024 pm
                   
                 
               </p>
@@ -316,9 +318,8 @@ src="https://pic4.zhimg.com/v2-e2b79a5847c2d12984b2192401c3b7b3_r.jpg" srcset="/
 <p>生成器由编码器、SE-Net、解码器三部分组成。中间的SE-Net模块学习到的尺度向量对编码器提取的特征进行加权，可以在训练过程中增强有用的纹理特征，因此用在编码器后面来增强特征。要生成组合纹理图，需要在组合纹理图的监督下训练生成器，然而组合纹理图并不存在（还没生成呢）。因此本文是采用GAN的训练模式，定义了一个判别器，以包含丰富纹理细节的可见光图像作为标签来训练生成器。判别器是一个全卷积网络，对图像进行像素级别的分类，可以判断生成图像中的纹理分布是否与可见图像的纹理分布一致。</p>
 <p>损失函数的设计：生成器损失函数包含gradient loss和adversarial
 loss两个部分，梯度损失是为了让生成的纹理图包含更多的细节，将对抗损失和梯度损失加权求和得到生成器的损失。判别器引导TC-GAN生成器的训练来识别融合图像与可见光图像，促使生成器得到的融合图像包含更多纹理细节，因此判别器利用交叉熵作为损失来计算融合图像与可见光图像之间的差异。</p>
-<div class="code-wrapper"><pre><code class="hljs">对抗损失adversarial loss在所有用GAN模型的文章中都出现了，建议回顾笔记
-下面附上CSDN关于对抗Loss理解的文章链接</code></pre></div>
-<p><a
+<div class="code-wrapper"><pre><code class="hljs">对抗损失adversarial loss在所有用GAN模型的文章中都出现了，建议回顾相关资料</code></pre></div>
+<p>附上CSDN关于对抗Loss理解的文章链接：<a
 target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38784454/article/details/112464701">对抗Loss的理解</a></p>
 <p>在经过TC-GAN获得组合纹理图作为引导图像对源图像进行滤波后，可以获得多个决策图，下面就是对这些决策图进行融合了。多决策图的融合包含两个步骤：1.基于组合纹理图创建多个决策图（组合纹理图作为引导滤波器的引导图像）；2.多决策图被用于获得初步的融合结果。最终的融合图像是通过加权法获得的。</p>
 <h2 id="attentionfgan">2.AttentionFGAN</h2>
@@ -452,6 +453,60 @@ R(p,q)\Vert_2)\]</span></p>
 <p>2.使用基于傅里叶变换的方式在频域学习细节和纹理信息。对一张图像进行离散傅里叶变换DFT后得到的频谱图中，振幅确定图像的强度信息，相位主要确定图像的高级语义，并包含有关图像内容和物体对象位置的信息。欠曝和过曝图像的直方图都不是很居中，所以希望网络能学习到合适的曝光度。而相位则较好地保持了物体的形状和内容信息，所以也需要网络能够捕获形状和内容信息。这一步具体做法是先把源图转换到频域，然后对子区域在频域上进行失真处理，针对振幅采用高斯模糊，针对相位对所有相位值执行np次随机交换，np是在1到5之间的随机正整数。</p>
 <p>3.使用全局shuffle学习结构和语义信息。该方法来源于Kang等人的一篇论文内容，具体做法是：对于待失真处理的每个子区域，在图像中随机选一块和该子区域尺寸相同的子区域，然后将这两个区域调换位置，重复10次就完成了一张源图的全局shuffle失真变换处理。</p>
 <p>彩色图像融合：首先将图像转换为YCbCr通道，Y通道的融合方式和上述方式保持一致，而Cb和Cr的融合使用传统的加权求和方式。</p>
+<h2 id="vif-net">5.VIF-Net</h2>
+<p>An Unsupervised Framework for Infrared and Visible Image Fusion</p>
+<p>图像融合是信息融合的一种，本质就是增强技术，运用多传感器获得的不同数据来提高网络性能。相对于单传感器的数据局限于一种的特性，多传感器能同时利用多种数据的特性，在视频监控、卫星成像、军事上都有很好的发展前景。对于本文来说，可见图像提供了丰富的纹理细节和环境信息，而红外图像则受益于夜间可见性和对高动态区域的抑制。</p>
+<p>图像融合最关键的技术是怎么样能融合（利用）多种数据的优势。往往引入的多种数据是双面性的，所以要抑制不同类型数据带来的干扰。</p>
+<figure>
+<img src="/img/stage2/5_0.png" srcset="/img/loading.gif" lazyload alt="图像融合基本框架" />
+<figcaption aria-hidden="true">图像融合基本框架</figcaption>
+</figure>
+<p>上图展示了图像融合的基本操作，将可见光和红外图像同时输入网络中，依次进行特征提取、特征融合、特征重建，最终生成融合图像。中间网络的部分就是作者提出的VIF-Net，全称为Visible
+and Infrared image Fusion Network，就是可见光和红外图像融合网络。</p>
+<p>本文提出自适应端到端的无监督深度学习模型VIF-Net，比较新颖的地方是损失函数中使用像素强度来衡量每个源图像局部区域红外温度显著性，然后根据红外信息的显著性程度，决定保留相应模态下源图像局部区域的特征信息，也就是指导网络让融合图像的相应位置的局部区域特征更接近红外温度信息更显著的那张源图像。</p>
+<p>模型结构如下：</p>
+<p><img
+src="https://pic4.zhimg.com/v2-d9d1296109a12552fc53e38a159e082b_r.jpg" srcset="/img/loading.gif" lazyload /></p>
+<p>红外图像<span class="math inline">\(I_B\)</span>和可见光图像<span
+class="math inline">\(I_A\)</span>各占一个分支进行特征提取，并且两个支路的卷积层参数是共享的（权重相同以提取相同类型的模式或者说深度特征，同时又可以降低计算复杂度）。C11和C12提取底层特征，具体的卷积层设置情况如下表所示。</p>
+<p><img
+src="https://pic3.zhimg.com/v2-db54cd9a06573ee90f5d22cac371ffae_r.jpg" srcset="/img/loading.gif" lazyload /></p>
+<p>得到提取的特征图后，融合方法是直接将两个模态下的特征图在通道维度上拼接，然后将拼接好的特征图继续用卷积层C2~C6进行处理（重建），输出最终的融合图像。假设输入都是单通道的图像，经过前面的特征提取层，由于密集连接的作用，每一层的输出都会与后面所有层的输出直接相连（这里是通道叠加）。这样，可见光通道会输出
+16+16+16+16=64
+通道的特征图，两个网络通路会输出128通道的特征图，因此C2特征重建的输入是128个通道。</p>
+<p>损失函数使用了Modified Structural Similarity（MSSIM）和Total
+Variation（TV-Norm），用这两项对网络进行无监督训练：</p>
+<p><span class="math inline">\(Loss = \lambda L_{SSIM} +
+L_{TV}\)</span></p>
+<p>SSIM是一种衡量图像结构相似性的算法，结合了图像的亮度、对比度和结构三方面对图像质量进行测量。原本的SSIM公式为：</p>
+<p><span class="math inline">\(SSIM(X,Y) = \dfrac{(2\mu _X\mu _Y +
+C_1)(2\sigma _{XY} + C_2)}{(\mu _X^2 + \mu _Y^2 + C_1)(\sigma _X^2 +
+\sigma _Y^2 + C_2)}\)</span></p>
+<p>本文模型想要设计一种专门处理红外与可见光融合的结构项损失，ImageNet中曾经指出：亮度在较低分辨率下，不能测量全局亮度一致性，因此局部patch中的亮度信息就不是很重要了，所以本文将SSIM中计算亮度的相似度项去掉了，新的SSIM损失项计算如下：</p>
+<p><span class="math inline">\(SSIM_M(X,Y|W) = \dfrac{(2\sigma _{XY} +
+C)}{(\sigma _X^2 + \sigma _Y^2 + C)}\)</span></p>
+<p>这样就能分别计算融合图像与红外图像、可见光图像的结构相似度了。W代表一个滑动窗口，实际计算时本文通过11×11的滑窗遍历整幅图像就能得到计算结果了。</p>
+<p>对于红外图像的温度显著性，温度越高的目标其像素值也会越大，所以一般用像素强度E(I|W)来衡量红外图像的温度信息。所以作者就产生了这样的想法：用每个滑窗内E(I|W)的大小来指导SSIM的计算。具体的做法是：对于两张源图像A和B，如果A一个滑窗内的像素强度值E(I|W)大于B中该位置对应滑窗内的像素强度值E(I|W)，那么就会认为A在该局部区域内的红外温度信息比B的显著，所以就希望网络多保留一些A的特征信息，也让融合图像的该局部区域和A的该区域更相似。最后提出了下面这种计算损失函数的方式（式中的E(I|W)实际上是计算的是该滑窗内所有像素点值的和，而非MSE或者L2范数这种方式）。</p>
+<p><img src="/img/stage2/5_1.png" srcset="/img/loading.gif" lazyload /></p>
+<p>除了SSIM项，损失函数还有一个总变分项来保留源图像的边缘信息，去除噪声。TV全称是Total
+Variation，译为总体变化，是一种衡量图片噪声的指标。</p>
+<p>理解TV的原理可以参考“专业笔记”栏目中距离度量-范数篇附的链接，传统的TV计算公式为：</p>
+<p><span class="math inline">\(R_{V^{\beta}(x)} = \sum\limits_{i,j}
+\Big((x_{i,j+1} - x_{i,j})^2 + (x_{i+1,j} - x_{i,j})^2
+\Big)^{\frac{\beta}{2}}\)</span></p>
+<p>其中，<span
+class="math inline">\(x_{i,j}\)</span>代表一个像素，将其与水平方向+1的像素做差的平方，并且与垂直方向+1的像素做差的平方，两者之和开<span
+class="math inline">\(\frac{\beta}{2}\)</span>的次方，如此遍历除最后一行和最后一列之外的所有像素点，就可以计算出TV。如果有噪声，噪声点与其他像素之间的变化会很大，TV会明显变大。如果TV很小，说明相近的像素差值较小甚至为0，图像会比较模糊。</p>
+<p>作者运用下列公式计算<span class="math inline">\(L_{TV}\)</span>：</p>
+<p><span class="math display">\[R(i,j) = I_{A}(i,j) -
+I_{F}(i,j)\]</span> <span class="math display">\[L_{TV} =
+\sum\limits_{i,j} (\Vert R(i,j+1) - R(i,j) \Vert_2 + \Vert R(i+1,j) -
+R(i,j)\Vert_2)\]</span></p>
+<p>上式相当于对可见光图像与融合图像做差分，<span
+class="math inline">\(\beta\)</span>取2。</p>
+<p>总的损失函数是：<span class="math inline">\(Loss = \lambda L_{SSIM} +
+L_{TV}\)</span>，而这两项的实际差值较大，在100至1000之间。如果SSIM项的值较低，会造成融合图像对比度不高，质量低的结果。TV项的结果如果较低，融合结果会丢失更多可见光图像的细节。所以这里引入<span
+class="math inline">\(\lambda\)</span>来平衡两项。</p>
 
                 
               </div>
@@ -516,7 +571,7 @@ R(p,q)\Vert_2)\]</span></p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>January 1, 2024</div>
+          <div>January 9, 2024</div>
         </div>
       
       
