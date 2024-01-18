@@ -18,7 +18,7 @@
   
     <meta name="description" content="地址：部分基于深度学习的红外与可见光图像融合模型总结  1.TC-GAN Infrared and Visible Image Fusion via Texture Conditional Generative Adversarial Network (Transactions on Circuits and Systems for Video Technology, 2021) 本文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文献整理·综述篇（二）">
+<meta property="og:title" content="文献整理 · 脉络篇（二）">
 <meta property="og:url" content="https://afly36-swordsman.github.io/2023/12/20/papers3/index.html">
 <meta property="og:site_name" content="Mark | Learning &amp; Routine">
 <meta property="og:description" content="地址：部分基于深度学习的红外与可见光图像融合模型总结  1.TC-GAN Infrared and Visible Image Fusion via Texture Conditional Generative Adversarial Network (Transactions on Circuits and Systems for Video Technology, 2021) 本文">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/5_0.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/5_1.png">
 <meta property="article:published_time" content="2023-12-20T02:53:41.605Z">
-<meta property="article:modified_time" content="2024-01-09T12:57:25.221Z">
+<meta property="article:modified_time" content="2024-01-18T14:18:03.731Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
@@ -36,7 +36,7 @@
   
   
   
-  <title>文献整理·综述篇（二） - Mark | Learning &amp; Routine</title>
+  <title>文献整理 · 脉络篇（二） - Mark | Learning &amp; Routine</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">文献整理·综述篇（二）</span>
+            <span id="subtitle">文献整理 · 脉络篇（二）</span>
           
         </div>
 
@@ -236,7 +236,7 @@
         
         
         
-          98 mins
+          99 mins
         
       </span>
     
@@ -286,12 +286,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">文献整理·综述篇（二）</h1>
+            <h1 id="seo-header">文献整理 · 脉络篇（二）</h1>
             
               <p class="note note-info">
                 
                   
-                    Last updated on January 9, 2024 pm
+                    Last updated on January 18, 2024 pm
                   
                 
               </p>
@@ -418,7 +418,7 @@ loss。难点是生成器和判别器之间的平衡难以达到。对于图像�
 fusion meets deep learning: A survey and
 perspective中认为当前用于图像融合的网络结构最有效的三种是残差连接、dense连接和双分支。提升深度学习模型的两种方式：1.设计高质量的指标用于无监督学习（高质量的评价指标不光可以用于损失函数，也对模型的真实效果评价有利）；2.构建接近真实场景的数据用于有监督学习。</p>
 <p>未来需要根据任务设计更具有针对性的网络，比如做任务驱动的模型，根据下游任务来决定融合的损失函数，例如SeAFusion，不然的话融合效果的评价还是比较主观的。</p>
-<h2 id="transmef">4.TransMEF</h2>
+<h2 id="补充-4.transmef">补充 4.TransMEF</h2>
 <p>A Transformer-Based Multi-Exposure Image Fusion Framework using
 Self-Supervised Multi-Task Learning (AAAI, 2022)</p>
 <p>目前用CNN做融合的模型很多都把CNN用在编码器上用于特征提取，但是CNN本身存在感受野小、不能提取长程信息的问题。而图像融合中，融合图像的质量不仅和感受野内的每个像素相关，也和图像整体的像素强度与纹理信息有关，所以同时对全局和局部信息建模是有必要的。所以本文针对多曝光图像融合提出了transMEF模型，这是一种基于transformer的自监督多任务学习模型，也采用编码器-解码器结构，在大规模自然图像数据集上进行自监督训练。融合过程中，首先使用编码器提取源图像的特征图，然后用解码器生成融合图像。</p>
@@ -453,8 +453,9 @@ R(p,q)\Vert_2)\]</span></p>
 <p>2.使用基于傅里叶变换的方式在频域学习细节和纹理信息。对一张图像进行离散傅里叶变换DFT后得到的频谱图中，振幅确定图像的强度信息，相位主要确定图像的高级语义，并包含有关图像内容和物体对象位置的信息。欠曝和过曝图像的直方图都不是很居中，所以希望网络能学习到合适的曝光度。而相位则较好地保持了物体的形状和内容信息，所以也需要网络能够捕获形状和内容信息。这一步具体做法是先把源图转换到频域，然后对子区域在频域上进行失真处理，针对振幅采用高斯模糊，针对相位对所有相位值执行np次随机交换，np是在1到5之间的随机正整数。</p>
 <p>3.使用全局shuffle学习结构和语义信息。该方法来源于Kang等人的一篇论文内容，具体做法是：对于待失真处理的每个子区域，在图像中随机选一块和该子区域尺寸相同的子区域，然后将这两个区域调换位置，重复10次就完成了一张源图的全局shuffle失真变换处理。</p>
 <p>彩色图像融合：首先将图像转换为YCbCr通道，Y通道的融合方式和上述方式保持一致，而Cb和Cr的融合使用传统的加权求和方式。</p>
-<h2 id="vif-net">5.VIF-Net</h2>
-<p>An Unsupervised Framework for Infrared and Visible Image Fusion</p>
+<h2 id="补充-5.vif-net">补充 5.VIF-Net</h2>
+<p>An Unsupervised Framework for Infrared and Visible Image Fusion
+(IEEE, 2020)</p>
 <p>图像融合是信息融合的一种，本质就是增强技术，运用多传感器获得的不同数据来提高网络性能。相对于单传感器的数据局限于一种的特性，多传感器能同时利用多种数据的特性，在视频监控、卫星成像、军事上都有很好的发展前景。对于本文来说，可见图像提供了丰富的纹理细节和环境信息，而红外图像则受益于夜间可见性和对高动态区域的抑制。</p>
 <p>图像融合最关键的技术是怎么样能融合（利用）多种数据的优势。往往引入的多种数据是双面性的，所以要抑制不同类型数据带来的干扰。</p>
 <figure>
@@ -476,24 +477,24 @@ src="https://pic3.zhimg.com/v2-db54cd9a06573ee90f5d22cac371ffae_r.jpg" srcset="/
 通道的特征图，两个网络通路会输出128通道的特征图，因此C2特征重建的输入是128个通道。</p>
 <p>损失函数使用了Modified Structural Similarity（MSSIM）和Total
 Variation（TV-Norm），用这两项对网络进行无监督训练：</p>
-<p><span class="math inline">\(Loss = \lambda L_{SSIM} +
-L_{TV}\)</span></p>
+<p><span class="math display">\[Loss = \lambda L_{SSIM} +
+L_{TV}\]</span></p>
 <p>SSIM是一种衡量图像结构相似性的算法，结合了图像的亮度、对比度和结构三方面对图像质量进行测量。原本的SSIM公式为：</p>
-<p><span class="math inline">\(SSIM(X,Y) = \dfrac{(2\mu _X\mu _Y +
+<p><span class="math display">\[SSIM(X,Y) = \dfrac{(2\mu _X\mu _Y +
 C_1)(2\sigma _{XY} + C_2)}{(\mu _X^2 + \mu _Y^2 + C_1)(\sigma _X^2 +
-\sigma _Y^2 + C_2)}\)</span></p>
+\sigma _Y^2 + C_2)}\]</span></p>
 <p>本文模型想要设计一种专门处理红外与可见光融合的结构项损失，ImageNet中曾经指出：亮度在较低分辨率下，不能测量全局亮度一致性，因此局部patch中的亮度信息就不是很重要了，所以本文将SSIM中计算亮度的相似度项去掉了，新的SSIM损失项计算如下：</p>
-<p><span class="math inline">\(SSIM_M(X,Y|W) = \dfrac{(2\sigma _{XY} +
-C)}{(\sigma _X^2 + \sigma _Y^2 + C)}\)</span></p>
+<p><span class="math display">\[SSIM_M(X,Y|W) = \dfrac{(2\sigma _{XY} +
+C)}{(\sigma _X^2 + \sigma _Y^2 + C)}\]</span></p>
 <p>这样就能分别计算融合图像与红外图像、可见光图像的结构相似度了。W代表一个滑动窗口，实际计算时本文通过11×11的滑窗遍历整幅图像就能得到计算结果了。</p>
 <p>对于红外图像的温度显著性，温度越高的目标其像素值也会越大，所以一般用像素强度E(I|W)来衡量红外图像的温度信息。所以作者就产生了这样的想法：用每个滑窗内E(I|W)的大小来指导SSIM的计算。具体的做法是：对于两张源图像A和B，如果A一个滑窗内的像素强度值E(I|W)大于B中该位置对应滑窗内的像素强度值E(I|W)，那么就会认为A在该局部区域内的红外温度信息比B的显著，所以就希望网络多保留一些A的特征信息，也让融合图像的该局部区域和A的该区域更相似。最后提出了下面这种计算损失函数的方式（式中的E(I|W)实际上是计算的是该滑窗内所有像素点值的和，而非MSE或者L2范数这种方式）。</p>
 <p><img src="/img/stage2/5_1.png" srcset="/img/loading.gif" lazyload /></p>
 <p>除了SSIM项，损失函数还有一个总变分项来保留源图像的边缘信息，去除噪声。TV全称是Total
 Variation，译为总体变化，是一种衡量图片噪声的指标。</p>
 <p>理解TV的原理可以参考“专业笔记”栏目中距离度量-范数篇附的链接，传统的TV计算公式为：</p>
-<p><span class="math inline">\(R_{V^{\beta}(x)} = \sum\limits_{i,j}
+<p><span class="math display">\[R_{V^{\beta}(x)} = \sum\limits_{i,j}
 \Big((x_{i,j+1} - x_{i,j})^2 + (x_{i+1,j} - x_{i,j})^2
-\Big)^{\frac{\beta}{2}}\)</span></p>
+\Big)^{\frac{\beta}{2}}\]</span></p>
 <p>其中，<span
 class="math inline">\(x_{i,j}\)</span>代表一个像素，将其与水平方向+1的像素做差的平方，并且与垂直方向+1的像素做差的平方，两者之和开<span
 class="math inline">\(\frac{\beta}{2}\)</span>的次方，如此遍历除最后一行和最后一列之外的所有像素点，就可以计算出TV。如果有噪声，噪声点与其他像素之间的变化会很大，TV会明显变大。如果TV很小，说明相近的像素差值较小甚至为0，图像会比较模糊。</p>
@@ -552,7 +553,7 @@ class="math inline">\(\lambda\)</span>来平衡两项。</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>文献整理·综述篇（二）</div>
+      <div>文献整理 · 脉络篇（二）</div>
       <div>https://afly36-swordsman.github.io/2023/12/20/papers3/</div>
     </div>
     <div class="license-meta">
@@ -571,7 +572,7 @@ class="math inline">\(\lambda\)</span>来平衡两项。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>January 9, 2024</div>
+          <div>January 18, 2024</div>
         </div>
       
       
@@ -586,9 +587,9 @@ class="math inline">\(\lambda\)</span>来平衡两项。</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/20/papers4/" title="文献整理·整合篇">
+                      <a href="/2023/12/20/papers4/" title="文献整理 · 海纳篇">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">文献整理·整合篇</span>
+                        <span class="hidden-mobile">文献整理 · 海纳篇</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -596,8 +597,8 @@ class="math inline">\(\lambda\)</span>来平衡两项。</p>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/20/papers2/" title="文献整理·综述篇（一）">
-                        <span class="hidden-mobile">文献整理·综述篇（一）</span>
+                      <a href="/2023/12/20/papers2/" title="文献整理 · 脉络篇（一）">
+                        <span class="hidden-mobile">文献整理 · 脉络篇（一）</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
