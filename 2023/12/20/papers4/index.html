@@ -23,13 +23,15 @@
 <meta property="og:site_name" content="Mark | Learning &amp; Routine">
 <meta property="og:description" content="L-PUIF A Lightweight Pixel-Level Unified Image Fusion Network, 2023(IEEE) Motivation 传统的图像融合虽然computational cost很低，但是随着GPU的发展，高计算能力平台使其这一优势变得越来越平常。而且传统的像素级融合在提取特征和计算融合策略时高度依赖expert knowledge，且需要">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/2_3.png">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/stage3/01.png">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/stage3/02.png">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/stage3/03.png">
 <meta property="article:published_time" content="2023-12-20T02:54:30.201Z">
-<meta property="article:modified_time" content="2024-01-19T02:37:53.649Z">
+<meta property="article:modified_time" content="2024-01-19T02:41:22.542Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://afly36-swordsman.github.io/img/stage2/2_3.png">
+<meta name="twitter:image" content="https://afly36-swordsman.github.io/img/stage2/stage3/01.png">
   
   
   
@@ -352,7 +354,7 @@ info可以从尺度不变特性和低维特征中获得，对图像融合和重�
 <p>该网络主要由特征提取和特征重构模块两部分组成。首先，我们使用具有相同权重的特征提取模块来处理两个不同的输入。这样，网络的特征提取参数可以通过两个不同的源进行优化，可以减少网络模型的大小。特征提取模块有两层组合，每一层由卷积层和激活函数组成。</p>
 <p>我们没有使用手动融合策略，例如加法或L1范数，而是选择拼接不同源图像生成的特征，并将它们放入特征重建模块中。特征重构模块的结构与特征提取模块相同。具体来说，它完全由3*3卷积构建，特征重建模块中最后一层的激活函数是tanh函数，而其余激活函数是Leaky
 ReLU。最后，根据融合图像和源图像计算损失函数。</p>
-<p><img src="/img/stage2/2_3.png" srcset="/img/loading.gif" lazyload />
+<p><img src="/img/stage2/stage3/01.png" srcset="/img/loading.gif" lazyload />
 <!-- ![](https://tvax4.sinaimg.cn/large/008iio8ply1hly1awjg92j30jw0btn1k.jpg) --></p>
 <h4 id="high-dimensional-information-refinement">2.High-Dimensional
 Information Refinement</h4>
@@ -362,8 +364,8 @@ information
 refinement过程重新提取高维特征，并在随后的步骤中将提取的信息注入到损失函数中。这样，特征提取模块可以通过特征重构过程和高维特征提取过程进行优化。这种优化方法还增强了网络中前后特征的交互性。</p>
 <p>我们使用1*1的卷积和tanh激活函数来进行高维特征提取，输入是基础网络的特征提取结果。将生成的张量提供给information
 preservation measurement过程进行进一步处理，网络架构如下图所示。</p>
-<p><img
-src="https://tvax2.sinaimg.cn/large/008iio8ply1hlxxld7jozj30jq09cwh9.jpg" srcset="/img/loading.gif" lazyload /></p>
+<!-- ![](https://tvax2.sinaimg.cn/large/008iio8ply1hlxxld7jozj30jq09cwh9.jpg) -->
+<p><img src="/img/stage2/stage3/02.png" srcset="/img/loading.gif" lazyload /></p>
 <h4 id="information-preservation-measurement">3.Information Preservation
 Measurement</h4>
 <p>在基础网络中，来自不同源图像的信息对融合结果的影响是相等的，无法处理数据特异性和其他属性。因此，有必要为损失函数获得合理的权重来定义不同源图像的影响。U2Fusion为这个问题提供了初步解决方案。U2Fusion使用具有确定参数的VGG-16网络提取源图像不同维度和尺度的特征，然后计算这些特征的梯度，并为损失函数生成两个不同的权重。这样就考虑了不同的源图像对融合图像的影响。</p>
@@ -432,8 +434,8 @@ class="math inline">\(W_4\)</span>用于梯度损失中，使用MSE计算融合�
 \odot I_f)} + MSE_{(W_4 \odot I_2,\ W_4 \odot I_f)}\]</span></p>
 <h4 id="multiple-rgb-inputs">5.Multiple RGB Inputs</h4>
 <p>对于多通道彩色图像输入，将其转换至YCbCr颜色空间中，对Y通道进行L-PUIF融合，对Cb和Cr通道进行加权融合。融合完成后，将融合图像转为RGB图像即可。具体过程见下图所示。</p>
-<p><img
-src="https://tvax4.sinaimg.cn/large/008iio8ply1hlxwyqlhjzj30ig0bpju1.jpg" srcset="/img/loading.gif" lazyload /></p>
+<!-- ![](https://tvax4.sinaimg.cn/large/008iio8ply1hlxwyqlhjzj30ig0bpju1.jpg) -->
+<p><img src="/img/stage2/stage3/03.png" srcset="/img/loading.gif" lazyload /></p>
 <p>PS (PostScript, 附言)：</p>
 <div class="code-wrapper"><pre><code class="hljs livecodeserver">对应元素相乘: <span class="hljs-keyword">a</span>*b | torch.mul(<span class="hljs-keyword">a</span>,b) | np.<span class="hljs-built_in">multiply</span>(<span class="hljs-keyword">a</span>,b)
 矩阵乘法: <span class="hljs-keyword">a</span>@b | torch.mm(<span class="hljs-keyword">a</span>,b) | np.matmul(<span class="hljs-keyword">a</span>,b) | np.dot(<span class="hljs-keyword">a</span>,b)</code></pre></div>
