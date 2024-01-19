@@ -24,7 +24,7 @@
 <meta property="og:description" content="L-PUIF A Lightweight Pixel-Level Unified Image Fusion Network, 2023(IEEE) Motivation 传统的图像融合虽然computational cost很低，但是随着GPU的发展，高计算能力平台使其这一优势变得越来越平常。而且传统的像素级融合在提取特征和计算融合策略时高度依赖expert knowledge，且需要">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-12-20T02:54:30.201Z">
-<meta property="article:modified_time" content="2024-01-19T02:33:48.410Z">
+<meta property="article:modified_time" content="2024-01-19T02:36:05.146Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
@@ -351,9 +351,12 @@ info可以从尺度不变特性和低维特征中获得，对图像融合和重�
 <p>我们没有使用手动融合策略，例如加法或L1范数，而是选择拼接不同源图像生成的特征，并将它们放入特征重建模块中。特征重构模块的结构与特征提取模块相同。具体来说，它完全由3*3卷积构建，特征重建模块中最后一层的激活函数是tanh函数，而其余激活函数是Leaky
 ReLU。最后，根据融合图像和源图像计算损失函数。</p>
 <!-- ![](/img/stage3/01.png) -->
-<!-- ![](https://tvax4.sinaimg.cn/large/008iio8ply1hly1awjg92j30jw0btn1k.jpg) -->
-<p><img
-src="https://img-blog.csdnimg.cn/72369291c9114253a843808d64b193d8.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBASG9kb3Jz,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/img/loading.gif" lazyload /></p>
+<figure>
+<img
+src="https://tvax4.sinaimg.cn/large/008iio8ply1hly1awjg92j30jw0btn1k.jpg" srcset="/img/loading.gif" lazyload
+alt="dd" />
+<figcaption aria-hidden="true">dd</figcaption>
+</figure>
 <h4 id="high-dimensional-information-refinement">2.High-Dimensional
 Information Refinement</h4>
 <p>基础网络仅将来自不同来源的图像融合到一张图像中，但由于网络体积的限制，网络的特征提取能力并不突出。因此，需要通过其他方法提高基础网络的特征提取能力。我们针对基础网络提出了一种高维信息处理方法，增强了对所需信息的利用，优化了整个网络融合过程。</p>
