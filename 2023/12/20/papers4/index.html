@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/stage3/02.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/stage3/03.png">
 <meta property="article:published_time" content="2023-12-20T02:54:30.201Z">
-<meta property="article:modified_time" content="2024-01-20T15:25:42.208Z">
+<meta property="article:modified_time" content="2024-01-25T11:02:42.570Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.3k words
+          5.4k words
         
       </span>
     
@@ -290,7 +290,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on January 20, 2024 pm
+                    Last updated on January 25, 2024 pm
                   
                 
               </p>
@@ -442,6 +442,8 @@ class="math inline">\(W_4\)</span>用于梯度损失中，使用MSE计算融合�
 <div class="code-wrapper"><pre><code class="hljs applescript">The parameter <span class="hljs-keyword">of</span> our network <span class="hljs-keyword">is</span> optimized <span class="hljs-keyword">by</span> RMSPropOptimizer <span class="hljs-keyword">with</span> a learning rate <span class="hljs-keyword">of</span> <span class="hljs-number">1e-4</span>.
 The batch size <span class="hljs-keyword">is</span> <span class="hljs-keyword">set</span> <span class="hljs-keyword">to</span> <span class="hljs-number">32.</span></code></pre></div>
 <p>实验证明，L-PUIF在多模态（红外可见光）、多曝光、多聚焦三类图像融合任务中都有比较好的效果。</p>
+<p>Limitation:
+作者只选择了两类源图像中包含的两种主要信息：强度（显著信息）Intensity和梯度（纹理细节）Texture，没有考虑所有有助于提升融合性能的info。</p>
 <p>PS (PostScript, 附言)：</p>
 <div class="code-wrapper"><pre><code class="hljs livecodeserver">对应元素相乘: <span class="hljs-keyword">a</span>*b | torch.mul(<span class="hljs-keyword">a</span>,b) | np.<span class="hljs-built_in">multiply</span>(<span class="hljs-keyword">a</span>,b)
 矩阵乘法: <span class="hljs-keyword">a</span>@b | torch.mm(<span class="hljs-keyword">a</span>,b) | np.matmul(<span class="hljs-keyword">a</span>,b) | np.dot(<span class="hljs-keyword">a</span>,b)</code></pre></div>
@@ -509,7 +511,7 @@ The batch size <span class="hljs-keyword">is</span> <span class="hljs-keyword">s
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>January 20, 2024</div>
+          <div>January 25, 2024</div>
         </div>
       
       

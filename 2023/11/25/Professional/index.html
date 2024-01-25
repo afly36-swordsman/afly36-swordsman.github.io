@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage1/bn.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/norm_vector.png">
 <meta property="article:published_time" content="2023-11-25T15:36:57.166Z">
-<meta property="article:modified_time" content="2024-01-09T12:46:21.076Z">
+<meta property="article:modified_time" content="2024-01-25T11:16:32.195Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="basic">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.9k words
+          9.5k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          58 mins
+          80 mins
         
       </span>
     
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on January 9, 2024 pm
+                    Last updated on January 25, 2024 pm
                   
                 
               </p>
@@ -306,7 +306,20 @@ Ablation study：消融实验，移除 Model 的部分<span class="hljs-string">
 
 FPS：每秒传输帧数，frames per second
 
-Fine-tune：微调
+Fine-tune：微调，Fine tune a network
+
+Ground truth：真实值
+
+Feature map：特征图，一般指CNN中卷积层的输出
+
+Pipline：流水线，论文中用其表示（翻译）方法<span class="hljs-keyword">or模型的框架</span>
+<span class="hljs-keyword"></span>
+SOTA：State-of-the-art，译为：最先进的、最高水平
+
+Off-the-<span class="hljs-keyword">shelf：译作：现成的、已经实现过的</span>
+<span class="hljs-keyword"></span>
+Warm up：热身，由于网络初始化的参数一般是随机的，
+故用一个小的学习率先训练几个epoch，防止一开始使用较大的学习率不稳定
 
 光谱（Spectrum）：复色光经过分光成为单色光，经成像系统得到按波长或者频率依次排列的光学图像
 多光谱（<span class="hljs-keyword">Multispectrum）：同时获取多个光学频谱波段（大于3个），在可见光基础上向红外、紫外两个方向扩展</span>
@@ -327,6 +340,37 @@ LN(Layer <span class="hljs-keyword">Normalization)：与BN不同之处在于，L
 <span class="hljs-keyword"></span>但通常在数据传入Model前会进行数据的归一化处理，因此通常不会再使用LN。</code></pre></div>
 <p><img src="/img/stage1/bn.png" srcset="/img/loading.gif" lazyload alt="Batch Norm" /> <img
 src="/img/stage1/ln.png" srcset="/img/loading.gif" lazyload alt="Layer Norm" /></p>
+<div class="code-wrapper"><pre><code class="hljs">深度学习基本术语（补充）：</code></pre></div>
+<p>Batch：批，指使用训练集中的一小部分样本对模型权重进行一次反向传播的参数更新，这一小部分样本被称为“一批数据”，即一个batch。</p>
+<p>Epoch：时代、纪元，使用训练集的全部数据对模型进行一次完整训练，称之为“<strong>一代</strong>训练”，即一个epoch。</p>
+<p>Iteration：迭代，使用一个batch的数据对模型进行一次参数更新的过程，被称为“<strong>一次</strong>训练”，即一次iteration。</p>
+<blockquote>
+<p>换算关系：Number of Batches = TrainingSet Size <span
+class="math inline">\(\div\)</span> Batch Size.</p>
+</blockquote>
+<p>如CIFAR10数据集有50000张训练图片，10000张测试图片。现在选择Batch_size
+= 256对模型进行训练。则：</p>
+<ul>
+<li>每个epoch要训练的图片数量：50000</li>
+<li>训练集具有的batch个数：50000 / 256 = 195 (余80) + 1 = 196</li>
+<li>每个epoch需要完成的batch个数：196</li>
+<li>每个epoch具有的iteration个数：196</li>
+<li>每个epoch中模型权重更新的次数：196</li>
+<li>训练10代后，模型权重更新的次数：196 <span
+class="math inline">\(\times\)</span> 10 = 1960</li>
+<li>最后一批数据（batch）的样本数：80</li>
+<li>每一代训练（epoch）用的都是同一训练集的数据，但对模型的更新不同</li>
+</ul>
+<p>论文中常见的缩写符号：</p>
+<div class="code-wrapper"><pre><code class="hljs ada">w/ : <span class="hljs-type">with</span>（有），一般在消融实验的图表中，进行对照
+w/o : <span class="hljs-type">without</span>（没有），一般在消融实验的图表中，进行对照
+w.r.t : <span class="hljs-type">with</span> respect to的缩写，是“关于、谈及”的意思
+i.e. : 源自拉丁语，译为：也就是、即
+etc. : <span class="hljs-type">et</span> cetera的缩写，可追溯至拉丁语，意思是“等等”，用于列举事物的末尾
+s.t. : <span class="hljs-type">subject</span> to的简写，译为：受...的约束
+e.g. : 源自拉丁语，英译：<span class="hljs-keyword">for</span> example / <span class="hljs-keyword">for</span> the sake <span class="hljs-keyword">of</span> example，中译：举个例子、例如
+cf. : 衍生自拉丁语，类似于<span class="hljs-type">reference</span>，表示“比较、查阅、参考”之意
+vanilla : 原意为“香草、香草味的”，引申含义是“普通的、原始的”，或“毫无特色的”</code></pre></div>
 <h3 id="距离度量">距离度量</h3>
 <div class="code-wrapper"><pre><code class="hljs arcade">欧氏距离（Euclidean <span class="hljs-built_in">Distance</span>）：两点连线长度
 城区距离（曼哈顿距离，Manhattan <span class="hljs-built_in">Distance</span>）：直角移动距离，不涉及对角线
@@ -379,7 +423,63 @@ class="math inline">\(\sigma _i\)</span>，则Schatten p-范数定义为：
 target="_blank" rel="noopener" href="https://www.zhihu.com/question/47162419">如何理解全变分Distance</a></p>
 <p>范数的等价需要一致范数的知识点，详情可以参考：<a
 target="_blank" rel="noopener" href="https://blog.csdn.net/qiuchangyong/article/details/101041583">各种矩阵范数总结</a></p>
-<h3 id="常见损失函数">常见损失函数</h3>
+<h3 id="常用损失函数">常用损失函数</h3>
+<h4 id="average">1.Average</h4>
+<p>平均策略，包括算术平均和加权平均。</p>
+<p><span class="math inline">\(F(x,y) = \alpha _1 I_1(x,y) + \alpha _2
+I_2(x,y)\)</span></p>
+<h4 id="norm">2.Norm</h4>
+<p>Normalization，规范化，如L1-norm、L2-norm等，参考上面“距离度量”栏目内容。</p>
+<p>Regularization，正则化，用于降低模型的复杂度，防止过拟合（Overfitting）问题。</p>
+<p>L1正则主要用于特征选择，使其稀疏化，得到更多的零参数，<span
+class="math inline">\(R = \sum\limits_i{\vert w_{i} \vert}\)</span></p>
+<p>L2正则主要用于求得更小的解（参数），防止过拟合，<span
+class="math inline">\(R = \sum\limits_i{\vert w_{i} \vert
+^2}\)</span>（平方惩罚力度更大）</p>
+<h4 id="mse-rmse-and-mae">3.MSE, RMSE and MAE</h4>
+<p>Mean Square Error，均方误差MSE，又称L2损失，<span
+class="math inline">\(Loss = \dfrac{1}{n} \sum\limits_{i = 1}^n (y_i -
+f(x_i))^2\)</span></p>
+<p>Root Mean Square Error，均方根误差RMSE，<span
+class="math inline">\(Loss = \Big(\dfrac{1}{n} \sum\limits_{i = 1}^n
+(y_i - f(x_i))^2 \Big)^{\frac{1}{2}}\)</span></p>
+<p>Mean Absolute Error，绝对值误差MAE，又称L1损失，<span
+class="math inline">\(Loss = \sum\limits_{i = 1}^n \vert y_i -
+f(x_i)\vert\)</span></p>
+<h4 id="kl散度">4.KL散度</h4>
+<p>Kullback-Leibler divergence，也叫相对熵：relative
+entropy，用于衡量概率分布之间的距离。</p>
+<p><span class="math inline">\(Loss = \sum\limits_{i = 1}^n Y_i \cdot
+\log(\dfrac{Y_i}{F(x_i)})\)</span></p>
+<h4 id="交叉熵">5.交叉熵</h4>
+<p>Cross
+Entropy，激活函数建议搭配：tanh（双曲正切函数）、sigmoid函数（钻石函数）、ReLU函数（rectified
+linear
+unit，修正线性单元）、Softmax函数（Logistic的扩展，适用于多分类任务）。</p>
+<p>tanh(x) = <span class="math inline">\(\dfrac{e^x - e^{-x}}{e^x +
+e^{-x}}\)</span>，Sigmoid(x) = <span class="math inline">\(\dfrac{1}{1 +
+e^{-x}}\)</span>，Relu(x) = <span
+class="math inline">\(\max(0,x)\)</span>，Softmax(x) = <span
+class="math inline">\(\dfrac{e^{x_i}}{\sum\limits_{i}
+e^{x_i}}\)</span></p>
+<h4 id="对数似然">6.对数似然</h4>
+<p>对数似然（likelihood）损失：<span class="math inline">\(L =
+-\dfrac{1}{n} \sum\limits_{i = 1}^n [y_i \log(p_i) + (1 - y_i) \log(1 -
+p_i)]\)</span></p>
+<p>合页损失Hinge Loss：<span class="math inline">\(L = \max(0, \
+1-yf(x))\)</span></p>
+<p>Huber Loss：<span class="math inline">\(L = \begin{cases}
+\frac{1}{2}(y - f(x))^2 \qquad \qquad \vert y - f(x)\vert \leq \delta \\
+\delta \vert y - f(x) \vert - \frac{1}{2}\delta ^2 \qquad \vert y -
+f(x)\vert &gt; \delta \end{cases}\)</span></p>
+<h4 id="psnr">7.PSNR</h4>
+<p>Peak Signal to Noise Ratio，峰值信噪比PSNR，<span
+class="math inline">\(L_{PSNR} = 10
+\log(\dfrac{f_{max}^2}{L_{MSE}})\)</span></p>
+<h4 id="perceptual-loss">8.Perceptual Loss</h4>
+<p>感知损失，即图像感知相似度指标：Learned Perceptual Image Patch
+Similarity（LPIPS），该值越低，表示两张图像越相似。该损失是一个深度学习模型，输入为图像，输出感知相似性分数。</p>
+<h4 id="ssim">9.SSIM</h4>
 <p>SSIM是一种衡量图像结构相似性的算法，结合了图像的亮度，对比度和结构三方面对图像质量进行测量。SSIM的公式如下:</p>
 <p><span class="math inline">\(SSIM(x,y) = [L(x,y)]^{\alpha} \cdot
 [C(x,y)]^{\beta} \cdot [S(x,y)]^{\gamma}\)</span></p>
@@ -405,6 +505,8 @@ class="math inline">\(C_2 = 2\times C_3\)</span>，则有：</p>
 <p><span class="math inline">\(SSIM(x,y) = \dfrac{(2\mu _x\mu _y +
 C_1)}{(\mu _x^2 + \mu _y^2 + C_1)}\cdot \dfrac{(2\sigma _{xy} +
 C_2)}{(\sigma _x^2 + \sigma _y^2 + C_2)}\)</span></p>
+<h4 id="tv损失">10.TV损失</h4>
+<p>详见上面“距离度量”栏目范数部分所附链接。</p>
 <h3 id="图片格式">图片格式</h3>
 <div class="code-wrapper"><pre><code class="hljs mipsasm"><span class="hljs-keyword">JPEG，静态图像压缩标准，压缩比越高，质量越差</span>
 <span class="hljs-keyword"></span><span class="hljs-keyword">JPG，与JPEG类似，相当于简化版，去除了相机的拍照参数等</span>
@@ -596,7 +698,7 @@ class="math inline">\(n \times n\)</span>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>January 9, 2024</div>
+          <div>January 25, 2024</div>
         </div>
       
       
