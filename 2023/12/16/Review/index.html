@@ -24,7 +24,7 @@
 <meta property="og:description" content="融合方法分析 图像融合的方法与分析 实验 对比试验 与其他SOTA方法进行对比，在多个不同数据集上验证，证明本论文中所述方法的有效性和先进性。 对比指标：各种融合指标、下游高级视觉任务的相关指标、计算效率（轻量化）、视觉效果（可视化）等。 消融实验 分别去掉某关键模块（idea），与完整方法的效果进行对比，验证本方法所述模块（策略、模型或算法）的必要性。 参数实验 确定模型中神经">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-12-16T10:26:19.178Z">
-<meta property="article:modified_time" content="2024-01-26T09:23:22.598Z">
+<meta property="article:modified_time" content="2024-03-09T12:06:51.067Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="basic">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k words
+          2k words
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          14 mins
+          17 mins
         
       </span>
     
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on January 26, 2024 pm
+                    Last updated on March 9, 2024 pm
                   
                 
               </p>
@@ -364,6 +364,13 @@ Specificity = FP / (TN + FP)</p>
 <blockquote>
 <p>特异性指标，表示模型识别为负类样本的数量占总的负类样本数量的比值。</p>
 </blockquote>
+<h3 id="融合展望">融合展望</h3>
+<p>当前多模态图像融合具有的几个挑战：</p>
+<ol type="1">
+<li>配准数据构造难。由于镜头畸变、尺度差异、视差以及拍摄位置的影响，输入图像都无法实现严格的空间对齐。现有方法依赖配准的多模态数据进行训练和测试，人工配准空间不对齐的不同模态图像具有较高的人工成本和配准难度。</li>
+<li>复杂的多模态数据。真实场景和环境中，多模态数据复杂多样，具有不确定性、不一致性和数据噪声。现有的图像融合算法大多是基于正常成像场景设计的，极端环境下信息获取不充分，如夜间、雨雾、过曝、欠曝等极端问题需要被重视。</li>
+<li>融合模型的轻量化。图像融合通常作为高层视觉任务的预处理手段或摄影设备的后处理过程，对实时性有一定要求。现有的多模态图像融合模型大多都含有大量的参数，计算量和存储负担大，不利于实时性的需求。在保障融合性能的前提下，开发轻量级的图像融合算法对扩宽图像融合应用场景具有至关重要的作用。</li>
+</ol>
 
                 
               </div>
@@ -428,7 +435,7 @@ Specificity = FP / (TN + FP)</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>January 26, 2024</div>
+          <div>March 9, 2024</div>
         </div>
       
       
