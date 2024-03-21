@@ -16,15 +16,15 @@
   <meta name="author" content="Zenitsu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="融合方法分析 图像融合的方法与分析 实验 对比试验 与其他SOTA方法进行对比，在多个不同数据集上验证，证明本论文中所述方法的有效性和先进性。 对比指标：各种融合指标、下游高级视觉任务的相关指标、计算效率（轻量化）、视觉效果（可视化）等。 消融实验 分别去掉某关键模块（idea），与完整方法的效果进行对比，验证本方法所述模块（策略、模型或算法）的必要性。 参数实验 确定模型中神经">
+    <meta name="description" content="融合方法分析 下面列了一些相关领域的作者写的文章可供参考： 图像融合的方法及分析 一文详解50多种多模态图像融合方法 图像融合分类 根据图像表征层次的不同，图像融合可以分为三个层次的融合：像素级融合、特征级融合、决策级融合。 图像融合的目的：图像增强，提高图像的分辨率和清晰度；增强图像的相关特征；补充相关信息，去除噪声和冗余；提高下游任务的精度和性能等。 像素级融合 直接对单幅图像">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图像融合">
 <meta property="og:url" content="https://afly36-swordsman.github.io/2023/12/16/Review/index.html">
 <meta property="og:site_name" content="Mark | Learning &amp; Routine">
-<meta property="og:description" content="融合方法分析 图像融合的方法与分析 实验 对比试验 与其他SOTA方法进行对比，在多个不同数据集上验证，证明本论文中所述方法的有效性和先进性。 对比指标：各种融合指标、下游高级视觉任务的相关指标、计算效率（轻量化）、视觉效果（可视化）等。 消融实验 分别去掉某关键模块（idea），与完整方法的效果进行对比，验证本方法所述模块（策略、模型或算法）的必要性。 参数实验 确定模型中神经">
+<meta property="og:description" content="融合方法分析 下面列了一些相关领域的作者写的文章可供参考： 图像融合的方法及分析 一文详解50多种多模态图像融合方法 图像融合分类 根据图像表征层次的不同，图像融合可以分为三个层次的融合：像素级融合、特征级融合、决策级融合。 图像融合的目的：图像增强，提高图像的分辨率和清晰度；增强图像的相关特征；补充相关信息，去除噪声和冗余；提高下游任务的精度和性能等。 像素级融合 直接对单幅图像">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-12-16T10:26:19.178Z">
-<meta property="article:modified_time" content="2024-03-09T12:06:51.067Z">
+<meta property="article:modified_time" content="2024-03-21T05:23:37.290Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="basic">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k words
+          2.8k words
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          3 mins
+          4 mins
         
       </span>
     
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on March 9, 2024 pm
+                    Last updated on March 21, 2024 pm
                   
                 
               </p>
@@ -295,8 +295,25 @@
               <div class="markdown-body">
                 
                 <h3 id="融合方法分析">融合方法分析</h3>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/475470158?utm_id=0"
-title="图像融合的方法与分析">图像融合的方法与分析</a></p>
+<p>下面列了一些相关领域的作者写的文章可供参考：</p>
+<p><a
+target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2200098">图像融合的方法及分析</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/558389374">一文详解50多种多模态图像融合方法</a></p>
+<h4 id="图像融合分类">图像融合分类</h4>
+<p>根据图像表征层次的不同，图像融合可以分为三个层次的融合：像素级融合、特征级融合、决策级融合。</p>
+<p>图像融合的目的：图像增强，提高图像的分辨率和清晰度；增强图像的相关特征；补充相关信息，去除噪声和冗余；提高下游任务的精度和性能等。</p>
+<h4 id="像素级融合">像素级融合</h4>
+<p>直接对单幅图像的像素点进行融合（信息综合）。</p>
+<p>由于原始图像规模很大（一个普通的小低分辨率图像可能都有几十万个像素点），直接处理像素很费时，且传感器采集的数据不经过各种处理可能会影响融合效果，对硬件设施的要求也很高（配准的精度要求），像素信息易受到污染（含有噪声等干扰），融合效果不稳定。</p>
+<h4 id="特征级融合">特征级融合</h4>
+<p>对图像特征进行抽取，将边缘、形状、轮廓、局部特征等信息进行综合处理，再在特征层面进行融合。</p>
+<p>图像的特征是一种代价处理，降低了数据量，保留了大部分的“重要”信息，但是会损失部分细节信息。但是可操作性强，运用各种方法更加灵活多样。</p>
+<h4 id="决策级融合">决策级融合</h4>
+<p>在每种传感器独立完成决策或分类的基础上，将多个传感器的识别结果进行融合做出全局的最优决策。</p>
+<p>需要根据一定的规则对提取特征和识别后的图像进行决策综合，获得融合图像。决策的输入是对目标的认识框架，认识框架是通过传感器观测同一场景目标后经过预处理、特征提取、识别的基本处理后形成的。对改框架通过最优化决策得到融合结果。</p>
+<p>决策级是趋向智能逻辑的，综合多传感器的识别结果比单一识别更精准，但会增加误差和风险（传感器的错误会累加）。</p>
+<p>我个人不是很明白决策级融合是什么意思，我的猜想是决策级融合在传感器采集信息后就进行了融合的初步操作，然后经过综合得到融合结果，不需要像像素级和特征级那样，由自行设计的算法和模型进行特征提取、融合。此外，我发现在有些论文中，像素级融合和特征级融合并没有明确的界限。</p>
 <h3 id="实验">实验</h3>
 <h4 id="对比试验">对比试验</h4>
 <p>与其他SOTA方法进行对比，在多个不同数据集上验证，证明本论文中所述方法的有效性和先进性。</p>
@@ -306,20 +323,20 @@ title="图像融合的方法与分析">图像融合的方法与分析</a></p>
 <h4 id="参数实验">参数实验</h4>
 <p>确定模型中神经网络超参数Hyperparameters的最佳配置，并分析这些参数的作用。</p>
 <h4 id="部分指标">部分指标</h4>
-<h5 id="融合">融合</h5>
+<p><font color="red">1.融合</font></p>
 <ul>
 <li>AP(Average
 Precision)，平均精度，指所有图片中具体某一类P-R曲线下的面积</li>
 <li>mAP(Mean Average
 Precision)，均值平均精度，指所有图片中所有类别的AP的均值，用的较多</li>
 </ul>
-<h5 id="检测">检测</h5>
+<p><font color="red">2.检测</font></p>
 <ul>
 <li>IoU(Intersection over Union)，交并比，指ground truth bbox与predict
 bbox交集面积占两者并集面积的比率</li>
 </ul>
 <p>bbox指的是bounding box。IoU越大说明预测框的模型算法性能越好。</p>
-<h5 id="分类">分类</h5>
+<p><font color="red">3.分类</font></p>
 <p><font color="purple">以二分类为例介绍分类问题的一些常用评估指标。</font></p>
 <p>混淆矩阵Confusion Matrix中的计算单元：</p>
 <ul>
@@ -435,7 +452,7 @@ Specificity = FP / (TN + FP)</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 9, 2024</div>
+          <div>March 21, 2024</div>
         </div>
       
       
