@@ -1,0 +1,1018 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/planet.png">
+  <link rel="icon" href="/img/planet.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zenitsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Linux文件操作 Linux是一种自由和开放源码的类UNIX操作系统。Linux遵循GNU通用公共许可证（GPL），任何个人和机构都可以自由地使用Linux的所有底层源代码，也可以自由地修改和再发布。 目前主流的Linux版本有： Debian（及其派生版本Ubuntu、Linux Mint） Fedora（及其相关版本CentOS、Red Hat Enterprise Linux） o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="码农日记">
+<meta property="og:url" content="https://afly36-swordsman.github.io/2024/03/21/Programming/index.html">
+<meta property="og:site_name" content="Mark | Learning &amp; Routine">
+<meta property="og:description" content="Linux文件操作 Linux是一种自由和开放源码的类UNIX操作系统。Linux遵循GNU通用公共许可证（GPL），任何个人和机构都可以自由地使用Linux的所有底层源代码，也可以自由地修改和再发布。 目前主流的Linux版本有： Debian（及其派生版本Ubuntu、Linux Mint） Fedora（及其相关版本CentOS、Red Hat Enterprise Linux） o">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
+<meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
+<meta property="article:modified_time" content="2024-03-23T12:20:52.930Z">
+<meta property="article:author" content="Zenitsu">
+<meta property="article:tag" content="debug">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
+  
+  
+  
+  <title>码农日记 - Mark | Learning &amp; Routine</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"afly36-swordsman.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":40,"cursorChar":"✨","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M.E.Mark&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/taiji.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">码农日记</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-21 12:27" pubdate>
+          2024.03.21 12:27
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.8k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">码农日记</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on March 23, 2024 pm
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="linux文件操作">Linux文件操作</h2>
+<p>Linux是一种自由和开放源码的类UNIX操作系统。Linux遵循GNU通用公共许可证（GPL），任何个人和机构都可以自由地使用Linux的所有底层源代码，也可以自由地修改和再发布。</p>
+<p>目前主流的Linux版本有：<br/> Debian（及其派生版本Ubuntu、Linux
+Mint）<br/> Fedora（及其相关版本CentOS、Red Hat Enterprise Linux）<br/>
+openSUSE...</p>
+<p>由于Linux网上各种教程很多，因此本节只对我（现阶段）在日常工作和学习中最常用的指令（文件相关）进行总结。</p>
+<h3 id="远程登录">远程登录</h3>
+<p>Linux系统启用了sshd服务后，可以进行远程操作。该服务监听22号端口。</p>
+<h3 id="vi-and-vim">vi and vim</h3>
+<p>Linux系统会内建vi文本编辑器，vim是vi的增强版本。</p>
+<p>vi和vim的三种常见模式：</p>
+<blockquote>
+<p>正常模式：一般模式，默认打开进入的模式（通过vim
+xxx加回车就会直接进入该模式）
+插入模式：编辑模式，在正常模式下键入i（或者a、r、o）加Enter会进入此模式，可以对文本进行编辑，按ESC退出至正常模式
+命令模式：键入冒号:后（或者/）就进入了该模式，然后可以接着键入一些表示命令的字符进行实现相关的命令，按ESC退出至正常模式</p>
+</blockquote>
+<p>正常模式下进入命令模式并进行相应操作的指令：</p>
+<div class="code-wrapper"><pre><code class="hljs elixir"><span class="hljs-symbol">:wq</span>  写入（保存）并退出
+<span class="hljs-symbol">:q!</span>  不保存，只退出
+<span class="hljs-symbol">:q</span>  仅退出，适用于查看但未作修改的情形</code></pre></div>
+<p>vim快捷键（正常模式下）：</p>
+<div class="code-wrapper"><pre><code class="hljs bash">yy  复制当前光标所在的这一行
+p  粘贴
+<span class="hljs-built_in">dd</span>  删除当前光标所在的这一行
+/key  查找key
+u  撤销上一步动作</code></pre></div>
+<p>编辑文件文本时：</p>
+<div class="code-wrapper"><pre><code class="hljs mathematica"><span class="hljs-variable">G</span>  定位至最后一行
+<span class="hljs-variable">gg</span>  定位至第一行
+<span class="hljs-variable">H</span>  左移
+<span class="hljs-variable">J</span>  下移
+<span class="hljs-built_in">K</span>  上移
+<span class="hljs-variable">L</span>  右移</code></pre></div>
+<h3 id="关机">关机</h3>
+<div class="code-wrapper"><pre><code class="hljs arduino">shutdown -h now  立即关机
+shutdown -h <span class="hljs-number">5</span>  <span class="hljs-number">5</span>min后关机
+shutdown -r now / reboot  立即重启
+sync  将内存数据存入磁盘防止丢失</code></pre></div>
+<h3 id="用户管理">用户管理</h3>
+<div class="code-wrapper"><pre><code class="hljs bash">su - user_name  切换用户所在账号
+su - root  切换管理员用户登录
+<span class="hljs-built_in">whoami</span> / <span class="hljs-built_in">who</span> am i  查看当前登录的是哪个用户</code></pre></div>
+<h3 id="网络">网络</h3>
+<div class="code-wrapper"><pre><code class="hljs dos"><span class="hljs-built_in">ping</span> ip_address  检测当前主机/服务器是否可以连接ip_address所在的主机/服务器/网址（检查网络连接）
+ifconfig  查看当前网络信息
+注：<span class="hljs-built_in">ipconfig</span> 是Windows <span class="hljs-built_in">CMD</span>下的指令</code></pre></div>
+<h3 id="文件系统">文件系统</h3>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">pwd</span>  显示当前工作目录（即文件夹）的绝对路径。
+
+<span class="hljs-built_in">ls</span> [Ops] 目录/文件名  显示目录或文件的内容。
+Ops（Options，选项）：-a 显示所有；-l 以列表形式显示
+
+<span class="hljs-built_in">cd</span> addr  切换到指定路径。
+<span class="hljs-built_in">cd</span> 或 <span class="hljs-built_in">cd</span> ~ 回主（家）目录；<span class="hljs-built_in">cd</span> / 回根目录；<span class="hljs-built_in">cd</span> .. 回上级目录
+
+<span class="hljs-built_in">mkdir</span> [Ops] directory_name  创建新的目录，不带选项只能创建单级空目录。
+Ops：-p 创建多级目录；-v 显示单次创建信息
+
+<span class="hljs-built_in">touch</span> file_name  创建新的文件，可以一次性创建多个空文件（当前目录）：<span class="hljs-built_in">touch</span> A.txt B.md
+
+<span class="hljs-built_in">rmdir</span> [Ops] 空目录名  删除空目录，不带任何选项时只删除该空目录。
+Ops：-p 删除该空目录，删除后若其父目录也为空，则一并删去
+
+<span class="hljs-built_in">rm</span> [Ops] f/d_name  删除文件或目录，不带任何选项时只能删除文件。
+Ops：-r （递归）删除整个文件夹；-f 强制删除不提示；-i 提醒用户确认
+Tips：<span class="hljs-built_in">rm</span> -rf  相当于<span class="hljs-built_in">rm</span> -r -f，强制删除所有文件/文件夹！
+
+<span class="hljs-built_in">cp</span> [Ops] f/d_name New_d_name  拷贝文件f或文件夹d至指定的目录New_d中，不带任何选项只能复制文件。
+Ops：-r （递归）拷贝整个文件夹；-f 覆盖目标同名文件或目录时不提醒（强制覆盖）；
+-i 覆盖目标同名文件或目录时提醒用户确认；不提示也可写为：\<span class="hljs-built_in">cp</span> f/d New_d
+
+<span class="hljs-built_in">mv</span> 原名 新名  为文件/目录重新起名或移动。若路径不变则是重命名，路径不一致将不保留原文件/目录（剪切）。
+
+&gt;  输出重定向：写入并覆盖（替换）原本内容。
+
+&gt;&gt;  追加：将内容加在末尾，不会覆盖原内容。
+
+<span class="hljs-built_in">head</span> filename  显示该文件前 10 行（默认行数）的内容。
+<span class="hljs-built_in">head</span> -n 5 filename  显示文件前 5 行内容。
+
+<span class="hljs-built_in">tail</span> filename  显示该文件后 10 行（默认行数）的内容。
+<span class="hljs-built_in">tail</span> -n 5 filename  显示文件后 5 行内容。
+<span class="hljs-built_in">tail</span> -f filename  实时追踪该文件的所有更新信息。
+
+<span class="hljs-built_in">history</span>  查看所有已经执行过的指令。
+<span class="hljs-built_in">history</span> n  查看最近使用过的 n 条指令。
+!x  执行编号为 x 的历史指令（所有历史指令都有编号）。</code></pre></div>
+<p><img src="/img/stage2/004.png" srcset="/img/loading.gif" lazyload /></p>
+<h2
+id="java学习笔记面向对象三大特征">Java学习笔记：面向对象三大特征</h2>
+<p>C语言面向过程，强调步骤和因果关系，耦合度高（一个关系错误整个就错了），扩展力差。<br/>
+C++既面向过程、又面向对象。<br/>
+Java面向对象，每个事物都是对象，各自协同形成系统，耦合度低，扩展力强。</p>
+<p>面向对象分析：OOA(Object-Oriented Analysis) <br/>
+面向对象设计：OOD(Object-Oriented Design) <br/>
+面向对象编程：OOP(Object-Oriented Programming)</p>
+<p>面向对象的三大特征：<font color="red">封装</font>、<font color="green">继承</font>、<font color="purple">多态</font>。</p>
+<h3 id="前置知识类和对象">前置知识：类和对象</h3>
+<p>类：某些特征、性质的总结，抽象的模板。类是具有相同属性（数据、变量）和方法（实现功能的函数）的对象集合。普通公共类Animal的创建：</p>
+<div class="code-wrapper"><pre><code class="hljs angelscript"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-symbol">Animal</span> &#123;
+    ...
+&#125;</code></pre></div>
+<p>对象：类实例化的具有特定接口的内存块，也叫实例。对象通过类(Animal)来创建：<code>Animal ani = new Animal();</code></p>
+<p>new运算符会在JVM（Java Virtual
+Machine，Java虚拟机）的堆内存中开辟一块空间，将创建的对象放入堆内存空间中。程序运行时，JVM中的类加载器class
+loader会先加载类（.class文件），装载到JVM后由解释器将字节码翻译为二进制数据，供操作系统（OS）与硬件交互。</p>
+<p>保存了内存地址并指向堆内存对象的变量叫引用，通过(引用.对象名)的方式可以访问实例变量（堆内存中存储的对象的实例变量）。其他语言如C++、Python等也可以以此类推。引用相当于C语言中的指针（Java没有指针这个概念）。</p>
+<p>构造方法（也叫构造器、Constructor、构造函数）是用来创建对象并对实例变量进行初始化（赋值）的一种特殊方法。无参构造方法是系统默认提供的，也叫缺省构造器，如果用户手动编写了有参构造器，系统就不会再提供缺省构造器了，因此需要加上无参构造器防止出错。构造方法名必须与类名一致，且不需要写返回值类型。</p>
+<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Animal</span><span class="hljs-params">(形参列表)</span> </span>&#123;
+    ...
+&#125;</code></pre></div>
+<p>普通方法带关键字static，static修饰静态方法（或变量），是类相关的，通过(类名.)的形式调用，同一类中(类名.)可以省略。</p>
+<div class="code-wrapper"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dosome</span>()</span> &#123;
+    System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;DOSOME!&quot;</span>);
+&#125;</code></pre></div>
+<p>实例方法不带static，是对象相关的，通过(引用.)的形式调用。需要用类实例化对象，才能用对象名（引用）调用实例方法或访问实例变量。</p>
+<div class="code-wrapper"><pre><code class="hljs csharp"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dosome</span>()</span> &#123;
+    System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;DOSOME!&quot;</span>);
+&#125;</code></pre></div>
+<h3 id="封装">封装</h3>
+<p>封装，就是将各种对数据的操作封在一起，成为不可分割的独立整体，尽可能隐藏内部细节，只保留一些对外的接口与外界发生关系。外部人员不能随便访问，保护内部数据和结构的安全。即：属性“私有化”。</p>
+<p>注意，不是用private关键字将属性私有后什么也不管了，这样该属性只能在本类中访问，而不能在其它类中访问了，过度的安全意义不大。正确做法：</p>
+<div class="code-wrapper"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> &#123;
+    <span class="hljs-keyword">private</span> int age;
+    <span class="hljs-keyword">public</span> int <span class="hljs-title function_">getAge</span>(<span class="hljs-params"></span>) &#123;
+        <span class="hljs-keyword">return</span> age;
+    &#125;
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">setAge</span>(<span class="hljs-params">int <span class="hljs-built_in">number</span></span>) &#123;
+        <span class="hljs-keyword">if</span>(<span class="hljs-built_in">number</span>&lt;<span class="hljs-number">0</span> || <span class="hljs-built_in">number</span>&gt;<span class="hljs-number">130</span>) &#123;
+            <span class="hljs-title class_">System</span>.<span class="hljs-property">out</span>.<span class="hljs-title function_">println</span>(<span class="hljs-string">&quot;输入年龄不合法!&quot;</span>);
+            <span class="hljs-keyword">return</span>;  <span class="hljs-comment">// 结束方法</span>
+        &#125;
+        age = <span class="hljs-built_in">number</span>;
+    &#125;
+&#125;</code></pre></div>
+<p>这种做法的好处是只提供外部接口对类内的属性进行访问和修改，且修改需要满足一定的条件，在一定程度上保证了内部数据的安全，并且屏蔽了复杂、显露了简单。可以在另一个类中进行访问：</p>
+<div class="code-wrapper"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"><span class="hljs-built_in">String</span>[] args</span>) &#123;  <span class="hljs-comment">// 程序入口</span>
+        <span class="hljs-title class_">Person</span> p = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>();
+        <span class="hljs-title class_">System</span>.<span class="hljs-property">out</span>.<span class="hljs-title function_">println</span>(p.<span class="hljs-title function_">getAge</span>());  <span class="hljs-comment">// 读取年龄</span>
+        p.<span class="hljs-title function_">setAge</span>(<span class="hljs-number">10</span>);  <span class="hljs-comment">// 修改年龄为10（年龄合法，修改成功）</span>
+    &#125;
+&#125;</code></pre></div>
+<h3 id="继承">继承</h3>
+<p>代码封装后形成了独立体，但是独立体之间可能存在继承关系。比如两个类：Animal和Dog，很明显Dog属于（继承）Animal。继承关键字：extends。</p>
+<p>子类继承父类，则父类中已经定义的方法，子类可以直接拿来用，实现了代码复用。而且有了继承，多态机制才能发挥作用，方法覆盖才有用武之地。</p>
+<p>当多个类共用一些属性时（不同类也可能有相同的一些特性），将这些属性、方法都放在某一个类中作为通用类（父类），让其他类共享，其他类为特定类（子类）。这就是子类继承父类。父类中的属性和方法，子类可以“直接用”，不需要重新定义和编写代码。若B类继承A类，则A类是Superclass，即父类、超类、基类；B类是Subclass，即子类、派生类、扩展类。</p>
+<div class="code-wrapper"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">A</span> </span>&#123;
+    ...
+&#125;</code></pre></div>
+<p>Java中规定，子类继承父类，除了构造方法外的所有都可以继承。但是private关键字修饰的私有属性在子类中是无法直接访问的。虽然私有属性被继承过来了，但是仍然是属于父类的，子类中访问跟“外界”访问的方式一样，通过对外的接口方法：getter和setter方法。且Java中默认父类（没有用extends的类）都继承跟类Object，这是老祖宗类。继承以后，耦合度变高了。</p>
+<p>只要满足“A is a B”这种关系的，比如Dog is a Animal，就可以继承。</p>
+<p>子类继承了父类的属性和方法时，若某些方法不符合自己的要求，子类可以重写一遍该方法，此为<font color="purple">Override</font>，即方法覆盖或方法重写。此时，子类对象调用该方法，执行的是子类中重写的新方法，就不再是父类中的老方法了。重写的方法除了方法体和返回值类型之外，其他部分必须与父类一直，比如方法名、形参列表等。访问权限不能低于父类，但可以更高，比如父类是protected，重写后是public，这是可行的，但反过来不行。另外，重写后的方法不能比父类的原方法抛出更多异常。</p>
+<p>方法覆盖注意事项：只针对方法，与属性无关；私有方法不能被覆盖；构造方法无法被继承，故不存在覆盖这一说；只针对实例方法，静态方法的覆盖是没有意义的（静态方法即便覆盖了，用了(引用.)的形式调用，本质上还是转换为了(类名.)的形式，其实与对象（子类）没有任何关系，也就不存在多态这一说。因此一般认为静态方法不存在方法覆盖）。</p>
+<h3 id="扩展抽象类">扩展：抽象类</h3>
+<p>在面向对象的概念中，所有的对象都是通过类来描绘的，但是反过来，并不是所有的类都是用来描绘对象的。如果一个类中没有包含足够的信息来描绘一个具体的对象，这样的类就是抽象类。</p>
+<p>抽象类除了不能实例化对象之外，类的其它功能依然存在，成员变量、成员方法和构造方法的访问方式和普通类一样。</p>
+<p>由于抽象类不能实例化对象，所以抽象类必须被继承，才能被使用。</p>
+<p>在Java语言中使用abstract class来定义抽象类。</p>
+<h3 id="多态">多态</h3>
+<p>多态是同一个行为具有多个不同的表现形式或形态的能力，即同一行为发生在不同的对象上会产生不同的效果。换句话说，多态就是同一个接口，使用不同的实例而执行不同的操作。</p>
+<p>多态可以降低类型之间的耦合关系，具有可替换、可扩充的性质，简单而灵活。多态存在有三个必要条件：继承、方法重写、父类引用指向子类对象。</p>
+<figure>
+<img src="/img/stage2/005.jpg" srcset="/img/loading.gif" lazyload alt="多态的实现举例" />
+<figcaption aria-hidden="true">多态的实现举例</figcaption>
+</figure>
+<p>在Java中对多态的核心表现主要是方法的重写。方法的重写（覆盖），一言以蔽之：同一个父类的方法，可以根据子类的不同而具有不同的表现形式。</p>
+<p>多态有两种类型。由子类转向父类，是向上转型；由父类转向子类，是向下转型。不管是向上转型还是向下转型，两个类之间必须是继承关系，即父类与子类。下面是关于多态的实例分析。</p>
+<p><font color="bluepurple">向上转型(upcasting)</font>:</p>
+<div class="code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> &#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">move</span>()  <span class="hljs-comment">// 父类中的实例方法</span></span>
+    &#123;
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;a is moving!&quot;</span>);
+    &#125;
+&#125;
+<span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> <span class="hljs-title">extends</span> <span class="hljs-title">Animal</span> &#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">move</span>()  <span class="hljs-comment">// 子类重写了实例方法</span></span>
+    &#123;
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;c is wandering!&quot;</span>);
+    &#125;
+&#125;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> &#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(<span class="hljs-params">String[] args</span>)</span> &#123;
+        Animal ac = <span class="hljs-keyword">new</span> Cat();  <span class="hljs-comment">// 向上转型</span>
+        ac.move();  <span class="hljs-comment">// 输出：c is wandering!</span>
+    &#125;
+&#125;</code></pre></div>
+<p>向上转型，即允许父类型引用指向子类型对象。编译时，编译器只知道ac是Animal类型，因此会去Animal.class（类）字节码中寻找move()方法，而Animal中有此实例方法，因此会被找到。找到了以后，编译器认为ac要访问的方法move()存在，编译通过，此为<strong>静态绑定</strong>。运行时，堆内存中实际创建的其实是Cat对象，不是Animal类型对象，因此通过(引用.)的方式调用执行的move()方法是Cat中的实例方法，此为<strong>动态绑定</strong>。编译（静态绑定父类的方法）、运行（动态绑定子类型对象的方法）各有一种形态，故名多态。</p>
+<p>不管是否发生了向上转型，核心的本质还是在于：你使用的是哪一个子类（new了什么），而且调用的方法是否被子类所覆写了。想一想为什么要使用向上转型？假设父类有N个子类，子类中重写了父类的实例方法，如果没有向上转型，有N个子类就需要定义N个方法接收不同的对象。向上转型可以减少重复代码，且实例化的时候可以根据不同的需求实例化不同的对象，实现参数的统一化。具体的意义用得多了自然就明白了，下面举一个例子进行解释。</p>
+<div class="code-wrapper"><pre><code class="hljs typescript"><span class="hljs-comment">// 我们需要写getMessage()方法接收不同子类的对象并调用它们的实例方法print()输出各个子类的相关信息</span>
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">getMessage</span>(<span class="hljs-params">Student stu</span>) &#123;
+    stu.<span class="hljs-title function_">print</span>();
+&#125;
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">getMessage</span>(<span class="hljs-params">Tescher ter</span>) &#123;
+    ter.<span class="hljs-title function_">print</span>();
+&#125;
+<span class="hljs-comment">// 如果还有很多子类，那么需要写很多的方法</span>
+<span class="hljs-comment">// 使用向上转型进行代码复用，只需写一个方法来接收所有Person类的子类对象，实现了参数的统一化</span>
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-title function_">getMessage</span>(<span class="hljs-params">Person per</span>) &#123;  <span class="hljs-comment">// 把对象传入，自动进行upcasting</span>
+    per.<span class="hljs-title function_">print</span>();
+&#125;</code></pre></div>
+<p>如果子类中写了独有的方法，向上转型用父类型的引用访问子类型的专有方法时会出错，因为静态绑定失败（父类型中没有此方法）。此时就需要用向下转型进行强制类型转换了。</p>
+<p><font color="bluepurple">向下转型(downcasting)</font>:</p>
+<div class="code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> &#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">move</span>()  <span class="hljs-comment">// 父类中的实例方法</span></span>
+    &#123;
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;a is moving!&quot;</span>);
+    &#125;
+&#125;
+<span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> <span class="hljs-title">extends</span> <span class="hljs-title">Animal</span> &#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">move</span>()  <span class="hljs-comment">// 子类重写了实例方法</span></span>
+    &#123;
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;c is wandering!&quot;</span>);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CatchMouse</span>()  <span class="hljs-comment">// 子类特有方法</span></span>
+    &#123;
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">&quot;c can catch mouse, can you?&quot;</span>);
+    &#125;
+&#125;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> &#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(<span class="hljs-params">String[] args</span>)</span> &#123;
+        Animal ac = <span class="hljs-keyword">new</span> Cat();  <span class="hljs-comment">// 先向上转型</span>
+        <span class="hljs-keyword">if</span>(ac instanceof Cat) &#123;  <span class="hljs-comment">// 判断引用指向的对象类型是否匹配，互相匹配才可以强制转换</span>
+            Cat x = (Cat)ac;  <span class="hljs-comment">// Animal类型的ac与Cat有继承关系，可以强制父类-&gt;子类转换，即向下转型</span>
+            x.CatchMouse();  <span class="hljs-comment">// 输出：c can catch mouse, can you?</span>
+        &#125;
+    &#125;
+&#125;</code></pre></div>
+<p>通过对象的向上转型可以实现接收参数的统一，向下转型可以实现子类扩充的调用（一般不操作向下转型，有安全隐患，不过搭配instanceof使用可以提高安全性）。注意：向下转型之前一定要进行向上转型！</p>
+<h3 id="知识迁移overload">知识迁移：Overload</h3>
+<p><font color="purple">Overload</font>，即方法重载，同一个方法名称可以根据参数类型或者参数个数的不同而调用不同的方法体。如果功能相近的几种方法需要各自取名时，未免过于繁琐，且名字太多调用不方便。故而引入方法重载解决这个问题。方法重载使得功能相同或相近的方法可以用同一个名字，利用不同的参数来分别选用不同的方法。触发Overload机制的条件：在同一个类中；方法名相同；参数列表不同。以上三个条件同时满足时，我们认为触发了方法重载机制，比如<code>m() 与 m(int a)</code>、<code>m(int i, double j) 与 m(double i, int j)</code>等，下面是一个例子。</p>
+<div class="code-wrapper"><pre><code class="hljs axapta"><span class="hljs-comment">// 定义了两种的方法，但都是进行求和运算</span>
+<span class="hljs-built_in">int</span> <span class="hljs-keyword">sum</span>(<span class="hljs-built_in">int</span> i, <span class="hljs-built_in">int</span> j)&#123;
+    <span class="hljs-keyword">return</span> i + j;
+&#125;
+<span class="hljs-built_in">double</span> <span class="hljs-keyword">sum</span>(<span class="hljs-built_in">double</span> i, <span class="hljs-built_in">double</span> j)&#123;
+    <span class="hljs-keyword">return</span> i + j;
+&#125;
+<span class="hljs-comment">// 主函数（方法）中通过参数匹配从而进行不同的调用</span>
+<span class="hljs-built_in">int</span> a = <span class="hljs-keyword">sum</span>(<span class="hljs-number">10</span>,<span class="hljs-number">20</span>);  <span class="hljs-comment">// outpit: a == 30</span>
+<span class="hljs-built_in">double</span> b = <span class="hljs-keyword">sum</span>(<span class="hljs-number">10.0</span>,<span class="hljs-number">20.0</span>);  <span class="hljs-comment">// output: b == 30.0</span></code></pre></div>
+<p>方法覆盖与重载的详细对比点此查看：<a
+target="_blank" rel="noopener" href="https://www.runoob.com/java/java-override-overload.html">runnoob:
+java - override and overload</a></p>
+<p>C++中有一个概念叫：<font color="purple">命名空间</font>，是一个由程序设计者命名的内存区域，它定义了一个包含多个变量和函数的范围，使其不会与命名空间以外的任何变量和函数发生重名的冲突。每个程序员可以定义自己的命名空间，多个工程师开发同一个项目时，对程序的管理更加便捷和高效。命名空间的关键字是namespace，命名空间可以相互分隔不同的全局实体，但是命名空间不能同名。在成员名字这个方面，我觉得命名空间与方法覆盖和方法重载有异曲同工之妙。下面是关于命名空间的简单C++示例：</p>
+<div class="code-wrapper"><pre><code class="hljs kotlin">#include &lt;iostream&gt;
+<span class="hljs-comment">// std是输入输出标准的类，它包括了cin和cout成员（内置对象）</span>
+<span class="hljs-comment">// 利用此语句可以直接使用这些成员函数</span>
+<span class="hljs-comment">// 如果没有此语句，那么需要用 std::cin 或者 std::cout 进行使用</span>
+using namespace std;
+namespace first_field  <span class="hljs-comment">/* 第一个命名空间 */</span>
+&#123;
+    void <span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span>
+    &#123;
+        <span class="hljs-comment">// cout与流插入运算符 &lt;&lt; 搭配使用（cin与流提取运算符 &gt;&gt; 搭配使用）</span>
+        cout &lt;&lt; <span class="hljs-string">&quot;第一个命名空间所包含的内容&quot;</span> &lt;&lt; endl;
+    &#125;
+&#125;
+namespace second_field  <span class="hljs-comment">/* 第二个命名空间 */</span>
+&#123;
+        void <span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span>
+    &#123;
+        cout &lt;&lt; <span class="hljs-string">&quot;第二个命名空间所包含的内容&quot;</span> &lt;&lt; endl;
+    &#125;
+&#125;
+<span class="hljs-comment">// 主函数（程序入口）</span>
+int main()
+&#123;
+    first_field::<span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">/* 调用第一个命名空间中的函数 */</span>
+    second_field::<span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">/* 调用第二个命名空间中的函数 */</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<h2 id="内存块">内存块</h2>
+<h3 id="数据结构中的内存">数据结构中的内存</h3>
+<p>内存一般分成以下6个区：</p>
+<p>栈区（Stack）：编译器自行分配、自行释放，存放局部变量的值、函数（方法）参数、寄存器内容、函数返回的地址等。栈相当于一个受限的线性表，主要用于数据交换、函数调用、断点保护等，空间不大，随用随消。</p>
+<p>堆区（Heap）：由程序员进行分配、释放，如Java中的new操作。堆相当于一个特殊的完全二叉树，空间大，主要用来存放大量文件，操作类似于链表。</p>
+<p>自由存储区：由malloc等进行分配的内存块，用free释放空间。与堆的new生成和delete释放类似。</p>
+<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-comment">/* C语言申请内存空间 */</span>
+<span class="hljs-comment">// 顺序表的指针变量</span>
+SeqList *L;
+<span class="hljs-comment">// malloc函数可以动态分配内存空间，向操作系统申请(SeqList)类型大小的内存空间，返回第一个字节地址</span>
+<span class="hljs-comment">// (SeqList*)强制转换为地址类型，否则只是干地址，无实际含义</span>
+L = (SeqList*)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(SeqList));
+
+<span class="hljs-comment">/* Java创建对象 */</span>
+Student stu = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Student</span>();</code></pre></div>
+<p>文字常量区：存放常量、字符串。</p>
+<p>程序代码区：存放函数的二进制代码。</p>
+<p>全局/静态存储区：分配全局、静态变量。</p>
+<h3 id="引申字面量常量和变量">引申：字面量、常量和变量</h3>
+<p>先看下面的C++代码例子：</p>
+<div class="code-wrapper"><pre><code class="hljs axapta"><span class="hljs-built_in">int</span> a;  <span class="hljs-comment">// 变量</span>
+<span class="hljs-keyword">const</span> <span class="hljs-built_in">int</span> b = <span class="hljs-number">10</span>;  <span class="hljs-comment">// b为常量，10为字面量</span>
+string <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;hello world!&quot;</span>;  <span class="hljs-comment">// str为变量，hello world!为字面量</span></code></pre></div>
+<p>在计算机科学中，字面量（literal）是用于表达源代码中一个固定值的表示法（notation）。几乎所有计算机编程语言都具有对基本值的字面量表示，诸如：整数、浮点数以及字符串,有很多也对布尔类型和字符类型的值支持字面量表示，还有一些甚至对枚举类型的元素以及像数组、记录和对象等复合类型的值支持字面量表示法。</p>
+<p>有些数据在程序运行中可以变化或者被赋值，这称为变量。有些数据可以在程序使用之前预先设定并在整个运行过程中没有变化，这称为常量。变量和常量在内存中的存储方式是一样的，只是常量不允许改变，就像只读文件一样。</p>
+<p>字面量是指由字母、数字等构成的字符串或者数值，它只能作为等号右边的值出现，相当于真实值。</p>
+<p>Java中，成员变量就是定义在类里方法外的变量，也叫全局变量。成员变量又分为：实例变量和类变量。类变量也叫静态变量，即在变量前加static的变量；实例变量也叫对象变量，即没加static修饰的变量。静态变量和实例变量的区别在于：静态变量是所有对象共有的，其中一个对象将它的值改变了，那么其他对象得到的就是改变后的结果；而实例变量则为对象专有，若某一个对象将其值改变，不会影响其他对象。如果局部变量和成员变量的名称相同，那么成员变量被隐藏，即方法内失效，方法中如需要访问该类中的成员变量，则需要加上关键字this。</p>
+<h3 id="java虚拟机jvm中的空间">Java虚拟机JVM中的空间</h3>
+<p>JVM中主要有三块空间：栈区、方法区、堆区。</p>
+<p>当一个Java程序运行时，JVM中的类加载器ClassLoader将硬盘上的xxx.class字节码文件存入方法区中（程序类最先加载），即方法区最先有数据（代码片段）。同时静态变量也会被存储在方法区。</p>
+<p>在方法（方法区中的代码片段）被调用时，所需要的内存空间在栈中分配，进栈（或称压栈、入栈）为push，出栈（或称弹栈）为pop。方法调用时为压栈（为方法中的局部变量和运行所需的内存分配空间），方法结束空间释放时是弹栈。</p>
+<p>堆区是由程序员对类和对象进行操作时用到的。当使用new运算符创建对象后，JVM的堆内存会开辟一块空间（垃圾回收器主要针对的就是堆内存），将创建的对象以及对象的实例变量存储在其中。</p>
+<p>​​​​成员变量的存储：没有实例化的成员变量放在栈中，实例化后的对象放在堆中，栈中放的是指向堆中对象的引用地址。成员变量在对象被创建时而存在，当对象被GC（Garbage
+Collection，垃圾回收机制）回收时消失，生存周期适中。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Programming/" class="category-chain-item">Programming</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/debug/" class="print-no-link">#debug</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>码农日记</div>
+      <div>https://afly36-swordsman.github.io/2024/03/21/Programming/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Zenitsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>March 21, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>March 23, 2024</div>
+        </div>
+      
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/16/Coding/" title="Coding Corner">
+                        <span class="hidden-mobile">Coding Corner</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+
+  <div>
+    <span id="timeDate">正在载入天数...</span>
+    <span id="times">载入时分秒...</span>
+    <script>
+    var now = new Date();
+    function createtime(){
+        var grt= new Date("11/24/2023 11:30:00");
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if(String(mnum).length ==1 ){
+                  mnum = "0" + mnum;
+        }
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if(String(snum).length ==1 ){
+                  snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  
+        document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+    }
+    setInterval("createtime()",250);
+    </script>
+  </div>  
+
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+
+</div>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+
+</body>
+</html>
