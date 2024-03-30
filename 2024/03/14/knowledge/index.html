@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/001.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/003.png">
 <meta property="article:published_time" content="2024-03-14T02:46:09.862Z">
-<meta property="article:modified_time" content="2024-03-23T02:20:59.013Z">
+<meta property="article:modified_time" content="2024-03-28T02:14:05.152Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="basic">
 <meta name="twitter:card" content="summary_large_image">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.3k words
+          8.6k words
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          8 mins
+          11 mins
         
       </span>
     
@@ -290,7 +290,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on March 23, 2024 am
+                    Last updated on March 28, 2024 am
                   
                 
               </p>
@@ -397,6 +397,37 @@ x，就能得到一个深度较大的神经网络，并且这个深度较大的�
 <p>退化现象让我们对非线性转换进行反思，非线性转换确实极大的提高了数据分类能力，但是随着网络的深度不断加大，我们在非线性转换方面已经走的太远，已然无法实现线性转换。显然，在神经网络中增加线性转换分支成为很好的选择，于是ResNet团队在ResNet模块中增加了快捷连接分支，在线性转换和非线性转换之间寻求一个平衡。</p>
 <p>至于快捷连接（Shortcut
 connection），我就不过多赘述了，之前的文章中也有提及。我在此之前只是不加思考的阅读各种论文、资料（可能看了转头又忘了），从未想过在现在来看很基础的ResNet里面还有这么有趣且严谨的分析过程，给我了很大的启发。所谓科研，或者进行别的学习和研究，甚至于阅读书籍，都需要带着问题和审视的头脑，多问问为什么。十万个为什么不只是少儿读物，应是求知求学的最基本要素。引用毛泽东领袖的话就是：所谓学问，就要既学又问，学和问是不能分开的。书此以自省。</p>
+<h2 id="大模型时代">大模型时代</h2>
+<h3 id="预训练">预训练</h3>
+<p>在很多的论文中都使用了“预训练”这个东西。为什么要预训练呢？下面就来揭开它的面纱。</p>
+<p>很多机器学习模型都需要依托带标签的数据集做训练，此话怎讲？举个例子，让机器去学习和让小孩去学习是类似的。比如小孩辨别猫或狗，无非是父母每次看到一只猫或一条狗，告诉小孩这是猫/狗，小孩不断记忆猫狗的特征，久而久之，小孩见到一只新猫/狗，不用父母告诉TA，也能知道是猫还是狗。</p>
+<p>机器也是一样的，给1000张猫的图片告诉机器是猫，机器不断记忆猫的特征，等给它第1001张不标注是猫的图片的时候，机器能立马认出来是猫，而前面这1000张猫的图片就是训练机器的过程，且通过已知样本不断校准机器的判断能力、不断迭代降低误差(误差
+= 真实结果与实验结果的差距)。</p>
+<p>但是我们身边存在大量没有标注的数据，例如文本、图片、代码等等，标注这些数据需要花费大量的人力和时间，标注的速度远远不及数据产生的速度，所以带有标签的数据往往只占有总数据集很小的一部分。而如果手头任务的训练集数据量较少的话，那现阶段好用的CNN比如Resnet、Densenet、Inception等网络结构层数很深（几百万上千万甚至上亿的参数量），当训练数据少则很难很好地训练这么复杂的网络，但如果先把好用的这些大模型的大量参数通过大的训练集合比如ImageNet预训练好（大规模图像数据集ImageNet有超过1000万的图像和1000类物体的标注），即直接用ImageNet初始化大模型的大部分参数。接下来再通过手头上少的可怜的数据去Fine-tuning（即微调参数），以更适合解决当前的任务，那事情就顺理成章了。</p>
+<h3 id="transformer">Transformer</h3>
+<p>关于Transformer的理解，可以看这篇文章：<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/127411638">Transformer通俗笔记</a>。</p>
+<p>作者用了通俗易懂的文字详细解读了Transformer的知识，令人受益匪浅。文章涉及大量的知识点，包括但不限于：向量化（Onehot-&gt;Embedding）、神经网络语言模型NNLM（Neural
+Network Language Model）、Encoder and Decoder、Attention、Multi-Head
+Attention、预训练（双层双向LSTM）+特征融合的模式ELMO（Embedding from
+Language
+Models）、预训练+微调（Fine-tuning）的模式迁移学习、GPT与BERT。</p>
+<p>Transformer的时空复杂度可以参考此文：<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/133619540">FlashAttention</a>。在现代GPU中，计算速度已经远超过显存访问的速度，Transformer中的大部分计算操作的瓶颈是显存访问。所以，减少对HBM（High
+Bandwidth
+Memory，高带宽存储器，一款CPU/GPU内存芯片，即“RAM”）的读写次数，有效利用更高速的SRAM来进行计算是非常重要的，而对于性能受限于内存带宽的操作，进行加速的常用方式就是kernel融合。也就是说，要避免反复执行“从HBM中读取输入数据，SRAM执行计算，最后将计算结果写入到HBM中”，将多个操作融合成一个操作，减少读写HBM的次数，是降低计算耗时的重点优化目标。尽量把计算过程都在SRAM中进行，但SRAM内存不够大，因此需要进行分块计算。这是针对Transformer中注意力机制的二次复杂度<span
+class="math inline">\(O(N^2)\)</span>分析，以提高计算效率的一种方法，其中涉及很多硬件相关的技术，我没有看明白，先放在这吧，等日后有机会再攻略。</p>
+<h3 id="mamba">Mamba</h3>
+<p>参考文章：<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/v_JULY_v/article/details/134923301">一文通透想颠覆Transformer的Mamba：从SSM、HiPPO、S4到Mamba</a>。</p>
+<p>Mamba与RNN颇有相似之处。RNN中的隐藏状态会随着时间的推移而忘记靠前面的信息，且RNN具有非线性的激活函数如tanh，无法写成卷积的形式，没法并行训练。Mamba最早提出是用来解决NLP问题的，它处理长程信息的能力优于RNN，并且计算复杂度低于Transformer。Mamba是一种状态空间模型SSM（State
+Space Model），利用了选择性扫描算法（Selective scan
+algorithm）、硬件感知算法（Hardware-aware algorithm）、HiPPO以及Flash
+Attention等技术。</p>
+<p>Mamba建立在更现代的适用于深度学习的结构化SSM（简称S6）基础上，相当于S4模块的改进，解决了S4参数固定导致的无法对输入进行针对性推理的问题。Transformer的注意力机制虽然有显著效果但效率不算很高，毕竟其需要显式地存储整个上下文（storing
+the entire
+context，也就是KV缓存），直接导致训练和推理消耗算力很大。Transformer就像人类每写一个字之前，都把前面的所有字和输入都复习一遍，所以写的慢。RNN的推理和训练效率高，但性能容易受到对上下文压缩程度的限制，容易忘掉更前面的内容。而SSM的问题在于其中的矩阵A、B、C始终是不变的，无法针对不同的输入针对性的推理。Mamba的解决办法是，相比SSM压缩所有历史记录（HiPPO技术，通过将看到的所有输入信息压缩/投影为系数向量，产生隐藏状态来记忆历史），Mamba设计了一个简单的选择机制，通过“参数化SSM的输入”，让模型对信息有选择性处理，以便关注或忽略特定的输入。这样一来，模型能够过滤掉与问题无关的信息，并且可以长期记住与问题相关的信息。</p>
+<p>总的来说，这篇文章通过RNN的不足引入状态空间模型SSM，继而逐步解读S4、S6(Mamba)的相关理论知识，循序渐进，是了解Mamba的绝佳之作！</p>
 
                 
               </div>
@@ -461,7 +492,7 @@ connection），我就不过多赘述了，之前的文章中也有提及。我�
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 23, 2024</div>
+          <div>March 28, 2024</div>
         </div>
       
       

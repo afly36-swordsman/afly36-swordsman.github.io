@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-03-23T12:20:52.930Z">
+<meta property="article:modified_time" content="2024-03-30T02:54:15.910Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.8k words
+          15k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          13 mins
+          19 mins
         
       </span>
     
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on March 23, 2024 pm
+                    Last updated on March 30, 2024 am
                   
                 
               </p>
@@ -604,6 +604,170 @@ string <span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;
 <p>堆区是由程序员对类和对象进行操作时用到的。当使用new运算符创建对象后，JVM的堆内存会开辟一块空间（垃圾回收器主要针对的就是堆内存），将创建的对象以及对象的实例变量存储在其中。</p>
 <p>​​​​成员变量的存储：没有实例化的成员变量放在栈中，实例化后的对象放在堆中，栈中放的是指向堆中对象的引用地址。成员变量在对象被创建时而存在，当对象被GC（Garbage
 Collection，垃圾回收机制）回收时消失，生存周期适中。</p>
+<h2 id="c数组与指针">C++数组与指针</h2>
+<p>当时大学初学C语言时，就被指针、一维数组和二维数组等相关知识绕了好久。C++的指针与C差不多，这里用几段程序对这个容易混淆的知识点进行总结。</p>
+<h3 id="引用为返回值">引用为返回值</h3>
+<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;typeinfo&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+
+<span class="hljs-type">int</span> a[] = &#123;<span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>&#125;;
+<span class="hljs-comment">/* 把引用作为返回值，与返回指针类似，相当于返回一个指向返回值的隐式指针，可以作为赋值语句的左值 */</span>
+<span class="hljs-function"><span class="hljs-type">int</span>&amp; <span class="hljs-title">value</span><span class="hljs-params">(<span class="hljs-type">int</span> i)</span></span>
+<span class="hljs-function"><span class="hljs-comment">/* 如果这样定义: int value(int i)，执行下面的 value(0)=1 和 value(3)=20 就会报错，提示左值不对 */</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">return</span> a[i];
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-type">int</span> i;
+    cout &lt;&lt; <span class="hljs-string">&quot;Before change:&quot;</span> &lt;&lt; endl;
+    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i++)
+    &#123;
+        cout &lt;&lt; <span class="hljs-string">&quot;a[&quot;</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;] = &quot;</span> &lt;&lt; a[i] &lt;&lt; endl;
+    &#125;
+    <span class="hljs-comment">/* 修改数组的值，赋值语句合法 */</span>
+    <span class="hljs-built_in">value</span>(<span class="hljs-number">0</span>) = <span class="hljs-number">1</span>;
+    <span class="hljs-built_in">value</span>(<span class="hljs-number">3</span>) = <span class="hljs-number">20</span>;
+    <span class="hljs-comment">/* 输出a(数组)的类型，我的输出的是缩写 */</span>
+    cout &lt;&lt; <span class="hljs-string">&quot;type of value&#x27;s return is: &quot;</span> &lt;&lt; <span class="hljs-built_in">typeid</span>(a).<span class="hljs-built_in">name</span>() &lt;&lt; endl;  <span class="hljs-comment">// A5_i</span>
+    <span class="hljs-comment">/* 输出a(数组)的类型全称，要加上头文件: #include &lt;cxxabi.h&gt; */</span>
+    cout &lt;&lt; abi::__cxa_demangle(<span class="hljs-built_in">typeid</span>(a).<span class="hljs-built_in">name</span>(),<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span> ) &lt;&lt; endl;  <span class="hljs-comment">// int [5]</span>
+    cout &lt;&lt; <span class="hljs-string">&quot;After change:&quot;</span> &lt;&lt; endl;
+    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i++)
+    &#123;
+        cout &lt;&lt; <span class="hljs-string">&quot;a[&quot;</span> &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;] = &quot;</span> &lt;&lt; a[i] &lt;&lt; endl;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<h3 id="d-and-2d-array">1D and 2D Array</h3>
+<div class="code-wrapper"><pre><code class="hljs csharp"><span class="hljs-meta">#include &lt;iostream&gt;</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title">std</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test_1d</span>()</span>;  <span class="hljs-comment">/* 一维数组辨析 */</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test_2d</span>()</span>;  <span class="hljs-comment">/* 二维数组辨析 */</span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test_1d</span>()</span>
+&#123;
+    <span class="hljs-built_in">int</span> a[<span class="hljs-number">5</span>] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;
+    <span class="hljs-built_in">int</span> *ap;
+
+    ap = &amp;a[<span class="hljs-number">0</span>];  <span class="hljs-comment">/* 将数组首个元素a[0]的地址赋给指针ap */</span>
+    ap = a;  <span class="hljs-comment">/* 与上个语句等价 */</span>
+    cout &lt;&lt; <span class="hljs-string">&quot;a[0] = &quot;</span> &lt;&lt; a[<span class="hljs-number">0</span>] &lt;&lt; endl;  <span class="hljs-comment">// 0</span>
+
+    *ap = <span class="hljs-number">10</span>;  <span class="hljs-comment">/* 修改第1个元素的值 */</span>
+    cout &lt;&lt; <span class="hljs-string">&quot;a[0] = &quot;</span> &lt;&lt; a[<span class="hljs-number">0</span>] &lt;&lt; endl;  <span class="hljs-comment">// 10</span>
+
+    cout &lt;&lt; <span class="hljs-string">&quot;a[1] = &quot;</span> &lt;&lt; a[<span class="hljs-number">1</span>] &lt;&lt; endl;  <span class="hljs-comment">// 1</span>
+
+    *(ap+<span class="hljs-number">1</span>) = <span class="hljs-number">20</span>;  <span class="hljs-comment">/* 修改下一个(第2个)元素a[1]的值 */</span>
+    *(a+<span class="hljs-number">1</span>) = <span class="hljs-number">20</span>;  <span class="hljs-comment">/* 与上个语句等价 */</span>
+    cout &lt;&lt; <span class="hljs-string">&quot;a[1] = &quot;</span> &lt;&lt; a[<span class="hljs-number">1</span>] &lt;&lt; endl;  <span class="hljs-comment">// 20</span>
+
+    cout &lt;&lt; a &lt;&lt; endl;  <span class="hljs-comment">// 输出了数组a代表的地址: &amp;a[0]</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test_2d</span>()</span>
+&#123;
+    <span class="hljs-built_in">int</span> a[<span class="hljs-number">3</span>][<span class="hljs-number">4</span>] = &#123;&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>&#125;,&#123;<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>&#125;,&#123;<span class="hljs-number">9</span>,<span class="hljs-number">10</span>,<span class="hljs-number">11</span>,<span class="hljs-number">12</span>&#125;&#125;;
+    <span class="hljs-built_in">int</span> *p1, *p2, *p3;
+    <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">3</span>; i++)
+    &#123;
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> j=<span class="hljs-number">0</span>; j&lt;<span class="hljs-number">4</span>; j++)
+        &#123;
+            cout &lt;&lt; a[i][j] &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span>;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+
+    p1 = &amp;a[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];  <span class="hljs-comment">/* 将数组第一行第一个元素a[0][0]的地址赋给指针p1 */</span>
+    cout &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span> &lt;&lt; *p1 &lt;&lt; endl;  <span class="hljs-comment">// 1</span>
+
+    p2 = a[<span class="hljs-number">0</span>];  <span class="hljs-comment">/* 将数组第一行的起始地址a[0](1维数组名)赋给指针p2 */</span>
+    cout &lt;&lt; *p2 &lt;&lt; endl;  <span class="hljs-comment">// 1</span>
+    cout &lt;&lt; *(p2+<span class="hljs-number">1</span>) &lt;&lt; endl;  <span class="hljs-comment">// 2   p2+1是p2指向的行（首元素地址）的下一个（第2个）元素的地址，故输出a[0][1]</span>
+    cout &lt;&lt; *(a[<span class="hljs-number">0</span>]+<span class="hljs-number">1</span>) &lt;&lt; endl;  <span class="hljs-comment">/* 与上条语句等价，+1可以认为是地址偏移量，C++数组按行优先存储，故向右移动1个单位 */</span>
+    cout &lt;&lt; *(p2+<span class="hljs-number">3</span>) &lt;&lt; endl;  <span class="hljs-comment">// 4   输出a[0][3]</span>
+
+    <span class="hljs-comment">/* a代表二维数组的地址(指向首个元素)，不能直接将a赋值给(int*)类型的指针变量p3，类型不统一。但*a可以，因为*a代表a[0] */</span>
+    p3 = *a;
+    p3 = a[<span class="hljs-number">0</span>];  <span class="hljs-comment">/* 与上条语句等价 */</span>
+    cout &lt;&lt; *p3 &lt;&lt; endl;  <span class="hljs-comment">// 1</span>
+    <span class="hljs-comment">/* a表示二维数组地址，因此a+1是向下一行进行偏移 */</span>
+    cout &lt;&lt; **(a+<span class="hljs-number">1</span>) &lt;&lt; endl;  <span class="hljs-comment">// 5   **(a+1)相当于*a[1]，即第2行起始地址指向的元素: a[1][0]</span>
+    cout &lt;&lt; *(*a+<span class="hljs-number">1</span>) &lt;&lt; endl;  <span class="hljs-comment">// 2   注意与上条语句区分: *a+1 = (*a)+1 = a[0]+1</span>
+    
+    <span class="hljs-comment">/* 总结: *(a[i]+j) 与 *(*a+i) 是一样的，都是a[i][j]的值。</span>
+<span class="hljs-comment">             Type(a[0]): int [4] (A4_i)   Type(a): int [3][4] (A3_A4_i) */</span>
+&#125;
+
+<span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">main</span>()</span>
+&#123;
+    test_1d();
+    test_2d();
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>关于二维数组名 a 和 int*
+指针变量类型不统一的问题，若是强行赋值：<code>p3 = a;</code>，则会报错：<code>error: cannot convert 'int [3][4]' to 'int*' in assignment</code>。若是按照下面的方式定义，则不会出错：</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">int</span> a[<span class="hljs-number">3</span>][<span class="hljs-number">4</span>] = &#123;&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>&#125;,&#123;<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>&#125;,&#123;<span class="hljs-number">9</span>,<span class="hljs-number">10</span>,<span class="hljs-number">11</span>,<span class="hljs-number">12</span>&#125;&#125;;
+<span class="hljs-attribute">int</span> (*p)[<span class="hljs-number">4</span>];
+<span class="hljs-attribute">p</span> = a;  // Type(p) == int (*)<span class="hljs-meta"> [4]，赋值合法</span></code></pre></div>
+<p><strong>思考</strong>：为什么指针变量 int * 和数组名的类型 int [4]
+作为左值和右值的关系是对应的（赋值语句合法）？指针变量类型 int (*) [4]
+和数组名类型 int [3][4] 对应？</p>
+<p><strong>解答</strong>：因为在C语言中，当你将一个数组赋值给一个指针时，编译器会进行类型转换，因此这种赋值是合法的（只要类型对的上）。在上例中，p指向了数组a的第一个一维数组（第1行），而p被定义为一个指向包含4个整数的数组的指针，因此它可以指向a的一维数组元素，类型兼容，故<code>p = a;</code>赋值合法。同理，a是一维数组名时也如此分析即可。</p>
+<h3 id="字符数组字符指针与字符串">字符数组、字符指针与字符串</h3>
+<div class="code-wrapper"><pre><code class="hljs axapta"><span class="hljs-meta">#include &lt;iostream&gt;</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+
+<span class="hljs-keyword">void</span> test_str()
+&#123;
+    <span class="hljs-comment">/* 左边加入了const是因为：如果不加const，等号两边的变量类型不一样。</span>
+<span class="hljs-comment">    右值是一个不变常量，左值是一个char*指针变量，不是const类型(那就表示可以修改)。</span>
+<span class="hljs-comment">    如果编译通过，那么就说明const(右值，字符串)可以被修改！这显然是不被允许的，因此会弹出警告或报错。 */</span>
+    <span class="hljs-keyword">const</span> <span class="hljs-built_in">char</span> *<span class="hljs-built_in">str</span> = <span class="hljs-string">&quot;Tom Love C++?!&quot;</span>;  <span class="hljs-comment">/* 用字符指针实现字符串的定义 */</span>
+
+    <span class="hljs-built_in">char</span> string_array1[] = <span class="hljs-string">&quot;Tom hate C++!?&quot;</span>;  <span class="hljs-comment">/* 用字符数组存放字符串，结尾是空字符&#x27;\0&#x27;，也计入数组长度 */</span>
+
+    <span class="hljs-built_in">char</span> string_array2[] = &#123;<span class="hljs-string">&#x27;T&#x27;</span>,<span class="hljs-string">&#x27;o&#x27;</span>,<span class="hljs-string">&#x27;m&#x27;</span>,<span class="hljs-string">&#x27; &#x27;</span>,<span class="hljs-string">&#x27;h&#x27;</span>,<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;t&#x27;</span>,<span class="hljs-string">&#x27;e&#x27;</span>,<span class="hljs-string">&#x27; &#x27;</span>,<span class="hljs-string">&#x27;C&#x27;</span>,<span class="hljs-string">&#x27;+&#x27;</span>,<span class="hljs-string">&#x27;+&#x27;</span>,<span class="hljs-string">&#x27;!&#x27;</span>,<span class="hljs-string">&#x27;?&#x27;</span>,<span class="hljs-string">&#x27;\0&#x27;</span>&#125;;  <span class="hljs-comment">/* 也定义了字符串 */</span>
+
+    cout &lt;&lt; string_array1 &lt;&lt; endl;  <span class="hljs-comment">// Tom hate C++!?   注意：输出的不是地址！与普通数值类型的数组区分开</span>
+    cout &lt;&lt; string_array2 &lt;&lt; endl;  <span class="hljs-comment">// Tom hate C++!?</span>
+    cout &lt;&lt; <span class="hljs-built_in">str</span> &lt;&lt; endl;  <span class="hljs-comment">// Tom Love C++?!</span>
+
+    cout &lt;&lt; *<span class="hljs-built_in">str</span> &lt;&lt; endl;  <span class="hljs-comment">// T   注意区别</span>
+    cout &lt;&lt; <span class="hljs-built_in">str</span>+<span class="hljs-number">1</span> &lt;&lt; endl;  <span class="hljs-comment">// om Love C++?!   T没了！</span>
+    cout &lt;&lt; *(<span class="hljs-built_in">str</span>+<span class="hljs-number">1</span>) &lt;&lt; endl;  <span class="hljs-comment">// o</span>
+
+    <span class="hljs-comment">/* 可以看出，字符指针可以指向字符串中的任意一个字符，很灵活，字符数组则不可以。 */</span>
+&#125;
+
+<span class="hljs-built_in">int</span> main()
+&#123;
+    test_str();
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p><strong>Q</strong>：为什么可以直接用字符型数组的名字输出数组值（字符串），而数值型的比如整型却不行呢？</p>
+<p><strong>A1</strong>：网上的一个答案：在定义流对象，系统会在内存中开辟一段缓冲区，用来暂存输入输出流的数据。在执行
+cout
+语句时，先把插入的数据顺序存放在输出缓冲区中，直到输出缓冲区满或遇到
+cout 语句中的
+endl（或‘’，ends，flush）为止，此时将缓冲区中已有的数据一起输出，并清空缓冲区。输出流中的数据在系统默认的设备（一般为显示器）输出。因为
+char 型数组中的每一个元素都是一字节，所以每一个字符之间的地址都是 +1
+的，是连续的，所以当 cout 输出时读到字符数组中的 '\0' 便停止输出；而 int
+数组每个元素占 4
+个字节，所以数组中每个元素地址的间隔是4（尽管其实它也是连续的），且没有结束符。</p>
+<p><strong>A2</strong>：ChatGPT的回答：在C语言中，字符型数组和数值型数组的行为略有不同。当你使用字符型数组的名字时，它会被解释为指向数组第一个元素的指针，而数组的第一个元素通常是一个字符，因此这个指针指向了字符串的首地址。字符串在C语言中以null字符
+'\0' 结尾，因此你可以通过打印指向字符串的指针来输出整个字符串，因为
+printf 等函数会一直打印直到遇到null字符为止。C++也一样，cout
+函数会一直打印直至遇见终止符
+'\0'。而数值型数组在使用时通常需要通过数组下标来访问其元素，而不是直接输出整个数组。因为数值型数组的名字会被解释为指向数组第一个元素的指针，但
+printf/cout 不会自动解析整个数组，因此需要循环遍历输出。</p>
+<p>C++为了继承C语言的指针操作，cout 对 char *
+进行了重载。C语言中，字符串的相关操作基本上都是直接打印其值，而非字符串的地址。因此C++中也是如此。</p>
 
                 
               </div>
@@ -668,7 +832,7 @@ Collection，垃圾回收机制）回收时消失，生存周期适中。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 23, 2024</div>
+          <div>March 30, 2024</div>
         </div>
       
       
