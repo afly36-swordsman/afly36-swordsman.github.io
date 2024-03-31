@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-03-30T02:54:15.910Z">
+<meta property="article:modified_time" content="2024-03-31T15:05:57.118Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15k words
+          18k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          19 mins
+          23 mins
         
       </span>
     
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on March 30, 2024 am
+                    Last updated on March 31, 2024 pm
                   
                 
               </p>
@@ -691,7 +691,8 @@ Collection，垃圾回收机制）回收时消失，生存周期适中。</p>
     cout &lt;&lt; *(a[<span class="hljs-number">0</span>]+<span class="hljs-number">1</span>) &lt;&lt; endl;  <span class="hljs-comment">/* 与上条语句等价，+1可以认为是地址偏移量，C++数组按行优先存储，故向右移动1个单位 */</span>
     cout &lt;&lt; *(p2+<span class="hljs-number">3</span>) &lt;&lt; endl;  <span class="hljs-comment">// 4   输出a[0][3]</span>
 
-    <span class="hljs-comment">/* a代表二维数组的地址(指向首个元素)，不能直接将a赋值给(int*)类型的指针变量p3，类型不统一。但*a可以，因为*a代表a[0] */</span>
+    <span class="hljs-comment">/* a代表二维数组的地址(指向首个元素)，不能直接将a赋值给(int*)类型的指针变量p3，类型不统一。</span>
+<span class="hljs-comment">    但*a可以，因为*a代表a[0] */</span>
     p3 = *a;
     p3 = a[<span class="hljs-number">0</span>];  <span class="hljs-comment">/* 与上条语句等价 */</span>
     cout &lt;&lt; *p3 &lt;&lt; endl;  <span class="hljs-comment">// 1</span>
@@ -699,7 +700,7 @@ Collection，垃圾回收机制）回收时消失，生存周期适中。</p>
     cout &lt;&lt; **(a+<span class="hljs-number">1</span>) &lt;&lt; endl;  <span class="hljs-comment">// 5   **(a+1)相当于*a[1]，即第2行起始地址指向的元素: a[1][0]</span>
     cout &lt;&lt; *(*a+<span class="hljs-number">1</span>) &lt;&lt; endl;  <span class="hljs-comment">// 2   注意与上条语句区分: *a+1 = (*a)+1 = a[0]+1</span>
     
-    <span class="hljs-comment">/* 总结: *(a[i]+j) 与 *(*a+i) 是一样的，都是a[i][j]的值。</span>
+    <span class="hljs-comment">/* 总结: *(a[i]+j) 与 *(*(a+i)+j) 是一样的，都是a[i][j]的值。</span>
 <span class="hljs-comment">             Type(a[0]): int [4] (A4_i)   Type(a): int [3][4] (A3_A4_i) */</span>
 &#125;
 
@@ -718,7 +719,7 @@ Collection，垃圾回收机制）回收时消失，生存周期适中。</p>
 <p><strong>思考</strong>：为什么指针变量 int * 和数组名的类型 int [4]
 作为左值和右值的关系是对应的（赋值语句合法）？指针变量类型 int (*) [4]
 和数组名类型 int [3][4] 对应？</p>
-<p><strong>解答</strong>：因为在C语言中，当你将一个数组赋值给一个指针时，编译器会进行类型转换，因此这种赋值是合法的（只要类型对的上）。在上例中，p指向了数组a的第一个一维数组（第1行），而p被定义为一个指向包含4个整数的数组的指针，因此它可以指向a的一维数组元素，类型兼容，故<code>p = a;</code>赋值合法。同理，a是一维数组名时也如此分析即可。</p>
+<p><strong>解答</strong>：因为在C语言中，当你将一个数组赋值给一个指针时，编译器会进行类型转换，因此这种赋值是合法的（只要类型对的上）。在上例中，p指向了数组a的第一个一维数组（第1行），而p被定义为一个指向包含4个整数的数组的指针，因此它可以指向a的一维数组元素，类型兼容，故<code>p = a;</code>赋值合法。同理，a是一维数组名时也如此分析即可。还可以从这个角度来理解：<code>int (*p)[4]</code>实际上定义了一个数组指针<code>p</code>，即指向一个数组的指针，因此赋值语句<code>p = a;</code>是正确的。</p>
 <h3 id="字符数组字符指针与字符串">字符数组、字符指针与字符串</h3>
 <div class="code-wrapper"><pre><code class="hljs axapta"><span class="hljs-meta">#include &lt;iostream&gt;</span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
@@ -768,6 +769,108 @@ printf 等函数会一直打印直到遇到null字符为止。C++也一样，cou
 printf/cout 不会自动解析整个数组，因此需要循环遍历输出。</p>
 <p>C++为了继承C语言的指针操作，cout 对 char *
 进行了重载。C语言中，字符串的相关操作基本上都是直接打印其值，而非字符串的地址。因此C++中也是如此。</p>
+<h3 id="指针数组和数组指针">指针数组和数组指针</h3>
+<p><font color="blue">指针数组</font>：是个数组，数组的元素都是指针，是存储指针的一个数组。数组占多少字节（数组占用的内存是连续的）由数组本身决定（与数组的长度有关）。</p>
+<p><font color="red">数组指针</font>：是个指针，指向某一个数组。在32位系统下永远是4个字节（Bytes）。</p>
+<div class="code-wrapper"><pre><code class="hljs scss"><span class="hljs-comment">/* 定义指针数组 */</span>
+int *p1<span class="hljs-selector-attr">[10]</span>;
+
+<span class="hljs-comment">/* 定义数组指针 */</span>
+int (*p2)<span class="hljs-selector-attr">[4]</span>;</code></pre></div>
+<p>通过上例进行分析。对 <code>int *p1[10];</code>
+来说，<code>[]</code>的优先级高于<code>*</code>，所以<code>p1</code>先跟<code>[10]</code>结合，构成一个数组，数组名是<code>p1</code>。<code>int *</code>修饰数组，即数组<code>p1</code>中的每个元素都是<code>int *</code>类型。也就是说，指针数组中的每一个元素都相当于一个指针变量，它的值都是地址。</p>
+<p>而对 <code>int (*p2)[4];</code>
+来说，<code>()</code>优先级最高，<code>*p2</code>先构成了一个指针的定义，指针变量名是<code>p2</code>，<code>int</code>修饰的是数组的内容，即<code>p2</code>所指数组中的每个元素都是<code>int</code>类型。也就是说，指针<code>p2</code>指向了一个包含4个<code>int</code>类型数据的数组，而且该数组没有名字，是个匿名数组。</p>
+<p>下面是一个示例，简单演示了数组指针的用法。</p>
+<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+
+<span class="hljs-type">const</span> <span class="hljs-type">int</span> MAX = <span class="hljs-number">5</span>;
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-type">int</span> a[MAX] = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;;  <span class="hljs-comment">// Type(a) == A5_i (int [5])</span>
+    <span class="hljs-type">int</span> *ap;  <span class="hljs-comment">// Type(ap) == Pi (int*)</span>
+    <span class="hljs-built_in">int</span> (*p)[MAX];  <span class="hljs-comment">// Type(p) == PA5_i (int (*) [5])</span>
+
+    ap = a;  <span class="hljs-comment">// 合法语句</span>
+    p = &amp;a;  <span class="hljs-comment">// 合法语句</span>
+    cout &lt;&lt; *ap &lt;&lt; endl;  <span class="hljs-comment">// 1</span>
+    cout &lt;&lt; **p &lt;&lt; endl;  <span class="hljs-comment">// 1</span>
+    cout &lt;&lt; *(*p+<span class="hljs-number">1</span>) &lt;&lt; endl;  <span class="hljs-comment">// 2   相当于: *(a+1)</span>
+    cout &lt;&lt; (*p)[<span class="hljs-number">4</span>] &lt;&lt; endl;  <span class="hljs-comment">// 5</span>
+    <span class="hljs-comment">/* p是数组指针，也叫行指针，相当于二维数组名，代表二维数组(首行) */</span>
+    cout &lt;&lt; **(p+<span class="hljs-number">1</span>) &lt;&lt; endl;  <span class="hljs-comment">// 0   越界了，输出了未定义的内存值，是垃圾数据</span>
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<h3 id="const指针">const指针</h3>
+<p>C++中，const关键字用来指定不可修改的变量，const修饰的变量类似于常量，值初始化后不能被修改（比如重新赋值），可以使编译器帮助用户定义的某些变量不被意外修改。指针也是变量，可以将const用于指针。用法主要有以下三种：</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-comment">/* 1.指针包含的地址是常量，不能被修改 */</span>
+<span class="hljs-type">int</span> x = <span class="hljs-number">10</span>;
+<span class="hljs-type">int</span>* const p = &amp;x;  // p被const修饰，p本身(即p中保存的地址)不能被修改
+*p = <span class="hljs-number">20</span>;  // x == <span class="hljs-number">20</span>，指向的数据可以被修改
+<span class="hljs-type">int</span> y = <span class="hljs-number">5</span>;
+p = &amp;y;  // 报错: error: assignment <span class="hljs-keyword">of</span> <span class="hljs-keyword">read</span>-<span class="hljs-keyword">only</span> variable <span class="hljs-string">&#x27;p1&#x27;</span>
+
+<span class="hljs-comment">/* 2.指针指向的数据不能被修改 */</span>
+<span class="hljs-type">int</span> x = <span class="hljs-number">10</span>;
+const <span class="hljs-type">int</span>* p = &amp;x;  // const在 * 前，修饰指针p指向的内容，所以x的值不能被修改
+*p = <span class="hljs-number">20</span>;  // 报错: error: assignment <span class="hljs-keyword">of</span> <span class="hljs-keyword">read</span>-<span class="hljs-keyword">only</span> <span class="hljs-keyword">location</span> <span class="hljs-string">&#x27;* p&#x27;</span>
+<span class="hljs-type">int</span> y = <span class="hljs-number">5</span>;
+p = &amp;y;  // p本身可以被修改，现在p指向的是y了
+
+<span class="hljs-comment">/* 3.指针本身和它指向的值都是常量，不能被修改 */</span>
+<span class="hljs-type">int</span> x = <span class="hljs-number">10</span>;
+const <span class="hljs-type">int</span>* const p = &amp;x;
+*p = <span class="hljs-number">20</span>;  // 报错: error: assignment <span class="hljs-keyword">of</span> <span class="hljs-keyword">read</span>-<span class="hljs-keyword">only</span> <span class="hljs-keyword">location</span> <span class="hljs-string">&#x27;*(const int*)p&#x27;</span>
+<span class="hljs-type">int</span> y = <span class="hljs-number">5</span>;
+p = &amp;y;  // 报错: error: assignment <span class="hljs-keyword">of</span> <span class="hljs-keyword">read</span>-<span class="hljs-keyword">only</span> variable <span class="hljs-string">&#x27;p&#x27;</span></code></pre></div>
+<p>有时需要禁止通过引用修改它指向的变量的值，为此也可在声明引用时使用const。例如：</p>
+<div class="code-wrapper"><pre><code class="hljs perl"><span class="hljs-keyword">int</span> <span class="hljs-keyword">x</span> = <span class="hljs-number">30</span>;
+const <span class="hljs-keyword">int</span>&amp; p = <span class="hljs-keyword">x</span>;  <span class="hljs-regexp">//</span> Type(p) == i (<span class="hljs-keyword">int</span>)
+p = <span class="hljs-number">15</span>;  <span class="hljs-regexp">//</span> 报错: error: assignment of <span class="hljs-keyword">read</span>-only reference <span class="hljs-string">&#x27;p&#x27;</span>
+<span class="hljs-keyword">int</span>&amp; <span class="hljs-keyword">q</span> = p;  <span class="hljs-regexp">//</span> 报错: error: binding reference of type <span class="hljs-string">&#x27;int&amp;&#x27;</span> to <span class="hljs-string">&#x27;const int&#x27;</span> discards qualifiers
+             // 翻译: 将类型为<span class="hljs-string">&quot;int&amp;&quot;</span>的引用绑定到<span class="hljs-string">&quot;const int&quot;</span>将丢弃限定符，类型不匹配(<span class="hljs-keyword">y</span>未被const修饰)
+const <span class="hljs-keyword">int</span>&amp; z = p;  <span class="hljs-regexp">//</span> 合法语句(类型相同，可以赋值)</code></pre></div>
+<h3 id="c中引用和指针的区别">C++中引用和指针的区别</h3>
+<p>在C++中，引用（Reference）和指针（Pointer）都是用来间接访问变量的工具，引用提供了一种更安全和更方便的方式来间接访问变量，而指针提供了更多的灵活性和功能，但也带来了更多的潜在错误和安全风险。它们之间有一些重要的区别：</p>
+<h4 id="语法和操作">1.语法和操作</h4>
+<p>指针是一个变量，其存储的是另一个变量的地址。指针需要使用取地址运算符
+<code>&amp;</code> 来获取变量的地址，并使用解引用运算符 <code>*</code>
+来访问存储在该地址上的值。指针可以被赋值为 <code>nullptr</code>
+或者另一个变量的地址，可以进行指针算术运算。</p>
+<p>引用是一个别名，它必须在创建时初始化，并且不能被重新赋值为另一个变量的引用。引用使用
+<code>&amp;</code>
+符号进行声明，并且在声明时必须绑定到一个已经存在的变量。对引用的操作就像对变量本身的操作一样，不需要使用解引用运算符。</p>
+<h4 id="空值安全性和错误">2.空值、安全性和错误</h4>
+<p>指针可以指向空值（nullptr），表示不指向任何有效的对象。指针可以有空值，也可以指向任何对象，包括无效的对象或未初始化的对象，这可能导致空指针解引用错误（Null
+Pointer Dereference）或野指针（Dangling Pointer）错误。</p>
+<p>引用不能指向空值，必须在初始化时绑定到一个已经存在的对象，因此不存在空指针或者野指针错误。</p>
+<h4 id="赋值和重定向">3.赋值和重定向</h4>
+<p>指针可以被重新赋值为另一个地址，从而改变其所指向的对象。</p>
+<p>引用一旦绑定到一个对象后，就不能再绑定到其他对象。因此，引用不能像指针一样被重新赋值为另一个对象的引用。</p>
+<h4 id="用途">4.用途</h4>
+<p>指针通常用于动态内存分配、数组、函数指针、实现数据结构等需要灵活处理内存和对象的情况。</p>
+<p>引用通常用于函数参数传递、函数返回值、提高代码可读性和简洁性的情况，如通过引用避免对象的拷贝。</p>
+<p><font color="purple">下面是一段示例代码</font>：</p>
+<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-type">int</span> x = <span class="hljs-number">30</span>;  <span class="hljs-comment">// 假设 x 初始值为 30</span>
+<span class="hljs-type">int</span> y = <span class="hljs-number">50</span>;  <span class="hljs-comment">// 假设 y 初始值为 50</span>
+
+<span class="hljs-type">int</span>&amp; p1 = x;  <span class="hljs-comment">// 引用 p1 绑定到 x</span>
+<span class="hljs-type">int</span>&amp; p2 = x;  <span class="hljs-comment">// 引用 p2 也绑定到 x</span>
+<span class="hljs-type">int</span>&amp; p3;  <span class="hljs-comment">// 不允许这样写！引用必须在声明时绑定变量！</span>
+
+<span class="hljs-comment">// p1、p2 均已绑定 x，因此此处的赋值操作会修改 x 的值</span>
+p2 = y;  <span class="hljs-comment">// 将 x 的值修改为 y 的值，即: x == 50</span>
+p1 = <span class="hljs-number">100</span>;  <span class="hljs-comment">// 将 x 的值修改为 100</span>
+p2 = <span class="hljs-number">200</span>;  <span class="hljs-comment">// 将 x 的值修改为 200 (上面的赋值操作都被覆盖了)</span>
+
+cout &lt;&lt; <span class="hljs-string">&quot;x: &quot;</span> &lt;&lt; x &lt;&lt; <span class="hljs-string">&quot;\t&quot;</span> &lt;&lt; <span class="hljs-string">&quot;p1: &quot;</span> &lt;&lt; p1 &lt;&lt; endl; <span class="hljs-comment">// 输出 x 和 p1 的值</span>
+cout &lt;&lt; <span class="hljs-string">&quot;y: &quot;</span> &lt;&lt; y &lt;&lt; <span class="hljs-string">&quot;\t&quot;</span> &lt;&lt; <span class="hljs-string">&quot;p2: &quot;</span> &lt;&lt; p2 &lt;&lt; endl; <span class="hljs-comment">// 输出 y 和 p2 的值</span>
+
+<span class="hljs-comment">// 输出</span>
+x: <span class="hljs-number">200</span>    p1: <span class="hljs-number">200</span>
+y: <span class="hljs-number">50</span>    p2: <span class="hljs-number">200</span></code></pre></div>
 
                 
               </div>
@@ -832,7 +935,7 @@ printf/cout 不会自动解析整个数组，因此需要循环遍历输出。</
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 30, 2024</div>
+          <div>March 31, 2024</div>
         </div>
       
       
