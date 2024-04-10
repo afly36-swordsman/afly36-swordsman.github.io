@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-03-31T15:05:57.118Z">
+<meta property="article:modified_time" content="2024-04-10T08:42:06.223Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          18k words
+          32k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          23 mins
+          41 mins
         
       </span>
     
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on March 31, 2024 pm
+                    Last updated on April 10, 2024 pm
                   
                 
               </p>
@@ -394,7 +394,7 @@ Java面向对象，每个事物都是对象，各自协同形成系统，耦合�
 <p>面向对象分析：OOA(Object-Oriented Analysis) <br/>
 面向对象设计：OOD(Object-Oriented Design) <br/>
 面向对象编程：OOP(Object-Oriented Programming)</p>
-<p>面向对象的三大特征：<font color="red">封装</font>、<font color="green">继承</font>、<font color="purple">多态</font>。</p>
+<p>面向对象的三大特征：<font color="red">封装(encapsulation)</font>、<font color="green">继承(inheritance)</font>、<font color="purple">多态(polymorphism)</font>。</p>
 <h3 id="前置知识类和对象">前置知识：类和对象</h3>
 <p>类：某些特征、性质的总结，抽象的模板。类是具有相同属性（数据、变量）和方法（实现功能的函数）的对象集合。普通公共类Animal的创建：</p>
 <div class="code-wrapper"><pre><code class="hljs angelscript"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-symbol">Animal</span> &#123;
@@ -527,7 +527,7 @@ loader会先加载类（.class文件），装载到JVM后由解释器将字节�
     &#125;
 &#125;</code></pre></div>
 <p>通过对象的向上转型可以实现接收参数的统一，向下转型可以实现子类扩充的调用（一般不操作向下转型，有安全隐患，不过搭配instanceof使用可以提高安全性）。注意：向下转型之前一定要进行向上转型！</p>
-<h3 id="知识迁移overload">知识迁移：Overload</h3>
+<h3 id="知识迁移overload与命名空间">知识迁移：Overload与命名空间</h3>
 <p><font color="purple">Overload</font>，即方法重载，同一个方法名称可以根据参数类型或者参数个数的不同而调用不同的方法体。如果功能相近的几种方法需要各自取名时，未免过于繁琐，且名字太多调用不方便。故而引入方法重载解决这个问题。方法重载使得功能相同或相近的方法可以用同一个名字，利用不同的参数来分别选用不同的方法。触发Overload机制的条件：在同一个类中；方法名相同；参数列表不同。以上三个条件同时满足时，我们认为触发了方法重载机制，比如<code>m() 与 m(int a)</code>、<code>m(int i, double j) 与 m(double i, int j)</code>等，下面是一个例子。</p>
 <div class="code-wrapper"><pre><code class="hljs axapta"><span class="hljs-comment">// 定义了两种的方法，但都是进行求和运算</span>
 <span class="hljs-built_in">int</span> <span class="hljs-keyword">sum</span>(<span class="hljs-built_in">int</span> i, <span class="hljs-built_in">int</span> j)&#123;
@@ -566,7 +566,9 @@ namespace second_field  <span class="hljs-comment">/* 第二个命名空间 */</
 <span class="hljs-comment">// 主函数（程序入口）</span>
 int main()
 &#123;
+    namespace FF = first_field;  <span class="hljs-comment">/* 为第一个命名空间起个别名 */</span>
     first_field::<span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">/* 调用第一个命名空间中的函数 */</span>
+    FF::<span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">// 同上</span>
     second_field::<span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">/* 调用第二个命名空间中的函数 */</span>
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
@@ -833,7 +835,7 @@ p = <span class="hljs-number">15</span>;  <span class="hljs-regexp">//</span> �
              // 翻译: 将类型为<span class="hljs-string">&quot;int&amp;&quot;</span>的引用绑定到<span class="hljs-string">&quot;const int&quot;</span>将丢弃限定符，类型不匹配(<span class="hljs-keyword">y</span>未被const修饰)
 const <span class="hljs-keyword">int</span>&amp; z = p;  <span class="hljs-regexp">//</span> 合法语句(类型相同，可以赋值)</code></pre></div>
 <h3 id="c中引用和指针的区别">C++中引用和指针的区别</h3>
-<p>在C++中，引用（Reference）和指针（Pointer）都是用来间接访问变量的工具，引用提供了一种更安全和更方便的方式来间接访问变量，而指针提供了更多的灵活性和功能，但也带来了更多的潜在错误和安全风险。它们之间有一些重要的区别：</p>
+<p>在C++中，引用（Reference）和指针（Pointer）都是用来间接访问变量的工具，引用提供了一种更安全和更方便的方式来间接访问变量，相当于给变量重新起了个名字，但是又有指针的作用，而指针提供了更多的灵活性和功能，但也带来了更多的潜在错误和安全风险。它们之间有一些重要的区别：</p>
 <h4 id="语法和操作">1.语法和操作</h4>
 <p>指针是一个变量，其存储的是另一个变量的地址。指针需要使用取地址运算符
 <code>&amp;</code> 来获取变量的地址，并使用解引用运算符 <code>*</code>
@@ -871,6 +873,531 @@ cout &lt;&lt; <span class="hljs-string">&quot;y: &quot;</span> &lt;&lt; y &lt;&l
 <span class="hljs-comment">// 输出</span>
 x: <span class="hljs-number">200</span>    p1: <span class="hljs-number">200</span>
 y: <span class="hljs-number">50</span>    p2: <span class="hljs-number">200</span></code></pre></div>
+<h3 id="传值传指针传引用调用">传值、传指针、传引用调用</h3>
+<div class="code-wrapper"><pre><code class="hljs pgsql"><span class="hljs-meta">#include &lt;iostream&gt;</span>
+<span class="hljs-keyword">using</span> namespace std;
+
+<span class="hljs-type">void</span> swap(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b);
+<span class="hljs-type">void</span> swap(<span class="hljs-type">int</span> *a, <span class="hljs-type">int</span> *b);
+<span class="hljs-type">void</span> swap_ref(<span class="hljs-type">int</span>&amp; a, <span class="hljs-type">int</span>&amp; b);
+
+<span class="hljs-type">int</span> main() &#123;
+    <span class="hljs-type">int</span> x = <span class="hljs-number">10</span>;
+    <span class="hljs-type">int</span> y = <span class="hljs-number">50</span>;
+    <span class="hljs-type">int</span>&amp; z1 = x;
+    <span class="hljs-type">int</span> &amp;z2 = y;
+    cout &lt;&lt; &quot;Before: x = &quot; &lt;&lt; x &lt;&lt; &quot;  y = &quot; &lt;&lt; y &lt;&lt; endl;
+    swap(x, y);  // 交换失败
+    swap(&amp;x, &amp;y);  // 交换成功
+    swap_ref(z1, z2);  // 交换成功
+    cout &lt;&lt; &quot;After: x = &quot; &lt;&lt; x &lt;&lt; &quot;  y = &quot; &lt;&lt; y &lt;&lt; endl;
+&#125;
+
+<span class="hljs-type">void</span> swap(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b) &#123;
+    <span class="hljs-type">int</span> <span class="hljs-keyword">temp</span>;
+    <span class="hljs-keyword">temp</span> = a;
+    a = b;
+    b = <span class="hljs-keyword">temp</span>;
+&#125;
+
+<span class="hljs-type">void</span> swap(<span class="hljs-type">int</span> *a, <span class="hljs-type">int</span> *b) &#123;
+    <span class="hljs-type">int</span> <span class="hljs-keyword">temp</span>;
+    <span class="hljs-keyword">temp</span> = *a;
+    *a = *b;
+    *b = <span class="hljs-keyword">temp</span>;
+&#125;
+
+<span class="hljs-type">void</span> swap_ref(<span class="hljs-type">int</span>&amp; a, <span class="hljs-type">int</span>&amp; b) &#123;
+    <span class="hljs-type">int</span> <span class="hljs-keyword">temp</span>;
+    <span class="hljs-keyword">temp</span> = a;
+    a = b;
+    b = <span class="hljs-keyword">temp</span>;
+&#125;</code></pre></div>
+<h2 id="c中的类和对象">C++中的类和对象</h2>
+<h3 id="类的定义-对象的创建">类的定义 &amp; 对象的创建</h3>
+<p>定义一个类，本质上就是定义一个数据类型的蓝图。</p>
+<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Goods</span> &#123;
+    <span class="hljs-keyword">public</span>:  <span class="hljs-comment">// 访问限定符</span>
+        <span class="hljs-type">char</span> name[<span class="hljs-number">30</span>];  <span class="hljs-comment">// 成员变量</span>
+        <span class="hljs-type">int</span> amount;
+        <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">price</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">// 成员函数</span>
+&#125;;
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">Goods::price</span><span class="hljs-params">()</span> </span>&#123;  <span class="hljs-comment">// 类外定义</span>
+    <span class="hljs-keyword">return</span> amount*<span class="hljs-number">10</span>;
+&#125;</code></pre></div>
+<p>声明对象有两种形式：普通对象和指针。</p>
+<div class="code-wrapper"><pre><code class="hljs xl">Goods good;  <span class="hljs-comment">// 声明对象</span>
+Goods *pGood = &amp;good;  <span class="hljs-comment">// 指针</span>
+good.amount = <span class="hljs-number">10</span>;  <span class="hljs-comment">// 访问</span>
+<span class="hljs-function"><span class="hljs-title">pGood</span>-&gt;</span>amount = <span class="hljs-number">10</span>;</code></pre></div>
+<p><code>public</code>表示公有成员，在程序中类外可以访问；<code>private</code>表示私有成员，在类外不能访问，只能在本类和友元中访问；<code>protected</code>表示保护成员，只能被本类或派生类的成员函数访问。默认：<code>private</code>。</p>
+<h3 id="构造函数">构造函数</h3>
+<p>构造函数（Constructor）是对数据成员进行初始化的特殊函数，在对象被创建时由系统自动调用。初始化就相当于（自动）调用构造函数。</p>
+<p>构造函数有几个特点：</p>
+<ul>
+<li>函数名与类名一样</li>
+<li>不需用户调用，也不能被用户调用</li>
+<li>可以在类中定义，也可以在类外定义</li>
+<li>无函数返回值类型说明，但有返回值，返回构造函数所对应的被创建的对象</li>
+<li>若类说明中没有给出构造函数，则C++默认给出一个缺省构造函数，不过函数体为空</li>
+</ul>
+<p>构造函数可以带参数（实参在创建对象时给出），有重载机制，它的一项重要功能就是对成员变量进行初始化（第一次赋值）。为达此目的，可以在构造函数的函数体中对成员变量逐一赋值，也可以采用参数初始化表。注意：用参数初始化表进行参数初始化的顺序与表列出的顺序无关，只与成员变量在类中声明的顺序有关。</p>
+<p>下面是构造函数的一个实例：</p>
+<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Date</span> &#123;
+    <span class="hljs-keyword">private</span>:
+        <span class="hljs-type">int</span> a;  <span class="hljs-comment">// 私有成员变量</span>
+        <span class="hljs-type">int</span> b;
+    <span class="hljs-keyword">public</span>:
+        <span class="hljs-built_in">Date</span>(<span class="hljs-type">int</span>);  <span class="hljs-comment">// 构造函数（必须是public型）</span>
+        <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">// 公有成员函数</span>
+&#125;;
+
+<span class="hljs-comment">// 通过参数初始化表，按成员变量在类中声明的顺序赋值</span>
+<span class="hljs-comment">// 先把b赋给a，此时b中是垃圾数据(比如0)，然后把给的参数i赋给b</span>
+[<span class="hljs-number">1</span>] Date::<span class="hljs-built_in">Date</span>(<span class="hljs-type">int</span> i) :<span class="hljs-built_in">b</span>(i), <span class="hljs-built_in">a</span>(b) &#123; &#125;
+
+<span class="hljs-comment">// 先依次执行: a = b、b = i，再执行函数体中的语句: a = b</span>
+[<span class="hljs-number">2</span>] Date::<span class="hljs-built_in">Date</span>(<span class="hljs-type">int</span> i) :<span class="hljs-built_in">b</span>(i), <span class="hljs-built_in">a</span>(b) &#123;
+    a = b;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Date::show</span><span class="hljs-params">()</span> </span>&#123;
+    cout &lt;&lt; <span class="hljs-string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; <span class="hljs-string">&#x27;\t&#x27;</span> &lt;&lt; <span class="hljs-string">&quot;b = &quot;</span> &lt;&lt; b &lt;&lt; endl;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-function">Date <span class="hljs-title">d</span><span class="hljs-params">(<span class="hljs-number">55</span>)</span></span>;  <span class="hljs-comment">// 实例化对象</span>
+    Date *p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">336</span>);  <span class="hljs-comment">// 动态申请内存</span>
+    Date *p2 = &amp;d;
+    d.<span class="hljs-built_in">show</span>();  <span class="hljs-comment">// [1] a = 0  b = 55  [2] a = 55  b = 55</span>
+    p-&gt;<span class="hljs-built_in">show</span>();  <span class="hljs-comment">// [1] a = 0  b = 336  [2] a = 336  b = 336</span>
+    p2-&gt;<span class="hljs-built_in">show</span>();  <span class="hljs-comment">// 结果与d.show()一样</span>
+    <span class="hljs-keyword">delete</span> p;  <span class="hljs-comment">// new完一定记得delete!</span>
+&#125;</code></pre></div>
+<h3
+id="函数重载复制构造函数与析构函数">函数重载、复制构造函数与析构函数</h3>
+<p>构造函数可以重载，要求：参数个数或参数类型不相同。因此一个类中可以有多个构造函数，但对于每一个对象来说，建立对象时只会执行其中一个构造函数。一个类中只能有一个默认构造函数（即无参的构造函数）。</p>
+<p>复制构造函数（Copy
+Constructor）是一个特殊的构造函数，就是用一个已有的对象，以复制的方式快速产生多个完全相同的对象。为了确保相同，在对象的引用形式上一般要加<code>const</code>声明，使参数值不能改变，以防止调用此函数时不慎将对象值修改了。</p>
+<p>析构函数（Destructor）也是一种特殊的成员函数，没有返回值。当对象生命周期结束时，系统自动执行析构函数，其会进行清理工作，如销毁对象、释放分配的内存、关闭打开的文件等。在类名（构造函数名）前加上"~"就构成了析构函数名。</p>
+<p>析构函数执行的顺序类似于栈，“先进后出”，最先被调用的构造函数，其对应的对象的析构函数最后被调用。当然，并不是任何情况下都按这一原则处理，这与作用域有关。比如静态局部对象，在函数执行完以后并不会释放，直到程序结束以后要释放它时，才会调用它的析构函数。</p>
+<p>C++中，每一个成员函数中都包含一个特殊的指针，叫
+<strong>this指针</strong>。它是指向本类对象的指针，它的值是当前被调用的成员函数所在的对象的起始地址。</p>
+<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Box</span> &#123;
+    <span class="hljs-keyword">private</span>:
+        <span class="hljs-type">int</span> length;
+        <span class="hljs-type">int</span> width;
+        <span class="hljs-type">int</span> height;
+    <span class="hljs-keyword">public</span>:
+        <span class="hljs-comment">// 默认参数的构造函数。也可以在定义的时候填写默认参数，在这里只需要声明类型即可</span>
+        <span class="hljs-built_in">Box</span>(<span class="hljs-type">int</span> len=<span class="hljs-number">10</span>, <span class="hljs-type">int</span> w=<span class="hljs-number">10</span>, <span class="hljs-type">int</span> h=<span class="hljs-number">10</span>);
+        <span class="hljs-built_in">Box</span>(<span class="hljs-type">const</span> Box&amp; box);  <span class="hljs-comment">// 复制构造函数 + 重载</span>
+        <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">volume</span><span class="hljs-params">()</span></span>;
+        ~<span class="hljs-built_in">Box</span>();  <span class="hljs-comment">// 析构函数</span>
+&#125;;
+
+Box::<span class="hljs-built_in">Box</span>(<span class="hljs-type">int</span> len, <span class="hljs-type">int</span> w, <span class="hljs-type">int</span> h) &#123;
+    <span class="hljs-comment">// 下面三条语句等价。C++中，this是个指针，指向调用该成员函数的对象</span>
+    length = len;
+    <span class="hljs-keyword">this</span>-&gt;width = w;
+    (*<span class="hljs-keyword">this</span>).height = h;
+    cout &lt;&lt; <span class="hljs-string">&quot;调用了构造函数&quot;</span> &lt;&lt; endl;
+&#125;
+
+Box::<span class="hljs-built_in">Box</span>(<span class="hljs-type">const</span> Box&amp; box) &#123;
+    length = box.length;
+    width = box.width;
+    height = box.height;
+    cout &lt;&lt; <span class="hljs-string">&quot;调用了复制构造函数&quot;</span> &lt;&lt; endl;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">Box::volume</span><span class="hljs-params">()</span> </span>&#123;
+    cout &lt;&lt; <span class="hljs-string">&quot;length = &quot;</span> &lt;&lt; length &lt;&lt; endl;
+    cout &lt;&lt; <span class="hljs-string">&quot;width = &quot;</span> &lt;&lt; width &lt;&lt; endl;
+    cout &lt;&lt; <span class="hljs-string">&quot;height = &quot;</span> &lt;&lt; height &lt;&lt; endl;
+    cout &lt;&lt; <span class="hljs-string">&quot;volume: &quot;</span>;
+    
+    <span class="hljs-keyword">return</span>(length*width*height);
+&#125;
+
+Box::~<span class="hljs-built_in">Box</span>() &#123;
+    <span class="hljs-comment">// 输出一下相关信息</span>
+    cout &lt;&lt; <span class="hljs-string">&quot;调用了析构函数，清理工作已完成！&quot;</span> &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span> &lt;&lt; <span class="hljs-keyword">this</span>-&gt;<span class="hljs-built_in">volume</span>() &lt;&lt; endl;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-function">Box <span class="hljs-title">box1</span><span class="hljs-params">(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>)</span></span>;  <span class="hljs-comment">// 自动局部对象box1，调用构造函数，第三个析构</span>
+    cout &lt;&lt; box1.<span class="hljs-built_in">volume</span>() &lt;&lt; endl;
+    <span class="hljs-function">Box <span class="hljs-title">box2</span><span class="hljs-params">(<span class="hljs-number">9</span>,<span class="hljs-number">8</span>,<span class="hljs-number">10</span>)</span></span>;  <span class="hljs-comment">// 自动局部对象box2，调用构造函数，第二个析构</span>
+    cout &lt;&lt; box2.<span class="hljs-built_in">volume</span>() &lt;&lt; endl;
+    Box box3 = box1;  <span class="hljs-comment">// 自动局部对象box3，调用复制构造函数，最先被析构</span>
+    cout &lt;&lt; box3.<span class="hljs-built_in">volume</span>() &lt;&lt; endl;
+    <span class="hljs-type">static</span> Box box4;  <span class="hljs-comment">// 静态局部对象box4，调用构造函数，最后被析构</span>
+    cout &lt;&lt; box4.<span class="hljs-built_in">volume</span>() &lt;&lt; endl;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<h3 id="静态数据成员">静态数据成员</h3>
+<p>静态数据成员，为类的所有对象共享，内存中只占用一份空间。在创建第一个对象时，所有的静态数据都会被初始化为0，因此不能将静态成员的初始化放在类中定义，否则会冲突。</p>
+<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Box</span> &#123;
+    <span class="hljs-keyword">public</span>:
+        <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">volume</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-keyword">private</span>:
+        <span class="hljs-type">static</span> <span class="hljs-type">int</span> length;
+        <span class="hljs-type">int</span> width;
+        <span class="hljs-type">int</span> height;
+&#125;;</code></pre></div>
+<p>如果希望用Box类实例化的每个对象的length属性值都一样，那么就可以用<code>static</code>把它定义为静态数据成员。如果只声明了类而未定义对象，则类的一般数据成员是不占内存空间的，只有在定义对象时，才为对象的数据成员分配空间。但是静态数据成员不属于某一个对象，在为对象所分配的空间中不包括静态数据成员所占的空间。静态数据成员在所有对象之外单独开辟空间。只要在类中定义了静态数据成员，即使不定义对象，也为静态数据成员分配空间，它可以被引用。在一个类中可以有一个或多个静态数据成员，所有的对象共享这些静态数据成员，都可以引用它。</p>
+<p>静态数据成员既可以通过对象名引用，也可以通过类名引用。</p>
+<p>对于<strong>静态变量</strong>，如果在一个函数中定义了静态变量，在函数结束时该静态变量并不释放，仍然存在并保留其值。静态数据成员也类似，它不随对象的建立而分配空间，也不随对象的撒销而释放（一般数据成员是在对象建立时分配空间，在对象撒销时释放）。静态数据成员是在程序编译时被分配空间的，到程序结束时才释放空间。</p>
+<p>静态数据成员可以初始化，但只能在类体外进行初始化。注意：不能用参数初始化静态数据成员，如参数初始化表就不行。</p>
+<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Box</span> &#123;
+    <span class="hljs-keyword">public</span>:
+        <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">product</span><span class="hljs-params">()</span></span>;
+    <span class="hljs-keyword">private</span>:
+        <span class="hljs-type">static</span> <span class="hljs-type">int</span> len;
+        <span class="hljs-type">int</span> width;
+&#125;;
+<span class="hljs-type">int</span> Box::len = <span class="hljs-number">5</span>;  <span class="hljs-comment">// 初始化静态成员变量</span></code></pre></div>
+<p>有了静态变量，各对象之间的数据有了沟通的渠道，实现了数据共享。</p>
+<p>静态成员函数，可以用类名加 "::"
+进行访问，即便在类对象不存在的情况下也能被调用。静态成员函数只能访问静态成员数据、其他静态成员函数和类外部的其他函数。静态成员函数没有
+this 指针，只能访问静态成员，不能访问实例成员（普通成员）。</p>
+<p>作用域限定符（Scope Resolution Operator）"::"
+还可以用来访问<strong>全局变量</strong>，但是不能在某个语句块内部访问在语句块外声明的局部变量。关于静态变量和全局变量、普通变量的区别，可以点击这个链接跳转访问：<a
+target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/cpp-static-usage.html">菜鸟教程:C/C++中的static</a>。看下面这个例子：</p>
+<div class="code-wrapper"><pre><code class="hljs llvm">int <span class="hljs-keyword">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">11</span><span class="hljs-comment">;  // 全局变量</span>
+int main() &#123;
+    int <span class="hljs-keyword">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">22</span><span class="hljs-comment">;  // 局部变量</span>
+    cout &lt;&lt; ::<span class="hljs-keyword">x</span> &lt;&lt; endl<span class="hljs-comment">;  // 访问的是全局变量：x == 11</span>
+    cout &lt;&lt; <span class="hljs-keyword">x</span> &lt;&lt; endl<span class="hljs-comment">;  // 访问的是局部变量：x == 22</span>
+    ::<span class="hljs-keyword">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">33</span><span class="hljs-comment">;  // 修改全局变量的值</span>
+&#125;</code></pre></div>
+<h3 id="常量成员">常量成员</h3>
+<p>用const修饰的成员变量、成员函数、对象叫常量数据成员。由于const成员变量无法被修改，初始化常量数据成员的唯一方法就是用参数初始化表。</p>
+<p>const成员函数可以使用类中所有成员变量，但是不能修改它们的值。const成员函数也叫常量成员函数。</p>
+<p>相应地，创建对象时，也要用const进行修饰，常量对象可以且只能调用类的const成员函数（const类型相互匹配）（除了系统自动调用的隐式的构造函数和析构函数）。</p>
+<div class="code-wrapper"><pre><code class="hljs processing"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Time</span> &#123;
+    <span class="hljs-keyword">public</span>:
+        <span class="hljs-title function_">Time</span>(<span class="hljs-type">int</span> h, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> s);
+        <span class="hljs-type">int</span> <span class="hljs-title function_">getHour</span>() <span class="hljs-keyword">const</span>;  <span class="hljs-comment">// 声明常量成员函数</span>
+    <span class="hljs-keyword">private</span>:
+        <span class="hljs-keyword">const</span> <span class="hljs-type">int</span> <span class="hljs-built_in">hour</span>;
+        <span class="hljs-keyword">const</span> <span class="hljs-type">int</span> <span class="hljs-built_in">minute</span>;
+        <span class="hljs-keyword">const</span> <span class="hljs-type">int</span> <span class="hljs-built_in">second</span>;
+&#125;;
+<span class="hljs-comment">// 必须使用参数初始化表</span>
+Time::<span class="hljs-title function_">Time</span>(<span class="hljs-type">int</span> h, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> s) :<span class="hljs-built_in">hour</span>(h), <span class="hljs-built_in">minute</span>(m), <span class="hljs-built_in">second</span>(s) &#123; &#125;
+
+<span class="hljs-type">int</span> Time::<span class="hljs-title function_">getHour</span>() <span class="hljs-keyword">const</span>  <span class="hljs-comment">// 定义函数时也要加上const</span>
+&#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">hour</span>;
+&#125;
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span>() &#123;
+    Time <span class="hljs-keyword">const</span> <span class="hljs-title function_">time</span>(<span class="hljs-number">10</span>, <span class="hljs-number">13</span>, <span class="hljs-number">56</span>);
+&#125;</code></pre></div>
+<h3 id="静态与动态内存">静态与动态内存</h3>
+<p>通常定义变量（或对象）后，编译器在编译时都可以根据该变量（或对象）的类型知道所需内存空间的大小，然后系统可以在适当的时候为它们分配确定的存储空间。这种内存分配称为静态存储分配。</p>
+<p>有些操作对象只在程序运行时才能确定，这样编译时就无法为它们预定存储空间，只能在程序运行时，系统根据运行时的要求进行内存分配，这种方法称为动态存储分配。所有动态存储分配都在堆区中进行。C++程序中的内存分为两个部分：</p>
+<p>(1)栈：在函数内部声明的所有变量都将占用栈内存。</p>
+<p>(2)堆：这是程序中未使用的内存，在程序运行时可用于动态分配内存。</p>
+<p>很多时候，用户无法提前预知需要多少内存来存储某个定义变量中的特定信息，所需内存的大小需要在运行时才能确定。因此在C++中，可以使用特殊的运算符为给定类型的变量在运行时分配堆内的内存，这会返回所分配的空间地址。这种运算符是new运算符。如果不再需要动态分配的内存空间，可以使用delete运算符，删除之前由new运算符分配的内存。</p>
+<div class="code-wrapper"><pre><code class="hljs awk">double *p = NULL;  <span class="hljs-regexp">//</span> 初始化 null 指针
+p = new double;  <span class="hljs-regexp">//</span> 为变量请求内存
+<span class="hljs-regexp">/* 改进如下 */</span>
+<span class="hljs-keyword">if</span>(!(p = new double))
+&#123;
+    cout &lt;&lt; <span class="hljs-string">&quot;动态内存分配失败!&quot;</span> &lt;&lt; endl;
+    <span class="hljs-keyword">exit</span>(<span class="hljs-number">1</span>);
+&#125;</code></pre></div>
+<p>malloc函数在C语言中较常使用，建议C++中使用new运算。因为new不只分配了内存，还创建了对象。在任何时候，当用户觉得已经动态分配的变量不再需要使用时，可以使用delete操作符将其释放。</p>
+<p>对象的动态内存分配：</p>
+<div class="code-wrapper"><pre><code class="hljs kotlin"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Base</span>
+&#123;
+    int x;
+<span class="hljs-keyword">public</span>:
+    Base(int x) &#123;
+        <span class="hljs-keyword">this</span>-&gt;x = x;
+    &#125;
+    int <span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span> &#123;
+        <span class="hljs-keyword">return</span> x;
+    &#125;
+&#125;;
+
+int main() &#123;
+    Base *p = new Base(<span class="hljs-number">100</span>);
+    <span class="hljs-keyword">if</span>(!p) &#123;
+        cout &lt;&lt; <span class="hljs-string">&quot;动态内存分配失败!&quot;</span> &lt;&lt; endl;
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+    &#125;
+    cout &lt;&lt; <span class="hljs-string">&quot;x = &quot;</span> &lt;&lt; p-&gt;<span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span> &lt;&lt; endl;
+    delete p;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<h2 id="c核心之继承与多态">C++核心之继承与多态</h2>
+<p>封装：encapsulation(package)<br/> 继承：inheritance<br/>
+多态：polymorphism</p>
+<h3 id="继承用法子类初始化">继承用法：子类初始化</h3>
+<p>子类/派生类/扩展类（Sub-class/derived
+class）可以继承父类/基类/超类（Super-class/base class）。</p>
+<div class="code-wrapper"><pre><code class="hljs csharp"><span class="hljs-meta">#include &lt;iostream&gt;</span>
+<span class="hljs-meta">#include &lt;string&gt;</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title">std</span>;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">People</span> &#123;
+<span class="hljs-keyword">public</span>:
+    People(<span class="hljs-built_in">string</span> n, <span class="hljs-built_in">int</span> a, <span class="hljs-built_in">float</span> h) &#123;  <span class="hljs-comment">// 基类构造函数</span>
+        name = n;
+        age = a;
+        height = h;
+    &#125;
+<span class="hljs-keyword">protected</span>:
+    <span class="hljs-built_in">string</span> name;
+    <span class="hljs-built_in">int</span> age;
+    <span class="hljs-built_in">float</span> height;
+&#125;;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> :<span class="hljs-title">public</span> <span class="hljs-title">People</span> &#123;  <span class="hljs-comment">// 公有继承</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">// 派生类的构造函数写法（初始化方法）</span>
+    Student(<span class="hljs-built_in">string</span> n, <span class="hljs-built_in">int</span> a, <span class="hljs-built_in">float</span> h, <span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> id) :People(n, a, h) &#123;
+        sex = s;
+        identity = id;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">show</span>()</span> &#123;
+        cout &lt;&lt; <span class="hljs-string">&quot;Show student&quot;</span> &lt;&lt; endl;
+    &#125;
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-built_in">string</span> sex;
+    <span class="hljs-built_in">string</span> identity;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">main</span>()</span> &#123;
+    <span class="hljs-function">Student <span class="hljs-title">stu</span>(<span class="hljs-params"><span class="hljs-string">&quot;张三&quot;</span>, <span class="hljs-number">26</span>, <span class="hljs-number">188</span>, <span class="hljs-string">&quot;Gentleman&quot;</span>, <span class="hljs-string">&quot;XDer&quot;</span></span>)</span>;
+    stu.show();
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>派生类的构造方法，仍然按照类的构造方法的语法写，但是形参列表需要将涉及到的所有参数都列出来，即总参数列表，按照先基类后派生类的次序，根据声明顺序依次列出。后面需要用参数初始化表的语法格式，<code>:People(n,a,h)</code>表示父类构造函数的信息，即<strong>派生类会调用父类构造函数及其参数</strong>，将相应的实参传递过去。然后再执行派生类函数体中的语句，为自己的成员变量初始化。也可以全部采用参数初始化表进行简化：</p>
+<div class="code-wrapper"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">Student</span><span class="hljs-params">(string n, int a, float h, string s, string id)</span></span> :<span class="hljs-built_in">People</span>(n,<span class="hljs-selector-tag">a</span>,h), <span class="hljs-built_in">sex</span>(s), <span class="hljs-built_in">identity</span>(id) &#123; &#125;</code></pre></div>
+<h3 id="继承的三种方式">继承的三种方式</h3>
+<p>派生类继承有三种方式：公有继承 public、保护继承 protected、私有继承
+private。</p>
+<p>三种继承的特点见下表：</p>
+<table>
+
+<thead>
+<tr class="header">
+<th style="text-align: center;">基类中的成员</th>
+<th style="text-align: center;">在公有派生类中的访问属性</th>
+<th style="text-align: center;">在保护派生类中的访问属性</th>
+<th style="text-align: center;">在私有派生类中的访问属性</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">公有成员</td>
+<td style="text-align: center;">公有</td>
+<td style="text-align: center;">保护</td>
+<td style="text-align: center;">私有</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">保护成员</td>
+<td style="text-align: center;">保护</td>
+<td style="text-align: center;">保护</td>
+<td style="text-align: center;">私有</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">私有成员</td>
+<td style="text-align: center;">不可访问</td>
+<td style="text-align: center;">不可访问</td>
+<td style="text-align: center;">不可访问</td>
+</tr>
+</tbody>
+</table>
+<p>如果基类中需要定义私有的数据成员，要将其定义为 peotected
+类型，这样派生类就可以继承并使用了。</p>
+<p>使用继承时需要注意以下内容：</p>
+<p>（1）父类的构造函数和析构函数不会被继承，派生类需要重写。</p>
+<p>（2）派生类的构造函数调用顺序：先调用各个直接基类的构造函数，之后再调用成员对象的构造函数，最后进行新增成员的初始化。</p>
+<p>（3）对于多继承有多个基类，按照被继承时的声明顺序从左到右依次调用，与初始化表的顺序无关。对成员对象的初始化也一样，按照声明顺序而非初始化表的顺序。</p>
+<h3 id="类的引用">类的引用</h3>
+<p>引用相当于别名，在内存中共享同一段空间。</p>
+<p>若一个指针先被定义为指向基类对象，那么后续再对其重新赋值，让其指向派生类对象，也只能访问派生类中的基类成员。关于这一点，可以查阅后文：《多态的动态实现：虚函数》。</p>
+<p>基类和派生类可以相互转换，但是会存在“切片”问题，即把派生类类型的变量赋值给基类类型时，系统自动进行隐式转换，但是只会将派生类中基类的部分赋过去，派生类自己新增的信息将丢失。这个解决办法就是后文中的多态机制。</p>
+<p>看下面这个代码片段：</p>
+<div class="code-wrapper"><pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">A</span>  &#123; &#125;;
+<span class="hljs-keyword">class</span> <span class="hljs-symbol">B</span> :<span class="hljs-symbol">public</span> <span class="hljs-symbol">A</span> &#123; &#125;;
+
+<span class="hljs-built_in">int</span> main() &#123;
+    A a;  <span class="hljs-comment">// 创建基类的对象</span>
+    B b;  <span class="hljs-comment">// 创建派生类的对象</span>
+    A &amp;r = a;  <span class="hljs-comment">// 创建一个引用: r</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>引用 r 是 a 的别名，两者共享同一段内存单元。若对 r
+重新赋值：<code>r = b;</code>，此时 r 并非 b 的别名！所以 r 不与 b
+共享同一段存储单元。r 只是 b 中基类部分的别名，r 与 b
+中基类部分共享同一段存储单元，r 与 b 具有相同的起始地址。</p>
+<h3 id="认识多态性">认识多态性</h3>
+<p>顾名思义，一个事物的多种形态称之为多态。在C++程序设计中，多态性就相当于具有不同功能的成员函数可以共用同一个函数名，这样就可以用一个函数名调用具有不同功能的成员函数，用于类的继承中。</p>
+<p>在面向对象方法中一般是这样表述多态性的：向不同的对象发送同一个消息，不同的对象在接收时会产生不同的行为（即各自的方法）。也就是说，每个对象可以用自己的方式去响应共同的消息。所谓消息，就是调用（基类）函数，不同的行为就是指不同的实现，即执行不同的函数。函数重载就是一种多态性。</p>
+<p>从系统实现的角度看，多态性分为两类：静态多态性和动态多态性。</p>
+<p>函数重载、运算符重载就属于静态多态性，在程序编译时系统就能决定调用的是哪个函数，因此静态多态性又称编译时的多态性。静态多态性是通过函数的重载实现的。</p>
+<p>动态多态性是在程序运行过程中才动态地确定操作所针对的对象，它又称运行时的多态性。动态多态性是通过虚函数实现的。</p>
+<h3 id="多态的动态实现虚函数">多态的动态实现：虚函数</h3>
+<p>C++的多态性用一句话概括就是：在基类的函数前加上 virual
+关键字，在派生类中重写该函数，在主函数中用指针进行动态绑定实现多态（疑问：为什么一定要使用指针？）。运行时将会根据对象的实际类型来调用相应的函数。如果对象类型是派生类，就调用派生类的函数；如果对象类型是基类，就调用基类的函数。</p>
+<p>看一个例子：</p>
+<div class="code-wrapper"><pre><code class="hljs csharp"><span class="hljs-meta">#include &lt;iostream&gt;</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-title">std</span>;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">Father</span> &#123;
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">show</span>()</span> &#123;
+        cout &lt;&lt; <span class="hljs-string">&quot;This is a Father!&quot;</span> &lt;&lt; endl;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">display</span>()</span> &#123;
+        cout &lt;&lt; <span class="hljs-string">&quot;Polymorphism: Father!&quot;</span> &lt;&lt; endl;
+    &#125;
+&#125;;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">Son</span> :<span class="hljs-title">public</span> <span class="hljs-title">Father</span> &#123;
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">show</span>()</span> &#123;
+        cout &lt;&lt; <span class="hljs-string">&quot;This is a son!&quot;</span> &lt;&lt; endl;
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">display</span>()</span> &#123;  <span class="hljs-comment">// 这里的 virtual 可以省略</span>
+        cout &lt;&lt; <span class="hljs-string">&quot;Polymorphism: son!&quot;</span> &lt;&lt; endl;
+    &#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-built_in">int</span> <span class="hljs-title">main</span>()</span> &#123;
+    Father f;
+    Son son;
+    f.show();  <span class="hljs-comment">// 输出: This is a Father!</span>
+    f.display();  <span class="hljs-comment">// 输出: Polymorphism: Father!</span>
+    Father *p = &amp;son;
+    p-&gt;show();  <span class="hljs-comment">// 输出: This is a Father!</span>
+    p-&gt;display();  <span class="hljs-comment">// 输出: Polymorphism: son!</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>C++编译器在编译的时候，要确定每个对象调用的函数（非虚函数）的地址，这称为<strong>早期绑定</strong>。将派生类对象的地址赋给父类型的指针变量时：<code>Father *p = &amp;son;</code>，C++编译器进行了类型转换，此时编译器认为变量
+p 保存的就是基类 Father 的对象的地址，若用 p 指针调用子类型对象 son
+中重写的父类的函数，会失败，其实调用的仍然是父类自己的函数。</p>
+<p>从内存角度来解释：用户在构造子类对象 son 的时候，首先要调用 Father
+类的构造函数去构造基类的对象，然后才调用子类的构造函数完成对象 son
+自身（增加）的部分。这时在内存中，son
+所占的空间就是两部分拼接的结果。当用户将 son 对象转换为 Father
+类型时（上述赋值语句），该对象就被认为是原对象整个内存的上半部分，即
+Father 对象所占的内存，因此用 p 调用 son
+中继承而来并重写的父类函数时，实际上调用的仍是父类本身的函数。</p>
+<p>归根结底，是因为编译器在编译的时候，就已经确定了对象调用的函数的地址，要解决这个问题就要使用晚期绑定。当编译器使用晚期绑定时，就会在运行时再去确定对象的类型以及正确的调用函数，而要让编译器采用晚期绑定，就要在基类中声明函数时使用
+virtual
+关键字，这样的函数称之为<strong>虚函数</strong>。注意：一旦某个函数在基类中声明为
+virtual，那么在所有的派生类中该函数都是 virtual
+类型，而不需要再显式地声明为 virtual。</p>
+<p>在派生类中重新定义基类中定义的虚函数时，会告诉编译器不要静态链接到该函数。用户想要的是在程序中任意点都可以根据所调用的对象类型来选择调用的函数是哪一个（对象相应的派生类中的还是基类中的），这种操作被称为：<strong>动态联编</strong>，或<strong>动态绑定</strong>，或<strong>晚期绑定</strong>。因此，基类必须将它的两种成员函数区分开：希望被派生类覆盖的函数，或是只继承不改动的函数。对于前者，就可以利用多态机制了。</p>
+<h3 id="虚函数表">虚函数表</h3>
+<p>当用户在派生类中覆盖某个函数时，可以在函数前加 virtual
+关键字。然而这不是必须的，因为一旦某个函数被声明成虚函数，则所有派生类中它都是虚函数。任何构造函数之外的非静态函数都可以是虚函数。派生类经常覆盖它继承的虚函数，如果派生类没有覆盖其基类中某个虚函数，则该虚函数的行为类似于其他的普通成员，派生类会直接继承其在基类中的版本。编译器在编译的时候，一旦发现某个类中有虚函数，就会为所有包含虚函数的类创建一个<strong>虚表</strong>，即
+vtable，该表是一个一维数组，其中存放每个虚函数的地址。编译器还为虚表提供了一个虚表指针（vptr），这个指针指向了对象所属类的虚表。在程序初始化的时候，编译器会根据对象的类型初始化
+vptr，让该指针正确指向所属类的虚表，从而在调用虚函数的时候，能够找到正确的那个函数。</p>
+<p>在构造函数中进行虚表的创建和虚表指针的初始化。在构造子类对象时，要先调用父类的构造函数，此时编译器只“看到了”父类，并不知道后面是否还有继承者，它初始化父类对象的虚表指针，该虚表指针指向父类的虚表。当执行子类的构造函数时，子类对象的虚表指针被初始化，指向自身的虚表。虚函数表有以下特点：</p>
+<ul>
+<li>每一个类都有虚表。</li>
+<li>虚表可以继承，如果子类没有重写虚函数，那么子类虚表中仍然会有该函数的地址，只不过这个地址指向的是基类的虚函数实现，如果基类有3个虚函数，那么基类的虚表中就有三项（虚函数地址）。派生类也会创建虚表，且至少有三项，如果重写了相应的虚函数，那么虚表中的地址就会改变，指向自身的虚函数实现。如果派生类有自己的虚函数，那么虚表中就会添加该地址。</li>
+<li>派生类的虚表中虚地址的排列顺序和基类的虚表中虚函数地址排列顺序相同。</li>
+</ul>
+<h3 id="虚函数的使用方式">虚函数的使用方式</h3>
+<p>直接看这个示例：</p>
+<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">People</span> &#123;  <span class="hljs-comment">/* 声明基类People */</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-built_in">People</span>(<span class="hljs-type">int</span>, string, <span class="hljs-type">int</span>);  <span class="hljs-comment">/* 声明构造函数 */</span>
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">/* 声明虚成员函数 */</span>
+<span class="hljs-keyword">protected</span>:  <span class="hljs-comment">/* 受保护成员，派生类可以访问 */</span>
+    <span class="hljs-type">int</span> id;
+    string name;
+    <span class="hljs-type">int</span> age;
+&#125;;
+People::<span class="hljs-built_in">People</span>(<span class="hljs-type">int</span> id, string name, <span class="hljs-type">int</span> age) &#123;
+    <span class="hljs-keyword">this</span>-&gt;id = id;
+    <span class="hljs-keyword">this</span>-&gt;name = name;
+    <span class="hljs-keyword">this</span>-&gt;age = age;
+&#125;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">People::show</span><span class="hljs-params">()</span> </span>&#123;
+    cout &lt;&lt; <span class="hljs-string">&quot;id: &quot;</span> &lt;&lt; id &lt;&lt; <span class="hljs-string">&quot;\tname: &quot;</span> &lt;&lt; name &lt;&lt; <span class="hljs-string">&quot;\tage: &quot;</span> &lt;&lt; age &lt;&lt; endl;
+&#125;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> :<span class="hljs-keyword">public</span> People &#123;  <span class="hljs-comment">/* 声明公有派生类Student */</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-built_in">Student</span>(<span class="hljs-type">int</span>, string, <span class="hljs-type">int</span>, <span class="hljs-type">float</span>);  <span class="hljs-comment">/* 声明构造函数 */</span>
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span></span>;  <span class="hljs-comment">/* 声明成员函数，virtual 可以省略 */</span>
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-type">float</span> score;
+&#125;;
+Student::<span class="hljs-built_in">Student</span>(<span class="hljs-type">int</span> id, string name, <span class="hljs-type">int</span> age, <span class="hljs-type">float</span> score) :<span class="hljs-built_in">People</span>(id,name,age), <span class="hljs-built_in">score</span>(score) &#123; &#125;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Student::show</span><span class="hljs-params">()</span> </span>&#123;
+    cout &lt;&lt; <span class="hljs-string">&quot;id: &quot;</span> &lt;&lt; id &lt;&lt; <span class="hljs-string">&quot;\tname: &quot;</span> &lt;&lt; name &lt;&lt; <span class="hljs-string">&quot;\tage: &quot;</span> &lt;&lt; age &lt;&lt; <span class="hljs-string">&quot;\tscore: &quot;</span> &lt;&lt; score &lt;&lt; endl;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-function">People <span class="hljs-title">peo</span><span class="hljs-params">(<span class="hljs-number">2001</span>, <span class="hljs-string">&quot;老鸨&quot;</span>, <span class="hljs-number">23</span>)</span></span>;  <span class="hljs-comment">/* 定义People类对象peo */</span>
+    <span class="hljs-function">Student <span class="hljs-title">stu</span><span class="hljs-params">(<span class="hljs-number">2006</span>, <span class="hljs-string">&quot;马猴&quot;</span>, <span class="hljs-number">18</span>, <span class="hljs-number">85</span>)</span></span>;  <span class="hljs-comment">/* 定义Student类对象stu */</span>
+    People *pt = &amp;peo;  <span class="hljs-comment">/* 定义指向基类对象的指针变量 */</span>
+    pt-&gt;<span class="hljs-built_in">show</span>();  <span class="hljs-comment">// 输出: id: 2001  name: 老鸨  age: 23</span>
+    pt = &amp;stu;  <span class="hljs-comment">/* 父类型指针变量指向子类型对象 */</span>
+    pt-&gt;<span class="hljs-built_in">show</span>();  <span class="hljs-comment">// 输出: id: 2006  name: 马猴  age: 18  score: 85</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>在过去，派生类的输出函数与基类的输出函数不同名（如show和show_1），但如果派生的层次多，就要起许多不同的函数名，很不方便。如果采用同名函数，又会发生同名覆盖问题。利用虚函数就很好地解决了这个问题。当把基类的某个成员函数声明为虚函数后，允许在其派生类中对该函数重新定义，赋予它新的功能，并且可以通过指向基类的指针指向同一类族中不同类的对象，从而调用其中的同名函数。由虚函数实现的动态多态性就是：同一类族中不同类的对象，对同一函数调用作出不同的响应。</p>
+<p>虚函数是在基类中用 virtual
+声明定义，然后在子类中重写这个函数后，基类的指针指向子类对象，从而可以调用子类的这个函数。虚函数的使用方法是：</p>
+<p>（1）在基类用 vitual
+声明成员函数为虚函数。这样就可以在派生类中重新定义此函数，为它赋予新的功能，并能方便地被调用。在类外定义虚函数时，不必再加
+virtual。</p>
+<p>（2）在派生类中重新定义此函数，要求函数名、函数类型、函数参数个数和类型全部与基类的虚函数相同，并根据派生类的需要重新定义函数体。</p>
+<p>（3）定义一个指向基类对象的指针变量，并使它指向同一类族中需要调用该函数的对象。</p>
+<p>（4）通过该指针变量调用此虚函数，此时调用的就是指针变量指向的对象的同名函数。</p>
+<p>C++规定，当一个成员函数被声明虚函数后，其派生类中的同名函数都自动成为虚函数。因此在派生类重新声明该虚函数时，可以加
+virtual，也可以不加，但习惯上一般在每一层声明该函数时都加
+virtual，使程序更加清晰。如果在派生类中没有对基类的虚函数重新定义，则派生类简单地继承其直接基类的虚函数。</p>
+<h3 id="动态关联与静态关联">动态关联与静态关联</h3>
+<p>编译系统要根据已有的信息，对同名函数的调用做出判断。例如函数的重载，系统是根据参数的个数和类型的不同去找与之匹配的函数的。对于调用同一类族中的虚函数，应当在调用时用一定的方式告诉编译系统，你要调用的是哪个类对象中的函数。例如可以直接提供对象名，如
+student.display() 或
+teacher.display()，这样编译系统在对程序进行编译时，立即能确定调用的是哪个类对象中的函数。</p>
+<p>确定调用的具体对象的过程称为关联（binding）。binding
+原意是捆绑或连接，即把两样东西连接在一起。在这里是指把一个函数名与一个类对象捆绑在一起，建立关联。一般地说，关联是指把一个标识符和一个存储地址联系起来。</p>
+<p>多态性是指为一个函数名关联多种含义的能力，即同一种调用方式可以映像到不同的函数。这种把函数的调用与适当的函数体对应的活动又称为绑定。根据绑定所进行阶段的不同，可分为早期绑定（early
+binding）、晚期绑定（late
+binding）。早期绑定发生在程序的编译阶段，称为静态关联（static
+binding），晚期绑定发生在程序的运行阶段，称为动态关联（dynamic
+binding）。</p>
+<p>早期绑定，也称为编译期多态，指绑定是发生在编译阶段，例如：函数的重载。晚期绑定，也称为动态联编、动态绑定，指在运行时实现多态。动态绑定时，编译器由于只做静态的语法检查，系统不能确定调用对象是谁，在运行阶段，指针变量调用了某个对象的函数，系统才知道是哪一个对象，才会触发多态机制。由于动态关联是在编译以后的运行阶段进行的，因此也成为滞后关联（late
+binding）。</p>
+<h3 id="纯虚函数">纯虚函数</h3>
+<p>纯虚函数也是用 virtual
+进行修饰，但是可以不用定义，只需声明即可。纯虚函数是在声明虚函数时被“初始化”为0的函数，基类中并不使用这个函数，所以返回值没有意义。纯虚函数没有函数体，只需声明，所以语句后面有分号。</p>
+<p>纯虚函数只有名字而不具备函数的功能，不能被调用。它只是通知编译系统：这里声明的是一个纯虚函数，留待派生类中再定义。在派生类中对此函数进行重写后，它才具有功能，方可被调用。</p>
+<p>包含纯虚成员函数的类叫抽象基类，无法实例化，不能由该基类创建对象，所以很“抽象”。但是可以产生基类指针，可以被派生类继承。但需要注意的是，派生类继承了抽象基类后，纯虚函数也会被继承而来，若派生类不对继承来的所有纯虚成员函数进行重写，那么该派生类同样会变成一个抽象基类。</p>
+<p>抽象基类可以用于实现公共接口，在抽象基类中声明的纯虚成员函数，派生类如果想要能创建对象，则必须全部重新定义这些纯虚函数。注意：虚函数所在的基类是可以创建对象的！纯虚函数（抽象基类）主要用在这种情形：基类中不需要这个函数（功能），且不需要产生对象，但是子类型需要，所以在基类中为子类“占个位”，子类继承基类后只需要重写该函数（纯虚函数）就可以使用了。</p>
+<p>纯虚函数语法：</p>
+<div class="code-wrapper"><pre><code class="hljs csharp"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> &#123;
+    <span class="hljs-keyword">public</span>:
+        <span class="hljs-comment">// 纯虚函数的声明，此时Base类是抽象基类</span>
+        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">show</span>()</span> = <span class="hljs-number">0</span>;
+&#125;;</code></pre></div>
+<p>后面的 =0
+并非表示函数返回值为0，也不表示赋值，它只起形式上的作用，即告诉编译系统：这是纯虚函数。</p>
 
                 
               </div>
@@ -935,7 +1462,7 @@ y: <span class="hljs-number">50</span>    p2: <span class="hljs-number">200</spa
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 31, 2024</div>
+          <div>April 10, 2024</div>
         </div>
       
       
