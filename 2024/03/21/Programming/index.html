@@ -18,7 +18,7 @@
   
     <meta name="description" content="Linux文件操作 Linux是一种自由和开放源码的类UNIX操作系统。Linux遵循GNU通用公共许可证（GPL），任何个人和机构都可以自由地使用Linux的所有底层源代码，也可以自由地修改和再发布。 目前主流的Linux版本有： Debian（及其派生版本Ubuntu、Linux Mint） Fedora（及其相关版本CentOS、Red Hat Enterprise Linux） o">
 <meta property="og:type" content="article">
-<meta property="og:title" content="码农日记">
+<meta property="og:title" content="码农日记（一）">
 <meta property="og:url" content="https://afly36-swordsman.github.io/2024/03/21/Programming/index.html">
 <meta property="og:site_name" content="Mark | Learning &amp; Routine">
 <meta property="og:description" content="Linux文件操作 Linux是一种自由和开放源码的类UNIX操作系统。Linux遵循GNU通用公共许可证（GPL），任何个人和机构都可以自由地使用Linux的所有底层源代码，也可以自由地修改和再发布。 目前主流的Linux版本有： Debian（及其派生版本Ubuntu、Linux Mint） Fedora（及其相关版本CentOS、Red Hat Enterprise Linux） o">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-04-10T08:42:06.223Z">
+<meta property="article:modified_time" content="2024-04-10T13:53:07.560Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -34,7 +34,7 @@
   
   
   
-  <title>码农日记 - Mark | Learning &amp; Routine</title>
+  <title>码农日记（一） - Mark | Learning &amp; Routine</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">码农日记</span>
+            <span id="subtitle">码农日记（一）</span>
           
         </div>
 
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          32k words
+          34k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          41 mins
+          43 mins
         
       </span>
     
@@ -284,7 +284,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">码农日记</h1>
+            <h1 id="seo-header">码农日记（一）</h1>
             
               <p class="note note-info">
                 
@@ -835,7 +835,9 @@ p = <span class="hljs-number">15</span>;  <span class="hljs-regexp">//</span> �
              // 翻译: 将类型为<span class="hljs-string">&quot;int&amp;&quot;</span>的引用绑定到<span class="hljs-string">&quot;const int&quot;</span>将丢弃限定符，类型不匹配(<span class="hljs-keyword">y</span>未被const修饰)
 const <span class="hljs-keyword">int</span>&amp; z = p;  <span class="hljs-regexp">//</span> 合法语句(类型相同，可以赋值)</code></pre></div>
 <h3 id="c中引用和指针的区别">C++中引用和指针的区别</h3>
-<p>在C++中，引用（Reference）和指针（Pointer）都是用来间接访问变量的工具，引用提供了一种更安全和更方便的方式来间接访问变量，相当于给变量重新起了个名字，但是又有指针的作用，而指针提供了更多的灵活性和功能，但也带来了更多的潜在错误和安全风险。它们之间有一些重要的区别：</p>
+<p>在C++中，引用（Reference）和指针（Pointer）都是用来间接访问变量的工具，引用提供了一种更安全和更方便的方式来间接访问变量，相当于给变量重新起了个名字，但是又有指针的作用，而指针提供了更多的灵活性和功能，但也带来了更多的潜在错误和安全风险。</p>
+<p>通过指针和引用，你可以直接操作内存，这在很多情况下都非常有用，例如：动态内存分配，函数参数传递，数据结构（如链表和树）等等。</p>
+<p>它们之间有一些重要的区别：</p>
 <h4 id="语法和操作">1.语法和操作</h4>
 <p>指针是一个变量，其存储的是另一个变量的地址。指针需要使用取地址运算符
 <code>&amp;</code> 来获取变量的地址，并使用解引用运算符 <code>*</code>
@@ -1069,7 +1071,7 @@ Box::~<span class="hljs-built_in">Box</span>() &#123;
 进行访问，即便在类对象不存在的情况下也能被调用。静态成员函数只能访问静态成员数据、其他静态成员函数和类外部的其他函数。静态成员函数没有
 this 指针，只能访问静态成员，不能访问实例成员（普通成员）。</p>
 <p>作用域限定符（Scope Resolution Operator）"::"
-还可以用来访问<strong>全局变量</strong>，但是不能在某个语句块内部访问在语句块外声明的局部变量。关于静态变量和全局变量、普通变量的区别，可以点击这个链接跳转访问：<a
+还可以用来访问<strong>全局变量</strong>，但是不能在某个语句块内部访问在语句块外声明的局部变量。关于静态变量和全局变量、普通变量的区别，可以查看后文《C/C++中的static关键字》，也可以点击这个链接跳转访问：<a
 target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/cpp-static-usage.html">菜鸟教程:C/C++中的static</a>。看下面这个例子：</p>
 <div class="code-wrapper"><pre><code class="hljs llvm">int <span class="hljs-keyword">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">11</span><span class="hljs-comment">;  // 全局变量</span>
 int main() &#123;
@@ -1140,6 +1142,36 @@ int main() &#123;
     delete p;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
+<h3 id="cc中的static关键字">C/C++中的static关键字</h3>
+<h4 id="区别">区别</h4>
+<p>在C和C++中，static关键字有三个主要的用途，但其在C++中的用法更加丰富：</p>
+<p>在函数内部：在C和C++中，static关键字可用于函数内部变量。此时，此变量的生命周期将贯穿整个程序，即使函数执行结束，这个变量也不会被销毁。每次调用这个函数时，它都不会重新初始化。这可以用于实现一些需要保持状态的函数。</p>
+<p>在函数外部或类外部：在C和C++中，static关键字可以用于全局变量或函数。此时，此变量或函数的作用域被限制在定义它的文件内，无法在其他文件中访问。这可以防止命名冲突或不必要的访问。</p>
+<p>在类内部：只有C++支持此用法。在C++中，static关键字可以用于类的成员变量或成员函数。对于静态成员变量，无论创建多少个类的实例，都只有一份静态成员变量的副本。静态成员函数则可以直接通过类名调用，而无需创建类的实例。</p>
+<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyClass</span> &#123;
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-type">static</span> <span class="hljs-type">int</span> count;  <span class="hljs-comment">// 静态成员变量，所有实例共享一份</span>
+    <span class="hljs-built_in">MyClass</span>() &#123;
+        count++;  <span class="hljs-comment">// 每次创建实例，计数加1</span>
+    &#125;
+    <span class="hljs-function"><span class="hljs-type">static</span> <span class="hljs-type">int</span> <span class="hljs-title">getCount</span><span class="hljs-params">()</span> </span>&#123;  <span class="hljs-comment">// 静态成员函数，可通过类名直接调用</span>
+        <span class="hljs-keyword">return</span> count;
+    &#125;
+&#125;;
+
+<span class="hljs-type">int</span> MyClass::count = <span class="hljs-number">0</span>;  <span class="hljs-comment">// 静态成员变量的初始化</span>
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    MyClass a;
+    MyClass b;
+    MyClass c;
+    std::cout &lt;&lt; MyClass::<span class="hljs-built_in">getCount</span>();  <span class="hljs-comment">// 输出3，因为创建了3个实例</span>
+&#125;</code></pre></div>
+<h4 id="作用">作用</h4>
+<p>在C++中，static关键字有多个用途，它的作用主要取决于它在哪里被使用：</p>
+<p>在函数内部：如果static被用于函数内部的变量，那么它会改变该变量的生命周期，使其在程序的整个运行期间都存在，而不是在每次函数调用结束时被销毁。这意味着，这个变量的值在函数调用之间是保持的。</p>
+<p>在函数外部：如果static被用于函数外部的全局变量或函数，那么它会将这个变量或函数的链接范围限制在它被定义的文件内。换句话说，这个变量或函数不能在其他文件中被直接访问。这可以帮助减少命名冲突，而且能提供一种控制变量和函数可见性的方式。</p>
+<p>在类中：如果static被用于类的成员变量，那么该变量将会成为这个类的所有实例共享的变量，也就是说，类的每个实例都能访问到这个同样的变量。如果static被用于类的成员函数，那么这个函数可以直接通过类来调用，而不需要创建类的实例。</p>
 <h2 id="c核心之继承与多态">C++核心之继承与多态</h2>
 <p>封装：encapsulation(package)<br/> 继承：inheritance<br/>
 多态：polymorphism</p>
@@ -1226,6 +1258,22 @@ private。</p>
 <p>（1）父类的构造函数和析构函数不会被继承，派生类需要重写。</p>
 <p>（2）派生类的构造函数调用顺序：先调用各个直接基类的构造函数，之后再调用成员对象的构造函数，最后进行新增成员的初始化。</p>
 <p>（3）对于多继承有多个基类，按照被继承时的声明顺序从左到右依次调用，与初始化表的顺序无关。对成员对象的初始化也一样，按照声明顺序而非初始化表的顺序。</p>
+<h3 id="final-and-override">final and override</h3>
+<p>final 和 override 是 C++11
+引入的两个关键字，主要用于类的继承和虚函数的覆盖（即重写）。</p>
+<p>final：如果一个类被声明为
+final，那么它不能被继承。例如，<code>class Base final &#123; ... &#125;;</code>，此时任何试图继承
+Base 的类都会导致编译错误。此外，如果一个虚函数被声明为
+final，那么它不能在派生类中被覆盖。例如，<code>virtual void fun() final;</code>，此时任何派生类试图覆盖
+fun() 函数都会导致编译错误。</p>
+<p>override：如果一个虚函数被声明为
+override，那么编译器会检查这个函数是否真的覆盖了基类中的一个虚函数。如果没有，编译器会报错。这个关键字可以帮助我们避免因为拼写错误或者函数签名错误而导致的编译报错。例如，<code>void fun() override;</code>，如果基类中没有一个函数的签名和
+fun() 完全匹配，那么编译器就会报错。</p>
+<p>举个例子：假设我们有一个基类 Animal 和一个派生类 Dog，Animal
+有一个虚函数 make_sound()，Dog 需要覆盖这个函数。如果我们在 Dog 的
+make_sound() 函数声明中加上了 override
+关键字，那么如果我们不小心将函数名拼写成了
+maek_sound()，编译器就会因为找不到对应的基类函数而报错，帮助我们及时发现错误。</p>
 <h3 id="类的引用">类的引用</h3>
 <p>引用相当于别名，在内存中共享同一段空间。</p>
 <p>若一个指针先被定义为指向基类对象，那么后续再对其重新赋值，让其指向派生类对象，也只能访问派生类中的基类成员。关于这一点，可以查阅后文：《多态的动态实现：虚函数》。</p>
@@ -1443,7 +1491,7 @@ binding）。</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>码农日记</div>
+      <div>码农日记（一）</div>
       <div>https://afly36-swordsman.github.io/2024/03/21/Programming/</div>
     </div>
     <div class="license-meta">
@@ -1476,6 +1524,12 @@ binding）。</p>
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/04/10/Programming2/" title="码农日记（二）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">码农日记（二）</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

@@ -1,0 +1,773 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/planet.png">
+  <link rel="icon" href="/img/planet.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zenitsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="C++与C语言的区别 C++是C语言的超集（但网上很多文章说这是不对的），这意味着几乎所有的C程序都可以在C++编译器中编译和运行。然而，C++引入了许多新的概念和特性，使得两种语言在一些关键点上有显著的区别。以下是C和C++的一些主要区别。 面向对象编程：C++支持面向对象编程（OOP），包括类、对象、继承、封装、多态等特性。这使得C++更适合大型软件项目，因为OOP可以提高代码的重用性和可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="码农日记（二）">
+<meta property="og:url" content="https://afly36-swordsman.github.io/2024/04/10/Programming2/index.html">
+<meta property="og:site_name" content="Mark | Learning &amp; Routine">
+<meta property="og:description" content="C++与C语言的区别 C++是C语言的超集（但网上很多文章说这是不对的），这意味着几乎所有的C程序都可以在C++编译器中编译和运行。然而，C++引入了许多新的概念和特性，使得两种语言在一些关键点上有显著的区别。以下是C和C++的一些主要区别。 面向对象编程：C++支持面向对象编程（OOP），包括类、对象、继承、封装、多态等特性。这使得C++更适合大型软件项目，因为OOP可以提高代码的重用性和可">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-04-10T13:52:25.975Z">
+<meta property="article:modified_time" content="2024-04-10T13:54:45.015Z">
+<meta property="article:author" content="Zenitsu">
+<meta property="article:tag" content="debug">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>码农日记（二） - Mark | Learning &amp; Routine</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"afly36-swordsman.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":40,"cursorChar":"✨","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M.E.Mark&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/taiji.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">码农日记（二）</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-10 21:52" pubdate>
+          2024.04.10 21:52
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          6 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">码农日记（二）</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on April 10, 2024 pm
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="c与c语言的区别">C++与C语言的区别</h2>
+<p>C++是C语言的超集（但网上很多文章说这是不对的），这意味着几乎所有的C程序都可以在C++编译器中编译和运行。然而，C++引入了许多新的概念和特性，使得两种语言在一些关键点上有显著的区别。以下是C和C++的一些主要区别。</p>
+<p>面向对象编程：C++支持面向对象编程（OOP），包括类、对象、继承、封装、多态等特性。这使得C++更适合大型软件项目，因为OOP可以提高代码的重用性和可读性。C语言是一种过程性语言，没有这些特性。</p>
+<p>STL（Standard Template
+Library）：C++提供了STL，这是一套强大的模板类和模板函数的库，包括列表、向量、队列、栈、关联数组等。这些可以大大提高开发效率。C语言没有内置的数据结构库。</p>
+<p>异常处理：C++提供了异常处理机制，可以更优雅地处理错误情况。C语言处理错误通常依赖于函数返回值。</p>
+<p>构造函数和析构函数：C++支持构造函数和析构函数，这些特殊的函数允许对象在创建和销毁时执行特定的代码。C语言没有这个概念。</p>
+<p>运算符重载：C++允许运算符重载（本质上仍是函数的重载），这意味着开发者可以更改已有运算符的行为，或者为用户自定义类型添加新的运算符。C语言不支持运算符重载。</p>
+<p>例如，如果我们要创建一个复数类并对其进行算术运算，C++的面向对象和运算符重载特性就非常有用。我们可以定义一个复数类，然后重载+、-、*运算符以执行复数的加法、减法和乘法。这样，我们就可以像处理内置类型一样处理复数对象。反观C语言，我们需要定义结构体来存储复数，并且需要写一堆函数来处理复数的加法、减法和乘法，很不方便。</p>
+<h2 id="c和java的核心区别">C++和Java的核心区别</h2>
+<p>C++和Java都是广泛使用的编程语言，但它们在设计理念、功能和用途上有很大的不同。以下是C++和Java的几个核心区别：</p>
+<p>运行环境：Java是一种解释型语言，它的代码在JVM（Java虚拟机）上运行，这使得Java程序可以在任何安装有JVM的平台上运行，实现了“一次编写，到处运行”的理念。而C++是一种编译型语言，其代码直接编译成目标机器的机器码运行，因此需要针对特定平台编译。</p>
+<p>内存管理：Java有自动内存管理和垃圾回收机制，程序员不需要直接管理内存。而在C++中，程序员需要手动进行内存的分配和释放，这提供了更大的控制力，但同时也增加了内存泄漏的风险。</p>
+<p>面向对象编程：Java是一种纯面向对象的编程语言，所有的代码都需要包含在类中。与此不同，C++支持面向对象编程，但它也允许过程式编程（兼容C）。</p>
+<p>错误处理：Java使用异常处理机制进行错误处理，而C++既支持异常处理，也支持通过返回值进行错误处理（C的机制）。</p>
+<p>多线程：Java内置了对多线程的支持，而C++在C++11标准之后才引入了对多线程的支持。</p>
+<p>性能：因为C++的代码直接编译为机器码，所以它通常比Java程序运行得更快。但是，Java的跨平台能力和内置的垃圾回收机制使其在开发大型企业级应用时更具优势。</p>
+<p>例如，如果你正在开发一个需要直接访问硬件，或者需要高性能数学计算的应用（比如游戏、图形渲染、科学计算），C++可能是一个更好的选择。而如果你正在开发一个大型的企业级web应用，Java的跨平台能力、内置的垃圾回收和强大的类库可能会更有优势。</p>
+<h2 id="编译型和解释型的区别">编译型和解释型的区别</h2>
+<p>原文链接：<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/DaJian35/article/details/81368548">一文了解编译型语言和解释型语言之区别</a>。</p>
+<p>编译型语言的定义：编译型语言首先是将源代码编译生成机器指令，再由机器运行机器码（二进制）。</p>
+<p>解释型语言的定义：解释型语言的源代码不是直接翻译成机器指令，而是先翻译成中间代码，再由解释器对中间代码进行解释运行。</p>
+<p>打个比方：</p>
+<p>编译型相当于用中英文词典（翻译器）将一本英文书一次性翻译（编译）成一本中文书，以后查看直接就是中文了。可想而知，以后读书（运行）会非常非常方便。C、C++都是编译型语言，在执行前一定要先编译一下，通过编译器去生成一个类似
+.exe 的二进制文件。如果发现语法错误，就会发出编译不通过的提示。</p>
+<p>解释型相当于用中英文词典（翻译器）将一本英文书读一段翻译一段（解释）变成中文。以后查看时还是需要重新翻译。这样效率会低一些，必须依赖解释器，但是跨平台性好，只要有解释器就可以运行代码。像Matlab、Python等都是一边执行一边解释的语言，解释是一句一句的翻译，从而不需要预先进行编译，所以称之为解释型语言。</p>
+<p>扩展：编译型和解释型的定义是对立存在的，但也可以在一个语言中同时存在。比如
+java 语言同时兼有编译型和解释型两种特点。整个流程如下：</p>
+<p>将源代码（.java 文件）编译生成字节码（.class 文件），再通过 JVM（java
+虚拟机）运行生成机器指令，由机器运行机器码。注意，此处生成机器语言前的操作是解释型，每次运行都要重新解释。因此，此处表明
+java 是解释型语言。</p>
+<p>但是，部分 JVM（java 虚拟机）有一种 JIT（Just in
+time）机制，能够将部分已经解释（“翻译”）的常用机器指令保存起来。下次不需要重新解释这部分了，直接运行即可。此时
+java 是编译型语言。</p>
+<p>关于移植性：</p>
+<p>编译性语言例如C语言：用C语言开发了程序后，需要通过编译器把程序编译成机器语言（即计算机识别的二进制文件，因为不同的计算机操作系统可能不同，识别的二进制文件也是不同的），所以C语言程序进行移植后，要重新编译。</p>
+<p>解释性语言例如Java语言：Java程序首先通过编译器编译成.class文件，如果在Windows平台上运行，则通过Windows平台上的Java虚拟机（JVM）进行解释。如果运行在Linux平台上，则通过Linux平台上的Java虚拟机进行解释执行。所以说能跨平台，前提是平台上必须要有相匹配的JVM。如果没有JVM，则不能进行跨平台。</p>
+<h2 id="c变量的声明和定义">C++变量的声明和定义</h2>
+<p>在C++中，变量的声明和定义是两个不同的概念。</p>
+<p>声明是告诉编译器某个变量的存在，以及它的类型。声明并不分配存储空间。例如，外部变量的声明<code>extern int a;</code>，这里只是告诉编译器有一个类型为int的变量a存在，具体的a在哪里定义的，编译器此时并不知道。</p>
+<p>定义是声明的延伸，除了声明变量的存在和类型以外，还分配了存储空间。例如，<code>int a;</code>就是一个定义，编译器在这里为a分配了足够的存储空间来存储一个整数。</p>
+<p>在C++中，一个变量可以被声明多次，但只能被定义一次。例如，我们可以在多个文件中声明同一个变量，但只能在一个文件中定义它。如果在多个地方定义同一个变量，编译器会报错。</p>
+<p>举个例子，假设我们正在编写一个大型程序，这个程序有一个全局变量需要在多个文件中使用。我们可以在一个文件中定义这个变量，然后在其他需要使用这个变量的文件中声明它。这样，所有的文件都可以访问到这个变量，但只有一个文件（定义它的那个文件）负责管理它的存储空间。</p>
+<h2 id="静态链接和动态链接">静态链接和动态链接</h2>
+<p>静态链接和动态链接是两种不同的程序链接方式，它们主要的区别在于链接的时间和方式。</p>
+<p>静态链接：在静态链接中，所有代码（包括程序本身的代码和它依赖的库的代码）都会在编译时期被合并为一个可执行文件。这个可执行文件包含了程序运行所需的所有信息，因此它不依赖于任何外部的库文件。静态链接的优点是部署简单，因为不需要额外的依赖，只需要一个文件就可以运行。缺点是可执行文件通常会比动态链接的大，因为它包含了所有需要的代码，而且如果库更新，程序需要重新编译和链接。</p>
+<p>动态链接：在动态链接中，程序的代码和它依赖的库的代码被分开。程序的可执行文件只包含了程序本身的代码和一些标记，这些标记表示程序在运行时需要链接到哪些库。当程序运行时，操作系统会负责加载这些库并进行链接。动态链接的优点是可执行文件更小，因为它不包含库的代码，而且多个程序可以共享同一份库，节省内存。此外，如果库更新，只需要替换库文件，程序无需重新编译和链接。缺点是部署稍微复杂一些，因为需要确保运行环境中有所需的库文件。</p>
+<p>例如，假设我们有一个程序，它使用了一个数学库。如果我们静态链接这个库，那么所有的数学函数都会被包含在我们的可执行文件中，我们可以将这个文件复制到任何地方运行。如果我们动态链接这个库，那么我们的可执行文件就会小得多，但如果我们想在另一台机器上运行这个程序，我们就需要确保那台机器上也安装了这个数学库。</p>
+<h2 id="宏定义函数和typedef">宏定义、函数和typedef</h2>
+<h3 id="宏定义和函数">宏定义和函数</h3>
+<p>宏定义（#define）和函数是两种常见的在C++中编写代码的方式，但它们有一些重要的区别：</p>
+<p>编译阶段：宏定义是在预处理阶段展开的，而函数是在编译阶段处理的。这意味着使用宏定义的代码在编译前就已经被预处理器替换掉了，而函数在编译阶段会生成对应的函数调用。</p>
+<p>类型检查：函数在编译时会进行类型检查，而宏定义不会。这可能会导致宏定义在使用时出现错误，而在编译阶段并不会被发现。</p>
+<p>效率：由于宏定义在预处理阶段就被替换，因此它没有函数调用的开销（如堆栈操作），所以在某些情况下可能更快。然而，过度使用宏定义可能会导致编译后的代码体积增大，因为每次使用宏都会插入一份宏的代码副本。</p>
+<p>封装：函数提供了更好的封装，使得代码更易于阅读和维护。而宏定义由于其替换性质，可能会在复杂的表达式中产生不易察觉的错误。</p>
+<h3 id="宏定义和typedef">宏定义和typedef</h3>
+<p>宏定义 #define
+在编译期间将宏展开，并替换宏定义中的代码。预处理器只进行简单的文本替换，不涉及类型检查。宏定义可以用来替换数据类型、值或者代码。宏定义没有作用域限制，只要在宏定义之后的地方，就可以使用宏，通常用于定义常量、简单的表达式或简单的代码片段。宏定义不支持模板，因此不能用于定义模板类型别名。</p>
+<p>typedef
+是一种类型定义关键字，用于为现有类型创建新的名称（别名）。与宏定义不同，typedef
+是在编译阶段处理的，有更严格的类型检查。typedef 遵循 C++
+的作用域规则，可以受到命名空间、类等结构的作用域限制，通常用于定义复杂类型的别名，使代码更易读和易于维护。typedef
+可以与模板结合使用，但在 C++11 之后，推荐使用 using
+关键字定义模板类型别名。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Programming/" class="category-chain-item">Programming</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/debug/" class="print-no-link">#debug</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>码农日记（二）</div>
+      <div>https://afly36-swordsman.github.io/2024/04/10/Programming2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Zenitsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>April 10, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>April 10, 2024</div>
+        </div>
+      
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/21/Programming/" title="码农日记（一）">
+                        <span class="hidden-mobile">码农日记（一）</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+
+  <div>
+    <span id="timeDate">正在载入天数...</span>
+    <span id="times">载入时分秒...</span>
+    <script>
+    var now = new Date();
+    function createtime(){
+        var grt= new Date("11/24/2023 11:30:00");
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if(String(mnum).length ==1 ){
+                  mnum = "0" + mnum;
+        }
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if(String(snum).length ==1 ){
+                  snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  
+        document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+    }
+    setInterval("createtime()",250);
+    </script>
+  </div>  
+
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+
+</div>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+
+</body>
+</html>
