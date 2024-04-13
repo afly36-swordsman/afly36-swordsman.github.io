@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-04-10T13:53:07.560Z">
+<meta property="article:modified_time" content="2024-04-13T03:52:52.044Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          34k words
+          35k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          43 mins
+          44 mins
         
       </span>
     
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 10, 2024 pm
+                    Last updated on April 13, 2024 am
                   
                 
               </p>
@@ -933,6 +933,8 @@ Goods *pGood = &amp;good;  <span class="hljs-comment">// 指针</span>
 good.amount = <span class="hljs-number">10</span>;  <span class="hljs-comment">// 访问</span>
 <span class="hljs-function"><span class="hljs-title">pGood</span>-&gt;</span>amount = <span class="hljs-number">10</span>;</code></pre></div>
 <p><code>public</code>表示公有成员，在程序中类外可以访问；<code>private</code>表示私有成员，在类外不能访问，只能在本类和友元中访问；<code>protected</code>表示保护成员，只能被本类或派生类的成员函数访问。默认：<code>private</code>。</p>
+<p>友元函数是可以直接访问类的私有成员的非成员函数，有利于类间数据的共享，但是破坏了类的封装性。友元函数内部没有
+this 指针！友元不是类的成员，只有成员函数才有 this 指针。</p>
 <h3 id="构造函数">构造函数</h3>
 <p>构造函数（Constructor）是对数据成员进行初始化的特殊函数，在对象被创建时由系统自动调用。初始化就相当于（自动）调用构造函数。</p>
 <p>构造函数有几个特点：</p>
@@ -1274,6 +1276,40 @@ fun() 完全匹配，那么编译器就会报错。</p>
 make_sound() 函数声明中加上了 override
 关键字，那么如果我们不小心将函数名拼写成了
 maek_sound()，编译器就会因为找不到对应的基类函数而报错，帮助我们及时发现错误。</p>
+<h3 id="多重继承">多重继承</h3>
+<p>下例给出了类 D 分别以公有方式继承了基类 A 和 B 的一种实现。</p>
+<div class="code-wrapper"><pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">A</span> &#123;  <span class="hljs-comment">// 基类 A</span>
+<span class="hljs-keyword">public</span>:
+    A(<span class="hljs-built_in">int</span> a, <span class="hljs-built_in">int</span> b) &#123;
+        A_a = a;
+        A_b = b;
+    &#125;
+<span class="hljs-keyword">protected</span>:
+    <span class="hljs-built_in">int</span> A_a;
+    <span class="hljs-built_in">int</span> A_b;
+&#125;;
+
+<span class="hljs-keyword">class</span> <span class="hljs-symbol">B</span> &#123;  <span class="hljs-comment">// 基类 B</span>
+<span class="hljs-keyword">public</span>:
+    B(<span class="hljs-built_in">int</span> c, <span class="hljs-built_in">int</span> d) :B_c(c), B_d(d) &#123; &#125;
+<span class="hljs-keyword">protected</span>:
+    <span class="hljs-built_in">int</span> B_c, B_d;
+&#125;;
+
+<span class="hljs-keyword">class</span> <span class="hljs-symbol">D</span> :<span class="hljs-symbol">public</span> <span class="hljs-symbol">A, <span class="hljs-symbol">public</span></span> <span class="hljs-symbol">B</span> &#123;  <span class="hljs-comment">// 派生类 D</span>
+<span class="hljs-keyword">public</span>:
+    D(<span class="hljs-built_in">int</span> a, <span class="hljs-built_in">int</span> b, <span class="hljs-built_in">int</span> c, <span class="hljs-built_in">int</span> d, <span class="hljs-built_in">int</span> e);
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-built_in">int</span> D_e;
+&#125;;
+<span class="hljs-comment">// 子类构造函数</span>
+D::D(<span class="hljs-built_in">int</span> a, <span class="hljs-built_in">int</span> b, <span class="hljs-built_in">int</span> c, <span class="hljs-built_in">int</span> d, <span class="hljs-built_in">int</span> e) : A(a,b), B(c,d), D_e(e) &#123; &#125;</code></pre></div>
+<p>注意：在派生类构造函数中，基类构造函数的调用顺序与声明/定义基类的顺序相同，与派生类构造函数初始化表中基类构造函数出现的顺序无关。</p>
+<p>容易想到，若继承的多个基类有同名的数据成员，则访问的时候会出现“二义性”（ambiguous）的问题，也就是不知道访问的是哪一个父类中的数据成员。可以用作用域限定符/域解析运算符
+:: 进行说明。如：<code>d.A::x = 3;</code> 表示派生类 D 的对象 d
+访问的是其所继承的基类 A 中的那个成员变量
+x，为它重新赋值为3。又如：<code>d.B::show();</code> 表示 d 访问的是基类
+B 中的成员函数 show()。</p>
 <h3 id="类的引用">类的引用</h3>
 <p>引用相当于别名，在内存中共享同一段空间。</p>
 <p>若一个指针先被定义为指向基类对象，那么后续再对其重新赋值，让其指向派生类对象，也只能访问派生类中的基类成员。关于这一点，可以查阅后文：《多态的动态实现：虚函数》。</p>
@@ -1349,7 +1385,7 @@ Father 对象所占的内存，因此用 p 调用 son
 virtual
 关键字，这样的函数称之为<strong>虚函数</strong>。注意：一旦某个函数在基类中声明为
 virtual，那么在所有的派生类中该函数都是 virtual
-类型，而不需要再显式地声明为 virtual。</p>
+类型，而不需要再显式地声明为 virtual。虚函数肯定是类的成员函数。</p>
 <p>在派生类中重新定义基类中定义的虚函数时，会告诉编译器不要静态链接到该函数。用户想要的是在程序中任意点都可以根据所调用的对象类型来选择调用的函数是哪一个（对象相应的派生类中的还是基类中的），这种操作被称为：<strong>动态联编</strong>，或<strong>动态绑定</strong>，或<strong>晚期绑定</strong>。因此，基类必须将它的两种成员函数区分开：希望被派生类覆盖的函数，或是只继承不改动的函数。对于前者，就可以利用多态机制了。</p>
 <h3 id="虚函数表">虚函数表</h3>
 <p>当用户在派生类中覆盖某个函数时，可以在函数前加 virtual
@@ -1362,6 +1398,7 @@ vptr，让该指针正确指向所属类的虚表，从而在调用虚函数的�
 <li>虚表可以继承，如果子类没有重写虚函数，那么子类虚表中仍然会有该函数的地址，只不过这个地址指向的是基类的虚函数实现，如果基类有3个虚函数，那么基类的虚表中就有三项（虚函数地址）。派生类也会创建虚表，且至少有三项，如果重写了相应的虚函数，那么虚表中的地址就会改变，指向自身的虚函数实现。如果派生类有自己的虚函数，那么虚表中就会添加该地址。</li>
 <li>派生类的虚表中虚地址的排列顺序和基类的虚表中虚函数地址排列顺序相同。</li>
 </ul>
+<p>存在虚函数的类都有一个一维的虚函数表（虚表），类的对象有一个指向虚表开始的虚指针。虚表是和类对应的，虚表指针是和对象对应的。</p>
 <h3 id="虚函数的使用方式">虚函数的使用方式</h3>
 <p>直接看这个示例：</p>
 <div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
@@ -1510,7 +1547,7 @@ binding）。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 10, 2024</div>
+          <div>April 13, 2024</div>
         </div>
       
       
