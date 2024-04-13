@@ -25,8 +25,9 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/006.jpg">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/007.jpg">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/008.jpg">
 <meta property="article:published_time" content="2024-04-10T13:52:25.975Z">
-<meta property="article:modified_time" content="2024-04-13T04:00:29.390Z">
+<meta property="article:modified_time" content="2024-04-13T14:27:34.001Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k words
+          6.4k words
         
       </span>
     
@@ -234,7 +235,7 @@
         
         
         
-          6 mins
+          9 mins
         
       </span>
     
@@ -363,15 +364,95 @@ java 是编译型语言。</p>
 可以与模板结合使用，但在 C++11 之后，推荐使用 using
 关键字定义模板类型别名。</p>
 <h2 id="c文件操作">C++文件操作</h2>
+<h3 id="文件和文件流对象">文件和文件流对象</h3>
 <figure>
 <img src="/img/stage2/006.jpg" srcset="/img/loading.gif" lazyload alt="文件和文件流对象" />
 <figcaption aria-hidden="true">文件和文件流对象</figcaption>
 </figure>
+<h3 id="文本文件和二进制文件的读写">文本文件和二进制文件的读写</h3>
 <figure>
 <img src="/img/stage2/007.jpg" srcset="/img/loading.gif" lazyload alt="文本文件和二进制文件的读写操作" />
 <figcaption
 aria-hidden="true">文本文件和二进制文件的读写操作</figcaption>
 </figure>
+<h3 id="文件定位eof和字符串流">文件定位、EOF和字符串流</h3>
+<figure>
+<img src="/img/stage2/008.jpg" srcset="/img/loading.gif" lazyload alt="文件定位、EOF和字符串流" />
+<figcaption aria-hidden="true">文件定位、EOF和字符串流</figcaption>
+</figure>
+<h3 id="二进制和文本的区别">二进制和文本的区别</h3>
+<p>用文本码形式输出的数据是与字符一一对应的，一个字节代表一个字符，可以直接在屏幕上显示或打印出来。这种方式使用方便，比较直观，便于阅读，便于对字符逐个进行输入输出。但一般占用存储空间较多，而且要花费时间转换。</p>
+<p>用二进制形式输出数值，可以节省外存空间，而且不需要转换时间，但一个字节并不对应一个字符，不能直接显示文件中的内容。如果在程序运行过程中有些中间结果数据暂时保存在磁盘文件中，以后又需要输入到内存，这时用二进制文件保存是最合适的。如果是为了能显示和打印以供阅读，则应按文本形式输出。此时得到的是文本文件，它的内容可以直接在显示屏上观看。</p>
+<h3 id="综合应用">综合应用</h3>
+<p>学校要输入5位学生的信息，将他们的信息存到磁盘文件中，并将第1、3、5位学生数据读入程序显示。第3位学生录入信息有误，需要对其进行修改后存入磁盘文件的原来位置。最后，从磁盘文件读取5位学生的信息并显示。</p>
+<div class="code-wrapper"><pre><code class="hljs objectivec"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fstream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
+using namespace std;
+<span class="hljs-keyword">struct</span> student &#123;  <span class="hljs-comment">// 结构体</span>
+    <span class="hljs-type">int</span> num;
+    <span class="hljs-type">char</span> name[<span class="hljs-number">10</span>];
+    <span class="hljs-type">float</span> score;
+&#125;;
+
+<span class="hljs-type">int</span> main() &#123;
+    <span class="hljs-comment">// 定义结构体数组存入学生的信息</span>
+    student stu[<span class="hljs-number">5</span>] = &#123;
+        <span class="hljs-number">1001</span>, <span class="hljs-string">&quot;张三&quot;</span>, <span class="hljs-number">97</span>,
+        <span class="hljs-number">1002</span>, <span class="hljs-string">&quot;李四&quot;</span>, <span class="hljs-number">85.5</span>,
+        <span class="hljs-number">1008</span>, <span class="hljs-string">&quot;王六&quot;</span>, <span class="hljs-number">54.5</span>,
+        <span class="hljs-number">1004</span>, <span class="hljs-string">&quot;三体人&quot;</span>, <span class="hljs-number">73</span>,
+        <span class="hljs-number">1005</span>, <span class="hljs-string">&quot;秦始皇&quot;</span>, <span class="hljs-number">99.3</span>
+    &#125;;
+    <span class="hljs-comment">// 用 fstream 类定义输入输出二进制文件流对象 iofile</span>
+    fstream iofile(<span class="hljs-string">&quot;D:/Others/Afly/Temporary/file.txt&quot;</span>, ios::<span class="hljs-keyword">in</span>|ios::<span class="hljs-keyword">out</span>|ios::binary);
+    <span class="hljs-keyword">if</span>(!iofile) &#123;
+        <span class="hljs-comment">// 标准错误流 cerr 不经过缓冲区直接向显示器输出错误信息</span>
+        cerr &lt;&lt; <span class="hljs-string">&quot;open error!&quot;</span> &lt;&lt; endl;
+        abort();  <span class="hljs-comment">// 不进行任何清理工作，直接终止程序</span>
+    &#125;
+
+    <span class="hljs-comment">// 向磁盘文件写入5个学生的信息</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i++) &#123;
+        <span class="hljs-comment">// 将 &amp;stu[i] 作为开头指向的 sizeof(stu[i]) 字节的信息写入 iofile 流对象对应的磁盘文件中</span>
+        iofile.write((<span class="hljs-type">char</span>*)&amp;stu[i], <span class="hljs-keyword">sizeof</span>(stu[i]));
+    &#125;
+    student stud[<span class="hljs-number">5</span>];  <span class="hljs-comment">// 存放从磁盘文件中读入的数据</span>
+    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i+=<span class="hljs-number">2</span>) &#123;
+        <span class="hljs-comment">// 利用 seekg 函数将文件指针从开头向后移动 i*sizeof(stud[i]) 个字节，定位到索引i的位置</span>
+        iofile.seekg(i*<span class="hljs-keyword">sizeof</span>(stud[i]), ios::beg);
+        <span class="hljs-comment">// 将 iofile 对应文件中大小为 sizeof(stud[0]) 的（3个）数据读入 &amp;stud 指向的内存中</span>
+        iofile.read((<span class="hljs-type">char</span>*)&amp;stud[i/<span class="hljs-number">2</span>], <span class="hljs-keyword">sizeof</span>(stud[<span class="hljs-number">0</span>]));
+        <span class="hljs-comment">// 输出第1、3、5位学生的信息</span>
+        cout &lt;&lt; <span class="hljs-string">&quot;第&quot;</span> &lt;&lt; i+<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-string">&quot;个学生: &quot;</span> &lt;&lt; stud[i].num &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; stud[i].name &lt;&lt; <span class="hljs-string">&quot; &quot;</span>
+        &lt;&lt; stud[i].score &lt;&lt; endl;
+    &#125;
+    cout &lt;&lt; endl;
+
+    <span class="hljs-comment">// 修改第3位学生的信息</span>
+    stud[<span class="hljs-number">2</span>].num = <span class="hljs-number">1003</span>;
+    stud[<span class="hljs-number">2</span>].name = <span class="hljs-string">&quot;王者荣耀&quot;</span>;
+    <span class="hljs-comment">// 上条语句会报错: incompatible types in assignment of &#x27;const char [13]&#x27; to &#x27;char [10]&#x27;</span>
+    strcpy(stud[<span class="hljs-number">2</span>].name, <span class="hljs-string">&quot;王者荣耀&quot;</span>);  <span class="hljs-comment">// 正确</span>
+    stud[<span class="hljs-number">2</span>].score = <span class="hljs-number">60</span>;
+
+    <span class="hljs-comment">// 定位第3位学生的信息存储位置</span>
+    iofile.seekp(<span class="hljs-number">2</span>*<span class="hljs-keyword">sizeof</span>(stud[<span class="hljs-number">2</span>]), ios::beg);
+    <span class="hljs-comment">// 把第3位学生修改后的信息存入磁盘文件中（更新数据）</span>
+    iofile.write((<span class="hljs-type">char</span>*)&amp;stud[<span class="hljs-number">2</span>], <span class="hljs-keyword">sizeof</span>(stud[<span class="hljs-number">2</span>]));
+    iofile.seekg(<span class="hljs-number">0</span>, ios::beg);  <span class="hljs-comment">// 重新定位文件开头</span>
+    
+    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i++) &#123;
+        <span class="hljs-comment">// 读取5个学生的信息</span>
+        iofile.read((<span class="hljs-type">char</span>*)&amp;stu[i], <span class="hljs-keyword">sizeof</span>(stu[i]));
+        <span class="hljs-comment">// 打印输出</span>
+        cout &lt;&lt; <span class="hljs-string">&quot;第&quot;</span> &lt;&lt; i+<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-string">&quot;个学生: &quot;</span> &lt;&lt; stud[i].num &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; stud[i].name &lt;&lt; <span class="hljs-string">&quot; &quot;</span>
+        &lt;&lt; stud[i].score &lt;&lt; endl;
+    &#125;
+    iofile.close();  <span class="hljs-comment">// 关闭文件</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>注意：编码方式不同可能会导致乱码问题。</p>
 
                 
               </div>
