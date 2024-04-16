@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-04-13T03:52:52.044Z">
+<meta property="article:modified_time" content="2024-04-16T05:50:40.619Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          35k words
+          36k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          44 mins
+          46 mins
         
       </span>
     
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 13, 2024 am
+                    Last updated on April 16, 2024 pm
                   
                 
               </p>
@@ -915,6 +915,63 @@ y: <span class="hljs-number">50</span>    p2: <span class="hljs-number">200</spa
     a = b;
     b = <span class="hljs-keyword">temp</span>;
 &#125;</code></pre></div>
+<h3 id="悬挂指针和野指针">悬挂指针和野指针</h3>
+<p>悬挂指针（Dangling
+Pointer），是指向已经释放或者已经超出作用域的内存的指针。</p>
+<div class="code-wrapper"><pre><code class="hljs d"><span class="hljs-keyword">int</span> *pt = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>(<span class="hljs-number">5</span>);
+<span class="hljs-keyword">delete</span> pt;  <span class="hljs-comment">// 此时这块内存已被操作系统回收，可能重新分配给其他程序了</span>
+*pt = <span class="hljs-number">10</span>;  <span class="hljs-comment">// Undefined behavior</span></code></pre></div>
+<p>野指针（Wild
+Pointer），是未初始化的指针，如：<code>int *pt;</code></p>
+<h3 id="如何避免野指针">如何避免“野指针”</h3>
+<p>常见建议如下：</p>
+<p>（1）初始化空指针 nullptr</p>
+<p>在 C++
+中，未初始化的指针变量会被默认初始化为一个未定义的值，即它们可能指向任意位置。因此，在使用指针变量之前，应该始终确保对其进行初始化，以避免未定义的行为。</p>
+<p><code>int *p = nullptr;</code> 这是 C++11
+中引入的新方式，声明指向整数的指针 p2，并使用 nullptr 初始化。nullptr 是
+C++11 标准中的一个关键字，专门用于表示空指针。它的类型是
+std::nullptr_t，可以转换为任何其他指针类型，并且优于
+NULL，因为它消除了整数和空指针之间的歧义。</p>
+<p><code>int *p = NULL;</code> 这条语句声明了指向整数的指针
+p1，并将其初始化为 NULL。NULL 是 C++ 中的一个宏，代表空指针，在 C++
+中它通常被定义为 0。尽管使用 NULL 是合法的，但它是基于 C
+的遗留实践，C++11 后推荐使用 nullptr。</p>
+<p><code>int *p;</code> 这条语句仅仅声明了指向整数的指针
+p3，没有初始化。在这种情况下，p3
+将包含一个垃圾值（未定义的内存地址）。如果你没有正确初始化而试图使用这个指针，会导致未定义的行为，可能会带来安全风险和难以调试的bug。</p>
+<p>（2）使用智能指针</p>
+<p>C++ 中引入了一些智能指针，如 unique_ptr、shared_ptr
+等，在它们的生命周期结束时会自动释放所管理的资源，可以减少野指针和悬挂指针的风险。</p>
+<p>例如：<code>std::unique_ptr&lt;int&gt; ptr(new int(5));</code></p>
+<p>（3）避免使用裸指针</p>
+<p>在可能的情况下，尽量使用引用或智能指针。</p>
+<h3 id="智能指针">智能指针</h3>
+<p>C++提供了四种类型的智能指针：unique_ptr、shared_ptr、weak_ptr、auto_ptr。它们都位于
+&lt;memory&gt; 头文件中，并在 std 命名空间下。</p>
+<h4 id="unique_ptr">unique_ptr</h4>
+<p>这是C++11中引入的一个智能指针，unique_ptr
+对象拥有其所指向的对象（所有权语义），但所有权不能被复制，只能通过
+std::move 转移。这意味着在任何时刻，最多只有一个 unique_ptr
+指向某个给定的对象，unique_ptr 被销毁时对象将被删除。这使得 unique_ptr
+成为管理堆上创建的单一对象或者原始数组的理想选择。</p>
+<h4 id="shared_ptr">shared_ptr</h4>
+<p>这是C++11中引入的另一个智能指针，它实现了共享所有权语义，即多个
+shared_ptr 对象可以指向同一个对象，该对象在最后一个 shared_ptr
+被销毁时删除。shared_ptr 使用了引用计数来跟踪有多少 shared_ptr
+指向当前这个对象。</p>
+<h4 id="weak_ptr">weak_ptr</h4>
+<p>这是C++11中引入的第三种智能指针，它是为了配合 shared_ptr
+使用的，对一个对象产生弱引用。一个 weak_ptr 对象可以指向一个由
+shared_ptr
+对象指向（拥有）的对象，但它不参与所有权的管理。也就是说，weak_ptr
+对象的存在不会阻止其指向的对象被删除。weak_ptr 常被用来解决 shared_ptr
+中可能出现的循环引用问题。</p>
+<h4 id="auto_ptr">auto_ptr</h4>
+<p>这是C98标准库中的一个智能指针，在C++11中被弃用，已在C++17中被移除。auto_ptr
+对象也拥有其所指向的对象，但所有权可以被转移，会导致一些违反直觉的行为。不建议使用
+auto_ptr，它已经被 unique_ptr 所替代。用户应当优先使用 unique_ptr 和
+shared_ptr 进行强引用，或者 weak_ptr 进行弱引用。</p>
 <h2 id="c中的类和对象">C++中的类和对象</h2>
 <h3 id="类的定义-对象的创建">类的定义 &amp; 对象的创建</h3>
 <p>定义一个类，本质上就是定义一个数据类型的蓝图。</p>
@@ -1547,7 +1604,7 @@ binding）。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 13, 2024</div>
+          <div>April 16, 2024</div>
         </div>
       
       
