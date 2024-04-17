@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-04-16T05:50:40.619Z">
+<meta property="article:modified_time" content="2024-04-17T15:22:04.346Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          36k words
+          42k words
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          46 mins
+          54 mins
         
       </span>
     
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 16, 2024 pm
+                    Last updated on April 17, 2024 pm
                   
                 
               </p>
@@ -653,7 +653,7 @@ Collection，垃圾回收机制）回收时消失，生存周期适中。</p>
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">test_1d</span>()</span>
 &#123;
     <span class="hljs-built_in">int</span> a[<span class="hljs-number">5</span>] = &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;
-    <span class="hljs-built_in">int</span> *ap;
+    <span class="hljs-built_in">int</span> *ap = nullptr;
 
     ap = &amp;a[<span class="hljs-number">0</span>];  <span class="hljs-comment">/* 将数组首个元素a[0]的地址赋给指针ap */</span>
     ap = a;  <span class="hljs-comment">/* 与上个语句等价 */</span>
@@ -1169,7 +1169,7 @@ Time::<span class="hljs-title function_">Time</span>(<span class="hljs-type">int
 <p>(1)栈：在函数内部声明的所有变量都将占用栈内存。</p>
 <p>(2)堆：这是程序中未使用的内存，在程序运行时可用于动态分配内存。</p>
 <p>很多时候，用户无法提前预知需要多少内存来存储某个定义变量中的特定信息，所需内存的大小需要在运行时才能确定。因此在C++中，可以使用特殊的运算符为给定类型的变量在运行时分配堆内的内存，这会返回所分配的空间地址。这种运算符是new运算符。如果不再需要动态分配的内存空间，可以使用delete运算符，删除之前由new运算符分配的内存。</p>
-<div class="code-wrapper"><pre><code class="hljs awk">double *p = NULL;  <span class="hljs-regexp">//</span> 初始化 null 指针
+<div class="code-wrapper"><pre><code class="hljs awk">double *p = nullptr;  <span class="hljs-regexp">//</span> 初始化 null 指针
 p = new double;  <span class="hljs-regexp">//</span> 为变量请求内存
 <span class="hljs-regexp">/* 改进如下 */</span>
 <span class="hljs-keyword">if</span>(!(p = new double))
@@ -1540,6 +1540,237 @@ binding）。</p>
 &#125;;</code></pre></div>
 <p>后面的 =0
 并非表示函数返回值为0，也不表示赋值，它只起形式上的作用，即告诉编译系统：这是纯虚函数。</p>
+<h2 id="c容器">C++容器</h2>
+<p>容器，是一个特殊的对象，该对象保存其他对象，即持有其他对象或指向其他对象的指针，还包含了一些处理其他对象的方法。实质上，容器就是一组相同类型对象（数据）的集合，用于对数据的存储和处理，比数组更加强大。</p>
+<p>容器类还是一种对特定代码重用问题的良好解决方案。此外，容器可以自行扩展，可以动态申请内存、释放内存，且使用最优算法执行命令。</p>
+<h3 id="容器的分类">容器的分类</h3>
+<p>容器有两大类别：顺序容器（Sequence container）、关联容器（Associative
+container）。</p>
+<h3 id="顺序容器">顺序容器</h3>
+<p>各个元素之间有顺序关系的线性表，每个元素都有固定的位置，呈现某种逻辑顺序，通过在容器中的位置来保存和访问元素。更改位置只能通过插入、删除元素实现。</p>
+<p>特点：插入和查询速度快、适合数据的修改操作频繁的场景。</p>
+<p>常见的顺序容器有三种：vector、list、deque。</p>
+<h4 id="vector">vector</h4>
+<p>向量 vector，是一个动态的顺序容器，这是用的最广泛的容器。vector
+是具有连续内存地址的数据结构，类似数组，支持下标（索引）进行随机、快速地访问，但是存储空间是动态可扩展的。而且
+vector
+可以相对高效的在尾部插入、删除元素。只允许一端插入、删除元素，内部插入、删除效率很低。</p>
+<p>vector 的查询性能最好，而且末端增加数据的性能也很好。</p>
+<p>须包含头文件：<code>#include &lt;vector&gt;</code>，在命名空间 std
+中。</p>
+<p>示例：</p>
+<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-comment">/* 初始化, 范围区间: 左闭右开 */</span>
+<span class="hljs-type">int</span> arr[] = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;;
+<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">a</span><span class="hljs-params">(<span class="hljs-number">8</span>, <span class="hljs-number">1</span>)</span></span>;  <span class="hljs-comment">// 8 个值全为 1 的 vector, a.size(): 8</span>
+<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">b</span><span class="hljs-params">(a.begin(), a.end())</span></span>;  <span class="hljs-comment">// 把 a 从头到尾全赋给 b, b.size(): 8</span>
+<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">c</span><span class="hljs-params">(a.begin(), a.begin()+<span class="hljs-number">3</span>)</span></span>;  <span class="hljs-comment">// 把 a 前 3 个元素赋给 c, c.size(): 3</span>
+<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">d</span><span class="hljs-params">(arr, arr+<span class="hljs-number">3</span>)</span></span>;  <span class="hljs-comment">// 把 arr 前 3 个元素赋给 d, d.size(): 3</span>
+<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">e</span><span class="hljs-params">(arr[<span class="hljs-number">0</span>], arr[<span class="hljs-number">3</span>])</span></span>;  <span class="hljs-comment">// 等价于: vector&lt;int&gt; e(1,1)  e.size(): 1</span>
+<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">f</span><span class="hljs-params">(&amp;arr[<span class="hljs-number">0</span>], &amp;arr[<span class="hljs-number">3</span>])</span></span>;  <span class="hljs-comment">// 把 arr 前 3 个元素赋给 f, f.size(): 3</span>
+
+<span class="hljs-comment">/* 插入和删除元素 */</span>
+<span class="hljs-comment">// f: 1 2 3</span>
+f.<span class="hljs-built_in">insert</span>(f.<span class="hljs-built_in">begin</span>(), <span class="hljs-number">0</span>);  <span class="hljs-comment">// 在 f.begin() 前插入元素: 0</span>
+<span class="hljs-comment">// f: 0 1 2 3</span>
+f.<span class="hljs-built_in">insert</span>(f.<span class="hljs-built_in">end</span>(), <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);  <span class="hljs-comment">// 在 f 末尾添加 3 个值为 1 的元素</span>
+<span class="hljs-comment">// f: 0 1 2 3 1 1 1</span>
+f.<span class="hljs-built_in">insert</span>(f.<span class="hljs-built_in">begin</span>()+<span class="hljs-number">1</span>, &amp;arr[<span class="hljs-number">1</span>], &amp;arr[<span class="hljs-number">3</span>]);  <span class="hljs-comment">// 将 arr[1], arr[2] 插入 f 第二个位置处</span>
+<span class="hljs-comment">// f: 0 2 3 1 2 3 1 1 1</span>
+f.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">9</span>);  <span class="hljs-comment">// 在 f 尾部插入元素: 9</span>
+<span class="hljs-comment">// f: 0 2 3 1 2 3 1 1 1 9</span>
+f.<span class="hljs-built_in">pop_back</span>();  <span class="hljs-comment">// 删除 f 的末尾元素</span>
+<span class="hljs-comment">// f: 0 2 3 1 2 3 1 1 1</span>
+f.<span class="hljs-built_in">erase</span>(f.<span class="hljs-built_in">end</span>()<span class="hljs-number">-1</span>);  <span class="hljs-comment">// 删除 f 的末尾元素</span>
+<span class="hljs-comment">// f: 0 2 3 1 2 3 1 1</span>
+f.<span class="hljs-built_in">erase</span>(f.<span class="hljs-built_in">begin</span>(), f.<span class="hljs-built_in">begin</span>()+<span class="hljs-number">3</span>);  <span class="hljs-comment">// 删除 f 前三个元素</span>
+<span class="hljs-comment">// f: 1 2 3 1 1</span>
+f.<span class="hljs-built_in">clear</span>();  <span class="hljs-comment">// 清空 f (删除容器中所有元素)</span>
+f.<span class="hljs-built_in">assign</span>(d.<span class="hljs-built_in">begin</span>(), d.<span class="hljs-built_in">end</span>());  <span class="hljs-comment">// 把 d 赋给 f, 会覆盖 f 原本的内容</span>
+f = d;  <span class="hljs-comment">// 同上</span>
+
+<span class="hljs-comment">/* 其他常用的成员函数 */</span>
+f.<span class="hljs-built_in">begin</span>();  <span class="hljs-comment">// 作用于容器: 返回首元素的迭代器; 作用于数组: 返回首元素的指针</span>
+f.<span class="hljs-built_in">end</span>();  <span class="hljs-comment">// 作用于容器: 返回末尾元素向后延一个的迭代器; 作用于数组: 返回尾元素下一位的指针</span>
+f.<span class="hljs-built_in">size</span>();  <span class="hljs-comment">// 返回容器 f 的大小</span>
+f.<span class="hljs-built_in">empty</span>();  <span class="hljs-comment">// 判空, 容器为空时返回: true, 否则返回: false</span>
+f.<span class="hljs-built_in">front</span>();  <span class="hljs-comment">// 返回第一个元素</span>
+f.<span class="hljs-built_in">back</span>();  <span class="hljs-comment">// 返回最后的元素</span></code></pre></div>
+<p>vector
+有两种遍历方式：像数组一样用下标访问元素、使用<font color="purple">迭代器</font>访问。迭代器是一种检查容器内元素并遍历元素的数据类型，通常用于对C++中各种容器内元素的访问，但不同的容器有不同的迭代器。迭代器在某种意义上可以理解为一种指针。</p>
+<div class="code-wrapper"><pre><code class="hljs livescript"><span class="hljs-comment">/* 下标访问 */</span>
+<span class="hljs-keyword">for</span>(int i=<span class="hljs-number">0</span>; i&lt;f.size(); i++) &#123;
+    cout &lt;&lt; f[i] &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span>;
+&#125;
+
+<span class="hljs-comment">/* 迭代器遍历 */</span>
+<span class="hljs-keyword">for</span>(vector&lt;int&gt;::iterator <span class="hljs-literal">it</span>=f.begin(); <span class="hljs-literal">it</span>!=f.end(); <span class="hljs-literal">it</span>++) &#123;
+    cout &lt;&lt; *<span class="hljs-literal">it</span> &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> ;
+&#125;</code></pre></div>
+<p>扩展：二维向量，利用嵌套 vector 实现。</p>
+<div class="code-wrapper"><pre><code class="hljs mel"><span class="hljs-comment">// 创建一个 3 行 4 列的 vector, 且值初始化为1</span>
+<span class="hljs-keyword">vector</span>&lt; <span class="hljs-keyword">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; &gt; g(<span class="hljs-number">3</span>, <span class="hljs-keyword">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>));
+<span class="hljs-comment">// 输出这个 2D vector</span>
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> m=<span class="hljs-number">0</span>; m&lt;g.<span class="hljs-keyword">size</span>(); m++) &#123;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> n=<span class="hljs-number">0</span>; n&lt;g[m].<span class="hljs-keyword">size</span>(); n++) &#123;
+        cout &lt;&lt; g[m][n] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
+    &#125;
+    cout &lt;&lt; <span class="hljs-string">&quot;\n&quot;</span>;
+&#125;</code></pre></div>
+<h4 id="list">list</h4>
+<p>列表
+list，是一个双向（循环）链表，它保存了前、后指针，所以可以向前、向后双向访问，但是不能随机访问。存储空间不要求连续，可以在两头或中间的任意位置插入、删除元素，且相当高效。</p>
+<p>list 适合大量的插入和删除操作，不过查询性能很差。</p>
+<p>须包含头文件：<code>#include &lt;list&gt;</code>，大多数语法格式与
+vector 类似。</p>
+<p>示例：</p>
+<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-comment">/* 初始化 */</span>
+list&lt;<span class="hljs-type">int</span>&gt; lst1;  <span class="hljs-comment">// 创建空容器</span>
+<span class="hljs-function">list&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">lst2</span><span class="hljs-params">(<span class="hljs-number">5</span>)</span></span>;  <span class="hljs-comment">// 创建含有 5 个元素的 list</span>
+<span class="hljs-function">list&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">lst3</span><span class="hljs-params">(<span class="hljs-number">3</span>,<span class="hljs-number">2</span>)</span></span>;  <span class="hljs-comment">// 创建含有 3 个元素的 list, 初始值为2</span>
+<span class="hljs-function">list&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">lst4</span><span class="hljs-params">(lst3)</span></span>;  <span class="hljs-comment">// 用 lst3 初始化 lst4</span>
+<span class="hljs-function">list&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">lst</span><span class="hljs-params">(lst3.begin(), lst3.end())</span></span>;  <span class="hljs-comment">// 同 lst4</span>
+
+<span class="hljs-comment">/* 插入和删除 (区别于 vector 的新特性) */</span>
+lst.<span class="hljs-built_in">push_front</span>(<span class="hljs-number">0</span>);  <span class="hljs-comment">// 在头部插入元素: 0</span>
+lst.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">4</span>);  <span class="hljs-comment">// 在尾部插入元素: 4</span>
+lst.<span class="hljs-built_in">pop_front</span>();  <span class="hljs-comment">// 删除首元素</span>
+lst.<span class="hljs-built_in">pop_back</span>();  <span class="hljs-comment">// 删除末尾元素</span>
+
+<span class="hljs-comment">/* list 须用迭代器遍历 */</span>
+<span class="hljs-keyword">for</span>(list&lt;<span class="hljs-type">int</span>&gt;::iterator it=lst.<span class="hljs-built_in">begin</span>(); it!=lst.<span class="hljs-built_in">end</span>(); it++) &#123;
+    cout &lt;&lt; *it &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> ;
+&#125;
+
+<span class="hljs-comment">/* 迭代器还可以逆向遍历 */</span>
+<span class="hljs-keyword">for</span>(list&lt;<span class="hljs-type">int</span>&gt;::reverse_iterator it=lst.<span class="hljs-built_in">rbegin</span>(); it!=lst.<span class="hljs-built_in">rend</span>(); it++) &#123;
+    cout &lt;&lt; *it &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> ;
+&#125;</code></pre></div>
+<h4 id="deque">deque</h4>
+<p>是一个双端（向）队列，介于 vector 和 list
+之间，采用多个连续的内存块，是分块的链表和多个数组的联合。支持两端插入、删除元素，可以随机访问。deque
+的增删功能比 vector 多，但是随机访问的速度比 vector 慢。不过 deque
+的查询性能比 list 强。</p>
+<p>deque 适用于既要随机存取、又关心两端数据的增删的情况。</p>
+<p>须包含头文件：<code>#include &lt;deque&gt;</code>。</p>
+<p>deque 的语法与 vector 类似，但是可以用 list
+中的一些成员函数（用于两端插入和删除）。</p>
+<h3 id="关联容器">关联容器</h3>
+<p>用非线性的二叉树结构实现，具体的说是：平衡二叉搜索（排序）树（AVL树，以两位发明此法的俄罗斯数学家的名字命名），更具体的说是：红黑树。</p>
+<p>各元素间没有严格的物理顺序，元素通过关键字来保存和访问，即键（key），有的还包括对应的值（value）。支持通过键来高效地查找和读取元素。关键字是有序的，默认按照升序排列。</p>
+<p>常见的关联容器有两种：map、set。</p>
+<h4 id="map">map</h4>
+<p>映射 map，元素是由 (key, value) 两个分量组成的对偶，其中 key
+是唯一的，只对应一个确定的
+value。关键字有序排列，且不允许重复。支持下标操作，下标是键（key）。</p>
+<p>map 内部按链表的方式存储元素，插入比 vector
+快，但查找和在末尾添加元素比 vector 慢。</p>
+<p>关键字（key）类型：<code>key_type</code> <br/>
+关键字关联的（value）类型：<code>mapped_type</code> <br/> map
+保存的元素类型（即：pair &lt;const key_type,
+mapped_type&gt;）：<code>value_type</code></p>
+<p><font color="purple">pair</font> 对象，会将两个值视为一个单元，pair
+类型的对象存储的就是一个键值对。pair 是一个用来生成特定类型的模版，容器
+map 就是使用 pair 来管理键值对数据元素的。</p>
+<p>须包含头文件：<code>#include &lt;map&gt;</code>。</p>
+<p>示例：</p>
+<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-comment">// 下面三条语句等价</span>
+<span class="hljs-function">pair&lt;string, string&gt; <span class="hljs-title">a</span><span class="hljs-params">(<span class="hljs-string">&quot;Hello&quot;</span>, <span class="hljs-string">&quot;World&quot;</span>)</span></span>;
+pair&lt;string, string&gt; a = &#123;<span class="hljs-string">&quot;Hello&quot;</span>, <span class="hljs-string">&quot;World&quot;</span>&#125;;
+pair&lt;string, string&gt; a &#123;<span class="hljs-string">&quot;Hello&quot;</span>, <span class="hljs-string">&quot;World&quot;</span>&#125;;
+
+<span class="hljs-comment">// map 的使用</span>
+<span class="hljs-comment">// map 初始化</span>
+map&lt;string, <span class="hljs-type">int</span>&gt; M &#123;
+    &#123;<span class="hljs-string">&quot;11&quot;</span>, <span class="hljs-number">1</span>&#125;,
+    &#123;<span class="hljs-string">&quot;22&quot;</span>, <span class="hljs-number">2</span>&#125;
+&#125;;
+
+<span class="hljs-comment">// 用成员函数 insert 结合 pair 插入新元素对</span>
+M.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">pair</span>&lt;string, <span class="hljs-type">int</span>&gt;(<span class="hljs-string">&quot;33&quot;</span>, <span class="hljs-number">3</span>));
+<span class="hljs-comment">// 也可以用 map 中的元素类型 value_type 插入新元素对</span>
+M.<span class="hljs-built_in">insert</span>(map&lt;string, <span class="hljs-type">int</span>&gt;::<span class="hljs-built_in">value_type</span>(<span class="hljs-string">&quot;44&quot;</span>, <span class="hljs-number">4</span>));
+
+<span class="hljs-comment">// 可以用关键字下标访问元素 (输出: 3)</span>
+cout &lt;&lt; M[<span class="hljs-string">&quot;33&quot;</span>] &lt;&lt; endl;
+<span class="hljs-comment">// 还可以利用下标特性添加新元素对</span>
+M[<span class="hljs-string">&quot;55&quot;</span>] = <span class="hljs-number">5</span>;
+
+<span class="hljs-comment">// 用迭代器遍历, 输出键值对</span>
+map&lt;string, <span class="hljs-type">int</span>&gt;::iterator it;
+<span class="hljs-keyword">for</span>(it=M.<span class="hljs-built_in">begin</span>(); it!=M.<span class="hljs-built_in">end</span>(); it++) &#123;
+    <span class="hljs-comment">// it-&gt;first 返回关键字: key, it-&gt;second 返回 key 对应的 value</span>
+    cout &lt;&lt; it-&gt;first &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; it-&gt;second &lt;&lt; endl;
+&#125;
+
+<span class="hljs-comment">// 查找 key 是否存在 (存在, 返回: 1)</span>
+cout &lt;&lt; M.<span class="hljs-built_in">count</span>(<span class="hljs-string">&quot;55&quot;</span>) &lt;&lt; endl;
+<span class="hljs-comment">// 下面这条指令返回指向改元素的迭代器, 若元素不存在, 则返回 end 迭代器</span>
+M.<span class="hljs-built_in">find</span>(<span class="hljs-string">&quot;55&quot;</span>);
+
+<span class="hljs-comment">// 删除元素对, 下面两条语句等价</span>
+M.<span class="hljs-built_in">erase</span>(<span class="hljs-string">&quot;55&quot;</span>);
+M.<span class="hljs-built_in">erase</span>(M.<span class="hljs-built_in">find</span>(<span class="hljs-string">&quot;55&quot;</span>));</code></pre></div>
+<h4 id="set">set</h4>
+<p>集合
+set，一组元素的集合，是单纯的键（关键字）的集合，只包含独立的元素。键唯一。没有下标操作。</p>
+<p>set 包含的元素也叫 set 的实例。set
+内部也是通过链表的方式组织，插入元素快，但查找和末尾添元素较慢。</p>
+<p>须包含头文件：<code>#include &lt;set&gt;</code>。</p>
+<p>示例：</p>
+<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-comment">// 用 vector 初始化 set</span>
+vector&lt;<span class="hljs-type">int</span>&gt; v;
+<span class="hljs-comment">// size_type 是 vector&lt;int&gt; 里 size() 返回的类型</span>
+<span class="hljs-keyword">for</span>(vector&lt;<span class="hljs-type">int</span>&gt;::size_type i=<span class="hljs-number">0</span>; i!= <span class="hljs-number">5</span>; i++) &#123;
+    v.<span class="hljs-built_in">push_back</span>(i);
+    v.<span class="hljs-built_in">push_back</span>(i);
+&#125;
+<span class="hljs-comment">// v.size(): 10, s.size(): 5</span>
+<span class="hljs-function">set&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">s</span><span class="hljs-params">(v.begin(), v.end())</span></span>;
+
+<span class="hljs-comment">// 插入新元素</span>
+s.<span class="hljs-built_in">insert</span>(<span class="hljs-number">5</span>);
+s.<span class="hljs-built_in">insert</span>(<span class="hljs-string">&quot;三国&quot;</span>);</code></pre></div>
+<h3 id="容器适配器">容器适配器</h3>
+<p>这是一个特殊的容器，是用基本容器实现的新容器，可以描述更高级的数据结构。C++中，适配器就是使一类事物的行为类似另一类事物的行为的一种机制。容器适配器让一种已存在的容器类型采用另一种不同的抽象类型的工作方式进行实现。</p>
+<p>可以将容器适配器理解为：容器的容器，或者容器的接口。容器适配器本身不能直接保存元素，它只是调用另一种顺序容器去实现数据的保存，因此可以这样认为：它先保存一个容器，这个容器再保存元素。</p>
+<p>常见的容器适配器有三种：stack、queue、priority_queue。</p>
+<h4 id="stack">stack</h4>
+<p>对应数据结构中的栈，先进后出、后进先出表。允许在栈顶插入、删除元素，不能访问中间元素。默认衍生自
+deque，由于只涉及单端数据的增删，因此可以使用 vector、list、deque
+中的任意一种实现。</p>
+<p>须包含头文件：<code>#include &lt;stack&gt;</code>。</p>
+<p>示例：</p>
+<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-comment">// 下面两条初始化语句是等价的</span>
+stack&lt;<span class="hljs-type">int</span>&gt; stk;
+stack&lt;<span class="hljs-type">int</span>, deque&lt;<span class="hljs-type">int</span>&gt;&gt; stk;
+
+<span class="hljs-comment">// 从 vector 衍生 stack</span>
+stack&lt;<span class="hljs-type">int</span>, vector&lt;<span class="hljs-type">int</span>&gt;&gt; stk;
+
+stk.<span class="hljs-built_in">push</span>(<span class="hljs-number">5</span>);  <span class="hljs-comment">// 从栈顶插入元素: 5</span>
+stk.<span class="hljs-built_in">pop</span>();  <span class="hljs-comment">// 删除栈顶元素</span>
+stk.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 获取指向栈顶元素的引用</span></code></pre></div>
+<h4 id="queue">queue</h4>
+<p>对应数据结构中的队列，先进先出、后进后出表。只允许在队尾插入元素，队头删除元素。默认衍生自
+deque，由于需要进行双头数据增删，因此关联的基本容器只能是
+list、deque，不能是 vector。</p>
+<p>须包含头文件：<code>#include &lt;queue&gt;</code>。</p>
+<p>示例：</p>
+<div class="code-wrapper"><pre><code class="hljs scss">queue&lt;<span class="hljs-attribute">float</span>&gt; que;  <span class="hljs-comment">// 初始化</span>
+que<span class="hljs-selector-class">.push</span>(<span class="hljs-number">1</span>);  <span class="hljs-comment">// 队尾插入元素: 1</span>
+que<span class="hljs-selector-class">.pop</span>();  <span class="hljs-comment">// 删除队首元素</span>
+que<span class="hljs-selector-class">.front</span>();  <span class="hljs-comment">// 返回指向队首元素的引用</span>
+que<span class="hljs-selector-class">.back</span>();  <span class="hljs-comment">// 返回指向队尾元素的引用</span></code></pre></div>
+<h4 id="priority_queue">priority_queue</h4>
+<p>带优先级的队列，一般最大值在队首，且（整型队列）会按照从大到小的顺序排列。只能删除最大值元素，也就是说，只能在队首进行删除。默认衍生自
+vector，由于要提供随机访问的功能，故不能建立在 list 容器上，可以由
+vector 和 deque 实现。</p>
+<p>须包含头文件：<code>#include &lt;queue&gt;</code>。</p>
+<p>示例：</p>
+<div class="code-wrapper"><pre><code class="hljs cpp">priority_queue&lt;<span class="hljs-type">int</span>&gt; prq;  <span class="hljs-comment">// 初始化</span>
+prq.<span class="hljs-built_in">push</span>(<span class="hljs-number">2</span>);  <span class="hljs-comment">// 插入新元素: 2</span>
+prq.<span class="hljs-built_in">pop</span>();  <span class="hljs-comment">// 删除队首元素(最大值元素)</span>
+prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返回队列中最大元素的引用</span></code></pre></div>
 
                 
               </div>
@@ -1604,7 +1835,7 @@ binding）。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 16, 2024</div>
+          <div>April 17, 2024</div>
         </div>
       
       

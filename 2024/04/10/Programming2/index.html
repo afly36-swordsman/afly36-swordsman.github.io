@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/007.jpg">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/008.jpg">
 <meta property="article:published_time" content="2024-04-10T13:52:25.975Z">
-<meta property="article:modified_time" content="2024-04-13T14:27:34.001Z">
+<meta property="article:modified_time" content="2024-04-17T03:37:57.716Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.4k words
+          6.3k words
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          9 mins
+          8 mins
         
       </span>
     
@@ -290,7 +290,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 13, 2024 pm
+                    Last updated on April 17, 2024 am
                   
                 
               </p>
@@ -431,8 +431,7 @@ using namespace std;
 
     <span class="hljs-comment">// 修改第3位学生的信息</span>
     stud[<span class="hljs-number">2</span>].num = <span class="hljs-number">1003</span>;
-    stud[<span class="hljs-number">2</span>].name = <span class="hljs-string">&quot;王者荣耀&quot;</span>;
-    <span class="hljs-comment">// 上条语句会报错: incompatible types in assignment of &#x27;const char [13]&#x27; to &#x27;char [10]&#x27;</span>
+    stud[<span class="hljs-number">2</span>].name = <span class="hljs-string">&quot;王者荣耀&quot;</span>;  <span class="hljs-comment">// 会报错，字符数组不允许这样赋值</span>
     strcpy(stud[<span class="hljs-number">2</span>].name, <span class="hljs-string">&quot;王者荣耀&quot;</span>);  <span class="hljs-comment">// 正确</span>
     stud[<span class="hljs-number">2</span>].score = <span class="hljs-number">60</span>;
 
@@ -517,7 +516,7 @@ using namespace std;
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 13, 2024</div>
+          <div>April 17, 2024</div>
         </div>
       
       
