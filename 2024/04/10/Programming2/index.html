@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/007.jpg">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/008.jpg">
 <meta property="article:published_time" content="2024-04-10T13:52:25.975Z">
-<meta property="article:modified_time" content="2024-04-17T03:37:57.716Z">
+<meta property="article:modified_time" content="2024-04-20T04:53:43.261Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.3k words
+          11k words
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          8 mins
+          15 mins
         
       </span>
     
@@ -290,7 +290,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 17, 2024 am
+                    Last updated on April 20, 2024 pm
                   
                 
               </p>
@@ -452,6 +452,194 @@ using namespace std;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 <p>注意：编码方式不同可能会导致乱码问题。</p>
+<h2 id="c泛型编程-模板">C++泛型编程: 模板</h2>
+<p>泛型（generic
+type）就是不使用具体数据类型（如int、double、float等），而是使用一种通用类型来进行程序设计，泛泛的描述一下数据，相当于一种占位符，这个方法可以大规模的减少程序代码的编写量。使用泛型进行编程就叫泛型编程。总之，泛型也是一种数据类型，是用来代替所有类型的“通用类型”。在C++中，泛型的实现就是模板（Template）。</p>
+<h3 id="模板的基础">模板的基础</h3>
+<p>模板是C++实现参数化多态的工具，是一个比较新的重要特性。模板有两类：函数模板、类模板。使用模板可以为函数或类声明一种“一般模式”，使得类中的某些数据成员或成员函数的参数、返回值可取任意类型。具体的类型在调用函数或者定义对象时确定。模板可以实现类型的参数化，即把类型定义为参数，从而实现代码的可重用性。如果类的数据成员类型不能确定时，就必须将此类声明为模板，代表这一类的类。</p>
+<p>模板就是把功能相似、仅数据类型不同的函数或类设计为通用的函数模板或类模板（蓝图），提供给用户。像函数重载，需要写很多个不同参数类型或个数的函数，而定义模板，只需要写一个，大大提高代码重用率。而且函数模板也可以重载。</p>
+<p><font color="purple">传入不同的模板参数，函数模板会生成不同的模板函数，类模板则生成不同的模板类。</font></p>
+<p>模板定义以关键字 template 开始，后接模板参数列表，用 "&lt;&gt;"
+括起来。template
+标志着模板声明的开始，告诉C++编译器要声明模板了，不能随便报错。</p>
+<p>模板形参类型的关键字有两个：typename、class。这两个类型关键字的作用完全一样，typename
+的引入主要是想区分函数模板和类模板，一般约定：typename
+用于函数模板的创建，class
+用于类模板的创建。实际上，二者完全可以相互替换。</p>
+<h3 id="函数模板">函数模板</h3>
+<p>函数模板就是建立一个通用函数，其函数类型和形参类型不具体指定，用一个虚拟类型（通用类型参数）来代表。</p>
+<p>函数模板是一种模板，是模板函数的抽象，定义中要用到通用类型参数；模板函数是实实在在的函数，是函数模板的实例，具有程序代码，占用内存空间，是实际存在的。在调用函数模板时，编译系统会根据实参的类型取代模板中的虚拟类型，从而生产相应的具体模板函数，然后实现功能。</p>
+<p>函数模板不允许自动类型转换，而普通函数可以，比如在普通函数中，若存在较小的数据类型和较大的数据类型同时参与运算时，小的会自动（隐式的）转为大的，例如
+bool、char 可以转为
+int。C++编译器优先考虑普通函数，如果普通函数不匹配，或者说函数模板更匹配实参数据类型，那么才选择模板。函数模板可以隐式实例化，也可以显式实例化。如果要限定编译器使用模板而不使用普通函数，那么需要显式实例化。</p>
+<p>使用示例：</p>
+<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;  <span class="hljs-comment">// 定义模板</span>
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fswap</span><span class="hljs-params">(T&amp; x, T&amp; y)</span> </span>&#123;
+    T temp;
+    temp = x; x = y; y = temp;
+&#125;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;  <span class="hljs-comment">// 参数名 T 在不同模板间可以重复使用</span>
+<span class="hljs-function">T <span class="hljs-title">fadd</span><span class="hljs-params">(T a, T b)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> a+b;
+&#125;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T1, <span class="hljs-keyword">typename</span> T2&gt;
+<span class="hljs-function"><span class="hljs-type">double</span> <span class="hljs-title">fadd</span><span class="hljs-params">(T1 a, T2 b)</span> </span>&#123;  <span class="hljs-comment">// 模板的重载</span>
+    <span class="hljs-keyword">return</span> a+b;
+&#125;
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-type">int</span> x = <span class="hljs-number">5</span>, y = <span class="hljs-number">6</span>; <span class="hljs-type">char</span> z = <span class="hljs-string">&#x27;a&#x27;</span>;
+    <span class="hljs-type">float</span> m = <span class="hljs-number">3.5</span>, n = <span class="hljs-number">6.7</span>;
+
+    <span class="hljs-built_in">fadd</span>(x, y);  <span class="hljs-comment">// 11</span>
+    <span class="hljs-built_in">fadd</span>(m, n);  <span class="hljs-comment">// 10.2</span>
+
+    <span class="hljs-comment">// 已经重载了混合类型数据计算的加法函数</span>
+    <span class="hljs-built_in">fadd</span>(x, m);  <span class="hljs-comment">// 若没有 fadd(T1 a, T2 b) 函数会报错: 不允许为同一个模板类型形参指定两种不同的类型</span>
+    <span class="hljs-built_in">fadd</span>(z, y);  <span class="hljs-comment">// 若没有 fadd(T1 a, T2 b) 函数会报错: 因为函数模板不能实现自动类型转换</span>
+    <span class="hljs-built_in">fswap</span>(&amp;x, &amp;y);  <span class="hljs-comment">// 错误: 实参赋给形参时, 左右值类型不匹配, 赋值失败</span>
+
+    <span class="hljs-built_in">fswap</span>(x, y);  <span class="hljs-comment">// 隐式调用, 自动数据类型推导</span>
+    <span class="hljs-built_in">fswap</span>&lt;<span class="hljs-type">int</span>&gt; (x, y);  <span class="hljs-comment">// 显式类型调用 (实例化)</span>
+    fswap&lt;&gt; (x, y);  <span class="hljs-comment">// 显式调用模板</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;
+
+<span class="hljs-comment">/* 还可以这样定义函数模板 */</span>
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;
+<span class="hljs-function">T <span class="hljs-title">fadd</span><span class="hljs-params">(T a, <span class="hljs-type">int</span> b)</span> </span>&#123;  <span class="hljs-comment">// 形参类型可由用户自定义</span>
+    <span class="hljs-keyword">return</span> a+b;
+&#125;</code></pre></div>
+<h3 id="类模板的使用">类模板的使用</h3>
+<p>类模板的定义和使用与函数模板类似。</p>
+<p>类模板的参数可以是类型参数（由关键字typename或class修饰的参数，如
+T），也可以是非类型参数（某些内置类型，如int
+a）。注意：非类型形参在模板定义的内部是常量，且只能是整型、指针和引用。比如
+int、double&amp;、float* 是可以的，但 double、string
+等不行。调用非类型模板形参的实参必须是常量表达式（能在编译时计算出结果），全局对象的地址、const
+类型变量、sizeof() 结果都是常量表达式，可以作为实参。</p>
+<p>若全局域有变量名与类模板中的模板参数名相同，那么该变量会被隐藏。模板参数名不能是类中成员的名字，同一个模板参数名在模板参数表中只能出现一次。不同的类模板声明中，模板参数名可以重复使用。</p>
+<p>类模板形参列表中 class T 是形参，实参值被提供给 T
+后，系统将会根据实参的具体类型创建一个模板类，该类是真实存在的，这个过程叫类模板的实例化。函数模板的实例化是编译程序在处理函数调用时自动完成的，而类模板的实例化须由程序员在程序中显式的指定。</p>
+<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;  <span class="hljs-comment">// 定义模板</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Compare</span> &#123;
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-built_in">Compare</span>(T a, T b) &#123;  <span class="hljs-comment">// 模板内定义数据成员</span>
+        c_x = a; c_y = b;
+    &#125;
+    <span class="hljs-function">T <span class="hljs-title">max</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> (c_x &gt; c_y) ? c_x : c_y;
+    &#125;
+    <span class="hljs-function">T <span class="hljs-title">min</span><span class="hljs-params">()</span></span>;
+<span class="hljs-keyword">private</span>:
+    T c_x, c_y;
+&#125;;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;  <span class="hljs-comment">// 在类模板外定义成员函数</span>
+T Compare&lt;T&gt;::<span class="hljs-built_in">min</span>() &#123;
+    <span class="hljs-keyword">return</span> (c_x &lt; c_y) ? c_x : c_y;
+&#125;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>, <span class="hljs-type">int</span> size = <span class="hljs-number">1</span>&gt;  <span class="hljs-comment">// 缺省参数 (指定缺省值/默认值, 是常量)</span>
+<span class="hljs-keyword">class</span> Myclass1 &#123;
+<span class="hljs-keyword">public</span>:  <span class="hljs-comment">// 无构造函数, 仅作为例子</span>
+    T <span class="hljs-built_in">func</span>(T a) &#123;
+        <span class="hljs-keyword">return</span> a + size;
+    &#125;
+&#125;;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>, <span class="hljs-type">int</span> size&gt;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Myclass2</span> &#123;  <span class="hljs-comment">// size 在该类中是个常量</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function">T <span class="hljs-title">func</span><span class="hljs-params">(T a)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> a + size;
+    &#125;
+&#125;;
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-function">Compare&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">cmp</span><span class="hljs-params">(<span class="hljs-number">5</span>, <span class="hljs-number">7</span>)</span></span>;  <span class="hljs-comment">// 必须显式指定形参类型进行类模板的实例化</span>
+    cmp.<span class="hljs-built_in">max</span>();  <span class="hljs-comment">// 返回: 7</span>
+    cmp.<span class="hljs-built_in">min</span>();  <span class="hljs-comment">// 返回: 5</span>
+    Myclass1&lt;<span class="hljs-type">int</span>&gt; mc1;  <span class="hljs-comment">// size 取默认值: 1</span>
+    cout &lt;&lt; mc1.<span class="hljs-built_in">func</span>(<span class="hljs-number">5</span>) &lt;&lt; endl;  <span class="hljs-comment">// 输出: 6 (5 + 1)</span>
+    <span class="hljs-type">int</span> x = <span class="hljs-number">2</span>; <span class="hljs-type">const</span> <span class="hljs-type">int</span> y = <span class="hljs-number">2</span>;
+    Myclass2&lt;<span class="hljs-type">int</span>, x&gt; mc2;  <span class="hljs-comment">// 错误: x 不是常量</span>
+    Myclass2&lt;<span class="hljs-type">int</span>, y&gt; mc2;  <span class="hljs-comment">// 正确, y 是常量</span>
+    Myclass2&lt;<span class="hljs-type">int</span>, <span class="hljs-number">2</span>&gt; mc2;  <span class="hljs-comment">// 正确, 2 是常量 (字面量)</span>
+    cout &lt;&lt; mc2.<span class="hljs-built_in">func</span>(<span class="hljs-number">8</span>) &lt;&lt; endl;  <span class="hljs-comment">// 输出: 10 (8 + 2)</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; 
+&#125;</code></pre></div>
+<h3 id="模板的特化">模板的特化</h3>
+<p>模板参数在某种特定类型下的具体实现叫模板的特化，有时也叫模板的具体化（我个人认为这个名字不好，模板实例化又何尝不是一种具体化呢？）。</p>
+<p>模板特化分别包括：函数模板的特化和类模板的特化。</p>
+<p>函数模板的特化，发生在函数模板需要对某些类型进行特别处理的时候。看下面这个例子：</p>
+<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstring&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;
+<span class="hljs-comment">/* 常见类型如 int char double 等数据的比较 */</span>
+<span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">comp</span><span class="hljs-params">(T a, T b)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> (a == b);
+&#125;
+<span class="hljs-comment">/* 对 char* 类型字符串进行比较, 就需要对函数模板进行特化 */</span>
+<span class="hljs-keyword">template</span> &lt;&gt;  <span class="hljs-comment">// 特化标志</span>
+<span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">comp</span><span class="hljs-params">(<span class="hljs-type">char</span>* t1, <span class="hljs-type">char</span>* t2)</span> </span>&#123;  <span class="hljs-comment">// 写法 1</span>
+<span class="hljs-type">bool</span> <span class="hljs-built_in">comp</span>&lt;<span class="hljs-type">char</span>*&gt;(<span class="hljs-type">char</span>* t1, <span class="hljs-type">char</span>* t2) &#123;  <span class="hljs-comment">// 写法 2</span>
+    <span class="hljs-keyword">return</span> (<span class="hljs-built_in">strcmp</span>(t1, t2) == <span class="hljs-number">0</span>);  <span class="hljs-comment">// 等于 0 表示两字符串相同</span>
+&#125;
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-comment">/* 字符串比较测试 */</span>
+    string s1 = <span class="hljs-string">&quot;123&quot;</span>, s2 = <span class="hljs-string">&quot;123&quot;</span>;
+    cout &lt;&lt; (s1 == s2) &lt;&lt; endl;  <span class="hljs-comment">// 1</span>
+    <span class="hljs-type">char</span> str1[] = <span class="hljs-string">&quot;hello&quot;</span>, str2[] = <span class="hljs-string">&quot;hello&quot;</span>;
+    <span class="hljs-comment">// 不建议对字符数组表示的字符串进行常规的比较</span>
+    cout &lt;&lt; (str1 == str2) &lt;&lt; endl;  <span class="hljs-comment">// 0</span>
+
+    <span class="hljs-comment">// 利用特化的函数模板进行实例化, 以实现特殊的要求</span>
+    cout &lt;&lt; <span class="hljs-built_in">comp</span>(str1, str2) &lt;&lt; endl;  <span class="hljs-comment">// 1</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>同理，类模板中需要对某些类型进行特别处理时，可以使用类模板的特化。需要注意的是，进行类模板的特化时，需要特化所有的（涉及通用类型参数的）成员变量和成员函数。</p>
+<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstring&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Comp</span> &#123;
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">fun</span><span class="hljs-params">(T a, T b)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> (a == b);
+    &#125;
+&#125;;
+
+<span class="hljs-comment">/* 下面这种定义, 是比较规范的, 不会漏掉某些数据成员 */</span>
+<span class="hljs-keyword">template</span> &lt;&gt;  <span class="hljs-comment">// 特化标志</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Comp</span>&lt;<span class="hljs-type">char</span>*&gt; &#123;
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">fun</span><span class="hljs-params">(<span class="hljs-type">char</span> *t1, <span class="hljs-type">char</span> *t2)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> (<span class="hljs-built_in">strcmp</span>(t1, t2) == <span class="hljs-number">0</span>);
+    &#125; 
+&#125;;
+<span class="hljs-comment">/* 下面这种定义是简化写法, 涉及通用类型参数(T)的数据成员已被全部特化, 也是可行的 */</span>
+<span class="hljs-keyword">template</span> &lt;&gt;  <span class="hljs-comment">// 特化标志</span>
+<span class="hljs-type">bool</span> Comp&lt;<span class="hljs-type">char</span>*&gt;::<span class="hljs-built_in">fun</span>(<span class="hljs-type">char</span>* t1, <span class="hljs-type">char</span>* t2) &#123;
+    <span class="hljs-keyword">return</span> (<span class="hljs-built_in">strcmp</span>(t1, t2) == <span class="hljs-number">0</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-type">char</span> str1[] = <span class="hljs-string">&quot;hello&quot;</span>;
+    <span class="hljs-type">char</span> str2[] = <span class="hljs-string">&quot;hello&quot;</span>;
+    Comp&lt;<span class="hljs-type">int</span>&gt; c1; Comp&lt;<span class="hljs-type">char</span>*&gt; c2;
+    c1.<span class="hljs-built_in">fun</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>);  <span class="hljs-comment">// 返回: 0</span>
+    c2.<span class="hljs-built_in">fun</span>(str1, str2);  <span class="hljs-comment">// 返回: 1</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>如果只想对类模板中的某些通用类型参数进行特化，并非对其全部的通用类型参数进行特化，那么可以使用类模板的<font color="purpleblack">偏特化</font>，也叫部分特化。例如：</p>
+<div class="code-wrapper"><pre><code class="hljs angelscript">template &lt;<span class="hljs-keyword">class</span> <span class="hljs-symbol">T1, <span class="hljs-symbol">class</span></span> <span class="hljs-symbol">T2</span>&gt;
+<span class="hljs-symbol">class</span> <span class="hljs-symbol">A</span> &#123; ... &#125;;
+
+<span class="hljs-comment">/* 仅对 T2 进行特化 */</span>
+template &lt;<span class="hljs-keyword">class</span> <span class="hljs-symbol">T1</span>&gt;  // 这里必须要列出未特化的模板参数: <span class="hljs-symbol">T1</span>
+<span class="hljs-symbol">class</span> <span class="hljs-symbol">A</span>&lt;<span class="hljs-symbol">T1, <span class="hljs-symbol">int</span></span>&gt;  // <span class="hljs-symbol">A</span> 的后面要列出全部模板参数, 并指定特化的类型: 指定 <span class="hljs-symbol">int</span> 为 <span class="hljs-symbol">T2</span> 的特化类型
+&#123; ... &#125;;</code></pre></div>
 
                 
               </div>
@@ -516,7 +704,7 @@ using namespace std;
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 17, 2024</div>
+          <div>April 20, 2024</div>
         </div>
       
       
