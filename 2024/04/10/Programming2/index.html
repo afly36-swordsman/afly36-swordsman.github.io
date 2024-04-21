@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/007.jpg">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/008.jpg">
 <meta property="article:published_time" content="2024-04-10T13:52:25.975Z">
-<meta property="article:modified_time" content="2024-04-20T04:53:43.261Z">
+<meta property="article:modified_time" content="2024-04-21T08:32:59.978Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -290,7 +290,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 20, 2024 pm
+                    Last updated on April 21, 2024 pm
                   
                 
               </p>
@@ -591,7 +591,7 @@ T Compare&lt;T&gt;::<span class="hljs-built_in">min</span>() &#123;
     string s1 = <span class="hljs-string">&quot;123&quot;</span>, s2 = <span class="hljs-string">&quot;123&quot;</span>;
     cout &lt;&lt; (s1 == s2) &lt;&lt; endl;  <span class="hljs-comment">// 1</span>
     <span class="hljs-type">char</span> str1[] = <span class="hljs-string">&quot;hello&quot;</span>, str2[] = <span class="hljs-string">&quot;hello&quot;</span>;
-    <span class="hljs-comment">// 不建议对字符数组表示的字符串进行常规的比较</span>
+    <span class="hljs-comment">// str1、str2 代表数组地址, 下面写法表示将两个地址进行比较, 而不是对数组中字符串比较</span>
     cout &lt;&lt; (str1 == str2) &lt;&lt; endl;  <span class="hljs-comment">// 0</span>
 
     <span class="hljs-comment">// 利用特化的函数模板进行实例化, 以实现特殊的要求</span>
@@ -704,7 +704,7 @@ template &lt;<span class="hljs-keyword">class</span> <span class="hljs-symbol">T
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 20, 2024</div>
+          <div>April 21, 2024</div>
         </div>
       
       
