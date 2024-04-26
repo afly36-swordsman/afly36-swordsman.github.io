@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/stage3/04.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/stage3/05.png">
 <meta property="article:published_time" content="2023-12-20T02:54:30.201Z">
-<meta property="article:modified_time" content="2024-03-12T07:10:31.087Z">
+<meta property="article:modified_time" content="2024-04-24T04:57:13.980Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
@@ -292,7 +292,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on March 12, 2024 pm
+                    Last updated on April 24, 2024 pm
                   
                 
               </p>
@@ -555,10 +555,10 @@ _V^S)\)</span>。利用CNN强大的特征提取能力尽可能多的保留边缘
 <p>DCE中的INN模块比较复杂，计算公式请参考论文原文，计算细节可以看Figure
 2(b)，其中<span class="math inline">\(\Phi
 _{I,k}^{S}[1:c]\)</span>表示第k个可逆层输入特征的第c个通道的第一个元素，<span
-class="math inline">\(I_i \
-(i=1~3)\)</span>是任意的映射函数。最终，<span class="math inline">\(\Phi
-_I^D = \Phi _{I,k}^{S}\)</span>，<span class="math inline">\(\Phi _V^D =
-\Phi _{V,k}^{S}\)</span>。</p>
+class="math inline">\(I_i \ (i=1 2
+3)\)</span>是任意的映射函数。最终，<span class="math inline">\(\Phi _I^D
+= \Phi _{I,k}^{S}\)</span>，<span class="math inline">\(\Phi _V^D = \Phi
+_{V,k}^{S}\)</span>。</p>
 <h4 id="fusion-layer">Fusion layer</h4>
 <p>考虑到inductive bias for base/detail feature
 fusion应该与编码器中的base/detail feature
@@ -573,7 +573,7 @@ class="math inline">\(F_D\)</span>分别代表基础融合层和细节融合层�
 _I^B,\Phi _I^D), ~~~ \widehat{V} = DC(\Phi _V^B,\Phi _V^D)\)</span></p>
 <p>Stage 2: <span class="math inline">\(~~~ F = DC(\Phi ^B,\Phi
 ^D)\)</span></p>
-<p>由于输入涉及跨膜太和多频特征，我们保持解码器的结构与SFE一致，即使用Restormer
+<p>由于输入涉及跨模态和多频特征，我们保持解码器的结构与SFE一致，即使用Restormer
 block作为解码器的基本单元。</p>
 <h4 id="two-stage-training">Two-stage training</h4>
 <p>这一部分相当于对上述内容的总结，这里直接引用论文原文的内容：</p>
@@ -769,7 +769,7 @@ fusion))，是论文中提出的方法，取值通常在0-1之间，基于人眼
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 12, 2024</div>
+          <div>April 24, 2024</div>
         </div>
       
       

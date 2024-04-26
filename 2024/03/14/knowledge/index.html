@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/001.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/003.png">
 <meta property="article:published_time" content="2024-03-14T02:46:09.862Z">
-<meta property="article:modified_time" content="2024-03-28T02:14:05.152Z">
+<meta property="article:modified_time" content="2024-04-26T06:03:16.442Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="basic">
 <meta name="twitter:card" content="summary_large_image">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.6k words
+          10k words
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          11 mins
+          13 mins
         
       </span>
     
@@ -290,7 +290,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on March 28, 2024 am
+                    Last updated on April 26, 2024 pm
                   
                 
               </p>
@@ -372,6 +372,33 @@ conv（空洞卷积）。可以解决池化操作增加感受野后图像信息�
 <p><img src="/img/stage2/001.png" srcset="/img/loading.gif" lazyload /></p>
 <p>图（a）是普通卷积的运算看到的感受野大小，卷积后的每个像素能看到的卷积前图片的区域为3x3。图（b）可以当成使用卷积核为7x7进行的卷积运算，但其中只有标记为红色的9个点参与计算（dilated为2），能看到的感受野范围是7x7大小。同理图（c）可以当成是使用卷积核为15x15进行卷积运算，但其中只有标记为红色的9个点参与计算（dilated为4），能看到的感受野范围是15x15大小。</p>
 <p>空洞卷积与普通卷积相比，增加了感受野，但是不会增加需要训练的参数量，因为增加的感受野范围内的其他像素点是选择性跳过的，卷积层能看到，只是不需要参与卷积运算而已（并不是增加padding，填充像素0的操作）。</p>
+<h2 id="模型梯度和优化器梯度">模型梯度和优化器梯度</h2>
+<p>模型梯度和优化器梯度是深度学习中的两个重要概念，它们在训练过程中起着关键作用。</p>
+<h3 id="模型梯度">模型梯度</h3>
+<p><strong>定义：</strong></p>
+<p>在机器学习和深度学习中，模型梯度是指损失函数相对于模型参数（如权重和偏置）的导数。这个导数指示了如果改变参数，损失函数会如何变化。</p>
+<p><strong>作用：</strong></p>
+<p>模型梯度是优化过程中的关键因素，它指出了损失函数下降最快的方向，即函数值增大最快的方向的反方向。在反向传播过程中，通过链式法则计算得到的梯度，用于指导参数的更新，以便减少损失值。</p>
+<p><strong>理解：</strong></p>
+<p>梯度是一个计算图中的张量（Tensor）的属性。当你进行前向传播时，PyTorch会构建一个计算图，图中的节点是张量，边是从输入张量到输出张量的操作（运算关系）。</p>
+<p>当你调用.backward()方法进行梯度反向传播时，PyTorch会自动计算图中所有具有<strong>requires_grad=True</strong>属性的张量的梯度，并将这些梯度存储在各自张量的.grad属性中。</p>
+<p>模型梯度指的是模型参数（通常是神经网络的权重和偏置）在训练过程中通过反向传播计算出的梯度。这个梯度反映了模型参数在当前值下，损失函数变化最快的方向。模型梯度由.backward()方法梯度反向传播</p>
+<p>这意味着每个模型参数张量都有一个与之关联的梯度张量，该梯度张量表示的是损失函数关于该参数的导数，即模型梯度。</p>
+<h3 id="优化器梯度">优化器梯度</h3>
+<p><strong>定义：</strong></p>
+<p>优化器梯度通常指的是优化算法中使用的梯度信息，它不仅仅是当前批次数据的梯度，还可能包括之前批次的梯度信息，以及学习率、动量等超参数。</p>
+<p><strong>作用：</strong></p>
+<p>优化器在反向传播过程中，指引损失函数（目标函数）的各个参数往正确的方向更新合适的大小（使用模型梯度信息来决定参数更新的方向和步长），使得更新后的各个参数让损失函数值不断逼近全局最小。不同的优化器有不同的策略来利用历史梯度信息，例如SGD优化器使用当前批次的梯度直接更新模型参数，而像Adam这样的优化器则结合了一阶动量（指数加权平均梯度）和二阶动量（指数加权平均梯度平方）来调整更新的步长和方向。</p>
+<p><strong>理解：</strong></p>
+<p>优化器（即优化算法）是用来求取模型的最优解的一个独立的对象，它保存了模型参数的引用以及当前的学习率和其他超参数。优化器需要知道前向传播过程中哪些参数是可训练的（即哪些张量具有requires_grad=True属性）。优化器不计算梯度，它只是梯度的更新者，他决定了以什么样的形式更新参数。</p>
+<p>优化器梯度指的是优化器根据模型参数的梯度来更新这些参数的规则和状态。优化器通常有自己的状态，比如学习率、动量等，它会根据模型参数的梯度来调整模型参数的值，以便在下一次迭代中得到更小的损失值。常见的优化器有SGD、SGDM、Adagrad、RMSProp和Adam等。</p>
+<p>当你创建一个优化器实例时，你将模型的参数传递给它，例如：optimizer =
+torch.optim.SGD(model.parameters(),
+lr=0.01)。优化器对象通常保存在它自己的内存空间中，它维护了当前的参数状态（比如动量项在torch.optim.SGD的情况下）和更新规则。当你调用optimizer.step()时，优化器就会根据存储的梯度来更新它所保存的参数。</p>
+<h3 id="二者的关系">二者的关系</h3>
+<p>梯度存在于模型的参数（即张量）中，而优化器则以一个单独的实体存在，维护着参数的更新规则和状态。在每次训练迭代中，优化器都会使用参数的.grad属性来更新其值。</p>
+<p>总的来说，模型梯度是损失函数对模型参数的导数，而优化器梯度则是优化器根据模型梯度和其他信息（如历史梯度、学习率等）计算出的用于更新模型参数的信息。两者紧密相连，共同作用于模型训练过程中的参数更新。</p>
+<p>在训练循环中，通常会先清除上一步迭代中计算的梯度（使用.zero_grad()方法），然后进行前向传播和反向传播计算新的梯度，最后由优化器根据这些梯度来更新模型参数。这个过程会在整个训练过程中重复进行，直到模型收敛或达到预定的迭代次数。</p>
 <h2 id="深入理解resnet">深入理解ResNet</h2>
 <p>参考文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/101332297"
 class="uri">https://zhuanlan.zhihu.com/p/101332297</a></p>
@@ -492,7 +519,7 @@ context，也就是KV缓存），直接导致训练和推理消耗算力很大�
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 28, 2024</div>
+          <div>April 26, 2024</div>
         </div>
       
       

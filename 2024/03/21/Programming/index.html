@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-04-17T15:22:04.346Z">
+<meta property="article:modified_time" content="2024-04-24T04:55:24.627Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          42k words
+          43k words
         
       </span>
     
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 17, 2024 pm
+                    Last updated on April 24, 2024 pm
                   
                 
               </p>
@@ -923,8 +923,10 @@ Pointer），是指向已经释放或者已经超出作用域的内存的指针�
 *pt = <span class="hljs-number">10</span>;  <span class="hljs-comment">// Undefined behavior</span></code></pre></div>
 <p>野指针（Wild
 Pointer），是未初始化的指针，如：<code>int *pt;</code></p>
-<h3 id="如何避免野指针">如何避免“野指针”</h3>
-<p>常见建议如下：</p>
+<h4 id="如何避免悬挂指针和野指针">如何避免悬挂指针和野指针</h4>
+<p>悬挂指针的避免很容易理解：指针变量经过 delete (或free)
+操作以后，其指向的内存会被释放，继而被系统回收。只需要对该指针赋个空值，让它别再继续指向这块已经被释放掉的内存空间即可。如：<code>pt = NULL;</code></p>
+<p>避免野指针的常见建议如下：</p>
 <p>（1）初始化空指针 nullptr</p>
 <p>在 C++
 中，未初始化的指针变量会被默认初始化为一个未定义的值，即它们可能指向任意位置。因此，在使用指针变量之前，应该始终确保对其进行初始化，以避免未定义的行为。</p>
@@ -1835,7 +1837,7 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 17, 2024</div>
+          <div>April 24, 2024</div>
         </div>
       
       
