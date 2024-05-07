@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/009.png">
 <meta property="article:published_time" content="2024-03-14T02:46:54.513Z">
-<meta property="article:modified_time" content="2024-04-26T06:05:39.487Z">
+<meta property="article:modified_time" content="2024-05-07T05:57:16.421Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.1k words
+          5.3k words
         
       </span>
     
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 26, 2024 pm
+                    Last updated on May 7, 2024 pm
                   
                 
               </p>
@@ -457,6 +457,11 @@ operator。</p>
 MFIF 和 IVIF 之间的共性（梯度约束），借助 MFIF 的优势，完成缺乏 ground
 truth 的 IVIF 任务。</p>
 <p>本文模型整体比较简单，思路清晰，但是未公开源代码，因此对实验结果的真实性验证和复现需要费一番功夫。不过本文的思想还是很新颖的，值得学习。</p>
+<p>不过阅读完本文后还有一个问题：本文提出的 Student 和 Teacher
+模型的网络结构分别是什么？个人认为二者都是上图（b）中的结构。因为学生模型作为处理
+IVIF 任务的目标模型，需要从 MFIF
+任务中进行学习，而教师模型则需要根据红外-可见光训练数据生成伪标签，进而用于损失函数之中。再加上教师模型的参数由学生模型的参数通过
+EMA 方式更新，因此我觉得二者网络应该一样，以保证上述功能的实现。</p>
 
                 
               </div>
@@ -521,7 +526,7 @@ truth 的 IVIF 任务。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 26, 2024</div>
+          <div>May 7, 2024</div>
         </div>
       
       
