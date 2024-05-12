@@ -24,7 +24,7 @@
 <meta property="og:description" content="宝藏学习网站：小林coding之图解计算机网络和操作系统 磁盘 分区知识1：簇 在磁盘（如U盘）格式化的时候，有一项是“分配单元大小”，这就是分区中的“簇”。“簇”是分区的最小存储单元。一个数据在存入硬盘前，会事先按照簇的大小将其分成N等份，然后分别存入分区中不同的簇内。例如名叫“毕业论文.pdf”的文件，大小是1600KB，将其存入磁盘时有以下情况： （1）如果分配单元大小设置为512K">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-12-21T15:35:32.056Z">
-<meta property="article:modified_time" content="2024-04-19T03:41:59.063Z">
+<meta property="article:modified_time" content="2024-05-12T05:37:07.049Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="basic">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.1k words
+          8.3k words
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          9 mins
+          11 mins
         
       </span>
     
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 19, 2024 am
+                    Last updated on May 12, 2024 pm
                   
                 
               </p>
@@ -427,6 +427,37 @@ partition）。</p>
 target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/27926239">硬盘基础知识科普</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hust-ghtao/"
 title="这里作者记载了很多互联网知识！">互联网相关知识学习-华科小涛的博客</a></p>
+<h2 id="存储容量计量单位">存储容量计量单位</h2>
+<h3 id="bit与byte">bit与Byte</h3>
+<p>Bit（比特，用 b
+表示）是数据的最小单位，表示一个二进制位，只有两个值0和1，它可以用来代表一个晶体管的通断，或者某根导线上电压的有无。<br/>
+Byte（字节，用 B 表示）是数据的基本单位，一个字节等于8位比特，即：1byte
+= 8bit。即1个字节包括了 <span class="math inline">\(2^8 = 256\)</span>
+种组合。</p>
+<h3 id="kibkb">KiB(KB)</h3>
+<p>KB：全称是：KiloByte，意思是千字节。<br/>
+它是计算机数据存贮器存储单位字节的倍数形式，通常用于描述磁盘容量、文件大小、内存地址及其大小。<br/>
+1KB = 1024B。</p>
+<p>根据IEC命名标准（国际电工委员会：International Electrotechnical
+Commission，简称IEC，是世界上最早的非政府性国际电工标准化机构之一，负责制定电气、电子和相关技术领域的国际标准），用于二进制存储单位的标准命名是：KiB。也就是说，像KiB、MiB、GiB这种写法，才是标准的计算机领域的术语，中间的i取自：binary，表示二进制幂的计数，即：</p>
+<p><span class="math display">\[2^{10} = 1024 = 1K, ~~~ 1M = 1024K, ~~~
+1G = 1024M\]</span></p>
+<p>这与数学领域或日常生活中的 1K = 1000、1M = 1000K、1G = 1000M
+是不同的。但在Windows系统中，KB通常也被视为1024B，以至于到现在大家很容易将KiB和KB混淆。硬盘商家标定的
+1GB 比计算机中的 1GB
+略小，就是硬盘销售时和计算机读取时用的换算单位不同所导致的。硬盘都是采用1000来进位的，与日常生活相符，因此当硬盘被计算机读取时，就跟计算机中的1024进位“格格不入”，那么我们自然就感觉硬盘空间“缺斤少两”。</p>
+<p>换句话说，我们只需要明白，在计算机领域，KB、MB、GB、TB、PB、EB等都是互相以1024为进位的就行了，它跟KiB、MiB意思是一样的。本文也是总结计算机领域相关的知识，因此文中所述的MB、GB等单位其实是MiB、GiB。</p>
+<h3 id="mbgb和tb">MB、GB和TB</h3>
+<p>MB：全称是：MegaByte，意思是兆字节。<br/>
+它也是计算机存储容量的单位，通常用于描述数据或程序的存储需求。<br/>
+1MB等于1024KB，也等于<span
+class="math inline">\(1024^2\)</span>字节。</p>
+<p>GB：全称是：GigaByte，中文称为吉字节，也被称为千兆字节。<br/>
+计算机存储容量单位，常简写为G。1GB等于1024MB，也等于<span
+class="math inline">\(1024^3\)</span>字节。</p>
+<p>TB：全称是：TeraByte，意思是太字节。<br/>
+计算机存储容量单位，通常用于描述大型存储设备的容量。1TB等于1024GB。</p>
+<p>此外，还有：PB(Petabyte)、EB(Exabyte)、ZB(Zettabyte)、YB(Yottabyte)等。1PB等于1024TB，1EB等于1024PB，以此类推。1TB相当于一家大型医院中所有的X光图片的资讯量；5EB相当于至今全世界所有人类讲过的话语；1ZB相当于全世界海滩上沙子数量的总和；1YB的数据量则如同7000位人类体内的微细胞数目的总和。</p>
 
                 
               </div>
@@ -491,7 +522,7 @@ title="这里作者记载了很多互联网知识！">互联网相关知识学�
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 19, 2024</div>
+          <div>May 12, 2024</div>
         </div>
       
       
@@ -561,6 +592,12 @@ title="这里作者记载了很多互联网知识！">互联网相关知识学�
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -772,6 +809,49 @@ title="这里作者记载了很多互联网知识！">互联网相关知识学�
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

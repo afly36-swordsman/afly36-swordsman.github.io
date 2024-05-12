@@ -24,7 +24,7 @@
 <meta property="og:description" content="Linux-Ubuntu系统安装gcc和g++ GCC：GNU Compiler Collection（GNU编译器集合），它可以编译C、C++、JAV、Fortran、Pascal、Object-C、Ada等语言。 gcc是GCC中的GUN C Compiler（C 编译器）；g++是GCC中的GUN C++ Compiler（C++编译器）。 1.查看当前版本 gcc -v (gc">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-03-16T05:30:24.899Z">
-<meta property="article:modified_time" content="2024-03-30T01:21:51.091Z">
+<meta property="article:modified_time" content="2024-05-12T05:03:31.569Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.4k words
+          7.9k words
         
       </span>
     
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on March 30, 2024 am
+                    Last updated on May 12, 2024 pm
                   
                 
               </p>
@@ -433,10 +433,12 @@ Ctrl + Shift + P
 <p>conda是包及其依赖项和虚拟环境的管理工具，pip是用于安装和管理软件包的包管理器。conda结合了pip和virtualenv（用于创建独立的Python环境的工具）的功能，安装包时自动安装其依赖项，可以便捷地在包的不同版本中自由切换，且适配很多编程语言，因此推荐使用conda。</p>
 <h3 id="environment">environment</h3>
 <p>新建虚拟环境：</p>
-<div class="code-wrapper"><pre><code class="hljs llvm">conda create -n env_name python<span class="hljs-operator">=</span><span class="hljs-keyword">x</span>.<span class="hljs-keyword">x</span></code></pre></div>
+<div class="code-wrapper"><pre><code class="hljs routeros">conda create -n env_name <span class="hljs-attribute">python</span>=x.x
+conda create --name env_name <span class="hljs-attribute">python</span>=3.8</code></pre></div>
 <p>查看已存在的虚拟环境：</p>
-<div class="code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">conda</span> <span class="hljs-literal">info</span> -e
-conda env list</code></pre></div>
+<div class="code-wrapper"><pre><code class="hljs routeros">conda <span class="hljs-built_in">info</span> -e
+conda env list
+conda <span class="hljs-built_in">info</span> --envs</code></pre></div>
 <p>进入（激活）虚拟环境：</p>
 <div class="code-wrapper"><pre><code class="hljs applescript">conda <span class="hljs-built_in">activate</span> env_name</code></pre></div>
 <p>退出当前虚拟环境：</p>
@@ -448,17 +450,31 @@ conda env list</code></pre></div>
 <div class="code-wrapper"><pre><code class="hljs lsl">conda <span class="hljs-type">list</span>
 pip <span class="hljs-type">list</span></code></pre></div>
 <p>查看某个包是否在当前环境中：</p>
-<div class="code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">conda list pkg_name</span></code></pre></div>
+<div class="code-wrapper"><pre><code class="hljs gauss">conda list pkg_name
+pip <span class="hljs-keyword">show</span> pkg_name
+
+<span class="hljs-meta"># pip show package_name 会显示package的安装路径</span>
+<span class="hljs-meta"># 一般默认的安装路径: (Environment position).../lib/site_packages/</span></code></pre></div>
 <p>安装某个包：</p>
-<div class="code-wrapper"><pre><code class="hljs abnf">conda install pkg_name[<span class="hljs-operator">=</span>version]
-pip install some_package[<span class="hljs-operator">=</span><span class="hljs-operator">=</span>x.x]</code></pre></div>
+<div class="code-wrapper"><pre><code class="hljs cmake">conda <span class="hljs-keyword">install</span> pkg_name[=version]
+pip <span class="hljs-keyword">install</span> some_package[==x.x]
+
+<span class="hljs-comment"># -r表示从指定的文件中读取每行的内容（待安装的包列表）</span>
+<span class="hljs-comment"># 指定文件的每行须是一个包名，可以用==或&gt;=指定版本号</span>
+pip <span class="hljs-keyword">install</span> -r requirements.txt
+pip <span class="hljs-keyword">install</span> --requirement FILE_name</code></pre></div>
 <p>更新包：</p>
 <div class="code-wrapper"><pre><code class="hljs n1ql">conda <span class="hljs-keyword">update</span> pkg_name
 conda <span class="hljs-keyword">update</span> --<span class="hljs-keyword">all</span></code></pre></div>
 <p>删除包：</p>
 <div class="code-wrapper"><pre><code class="hljs routeros">conda <span class="hljs-built_in">remove</span> pkg_name
 pip uninstall some_package</code></pre></div>
-<p>建议首选conda进行管理。若conda没有相应的包，再使用pip指令。</p>
+<p>检验torch是否安装成功：</p>
+<div class="code-wrapper"><pre><code class="hljs awk">python  <span class="hljs-comment"># 进入Python开发环境</span>
+&gt;&gt;&gt; import torch  <span class="hljs-comment"># 未报错</span>
+&gt;&gt;&gt; torch.cuda.is_available()  <span class="hljs-comment"># 输出: True</span>
+&gt;&gt;&gt; <span class="hljs-keyword">exit</span>()  <span class="hljs-comment"># 大功告成！退出即可</span></code></pre></div>
+<p>建议首选conda进行管理。若conda没有相应的包，再使用pip指令。不过pip下载安装的响应很快，且基本不会报错，而conda容易报错，尤其是用conda安装torch的时候。</p>
 <h2 id="git下载代码">Git下载代码</h2>
 <p>Git是一个软件（需要下载安装），可以帮助你在Github网站进行代码操作。GitHub是一个面向开源及私有软件项目的托管平台，即代码仓库。</p>
 <p>在Github上找到了你所需要的项目，只需要在“code”按钮上点击，进入Clone界面，复制代码地址，然后在本地打开Git
@@ -506,16 +522,16 @@ pip <span class="hljs-keyword">install</span> gpustat  作为Python库进行安�
 nvitop <span class="hljs-operator">-</span>m <span class="hljs-keyword">full</span></code></pre></div>
 <h2 id="runtimeerror-cuda-out-of-memory">RuntimeError: CUDA out of
 memory</h2>
-<p>这个Bug的出现往往是直接采用原作者README中的指令，因为电脑/服务器的算力不一定能支持。有以下解决方法：</p>
+<p>这个Bug的出现往往是直接采用了作者源代码中的指令，因为自己电脑/服务器的算力不一定能满足其所需。有以下解决方法：</p>
 <h3 id="调小batch_size首选">调小batch_size（首选）</h3>
-<p>一般把batch_size设置为4基本上能解决问题。</p>
+<p>一般把batch_size设置为4基本上能解决问题，再不然设置成2呢（不建议这么做，因为太慢了）。</p>
 <h3 id="设置参数梯度推荐">设置参数梯度（推荐）</h3>
 <p>在测试阶段和验证阶段前插入代码 <code>with torch.no_grad()</code>
-，目的是该段程序不计算参数梯度。</p>
+，目的是该段程序不计算参数梯度。不过一般在测试阶段都会这么做吧~</p>
 <h3 id="关闭锁页内存">关闭锁页内存</h3>
-<p>查看代码中是否存在一下代码（通常出现在main.py或者数据加载的py文件中）：</p>
+<p>查看代码中是否存在以下代码（通常出现在main.py或者数据加载的py文件中）：</p>
 <div class="code-wrapper"><pre><code class="hljs ini"><span class="hljs-attr">kwargs</span> = &#123;<span class="hljs-string">&#x27;num_workers&#x27;</span>: <span class="hljs-number">6</span>, <span class="hljs-string">&#x27;pin_memory&#x27;</span>: <span class="hljs-literal">True</span>&#125; if torch.cuda.is_available() else &#123;&#125;</code></pre></div>
-<p>将"pin_memory": True改为False，具体原因如下：</p>
+<p>将"pin_memory": True改为：False，具体原因如下：</p>
 <blockquote>
 <p>pin_memory就是锁页内存，创建DataLoader时，设置pin_memory=True，则意味着生成的Tensor数据最开始是属于内存中的锁页内存，这样将内存的Tensor转义到GPU的显存就会更快一些。<br/>
 主机中的内存，有两种存在方式，一是锁页，二是不锁页。锁页内存存放的内容在任何情况下都不会与主机的虚拟内存进行交换（注：虚拟内存就是硬盘），而不锁页内存在主机内存不足时，数据会存放在虚拟内存中。显卡中的显存全部是锁页内存，当计算机内存充足的时候，可以设置pin_memory=True。当系统卡住，或者交换内存使用过多的时候，设置pin_memory=False。因为pin_memory与电脑硬件性能有关，pytorch开发者不能确保每一个炼丹玩家都有高端设备，因此pin_memory默认设置为False。</p>
@@ -601,7 +617,7 @@ torch<span class="hljs-selector-class">.cuda</span><span class="hljs-selector-cl
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 30, 2024</div>
+          <div>May 12, 2024</div>
         </div>
       
       

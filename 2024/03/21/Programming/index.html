@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-04-24T04:55:24.627Z">
+<meta property="article:modified_time" content="2024-05-12T05:43:05.862Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 24, 2024 pm
+                    Last updated on May 12, 2024 pm
                   
                 
               </p>
@@ -319,17 +319,22 @@ xxx加回车就会直接进入该模式）
 <span class="hljs-symbol">:q!</span>  不保存，只退出
 <span class="hljs-symbol">:q</span>  仅退出，适用于查看但未作修改的情形</code></pre></div>
 <p>vim快捷键（正常模式下）：</p>
-<div class="code-wrapper"><pre><code class="hljs bash">yy  复制当前光标所在的这一行
-p  粘贴
-<span class="hljs-built_in">dd</span>  删除当前光标所在的这一行
-/key  查找key
-u  撤销上一步动作</code></pre></div>
-<p>编辑文件文本时：</p>
+<div class="code-wrapper"><pre><code class="hljs less"><span class="hljs-selector-tag">yy</span>  复制当前光标所在的这一行
+<span class="hljs-selector-tag">p</span>  粘贴
+<span class="hljs-selector-tag">dd</span>  删除当前光标所在的这一行（但会复制，可配合<span class="hljs-selector-tag">p</span>实现剪切）
+/<span class="hljs-selector-tag">key</span>  查找<span class="hljs-selector-tag">key</span>
+<span class="hljs-selector-tag">x</span>  实现单个字符的删除（剪切）
+<span class="hljs-selector-tag">u</span>  撤销上一步动作
+<span class="hljs-selector-tag">q</span>  进入/退出记录，对想重复自动执行（如累加）的语句进行记录
+    <span class="hljs-selector-tag">q</span>用法示例: <span class="hljs-selector-attr">[对 test 0 = 1 重复8次，且数值每次自增1]</span>
+    键入:<span class="hljs-selector-tag">q</span> <span class="hljs-selector-tag">-</span>&gt; 输入标记符(例如:f) <span class="hljs-selector-tag">-</span>&gt; <span class="hljs-selector-tag">yy</span>+<span class="hljs-selector-tag">p</span>复制语句 <span class="hljs-selector-tag">-</span>&gt; <span class="hljs-selector-tag">Ctrl</span> <span class="hljs-selector-tag">A</span> 自增<span class="hljs-number">1</span>
+    <span class="hljs-selector-tag">-</span>&gt; 键入:<span class="hljs-selector-tag">q</span>(退出记录) <span class="hljs-selector-tag">-</span>&gt; 输入:<span class="hljs-number">8</span>@<span class="hljs-selector-tag">f</span></code></pre></div>
+<p>编辑文件文本时（正常模式下）：</p>
 <div class="code-wrapper"><pre><code class="hljs mathematica"><span class="hljs-variable">G</span>  定位至最后一行
 <span class="hljs-variable">gg</span>  定位至第一行
 <span class="hljs-variable">H</span>  左移
-<span class="hljs-variable">J</span>  下移
-<span class="hljs-built_in">K</span>  上移
+<span class="hljs-variable">J</span>  下移（<span class="hljs-variable">J</span>小）
+<span class="hljs-built_in">K</span>  上移（<span class="hljs-built_in">K</span>大）
 <span class="hljs-variable">L</span>  右移</code></pre></div>
 <h3 id="关机">关机</h3>
 <div class="code-wrapper"><pre><code class="hljs arduino">shutdown -h now  立即关机
@@ -337,9 +342,29 @@ shutdown -h <span class="hljs-number">5</span>  <span class="hljs-number">5</spa
 shutdown -r now / reboot  立即重启
 sync  将内存数据存入磁盘防止丢失</code></pre></div>
 <h3 id="用户管理">用户管理</h3>
-<div class="code-wrapper"><pre><code class="hljs bash">su - user_name  切换用户所在账号
+<div class="code-wrapper"><pre><code class="hljs vim">su - user_name  切换用户所在账号
 su - root  切换管理员用户登录
-<span class="hljs-built_in">whoami</span> / <span class="hljs-built_in">who</span> am i  查看当前登录的是哪个用户</code></pre></div>
+whoami / who <span class="hljs-keyword">am</span> i  查看当前登录的是哪个用户
+
+<span class="hljs-keyword">ps</span> -ef  查看所有进程信息
+top  实时显示进程状态用户
+<span class="hljs-keyword">w</span>  查看当前活动用户
+<span class="hljs-keyword">last</span>  查看用户登录日志</code></pre></div>
+<h3 id="设备">设备</h3>
+<div class="code-wrapper"><pre><code class="hljs tcl">uname -a  查看当前Linux操作系统的内核信息
+cat /etc/issue  查看当前操作系统发行版信息
+cat /<span class="hljs-keyword">proc</span>/version  查看当前操作系统的版本信息<span class="hljs-title"></span>
+<span class="hljs-title">hostname</span>  查看服务器的名称<span class="hljs-title"></span>
+<span class="hljs-title"></span>
+<span class="hljs-title">df</span> -lh  查看磁盘空间<span class="hljs-title"></span>
+<span class="hljs-title">free</span> -m  以兆字节（MB）显示内存信息<span class="hljs-title"></span>
+<span class="hljs-title">lsblk</span>  查看磁盘信息，列出所有可用块设备的信息及其依赖关系<span class="hljs-title"></span>
+<span class="hljs-title"></span>
+<span class="hljs-title">nvidia-smi</span>  查看显卡、驱动等相关信息<span class="hljs-title"></span>
+<span class="hljs-title">watch</span> -n 1<span class="hljs-title"> nvidia-smi</span>  实时追踪显卡使用情况（每隔1秒自动刷新）<span class="hljs-title"></span>
+<span class="hljs-title">gpustat</span>  高亮显示GPU信息<span class="hljs-title"></span>
+<span class="hljs-title">gpustat</span> -i  高亮显示GPU信息·实时版（每秒刷新1次）<span class="hljs-title"></span>
+<span class="hljs-title">nvitop</span> [-m<span class="hljs-title"> full]</span>  彩色 [完整] 显示GPU信息</code></pre></div>
 <h3 id="网络">网络</h3>
 <div class="code-wrapper"><pre><code class="hljs dos"><span class="hljs-built_in">ping</span> ip_address  检测当前主机/服务器是否可以连接ip_address所在的主机/服务器/网址（检查网络连接）
 ifconfig  查看当前网络信息
@@ -1837,7 +1862,7 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 24, 2024</div>
+          <div>May 12, 2024</div>
         </div>
       
       
