@@ -23,11 +23,13 @@
 <meta property="og:site_name" content="Mark | Learning &amp; Routine">
 <meta property="og:description" content="Linux-Ubuntu系统安装gcc和g++ GCC：GNU Compiler Collection（GNU编译器集合），它可以编译C、C++、JAV、Fortran、Pascal、Object-C、Ada等语言。 gcc是GCC中的GUN C Compiler（C 编译器）；g++是GCC中的GUN C++ Compiler（C++编译器）。 1.查看当前版本 gcc -v (gc">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/011.png">
 <meta property="article:published_time" content="2024-03-16T05:30:24.899Z">
-<meta property="article:modified_time" content="2024-05-12T06:17:31.790Z">
+<meta property="article:modified_time" content="2024-05-18T14:47:59.172Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://afly36-swordsman.github.io/img/stage2/011.png">
   
   
   
@@ -220,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.9k words
+          9.8k words
         
       </span>
     
@@ -231,7 +233,7 @@
         
         
         
-          10 mins
+          13 mins
         
       </span>
     
@@ -286,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on May 12, 2024 pm
+                    Last updated on May 18, 2024 pm
                   
                 
               </p>
@@ -428,6 +430,77 @@ Ctrl + Shift + P
 "preLaunchTask" 为下列语句即可：</p>
 <div class="code-wrapper"><pre><code class="hljs json"><span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;gcc.exe - 生成和调试活动文件&quot;</span><span class="hljs-punctuation">,</span>
 <span class="hljs-attr">&quot;preLaunchTask&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;C/C++: gcc.exe 生成活动文件&quot;</span></code></pre></div>
+<h2 id="linux命令行调试">Linux命令行调试</h2>
+<p>代码的调试（Debug）是软件开发过程中一个至关重要的环节，它指的是在程序开发过程中发现并修正错误（bug）。调试是确保软件按照预期运行的关键步骤。在调试过程中，开发人员通常会使用调试工具（Debugger）来辅助进行。</p>
+<p>调试工具允许开发人员执行以下操作：</p>
+<ul>
+<li>设置断点：在代码的特定位置设置断点，使得程序在到达该位置时暂停执行。这样开发人员可以查看并控制此时程序的状态。</li>
+<li>单步执行：使用Step Over、Step Into、Step
+Out等命令逐行或逐过程地执行代码，以便观察程序的执行流程。</li>
+<li>查看变量值：在程序暂停时，开发人员可以查看和修改程序中的变量值，以便理解程序当前的状态。</li>
+<li>调用栈跟踪：当程序出现错误时，调试工具可以显示调用栈（Call
+Stack），即函数调用的层次结构，帮助开发人员定位错误发生的具体位置。</li>
+<li>条件断点：设置当满足特定条件时才触发的断点，以便更精确地控制程序的执行流程。</li>
+<li>异常捕获：调试工具可以捕获程序运行时的异常，并显示异常信息和调用栈，帮助开发人员定位和解决问题。</li>
+</ul>
+<h3 id="几种不同的调试方式">几种不同的调试方式</h3>
+<p>在程序调试中，Step Over、Step Into、Step Into my code 和 Step Out
+是四种不同的调试步骤，它们各自有特定的用途和行为。</p>
+<ul>
+<li><p>Step
+Over（逐过程执行）：当你执行到一行代码，并且这行代码是一个函数调用时，Step
+Over
+会执行整个函数（不会进入函数内部），也就是把整个函数作为一步，然后在函数调用的下一行代码处停止。这在你想要忽略某些函数细节，只想查看程序的主要流程时很有用。</p></li>
+<li><p>Step
+Into（单步执行/逐语句执行）：当你执行到一行代码，并且这行代码是一个函数调用时，Step
+Into
+会进入函数内部，并逐行执行函数内的代码。这对于你想要深入了解函数内部的执行细节时很有用。</p></li>
+<li><p>Step Into my
+code（仅进入我的代码）：这是某些集成开发环境（IDE）中的一个选项，特别是当你调试包含第三方库或框架的代码时。当你执行到一行代码，并且这行代码是一个函数调用，但该函数调用属于第三方库或框架时，Step
+Into my code
+会忽略这个函数调用，并在该函数调用后的下一行代码处停止。这可以帮助你专注于自己的代码，而不用进入第三方库的细节中。</p></li>
+<li><p>Step
+Out（步出）：当你已经单步进入了一个函数，并想要快速返回到调用这个函数的代码行时，你可以使用
+Step Out。Step Out
+后会执行完当前函数内的剩余代码（但不会进入任何子函数），然后返回到调用这个函数的代码行处停止。</p></li>
+</ul>
+<h3 id="python交互环境中启用调试">python交互环境中启用调试</h3>
+<p>在Linux命令行模式下，有两种常用的代码调试方式，它们都是基于
+pdb（Python Debugger）的。一种是在文件内使用 pdb
+模块在需要的地方进行调试，另一种是在命令行以 pdb
+指令的形式从代码第一行开始调试。</p>
+<p>例如我要调试一个文件名提取函数（FileNameExtraction.py），在文件中可以在指定位置加入调试代码：</p>
+<div class="code-wrapper"><pre><code class="hljs clean"><span class="hljs-keyword">import</span> pdb
+&lt;-- <span class="hljs-keyword">code</span> snippet I --&gt;
+pdb.set_trace()
+&lt;-- <span class="hljs-keyword">code</span> snippet II --&gt;</code></pre></div>
+<p>运行上面的代码后，程序会在 pdb.set_trace() 处暂停，此时可以使用 pdb
+提供的命令对代码进行调试。</p>
+<p>在命令行启动目标程序：</p>
+<div class="code-wrapper"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> -<span class="hljs-keyword">m</span> pdb FileNameExtraction.<span class="hljs-keyword">py</span></code></pre></div>
+<p>然后会进入下图所示的 pdb 调试模式：</p>
+<figure>
+<img src="/img/stage2/011.png" srcset="/img/loading.gif" lazyload alt="进入pdb调试模式" />
+<figcaption aria-hidden="true">进入pdb调试模式</figcaption>
+</figure>
+<p>这样程序会自动停在第一行，等待你进行调试。接下来可以使用调试命令进行调试。常用的调试命令有：</p>
+<div class="code-wrapper"><pre><code class="hljs mipsasm">(Pdb) <span class="hljs-keyword">b </span><span class="hljs-number">8</span>  <span class="hljs-comment"># 设置断点：断点设在该文件的第8行（b: break point）</span>
+(Pdb) <span class="hljs-keyword">b </span> <span class="hljs-comment"># 显示所有断点：b命令，不加参数</span>
+(Pdb) cl <span class="hljs-number">2</span>  <span class="hljs-comment"># 删除断点：删除第2个断点（cl: clear）</span>
+(Pdb) cl  <span class="hljs-comment"># 删除所有断点</span>
+
+(Pdb) n  <span class="hljs-comment"># Step Over：向下执行一行（n: next）</span>
+(Pdb) s  <span class="hljs-comment"># Step Into：进入一个函数（s: step）</span>
+(Pdb) r  <span class="hljs-comment"># Setp Return：快速执行到函数的最后一行（r: return）</span>
+(Pdb) c  <span class="hljs-comment"># Resume：继续执行代码（c: continue）</span>
+(Pdb) <span class="hljs-keyword">j </span><span class="hljs-number">10</span>  <span class="hljs-comment"># Run to Line：运行到指定行，即第10行（j: jump）</span>
+
+(Pdb) p a,<span class="hljs-keyword">b </span> <span class="hljs-comment"># 查看变量 (a, b) 的值（p: parameter）</span>
+(Pdb) l  <span class="hljs-comment"># 查看当前代码，即运行到的代码（l: list）</span>
+(Pdb) a  <span class="hljs-comment"># 查看全部栈内变量，打印所有形参语句（a: args）</span>
+
+(Pdb) h  <span class="hljs-comment"># 帮助（h: help）</span>
+(Pdb) q  <span class="hljs-comment"># 退出调试（q: quit）</span></code></pre></div>
 <h2 id="anaconda常用命令">Anaconda常用命令</h2>
 <p>Anaconda是可以便捷获取包且能对包和环境进行统一管理的发行版本。Anaconda包含了conda、Python在内的超过180个科学包及其依赖项。</p>
 <p>conda是包及其依赖项和虚拟环境的管理工具，pip是用于安装和管理软件包的包管理器。conda结合了pip和virtualenv（用于创建独立的Python环境的工具）的功能，安装包时自动安装其依赖项，可以便捷地在包的不同版本中自由切换，且适配很多编程语言，因此推荐使用conda。</p>
@@ -617,7 +690,7 @@ torch<span class="hljs-selector-class">.cuda</span><span class="hljs-selector-cl
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 12, 2024</div>
+          <div>May 18, 2024</div>
         </div>
       
       
