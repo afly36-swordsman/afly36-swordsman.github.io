@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-05-18T14:46:15.506Z">
+<meta property="article:modified_time" content="2024-06-16T13:04:51.569Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on May 18, 2024 pm
+                    Last updated on June 16, 2024 pm
                   
                 
               </p>
@@ -329,6 +329,19 @@ o  在光标下面创建一个空行开始输入</code></pre></div>
 <span class="hljs-symbol">:set</span> nu  显示行号
 <span class="hljs-symbol">:set</span> nonu  取消行号
 <span class="hljs-symbol">:</span><span class="hljs-number">100</span>  跳转到第<span class="hljs-number">100</span>行</code></pre></div>
+<p>正常模式下的一些指令：</p>
+<div class="code-wrapper"><pre><code class="hljs ruby">x  删除光标所在字符
+s  删除字符并进入插入模式
+S  删除整行并进入插入模式
+
+r  替换光标所在字符（单个替换）
+R  替换模式，逐个替换光标所在字符
+
+<span class="hljs-meta prompt_">&gt;&gt;</span>  缩进（相当于<span class="hljs-number">1</span>个<span class="hljs-title class_">Tab</span>）
+&lt;&lt;  反缩进（相当于<span class="hljs-title class_">Shift</span> + <span class="hljs-title class_">Tab</span>）
+
+<span class="hljs-variable constant_">ZZ</span>  保存并退出（作用与 <span class="hljs-symbol">:wq</span> 一致）
+<span class="hljs-variable constant_">ZQ</span>  不保存，退出编辑（Q强调退出，与 <span class="hljs-symbol">:q!</span> 一样）</code></pre></div>
 <p>vim快捷键（正常模式下）：</p>
 <div class="code-wrapper"><pre><code class="hljs less"><span class="hljs-selector-tag">yy</span>  复制当前光标所在的这一行
 <span class="hljs-selector-tag">p</span>  粘贴
@@ -1613,7 +1626,7 @@ vector
 <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">b</span><span class="hljs-params">(a.begin(), a.end())</span></span>;  <span class="hljs-comment">// 把 a 从头到尾全赋给 b, b.size(): 8</span>
 <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">c</span><span class="hljs-params">(a.begin(), a.begin()+<span class="hljs-number">3</span>)</span></span>;  <span class="hljs-comment">// 把 a 前 3 个元素赋给 c, c.size(): 3</span>
 <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">d</span><span class="hljs-params">(arr, arr+<span class="hljs-number">3</span>)</span></span>;  <span class="hljs-comment">// 把 arr 前 3 个元素赋给 d, d.size(): 3</span>
-<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">e</span><span class="hljs-params">(arr[<span class="hljs-number">0</span>], arr[<span class="hljs-number">3</span>])</span></span>;  <span class="hljs-comment">// 等价于: vector&lt;int&gt; e(1,1)  e.size(): 1</span>
+<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">e</span><span class="hljs-params">(arr[<span class="hljs-number">0</span>], arr[<span class="hljs-number">3</span>])</span></span>;  <span class="hljs-comment">// 等价于: vector&lt;int&gt; e(1,4)  e.size(): 1</span>
 <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">f</span><span class="hljs-params">(&amp;arr[<span class="hljs-number">0</span>], &amp;arr[<span class="hljs-number">3</span>])</span></span>;  <span class="hljs-comment">// 把 arr 前 3 个元素赋给 f, f.size(): 3</span>
 
 <span class="hljs-comment">/* 插入和删除元素 */</span>
@@ -1883,7 +1896,7 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 18, 2024</div>
+          <div>June 16, 2024</div>
         </div>
       
       
