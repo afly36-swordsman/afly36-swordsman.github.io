@@ -28,9 +28,9 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/008.jpg">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/010.jpg">
 <meta property="article:published_time" content="2024-04-10T13:52:25.975Z">
-<meta property="article:modified_time" content="2024-05-12T06:17:45.630Z">
+<meta property="article:modified_time" content="2024-07-28T03:29:17.966Z">
 <meta property="article:author" content="Zenitsu">
-<meta property="article:tag" content="debug">
+<meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://afly36-swordsman.github.io/img/stage2/006.jpg">
   
@@ -291,7 +291,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on May 12, 2024 pm
+                    Last updated on July 28, 2024 am
                   
                 
               </p>
@@ -386,17 +386,17 @@ aria-hidden="true">文本文件和二进制文件的读写操作</figcaption>
 <p>用二进制形式输出数值，可以节省外存空间，而且不需要转换时间，但一个字节并不对应一个字符，不能直接显示文件中的内容。如果在程序运行过程中有些中间结果数据暂时保存在磁盘文件中，以后又需要输入到内存，这时用二进制文件保存是最合适的。如果是为了能显示和打印以供阅读，则应按文本形式输出。此时得到的是文本文件，它的内容可以直接在显示屏上观看。</p>
 <h3 id="综合应用">综合应用</h3>
 <p>学校要输入5位学生的信息，将他们的信息存到磁盘文件中，并将第1、3、5位学生数据读入程序显示。第3位学生录入信息有误，需要对其进行修改后存入磁盘文件的原来位置。最后，从磁盘文件读取5位学生的信息并显示。</p>
-<div class="code-wrapper"><pre><code class="hljs objectivec"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;fstream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
-using namespace std;
-<span class="hljs-keyword">struct</span> student &#123;  <span class="hljs-comment">// 结构体</span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">student</span> &#123;  <span class="hljs-comment">// 结构体</span>
     <span class="hljs-type">int</span> num;
     <span class="hljs-type">char</span> name[<span class="hljs-number">10</span>];
     <span class="hljs-type">float</span> score;
 &#125;;
 
-<span class="hljs-type">int</span> main() &#123;
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
     <span class="hljs-comment">// 定义结构体数组存入学生的信息</span>
     student stu[<span class="hljs-number">5</span>] = &#123;
         <span class="hljs-number">1001</span>, <span class="hljs-string">&quot;张三&quot;</span>, <span class="hljs-number">97</span>,
@@ -406,24 +406,24 @@ using namespace std;
         <span class="hljs-number">1005</span>, <span class="hljs-string">&quot;秦始皇&quot;</span>, <span class="hljs-number">99.3</span>
     &#125;;
     <span class="hljs-comment">// 用 fstream 类定义输入输出二进制文件流对象 iofile</span>
-    fstream iofile(<span class="hljs-string">&quot;D:/Others/Afly/Temporary/file.txt&quot;</span>, ios::<span class="hljs-keyword">in</span>|ios::<span class="hljs-keyword">out</span>|ios::binary);
+    <span class="hljs-function">fstream <span class="hljs-title">iofile</span><span class="hljs-params">(<span class="hljs-string">&quot;D:/Others/Afly/Temporary/file.txt&quot;</span>, ios::in|ios::out|ios::binary)</span></span>;
     <span class="hljs-keyword">if</span>(!iofile) &#123;
         <span class="hljs-comment">// 标准错误流 cerr 不经过缓冲区直接向显示器输出错误信息</span>
         cerr &lt;&lt; <span class="hljs-string">&quot;open error!&quot;</span> &lt;&lt; endl;
-        abort();  <span class="hljs-comment">// 不进行任何清理工作，直接终止程序</span>
+        <span class="hljs-built_in">abort</span>();  <span class="hljs-comment">// 不进行任何清理工作，直接终止程序</span>
     &#125;
 
     <span class="hljs-comment">// 向磁盘文件写入5个学生的信息</span>
     <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i++) &#123;
         <span class="hljs-comment">// 将 &amp;stu[i] 作为开头指向的 sizeof(stu[i]) 字节的信息写入 iofile 流对象对应的磁盘文件中</span>
-        iofile.write((<span class="hljs-type">char</span>*)&amp;stu[i], <span class="hljs-keyword">sizeof</span>(stu[i]));
+        iofile.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)&amp;stu[i], <span class="hljs-built_in">sizeof</span>(stu[i]));
     &#125;
     student stud[<span class="hljs-number">5</span>];  <span class="hljs-comment">// 存放从磁盘文件中读入的数据</span>
     <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i+=<span class="hljs-number">2</span>) &#123;
         <span class="hljs-comment">// 利用 seekg 函数将文件指针从开头向后移动 i*sizeof(stud[i]) 个字节，定位到索引i的位置</span>
-        iofile.seekg(i*<span class="hljs-keyword">sizeof</span>(stud[i]), ios::beg);
+        iofile.<span class="hljs-built_in">seekg</span>(i*<span class="hljs-built_in">sizeof</span>(stud[i]), ios::beg);
         <span class="hljs-comment">// 将 iofile 对应文件中大小为 sizeof(stud[0]) 的（3个）数据读入 &amp;stud 指向的内存中</span>
-        iofile.read((<span class="hljs-type">char</span>*)&amp;stud[i/<span class="hljs-number">2</span>], <span class="hljs-keyword">sizeof</span>(stud[<span class="hljs-number">0</span>]));
+        iofile.<span class="hljs-built_in">read</span>((<span class="hljs-type">char</span>*)&amp;stud[i/<span class="hljs-number">2</span>], <span class="hljs-built_in">sizeof</span>(stud[<span class="hljs-number">0</span>]));
         <span class="hljs-comment">// 输出第1、3、5位学生的信息</span>
         cout &lt;&lt; <span class="hljs-string">&quot;第&quot;</span> &lt;&lt; i+<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-string">&quot;个学生: &quot;</span> &lt;&lt; stud[i].num &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; stud[i].name &lt;&lt; <span class="hljs-string">&quot; &quot;</span>
         &lt;&lt; stud[i].score &lt;&lt; endl;
@@ -433,23 +433,23 @@ using namespace std;
     <span class="hljs-comment">// 修改第3位学生的信息</span>
     stud[<span class="hljs-number">2</span>].num = <span class="hljs-number">1003</span>;
     stud[<span class="hljs-number">2</span>].name = <span class="hljs-string">&quot;王者荣耀&quot;</span>;  <span class="hljs-comment">// 会报错，字符数组不允许这样赋值</span>
-    strcpy(stud[<span class="hljs-number">2</span>].name, <span class="hljs-string">&quot;王者荣耀&quot;</span>);  <span class="hljs-comment">// 正确</span>
+    <span class="hljs-built_in">strcpy</span>(stud[<span class="hljs-number">2</span>].name, <span class="hljs-string">&quot;王者荣耀&quot;</span>);  <span class="hljs-comment">// 正确</span>
     stud[<span class="hljs-number">2</span>].score = <span class="hljs-number">60</span>;
 
     <span class="hljs-comment">// 定位第3位学生的信息存储位置</span>
-    iofile.seekp(<span class="hljs-number">2</span>*<span class="hljs-keyword">sizeof</span>(stud[<span class="hljs-number">2</span>]), ios::beg);
+    iofile.<span class="hljs-built_in">seekp</span>(<span class="hljs-number">2</span>*<span class="hljs-built_in">sizeof</span>(stud[<span class="hljs-number">2</span>]), ios::beg);
     <span class="hljs-comment">// 把第3位学生修改后的信息存入磁盘文件中（更新数据）</span>
-    iofile.write((<span class="hljs-type">char</span>*)&amp;stud[<span class="hljs-number">2</span>], <span class="hljs-keyword">sizeof</span>(stud[<span class="hljs-number">2</span>]));
-    iofile.seekg(<span class="hljs-number">0</span>, ios::beg);  <span class="hljs-comment">// 重新定位文件开头</span>
+    iofile.<span class="hljs-built_in">write</span>((<span class="hljs-type">char</span>*)&amp;stud[<span class="hljs-number">2</span>], <span class="hljs-built_in">sizeof</span>(stud[<span class="hljs-number">2</span>]));
+    iofile.<span class="hljs-built_in">seekg</span>(<span class="hljs-number">0</span>, ios::beg);  <span class="hljs-comment">// 重新定位文件开头</span>
     
     <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i++) &#123;
         <span class="hljs-comment">// 读取5个学生的信息</span>
-        iofile.read((<span class="hljs-type">char</span>*)&amp;stu[i], <span class="hljs-keyword">sizeof</span>(stu[i]));
+        iofile.<span class="hljs-built_in">read</span>((<span class="hljs-type">char</span>*)&amp;stu[i], <span class="hljs-built_in">sizeof</span>(stu[i]));
         <span class="hljs-comment">// 打印输出</span>
         cout &lt;&lt; <span class="hljs-string">&quot;第&quot;</span> &lt;&lt; i+<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-string">&quot;个学生: &quot;</span> &lt;&lt; stud[i].num &lt;&lt; <span class="hljs-string">&quot; &quot;</span> &lt;&lt; stud[i].name &lt;&lt; <span class="hljs-string">&quot; &quot;</span>
         &lt;&lt; stud[i].score &lt;&lt; endl;
     &#125;
-    iofile.close();  <span class="hljs-comment">// 关闭文件</span>
+    iofile.<span class="hljs-built_in">close</span>();  <span class="hljs-comment">// 关闭文件</span>
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 <p>注意：编码方式不同可能会导致乱码问题。</p>
@@ -474,7 +474,7 @@ type）就是不使用具体数据类型（如int、double、float等），而�
 bool、char 可以转为
 int。C++编译器优先考虑普通函数，如果普通函数不匹配，或者说函数模板更匹配实参数据类型，那么才选择模板。函数模板可以隐式实例化，也可以显式实例化。如果要限定编译器使用模板而不使用普通函数，那么需要显式实例化。</p>
 <p>使用示例：</p>
-<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
 <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;  <span class="hljs-comment">// 定义模板</span>
 <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fswap</span><span class="hljs-params">(T&amp; x, T&amp; y)</span> </span>&#123;
@@ -523,7 +523,7 @@ int、double&amp;、float* 是可以的，但 double、string
 <p>若全局域有变量名与类模板中的模板参数名相同，那么该变量会被隐藏。模板参数名不能是类中成员的名字，同一个模板参数名在模板参数表中只能出现一次。不同的类模板声明中，模板参数名可以重复使用。</p>
 <p>类模板形参列表中 class T 是形参，实参值被提供给 T
 后，系统将会根据实参的具体类型创建一个模板类，该类是真实存在的，这个过程叫类模板的实例化。函数模板的实例化是编译程序在处理函数调用时自动完成的，而类模板的实例化须由程序员在程序中显式的指定。</p>
-<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
 <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;  <span class="hljs-comment">// 定义模板</span>
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">Compare</span> &#123;
@@ -573,7 +573,7 @@ T Compare&lt;T&gt;::<span class="hljs-built_in">min</span>() &#123;
 <p>模板参数在某种特定类型下的具体实现叫模板的特化，有时也叫模板的具体化（我个人认为这个名字不好，模板实例化又何尝不是一种具体化呢？）。</p>
 <p>模板特化分别包括：函数模板的特化和类模板的特化。</p>
 <p>函数模板的特化，发生在函数模板需要对某些类型进行特别处理的时候。看下面这个例子：</p>
-<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstring&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
 <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;
@@ -600,7 +600,7 @@ T Compare&lt;T&gt;::<span class="hljs-built_in">min</span>() &#123;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 <p>同理，类模板中需要对某些类型进行特别处理时，可以使用类模板的特化。需要注意的是，进行类模板的特化时，需要特化所有的（涉及通用类型参数的）成员变量和成员函数。</p>
-<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstring&gt;</span></span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
 <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>&gt;
@@ -634,13 +634,14 @@ T Compare&lt;T&gt;::<span class="hljs-built_in">min</span>() &#123;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 <p>如果只想对类模板中的某些通用类型参数进行特化，并非对其全部的通用类型参数进行特化，那么可以使用类模板的<font color="purpleblack">偏特化</font>，也叫部分特化。例如：</p>
-<div class="code-wrapper"><pre><code class="hljs angelscript">template &lt;<span class="hljs-keyword">class</span> <span class="hljs-symbol">T1, <span class="hljs-symbol">class</span></span> <span class="hljs-symbol">T2</span>&gt;
-<span class="hljs-symbol">class</span> <span class="hljs-symbol">A</span> &#123; ... &#125;;
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T1</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">T2</span>&gt;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123; ... &#125;;
 
 <span class="hljs-comment">/* 仅对 T2 进行特化 */</span>
-template &lt;<span class="hljs-keyword">class</span> <span class="hljs-symbol">T1</span>&gt;  // 这里必须要列出未特化的模板参数: <span class="hljs-symbol">T1</span>
-<span class="hljs-symbol">class</span> <span class="hljs-symbol">A</span>&lt;<span class="hljs-symbol">T1, <span class="hljs-symbol">int</span></span>&gt;  // <span class="hljs-symbol">A</span> 的后面要列出全部模板参数, 并指定特化的类型: 指定 <span class="hljs-symbol">int</span> 为 <span class="hljs-symbol">T2</span> 的特化类型
+<span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T1</span>&gt;  <span class="hljs-comment">// 这里必须要列出未特化的模板参数: T1</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&lt;T1, <span class="hljs-type">int</span>&gt;  <span class="hljs-comment">// A 的后面要列出全部模板参数, 并指定特化的类型: 指定 int 为 T2 的特化类型</span>
 &#123; ... &#125;;</code></pre></div>
+<h2 id="java-接口vs抽象类">Java: 接口vs抽象类</h2>
 <h2 id="os篇进程的并发与同步">OS篇：进程的并发与同步</h2>
 <p>操作系统（Operating
 System，OS）是整个计算机系统的管理和控制中心。</p>
@@ -881,7 +882,7 @@ consumer: &#123;
     &lt;-- consume the item --&gt;
 &#125;</code></pre></div>
 <p>C++代码实现：</p>
-<div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;queue&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;mutex&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;condition_variable&gt;</span></span>
@@ -991,7 +992,7 @@ lock.unlock() 进行手动解锁。</p>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/debug/" class="print-no-link">#debug</a>
+        <a href="/tags/study/" class="print-no-link">#study</a>
       
     </div>
   
@@ -1022,7 +1023,7 @@ lock.unlock() 进行手动解锁。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 12, 2024</div>
+          <div>July 28, 2024</div>
         </div>
       
       
@@ -1036,6 +1037,12 @@ lock.unlock() 进行手动解锁。</p>
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/07/28/Programming3/" title="开发笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">开发笔记</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
@@ -1080,7 +1087,7 @@ lock.unlock() 进行手动解锁。</p>
         aria-expanded="true"
       >
         Programming
-        <span class="list-group-count">(3)</span>
+        <span class="list-group-count">(5)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1098,6 +1105,24 @@ lock.unlock() 进行手动解锁。</p>
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">Coding Corner</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/28/Linux/" title="Linux常用指令"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux常用指令</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/28/Programming3/" title="开发笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">开发笔记</span>
         </a>
       
     

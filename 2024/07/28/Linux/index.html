@@ -1,0 +1,950 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/planet.png">
+  <link rel="icon" href="/img/planet.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zenitsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Linux操作命令 Linux是一种自由和开放源码的类UNIX操作系统。Linux遵循GNU通用公共许可证（GPL），任何个人和机构都可以自由地使用Linux的所有底层源代码，也可以自由地修改和再发布。 目前主流的Linux版本有： Debian（及其派生版本Ubuntu、Linux Mint） Fedora（及其相关版本CentOS、Red Hat Enterprise Linux） o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux常用指令">
+<meta property="og:url" content="https://afly36-swordsman.github.io/2024/07/28/Linux/index.html">
+<meta property="og:site_name" content="Mark | Learning &amp; Routine">
+<meta property="og:description" content="Linux操作命令 Linux是一种自由和开放源码的类UNIX操作系统。Linux遵循GNU通用公共许可证（GPL），任何个人和机构都可以自由地使用Linux的所有底层源代码，也可以自由地修改和再发布。 目前主流的Linux版本有： Debian（及其派生版本Ubuntu、Linux Mint） Fedora（及其相关版本CentOS、Red Hat Enterprise Linux） o">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
+<meta property="article:published_time" content="2024-07-28T03:17:07.894Z">
+<meta property="article:modified_time" content="2024-07-28T03:24:55.098Z">
+<meta property="article:author" content="Zenitsu">
+<meta property="article:tag" content="study">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
+  
+  
+  
+  <title>Linux常用指令 - Mark | Learning &amp; Routine</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"afly36-swordsman.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":40,"cursorChar":"✨","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M.E.Mark&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/taiji.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">Linux常用指令</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-28 11:17" pubdate>
+          2024.07.28 11:17
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          4 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Linux常用指令</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on July 28, 2024 am
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="linux操作命令">Linux操作命令</h2>
+<p>Linux是一种自由和开放源码的类UNIX操作系统。Linux遵循GNU通用公共许可证（GPL），任何个人和机构都可以自由地使用Linux的所有底层源代码，也可以自由地修改和再发布。</p>
+<p>目前主流的Linux版本有：<br/> Debian（及其派生版本Ubuntu、Linux
+Mint）<br/> Fedora（及其相关版本CentOS、Red Hat Enterprise Linux）<br/>
+openSUSE...</p>
+<p>由于Linux网上各种教程很多，因此本节只对我（现阶段）在日常工作和学习中最常用的指令（文件相关）进行总结。</p>
+<h3 id="远程登录">远程登录</h3>
+<p>Linux系统启用了sshd服务后，可以进行远程操作。该服务监听22号端口。</p>
+<h3 id="vi-and-vim">vi and vim</h3>
+<p>Linux系统会内建vi文本编辑器，vim是vi的增强版本。</p>
+<p>vi和vim的三种常见模式：</p>
+<ul>
+<li><p>正常模式：一般模式，默认打开进入的模式，通过 vim xxx
+加回车就会直接进入该模式。</p></li>
+<li><p>插入模式：编辑模式，在正常模式下键入：i（或者a、o）加回车（Enter）会进入此模式，可以对文本进行编辑，按
+ESC 退出至正常模式。</p></li>
+<li><p>命令模式：键入冒号 :
+后（或者/）就进入了该模式，然后可以接着键入一些表示命令的字符进行实现相关的命令，按
+ESC 退出至正常模式。</p></li>
+</ul>
+<p>进入插入模式的几种方式：</p>
+<div class="code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">i</span>  从当前光标位置开始输入
+<span class="hljs-selector-tag">a</span>  从光标后面一位开始输入
+o  在光标下面创建一个空行开始输入</code></pre></div>
+<p>正常模式下进入命令模式并进行相应操作的指令：</p>
+<div class="code-wrapper"><pre><code class="hljs elixir"><span class="hljs-symbol">:wq</span>  写入（保存）并退出
+<span class="hljs-symbol">:q!</span>  不保存，只退出
+<span class="hljs-symbol">:q</span>  仅退出，适用于查看但未作修改的情形
+
+<span class="hljs-symbol">:set</span> nu  显示行号
+<span class="hljs-symbol">:set</span> nonu  取消行号
+<span class="hljs-symbol">:</span><span class="hljs-number">100</span>  跳转到第<span class="hljs-number">100</span>行</code></pre></div>
+<p>正常模式下的一些指令：</p>
+<div class="code-wrapper"><pre><code class="hljs ruby">x  删除光标所在字符
+s  删除字符并进入插入模式
+S  删除整行并进入插入模式
+
+r  替换光标所在字符（单个替换）
+R  替换模式，逐个替换光标所在字符
+
+<span class="hljs-meta prompt_">&gt;&gt;</span>  缩进（相当于<span class="hljs-number">1</span>个<span class="hljs-title class_">Tab</span>）
+&lt;&lt;  反缩进（相当于<span class="hljs-title class_">Shift</span> + <span class="hljs-title class_">Tab</span>）
+
+<span class="hljs-variable constant_">ZZ</span>  保存并退出（作用与 <span class="hljs-symbol">:wq</span> 一致）
+<span class="hljs-variable constant_">ZQ</span>  不保存，退出编辑（Q强调退出，与 <span class="hljs-symbol">:q!</span> 一样）</code></pre></div>
+<p>vim快捷键（正常模式下）：</p>
+<div class="code-wrapper"><pre><code class="hljs less"><span class="hljs-selector-tag">yy</span>  复制当前光标所在的这一行
+<span class="hljs-selector-tag">p</span>  粘贴
+<span class="hljs-selector-tag">dd</span>  删除当前光标所在的这一行（但会复制，可配合<span class="hljs-selector-tag">p</span>实现剪切）
+/<span class="hljs-selector-tag">key</span>  查找<span class="hljs-selector-tag">key</span>
+<span class="hljs-selector-tag">x</span>  实现单个字符的删除（剪切）
+<span class="hljs-selector-tag">u</span>  撤销上一步动作
+<span class="hljs-selector-tag">q</span>  进入/退出记录，对想重复自动执行（如累加）的语句进行记录
+    <span class="hljs-selector-tag">q</span>用法示例: <span class="hljs-selector-attr">[对 test 0 = 1 重复8次，且数值每次自增1]</span>
+    键入:<span class="hljs-selector-tag">q</span> <span class="hljs-selector-tag">-</span>&gt; 输入标记符(例如:f) <span class="hljs-selector-tag">-</span>&gt; <span class="hljs-selector-tag">yy</span>+<span class="hljs-selector-tag">p</span>复制语句 <span class="hljs-selector-tag">-</span>&gt; <span class="hljs-selector-tag">Ctrl</span> <span class="hljs-selector-tag">A</span> 自增<span class="hljs-number">1</span>
+    <span class="hljs-selector-tag">-</span>&gt; 键入:<span class="hljs-selector-tag">q</span>(退出记录) <span class="hljs-selector-tag">-</span>&gt; 输入:<span class="hljs-number">8</span>@<span class="hljs-selector-tag">f</span></code></pre></div>
+<p>编辑文件文本时（正常模式下）：</p>
+<div class="code-wrapper"><pre><code class="hljs mathematica"><span class="hljs-variable">G</span>  定位至最后一行
+<span class="hljs-variable">gg</span>  定位至第一行
+<span class="hljs-variable">H</span>  左移
+<span class="hljs-variable">J</span>  下移（<span class="hljs-variable">J</span>小）
+<span class="hljs-built_in">K</span>  上移（<span class="hljs-built_in">K</span>大）
+<span class="hljs-variable">L</span>  右移</code></pre></div>
+<h3 id="关机">关机</h3>
+<div class="code-wrapper"><pre><code class="hljs arduino">shutdown -h now  立即关机
+shutdown -h <span class="hljs-number">5</span>  <span class="hljs-number">5</span>min后关机
+shutdown -r now / reboot  立即重启
+sync  将内存数据存入磁盘防止丢失</code></pre></div>
+<h3 id="用户管理">用户管理</h3>
+<div class="code-wrapper"><pre><code class="hljs vim">su - user_name  切换用户所在账号
+su - root  切换管理员用户登录
+whoami / who <span class="hljs-keyword">am</span> i  查看当前登录的是哪个用户
+
+<span class="hljs-keyword">ps</span> -ef  查看所有进程信息
+top  实时显示进程状态用户
+<span class="hljs-keyword">w</span>  查看当前活动用户
+<span class="hljs-keyword">last</span>  查看用户登录日志</code></pre></div>
+<h3 id="设备">设备</h3>
+<div class="code-wrapper"><pre><code class="hljs tcl">uname -a  查看当前Linux操作系统的内核信息
+cat /etc/issue  查看当前操作系统发行版信息
+cat /<span class="hljs-keyword">proc</span>/version  查看当前操作系统的版本信息<span class="hljs-title"></span>
+<span class="hljs-title">hostname</span>  查看服务器的名称<span class="hljs-title"></span>
+<span class="hljs-title"></span>
+<span class="hljs-title">df</span> -lh  查看磁盘空间<span class="hljs-title"></span>
+<span class="hljs-title">free</span> -m  以兆字节（MB）显示内存信息<span class="hljs-title"></span>
+<span class="hljs-title">lsblk</span>  查看磁盘信息，列出所有可用块设备的信息及其依赖关系<span class="hljs-title"></span>
+<span class="hljs-title"></span>
+<span class="hljs-title">nvidia-smi</span>  查看显卡、驱动等相关信息<span class="hljs-title"></span>
+<span class="hljs-title">watch</span> -n 1<span class="hljs-title"> nvidia-smi</span>  实时追踪显卡使用情况（每隔1秒自动刷新）<span class="hljs-title"></span>
+<span class="hljs-title">gpustat</span>  高亮显示GPU信息<span class="hljs-title"></span>
+<span class="hljs-title">gpustat</span> -i  高亮显示GPU信息·实时版（每秒刷新1次）<span class="hljs-title"></span>
+<span class="hljs-title">nvitop</span> [-m<span class="hljs-title"> full]</span>  彩色 [完整] 显示GPU信息</code></pre></div>
+<h3 id="网络">网络</h3>
+<div class="code-wrapper"><pre><code class="hljs dos"><span class="hljs-built_in">ping</span> ip_address  检测当前主机/服务器是否可以连接ip_address所在的主机/服务器/网址（检查网络连接）
+ifconfig  查看当前网络信息
+注：<span class="hljs-built_in">ipconfig</span> 是Windows <span class="hljs-built_in">CMD</span>下的指令</code></pre></div>
+<h3 id="文件系统">文件系统</h3>
+<div class="code-wrapper"><pre><code class="hljs stylus">pwd  显示当前工作目录（即文件夹）的绝对路径。
+
+ls <span class="hljs-selector-attr">[Ops]</span> 目录/文件名  显示目录或文件的内容。
+Ops（Options，选项）：-<span class="hljs-selector-tag">a</span> 显示所有；-l 以列表形式显示
+
+cd addr  切换到指定路径。
+cd 或 cd ~ 回主（家）目录；cd / 回根目录；cd .. 回上级目录
+
+mkdir <span class="hljs-selector-attr">[Ops]</span> directory_name  创建新的目录，不带选项只能创建单级空目录。
+Ops：-<span class="hljs-selector-tag">p</span> 创建多级目录；-v 显示单次创建信息
+
+touch file_name  创建新的文件，可以一次性创建多个空文件（当前目录）：touch A<span class="hljs-selector-class">.txt</span> B<span class="hljs-selector-class">.md</span>
+
+rmdir <span class="hljs-selector-attr">[Ops]</span> 空目录名  删除空目录，不带任何选项时只删除该空目录。
+Ops：-<span class="hljs-selector-tag">p</span> 删除该空目录，删除后若其父目录也为空，则一并删去
+
+rm <span class="hljs-selector-attr">[Ops]</span> f/d_name  删除文件或目录，不带任何选项时只能删除文件。
+Ops：-r （递归）删除整个文件夹；-f 强制删除不提示；-<span class="hljs-selector-tag">i</span> 提醒用户确认
+Tips：rm -rf  相当于rm -r -f，强制删除所有文件/文件夹！
+
+cp <span class="hljs-selector-attr">[Ops]</span> f/d_name New_d_name  拷贝文件f或文件夹d至指定的目录New_d中，不带任何选项只能复制文件。
+Ops：-r （递归）拷贝整个文件夹；-f 覆盖目标同名文件或目录时不提醒（强制覆盖）；
+-<span class="hljs-selector-tag">i</span> 覆盖目标同名文件或目录时提醒用户确认；不提示也可写为：\cp f/d New_d
+
+mv 原名 新名  为文件/目录重新起名或移动。若路径不变则是重命名，路径不一致将不保留原文件/目录（剪切）。
+
+&gt;  输出重定向：写入并覆盖（替换）原本内容。
+
+&gt;&gt;  追加：将内容加在末尾，不会覆盖原内容。
+
+tree  以树状格式展示文件的目录结构。
+Ops: -<span class="hljs-selector-tag">a</span> 显示所有文件（包括隐藏文件）；-d 只显示目录；-f 显示完整路径；-h 人性化显示文件大小；
+-L 限制目录层次深度，后跟显示深度，如：tree -L <span class="hljs-number">3</span>，表示只显示到<span class="hljs-number">3</span>级目录
+
+head filename  显示该文件前 <span class="hljs-number">10</span> 行（默认行数）的内容。
+head -n <span class="hljs-number">5</span> filename  显示文件前 <span class="hljs-number">5</span> 行内容。
+
+tail filename  显示该文件后 <span class="hljs-number">10</span> 行（默认行数）的内容。
+tail -n <span class="hljs-number">5</span> filename  显示文件后 <span class="hljs-number">5</span> 行内容。
+tail -f filename  实时追踪该文件的所有更新信息。
+
+zip destination_file<span class="hljs-selector-class">.zip</span> source_file<span class="hljs-selector-class">.txt</span>  将.txt压缩为.zip文件后存入当前路径。
+Ops：-r 递归压缩整个文件夹
+unzip *<span class="hljs-selector-class">.zip</span>  解压文件
+unzip -d <span class="hljs-comment">/*path*/</span> *<span class="hljs-selector-class">.zip</span>  解压后存入指定路径
+
+tar  打包指令，打包后的文件格式为 <span class="hljs-selector-class">.tar</span>.gz，也可以解包，由选项控制。
+Ops：-c 打包；-x 解包；-v 显示详细信息；-f 指定压缩后的文件名；-z 打包的同时压缩
+tar -zcvf UFO<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.txt</span> <span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.txt</span>  将a、b用一套组合拳打包成UFO后存入当前路径
+tar -zxvf UFO<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-attr">[-C /*directory*/]</span>  解包UFO文件，-C 指定解包后文件的存储路径
+
+history  查看所有已经执行过的指令。
+history n  查看最近使用过的 n 条指令。
+!x  执行编号为 x 的历史指令（所有历史指令都有编号）。</code></pre></div>
+<p><img src="/img/stage2/004.png" srcset="/img/loading.gif" lazyload /></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Programming/" class="category-chain-item">Programming</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/study/" class="print-no-link">#study</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Linux常用指令</div>
+      <div>https://afly36-swordsman.github.io/2024/07/28/Linux/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Zenitsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 28, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>July 28, 2024</div>
+        </div>
+      
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/28/Programming3/" title="开发笔记">
+                        <span class="hidden-mobile">开发笔记</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Programming"
+        id="heading-e6f43c40ab1c07cd29e4e83e4ef6bf85" role="tab" data-toggle="collapse" href="#collapse-e6f43c40ab1c07cd29e4e83e4ef6bf85"
+        aria-expanded="true"
+      >
+        Programming
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-e6f43c40ab1c07cd29e4e83e4ef6bf85"
+           role="tabpanel" aria-labelledby="heading-e6f43c40ab1c07cd29e4e83e4ef6bf85">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/03/16/Coding/" title="Coding Corner"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Coding Corner</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/28/Linux/" title="Linux常用指令"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">Linux常用指令</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/28/Programming3/" title="开发笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">开发笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/21/Programming/" title="码农日记（一）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">码农日记（一）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/10/Programming2/" title="码农日记（二）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">码农日记（二）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+
+  <div>
+    <span id="timeDate">正在载入天数...</span>
+    <span id="times">载入时分秒...</span>
+    <script>
+    var now = new Date();
+    function createtime(){
+        var grt= new Date("11/24/2023 11:30:00");
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if(String(mnum).length ==1 ){
+                  mnum = "0" + mnum;
+        }
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if(String(snum).length ==1 ){
+                  snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  
+        document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+    }
+    setInterval("createtime()",250);
+    </script>
+  </div>  
+
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+
+</div>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+
+</body>
+</html>

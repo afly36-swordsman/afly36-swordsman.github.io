@@ -1,0 +1,844 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/planet.png">
+  <link rel="icon" href="/img/planet.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zenitsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="软开部署常见名词 实例(Instance) 实例通常指的是某个软件应用的具体运行实体。在云环境或服务器环境中，一个实例可以理解为一个正在运行的软件应用程序副本。例如，一个Web服务器软件（如Apache或Nginx）的一个实例，就是该软件在特定配置下运行的一个进程。在云服务提供商中，启动一个虚拟机或容器也常被称为创建一个实例，每个实例都有自己的运行环境和资源分配，可以独立运行和管理。 容器(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发笔记">
+<meta property="og:url" content="https://afly36-swordsman.github.io/2024/07/28/Programming3/index.html">
+<meta property="og:site_name" content="Mark | Learning &amp; Routine">
+<meta property="og:description" content="软开部署常见名词 实例(Instance) 实例通常指的是某个软件应用的具体运行实体。在云环境或服务器环境中，一个实例可以理解为一个正在运行的软件应用程序副本。例如，一个Web服务器软件（如Apache或Nginx）的一个实例，就是该软件在特定配置下运行的一个进程。在云服务提供商中，启动一个虚拟机或容器也常被称为创建一个实例，每个实例都有自己的运行环境和资源分配，可以独立运行和管理。 容器(">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-07-28T02:26:24.222Z">
+<meta property="article:modified_time" content="2024-07-28T03:16:19.599Z">
+<meta property="article:author" content="Zenitsu">
+<meta property="article:tag" content="software">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>开发笔记 - Mark | Learning &amp; Routine</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"afly36-swordsman.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":40,"cursorChar":"✨","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M.E.Mark&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/taiji.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">开发笔记</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-28 10:26" pubdate>
+          2024.07.28 10:26
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.8k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          3 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">开发笔记</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on July 28, 2024 am
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="软开部署常见名词">软开部署常见名词</h2>
+<h3 id="实例instance">实例(Instance)</h3>
+<p>实例通常指的是某个软件应用的具体运行实体。在云环境或服务器环境中，一个实例可以理解为一个正在运行的软件应用程序副本。例如，一个Web服务器软件（如Apache或Nginx）的一个实例，就是该软件在特定配置下运行的一个进程。在云服务提供商中，启动一个虚拟机或容器也常被称为创建一个实例，每个实例都有自己的运行环境和资源分配，可以独立运行和管理。</p>
+<h3 id="容器container">容器(Container)</h3>
+<p>容器是一种轻量级、可移植的软件打包技术，它将应用程序及其所有依赖（如代码、运行时环境、库、配置文件等）封装在一个独立的执行环境中。容器与宿主机共享操作系统内核，但对应用程序来说，它们就像是在独立的机器上运行一样。容器提供了高效的资源利用和一致的运行环境，使得应用可以在任何支持容器的系统上正常运行，极大地提升了软件部署的灵活性和可移植性。</p>
+<h3 id="容器镜像container-image">容器镜像(Container Image)</h3>
+<p>容器镜像是容器的只读模板，包含创建和运行容器所需的所有文件和配置。镜像定义了容器的初始状态，包括操作系统、用户添加的文件和应用程序以及各种元数据。当你创建一个新的容器时，实际上是基于某个镜像的快照来创建的。镜像可以通过
+Dockerfile 等描述文件构建，并上传到镜像仓库（如Docker
+Hub或私有仓库）以便分享和复用。镜像的使用简化了软件部署过程，确保了部署的一致性和可重复性。</p>
+<h3 id="集群cluster">集群(Cluster)</h3>
+<p>在计算机科学中，集群是指一组互联的计算机，它们作为一个单一系统协同工作，提供高可用性、负载均衡或计算能力的扩展。在软件部署场景中，容器集群特别指由多个容器主机（或称为节点）组成的集合，这些节点通过某种编排工具（如Kubernetes（又名K8s）或Docker
+Swarm）统一管理和调度。集群允许容器在多个节点间自动分布、扩展和故障恢复，为服务提供了高可用性和弹性伸缩的能力。通过容器编排工具，管理员可以轻松部署、管理和扩展整个应用的服务网格。</p>
+<h3 id="负载均衡lb">负载均衡(LB)</h3>
+<p>LB 是 "Load
+Balancer"（负载均衡器）的缩写，在计算机网络和系统架构中，负载均衡器是一种设备或软件服务，它的主要职责是将进入的网络流量或者服务请求合理地分配到后端的多台服务器上，以此达到优化资源使用、最大化吞吐量、提高系统响应速度和避免单点过载的目的。在滚动部署中提到的“智能LB”，强调的是负载均衡器的智能化特性，这些特性可能包括：</p>
+<p>1.动态配置更新：自动识别后端服务实例的变化，比如在滚动部署过程中新增或移除服务器节点，LB能实时调整其路由规则，确保流量被正确地导向至可用的服务实例。</p>
+<p>2.自动回滚支持：若检测到新部署的服务版本有问题，智能LB可以自动或配合自动化系统迅速将流量切换回之前的稳定版本，减少故障对用户/客户的影响。</p>
+<p>3.权重分配：在部署过程中，根据需要可以动态调整不同版本服务实例之间的流量比例，比如在金丝雀部署中，智能LB可以将少量流量导向新版本进行测试，而大部分流量依旧由稳定版本处理。</p>
+<p>除此之外，还包括高级路由策略、健康检查等特性。</p>
+<h3 id="吞吐量throughput">吞吐量(Throughput)</h3>
+<p>吞吐量是一个衡量系统性能的重要指标，它表示系统在单位时间内处理请求、传输数据或完成任务的数量。简单来说，吞吐量展现了系统的工作效率，单位可以是每秒请求数（Requests
+Per Second, RPS）、每秒事务数（Transactions Per Second,
+TPS）、每秒字节数（Bytes Per Second,
+BPS）等，具体依应用场景而定。在不同的领域，吞吐量有不同的意义：</p>
+<ul>
+<li><p>网络通信：指的是网络在单位时间内能够传输的数据量，如每秒钟通过网络接口传输的字节数。</p></li>
+<li><p>数据库：指的是数据库系统每秒钟能够处理的查询或事务数量，反映了数据库的处理能力。</p></li>
+<li><p>应用程序或服务：表示应用程序能够处理的请求速度，如Web服务器每秒可以处理的网页请求数量。</p></li>
+<li><p>存储系统：涉及到数据读写的速度，如硬盘或固态硬盘每秒读写的字节数。</p></li>
+</ul>
+<p>提高吞吐量通常是系统优化和扩容的目标之一，因为它直接影响到用户体验、系统响应时间和处理能力。</p>
+<h3 id="b-2c">2B 2C</h3>
+<p>2B，即 ToB (To
+Business)，指面向企业、商家（称之为：客户）的商业模式。</p>
+<p>2C，即 ToC (To
+Customer)，指面向消费者、个人（称之为：用户）的商业模式。</p>
+<h3 id="微服务">微服务</h3>
+<h3 id="部署">部署</h3>
+<h3 id="代理">代理</h3>
+<h3 id="docker">Docker</h3>
+<h2 id="代码托管">代码托管</h2>
+<h3 id="git命令">Git命令</h3>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Programming/" class="category-chain-item">Programming</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/software/" class="print-no-link">#software</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>开发笔记</div>
+      <div>https://afly36-swordsman.github.io/2024/07/28/Programming3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Zenitsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 28, 2024</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>July 28, 2024</div>
+        </div>
+      
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/28/Linux/" title="Linux常用指令">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux常用指令</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/10/Programming2/" title="码农日记（二）">
+                        <span class="hidden-mobile">码农日记（二）</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Programming"
+        id="heading-e6f43c40ab1c07cd29e4e83e4ef6bf85" role="tab" data-toggle="collapse" href="#collapse-e6f43c40ab1c07cd29e4e83e4ef6bf85"
+        aria-expanded="true"
+      >
+        Programming
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-e6f43c40ab1c07cd29e4e83e4ef6bf85"
+           role="tabpanel" aria-labelledby="heading-e6f43c40ab1c07cd29e4e83e4ef6bf85">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/03/16/Coding/" title="Coding Corner"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Coding Corner</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/28/Linux/" title="Linux常用指令"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux常用指令</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/28/Programming3/" title="开发笔记"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">开发笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/21/Programming/" title="码农日记（一）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">码农日记（一）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/10/Programming2/" title="码农日记（二）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">码农日记（二）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+
+  <div>
+    <span id="timeDate">正在载入天数...</span>
+    <span id="times">载入时分秒...</span>
+    <script>
+    var now = new Date();
+    function createtime(){
+        var grt= new Date("11/24/2023 11:30:00");
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if(String(mnum).length ==1 ){
+                  mnum = "0" + mnum;
+        }
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if(String(snum).length ==1 ){
+                  snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  
+        document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+    }
+    setInterval("createtime()",250);
+    </script>
+  </div>  
+
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+
+</div>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+
+</body>
+</html>

@@ -24,7 +24,7 @@
 <meta property="og:description" content="显示器接口  VGA接口   采用模拟协议，常用于老式显示器。目前不常用了，像一个四圆角梯形。    VGA接口   DVI接口   有很多种类，算是VGA到HDMI的过渡产物。    DVI-D接口   HDMI接口   音视频同时传输，支持高动态范围HDR成像，很常用，像带两个弯角的矩形。    HDMI接口   DP接口">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-25T14:14:38.972Z">
-<meta property="article:modified_time" content="2024-06-03T13:19:37.507Z">
+<meta property="article:modified_time" content="2024-07-28T03:12:50.165Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.6k words
+          8k words
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          9 mins
+          11 mins
         
       </span>
     
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on June 3, 2024 pm
+                    Last updated on July 28, 2024 am
                   
                 
               </p>
@@ -360,10 +360,13 @@ title="什么是DNS？">点击查看详情</a></p>
 <div class="code-wrapper"><pre><code class="hljs">要求交换机端口上所有主机在同一个子网中。
 不同网段的主机怎么通信？</code></pre></div></p>
 <h4 id="路由器">路由器</h4>
-<p>路由器(Router)，连接不同类型的网络并能选择数据传输的IP路径，网口可充当网关的角色，能在多网络互联环境中建立灵活的连接，工作在网络层。
+<p>路由器(Router)，连接不同类型的网络并能选择数据传输的IP路径，网口可充当网关的角色，能在多网络互联环境中建立灵活的连接，工作在网络层。</p>
 <div class="code-wrapper"><pre><code class="hljs arduino">家里拉了一条宽带（一条网线，现在多为光纤），只能一个人享受上网。
-如果要多设备连接网络，或者享受无线上网(<span class="hljs-built_in">WiFi</span>)，那么就需要安装路由器
-实现IP地址分配、网络共享和无线网使用（无线路由器），甚至进行网络加速（增强）。</code></pre></div></p>
+如果要多设备连接网络，或者享受无线上网(<span class="hljs-built_in">WiFi</span>)，那么就需要安装路由器。
+路由器可实现IP地址分配、网络共享和无线网使用（无线路由器），甚至进行网络加速（增强）。</code></pre></div>
+<p><strong>注意</strong>：路由器本身并不具备网络加速功能，但它可以通过优化和管理网络流量，来提高整体网络性能和用户体验，在用户看来“好像”加速了网络一样。例如，路由器可以通过
+QoS（Quality of
+Service，质量服务）优先处理重要的网络流量（如视频会议、游戏），也可以设置带宽限制，防止某些应用或设备占用过多的带宽，确保其他应用或设备有足够的带宽使用，还可以通过硬件优化（如搭载高性能处理器、大容量内存和高效的天线设计）从硬件层面支持更高的数据处理速度，间接实现网络加速。现代一些路由器如华为、中兴制造的甚至专门针对游戏做了加速，它通过优化网络路径、降低延迟和减少丢包，为游戏玩家提供了更流畅的游戏体验。</p>
 <p>延申：对路由器充当网关角色的深入理解：</p>
 <ul>
 <li><p>网络接入点：路由器作为网关，首先是一个网络的接入点。它连接了内部网络（如家庭局域网或企业内网）和外部网络（如互联网）。所有从内部网络发往外部网络的数据包都需要经过路由器，路由器作为网关会负责将这些数据包转发到正确的目标地址。</p></li>
@@ -374,12 +377,42 @@ title="什么是DNS？">点击查看详情</a></p>
 <li><p>管理和监控：路由器通常还提供了管理和监控功能，如远程访问、配置、诊断和日志记录等。这些功能使得网络管理员可以轻松地管理和维护网络。</p></li>
 </ul>
 <h4 id="猫">猫</h4>
-<p>猫(Modem)，即光猫，调制解调器，进行光电转换。为了取代之前慢速的电话线上网，目前运营商多采用光纤传输，利用高速的光信号（会被限速，按你交的钱让你使用相应的带宽）进行数据传输。光信号无法直接被设备利用，经过光猫，将其转换为数字信号，即可被设备使用。</p>
+<p>猫(Modem)，即光猫，调制解调器，进行光电转换。为了取代之前慢速的电话线上网，目前运营商多采用光纤传输，利用高速的光信号（会被限速，按你交的钱让你使用相应的带宽）进行数据传输。光信号无法直接被设备利用，经过光猫，将其转换为数字信号（即电信号），即可被设备使用。</p>
+<p>运营商的光纤接入到光猫，光猫的输出则是普通的以太网接口（RJ45接口）。如果你需要多个设备同时上网，或者需要无线网络，那么你需要一台路由器，将光猫的输出接入到路由器的WAN口，然后通过路由器的LAN口或WiFi连接设备上网。此时，带有无线网卡的设备（笔记本电脑、手机等）可通过WiFi连接上网，不需要网线。</p>
+<p>路由器的WAN端口用于连接到互联网。它通常连接到调制解调器（如DSL调制解调器、光猫等）或直接连接到网络服务提供商（ISP,
+Internet Service
+Provider）的设备。路由器的LAN端口用于连接家庭或办公网络中的本地设备，如电脑、手机、打印机、智能电视等，创建局域网。</p>
+<p>路由器和光猫的连接和配置示例：</p>
+<div class="code-wrapper"><pre><code class="hljs armasm">连接到互联网：
+将ISP提供的光猫（或调制解调器）通过网线连接到路由器的WAN端口。
+在路由器的设置界面中，配置WAN连接类型（如PPPoE、动态<span class="hljs-built_in">IP</span>、静态<span class="hljs-built_in">IP</span>），
+输入ISP提供的相关信息（如账号和密码）。
+
+连接本地设备：
+将本地设备（如电脑、手机）通过网线连接到路由器的LAN端口。
+设备通过DHCP自动获取<span class="hljs-built_in">IP</span>地址，加入局域网，可以访问互联网和其他局域网设备。</code></pre></div>
 <p>扩展：物理层是OSI模型中的最底层，负责数据比特流在设备之间的传输。它主要关注的是如何在物理介质（如光纤、电缆等）上传输原始的比特流。在物理层，数据通常以模拟信号或数字信号的形式进行传输。模拟信号是连续变化的信号，而数字信号则是离散的信号。在物理层，数字模拟信号的转换（如数字信号的调制和解调）是必要的步骤，以确保数据能够在不同的物理介质上有效地传输。</p>
-<h4 id="ipmac地址">IP/MAC地址</h4>
+<h3 id="网络相关">网络相关</h3>
+<h4 id="url">URL</h4>
+<p>URL（Uniform Resource
+Locator），统一资源定位符，俗称网页地址，表示互联网上的资源，如网页或FTP地址。</p>
+<p>FTP（File Transfer
+Protocol），文件传输协议。FTP服务器是一种在网络上提供文件存储和访问服务的系统，FTP地址是用来定位互联网上FTP服务器位置的字符串。</p>
+<p>URL分为以下几个部分：</p>
+<div class="code-wrapper"><pre><code class="hljs bash">protocol://host:port/path?query<span class="hljs-comment">#fragment</span></code></pre></div>
+<p>URL各部分解析：</p>
+<p>示例：<code>http://www.runoob.com/index.html?language=cn#j2se</code>
+<br/> protocol(协议): http <span class="math inline">\(~~\)</span>
+可以是http、https、ftp等 <br/> host(主机): www.runoob.com <span
+class="math inline">\(~~\)</span> 端口号未指定，则取HTTP协议的默认值: 80
+<br/> path(文件路径): /index.html <br/> query(请求参数): language=cn
+<br/> fragment(定位位置): j2se <span class="math inline">\(~~\)</span>
+定位到网页中id属性为j2se的HTML元素位置</p>
+<h3 id="ipmac地址">IP/MAC地址</h3>
 <p>原文链接：<a
 target="_blank" rel="noopener" href="https://blog.csdn.net/wwy0324/article/details/109310658"
 class="uri">https://blog.csdn.net/wwy0324/article/details/109310658</a></p>
+<h4 id="osi模型">OSI模型</h4>
 <p>OSI模型（Open System Interconnection Reference
 Model），是一种概念模型，是一个标准，一个试图使各种计算机在世界范围内互连为网络的标准框架。</p>
 <p><strong>第五层（第7层）：应用层</strong></p>
@@ -413,7 +446,7 @@ frame），即将比特组合成字节流，用MAC地址访问介质。</p>
 <p><strong>第一层：物理层</strong></p>
 <p>物理层（Physical
 Layer），负责建立、维护、断开物理连接（由底层网络定义协议）。它是提供物理链路、传递电信号或光信号用的。在局域网上传输比特流，它负责管理计算机通信设备和网络媒体之间的互通，包括针脚、电压、线缆规范、集线器、中继器、网卡、主机接口卡等。</p>
-<p><strong>TCP/IP四层模型</strong></p>
+<h4 id="tcpip四层模型">TCP/IP四层模型</h4>
 <p>TCP/IP层级模型结构，应用层之间的协议通过逐级调用传输层（Transport
 layer）、网络层（Network Layer）和物理数据链路层（Physical Data
 Link）可以实现应用层的应用程序通信互联。应用层只需要关心应用程序的逻辑细节，而不是数据在网络中的传输活动。应用层其下三层则处理真正的通信细节。</p>
@@ -421,6 +454,7 @@ Link）可以实现应用层的应用程序通信互联。应用层只需要关�
 Protocol，传输控制协议/网际协议）是指能够在多个不同网络间实现信息传输的协议簇。TCP/IP协议不仅仅指的是TCP和IP两个协议，而是指一个由FTP、SMTP、TCP、UDP、IP等协议构成的协议簇，只是因为在TCP/IP协议中TCP协议和IP协议最具代表性，所以被称为TCP/IP协议。</p>
 <p>TCP/IP传输协议是在网络使用中最基本的通信协议，对互联网中各部分进行通信的标准和方法进行了规定。TCP/IP传输协议是保证网络数据信息及时、完整传输的重要协议，其严格来说是一个四层的体系结构，应用层、传输层、网络层和数据链路层都包含在其中。</p>
 <p>只有四层体系结构的TCP/IP协议，与有七层体系结构的OSI相比要简单了不少，也正是这样，TCP/IP协议在实际的应用中效率更高，成本更低。</p>
+<h4 id="ip地址">IP地址</h4>
 <p><strong>IP（Internet
 Protocol）</strong>，即互联网协议地址，IP地址是一个网卡在网络世界的通讯地址，相当于我们现实世界的门牌号码。为互联网上每一个网络和每一台主机配置一个逻辑地址，与物理地址区分。</p>
 <p>IP地址分为IPv4和IPv6，IPv4使用32位（4字节），IPv6地址长度为128位。最初设计互联网络时，为了便于寻址和层次化构造网络，每个IP地址包括两个标识码（ID），也就是网络ID和主机ID。同一个物理网络上的所有主机都使用同一个网络ID，网络上的一个主机（包括网络上的工作站、服务器和路由器等）有一个主机ID与其对应。</p>
@@ -458,6 +492,7 @@ E类地址主要用于Internet试验和开发
 <p>伴随着CIDR存在的，一个是广播地址：10.100.122.255，如果发送这个地址，所有
 10.100.122
 网络里面的机器都可以收到。另一个是子网掩码：255.255.255.0，将子网掩码和IP地址按位计算AND（与运算），就可以得到网络号。</p>
+<h4 id="mac地址">MAC地址</h4>
 <p><strong>MAC地址（Media Access Control
 Address）</strong>，全称叫媒体访问控制地址，也称作局域网地址、以太网地址或者物理地址。MAC地址用于在网络中唯一标示一个网卡，一台设备若有一或多个网卡，则每个网卡都需要并会有一个唯一的MAC地址。MAC地址共48位（6个字节），前24位由IEEE（电气和电子工程师协会）决定如何分配，后24位由实际生产该网络设备的厂商自行制定。</p>
 <p>MAC地址更像是身份证，是一个唯一标识。它的唯一性设计是为了组网时，不同的网卡放在一个网络里面不用担心冲突的问题。从硬件角度看，保证了不同的网卡有不同的标识。一个网络包要从一个地方传到另一个地方，除了要有确定的地址，还需要有定位功能。而有门牌号码属性的IP地址，才是有远程定位功能的。</p>
@@ -472,10 +507,12 @@ Address）</strong>，全称叫媒体访问控制地址，也称作局域网地�
 3、IP地址未必都不一样，与地理区域等有关。MAC地址只和硬件设备有关。</p>
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/21546408"
 title="有了 IP 地址，为什么还要用 MAC 地址？">点击查看详情</a></p>
+<h4 id="端口">端口</h4>
+<p>通信时，通过IP地址找到目标以后，将TCP/IP报文交给目标机器上的哪一个网络程序（QQ？浏览器？...），需要用端口（Port）来区分。每个网络程序都会向操作系统申请唯一的端口号。由此来看，端口像是网络程序/服务的ID（全写为identity或identification，身份证之意）。</p>
 <h4 id="以太网和无线网">以太网和无线网</h4>
 <p>WLAN（无线网）是Wireless Local Area
 Network的简称，指应用无线通信技术将计算机设备互联起来，构成可以互相通信和实现资源共享的网络体系。WLAN主要通过无线方式连接设备，适用于需要灵活移动和无线通信的场景。</p>
-<p>以太网是一种计算机局域网技术，是现实世界中最普遍的一种计算机网络。以太网的标准拓扑结构为总线型拓扑，但快速以太网为了减少冲突，使用交换机来进行网络连接和组织。以太网通过有线方式连接设备，提供高稳定性和可靠性的局域网解决方案。</p>
+<p>以太网（有线连接）是一种计算机局域网技术，是现实世界中最普遍的一种计算机网络。以太网的标准拓扑结构为总线型拓扑，但快速以太网为了减少冲突，使用交换机来进行网络连接和组织。以太网通过有线方式连接设备，提供高稳定性和可靠性的局域网解决方案。</p>
 <p>电脑中的WLAN和以太网接口各自有一个MAC地址的原因主要是基于网络通信和协议设计的需要：</p>
 <ul>
 <li><p>唯一性识别：MAC地址是网络设备的一个物理地址，它在全球范围内是唯一的。这意味着每个网络设备（包括网络接口卡、交换机、路由器等）都有一个独特的MAC地址，以便在网络上进行识别。因此，电脑上的WLAN和以太网接口作为两个独立的网络设备，各自需要一个唯一的MAC地址。</p></li>
@@ -551,7 +588,7 @@ title="存储技术入门详解">点击跳转：存储技术入门详解</a></p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>June 3, 2024</div>
+          <div>July 28, 2024</div>
         </div>
       
       
@@ -718,6 +755,12 @@ title="存储技术入门详解">点击跳转：存储技术入门详解</a></p>
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -929,6 +972,49 @@ title="存储技术入门详解">点击跳转：存储技术入门详解</a></p>
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
