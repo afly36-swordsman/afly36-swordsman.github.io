@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/008.jpg">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/010.jpg">
 <meta property="article:published_time" content="2024-04-10T13:52:25.975Z">
-<meta property="article:modified_time" content="2024-08-21T15:08:29.923Z">
+<meta property="article:modified_time" content="2024-08-23T14:39:06.394Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          20k words
+          26k words
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          26 mins
+          33 mins
         
       </span>
     
@@ -291,7 +291,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on August 21, 2024 pm
+                    Last updated on August 23, 2024 pm
                   
                 
               </p>
@@ -642,6 +642,199 @@ T Compare&lt;T&gt;::<span class="hljs-built_in">min</span>() &#123;
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&lt;T1, <span class="hljs-type">int</span>&gt;  <span class="hljs-comment">// A 的后面要列出全部模板参数, 并指定特化的类型: 指定 int 为 T2 的特化类型</span>
 &#123; ... &#125;;</code></pre></div>
 <h2 id="java-接口vs抽象类">Java: 接口vs抽象类</h2>
+<h3 id="抽象类abstract-class">抽象类(abstract class)</h3>
+<p>类，由 class 定义。类是对事物的抽象，表示这个对象是什么。</p>
+<p>由于多态的存在，每个子类都可以覆写父类的方法，例如：</p>
+<div class="code-wrapper"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123; … &#125;
+&#125;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Person</span> &#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123; … &#125;
+&#125;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Teacher</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Person</span> &#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123; … &#125;
+&#125;</code></pre></div>
+<p>从 Person 类派生的 Student 和 Teacher 都可以重写 run() 方法。如果父类
+Person 的 run() 方法没有实际意义，能否去掉该方法的方法体？</p>
+<p>答案是：可以。如果父类的方法本身不需要实现任何功能，仅仅是为了定义方法签名，目的是让子类去覆写（重写）它，那么，可以把父类的方法声明为抽象方法。</p>
+<p>如果一个 class
+定义了方法，但没有具体执行代码，这个方法就是抽象方法，抽象方法用
+abstract
+修饰。因为无法执行抽象方法，因此这个类也必须申明为抽象类（abstract
+class）。使用 abstract 修饰的类就是抽象类。</p>
+<p>抽象类是类的抽象。我们无法实例化一个抽象类（因为它太过于抽象了，没有“实例”，只有“概念”）。因此，抽象类只能被继承。抽象类可以强迫子类实现其定义的抽象方法，否则编译会报错（抽象类中的抽象方法没有方法体，子类如果还不去重写实现这个方法，那抽象类不就成了摆设么）。因此，抽象方法实际上相当于定义了某种“规范”。</p>
+<p>例如，Person 类定义了抽象方法 run()，那么，在实现子类 Student
+的时候，就必须覆写 run() 方法：</p>
+<div class="code-wrapper"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;
+        <span class="hljs-type">Person</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>();
+        p.run();
+    &#125;
+&#125;
+
+<span class="hljs-comment">// 抽象类</span>
+<span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span>;
+&#125;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Person</span> &#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;
+        System.out.println(<span class="hljs-string">&quot;Student.run&quot;</span>);
+    &#125;
+&#125;</code></pre></div>
+<p>当我们定义了抽象类 Person，以及具体的 Student、Teacher
+子类的时候，我们可以通过抽象类 Person
+类型去引用具体的子类的实例，即父类型引用指向子类型对象（这不就是多态么），其好处不言自明。</p>
+<div class="code-wrapper"><pre><code class="hljs Java"><span class="hljs-type">Person</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>();
+<span class="hljs-type">Person</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Teacher</span>();
+
+<span class="hljs-comment">// 我们对其进行方法调用，并不关心Person类型变量的具体子类型</span>
+s.run();
+t.run();
+
+<span class="hljs-comment">// 若引用的是一个新的子类，我们仍然不关心新的子类是如何实现run()方法的</span>
+<span class="hljs-type">Person</span> <span class="hljs-variable">e</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Employee</span>();
+e.run();</code></pre></div>
+<p>这种尽量引用高层类型，避免引用实际子类型的方式，称之为<strong>面向抽象编程</strong>。</p>
+<p>面向抽象编程的本质就是：上层代码只定义规范（例如：abstract class
+Person），不需要子类就可以实现业务逻辑（正常编译），具体的业务逻辑由不同的子类实现，调用者并不关心子类是如何实现的。</p>
+<p>有抽象方法的类叫抽象类，抽象类中也可以存在非抽象方法（有具体的实现）。</p>
+<h3 id="接口interface">接口(Interface)</h3>
+<p>接口，由 interface
+定义。接口是对动作/行为的抽象，表示这个对象能做什么。</p>
+<p>接口是抽象类的变体，是比抽象类还要抽象之物。接口中所有的方法都是抽象方法。因为接口定义的所有方法默认都是
+<code>public abstract</code>
+的，所以这两个修饰符不需要写出来，故而也称作隐式抽象。</p>
+<p>接口当然也无法实例化，接口中定义的方法需要由类去实现，当一个具体的类去实现一个接口时，需要使用
+implements 关键字。一个类可以实现多个接口。</p>
+<div class="code-wrapper"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Person</span> &#123;
+    <span class="hljs-keyword">private</span> String name;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Student</span><span class="hljs-params">(String name)</span> &#123;
+        <span class="hljs-built_in">this</span>.name = name;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;
+        System.out.println(<span class="hljs-built_in">this</span>.name + <span class="hljs-string">&quot; run&quot;</span>);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.name;
+    &#125;
+&#125;
+
+<span class="hljs-comment">// 接口</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person</span> &#123;
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span>;
+    String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span>;
+&#125;</code></pre></div>
+<p>一个 interface 可以继承自另一个 interface。interface 继承自 interface
+使用 extends，它相当于扩展了接口的方法。</p>
+<div class="code-wrapper"><pre><code class="hljs Java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Hello</span> &#123;
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">hello</span><span class="hljs-params">()</span>;
+&#125;
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Hello</span> &#123;
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span>;
+    String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span>;
+&#125;</code></pre></div>
+<p>此时，Person 接口继承自 Hello 接口，因此，Person
+接口现在实际上有3个抽象方法签名，其中一个来自继承的 Hello 接口。</p>
+<p>在接口中，可以定义 default 方法，实现类可以不必重写 default
+方法。</p>
+<div class="code-wrapper"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;
+        <span class="hljs-type">Person</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&quot;Xiao Ming&quot;</span>);
+        p.run();
+    &#125;
+&#125;
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person</span> &#123;
+    String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span>;
+    <span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> &#123;
+        System.out.println(getName() + <span class="hljs-string">&quot; run&quot;</span>);
+    &#125;
+&#125;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Person</span> &#123;
+    <span class="hljs-keyword">private</span> String name;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Student</span><span class="hljs-params">(String name)</span> &#123;
+        <span class="hljs-built_in">this</span>.name = name;
+    &#125;
+
+    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.name;
+    &#125;
+&#125;</code></pre></div>
+<p>当我们需要给接口新增一个方法时，会涉及到修改全部子类，因为所有子类都要重写接口中的方法。如果新增的是
+default
+方法，那么子类就不必全部修改，只需要在需要重写的地方去重写新增方法即可。这就是使用
+default 方法的目的所在。</p>
+<p>需要注意的是，接口的 default
+方法和抽象类的普通方法（非抽象方法）是有所不同的。接口没有实例字段，故
+default 方法无法访问实例字段，而抽象类的普通方法可以访问实例字段。</p>
+<p>接口中可以定义的字段默认且只能是 <code>public static final</code>
+类型，即静态常量。</p>
+<p>扩展：从 Java 8
+开始，接口中可以包含默认方法和静态方法，这些方法具有方法体。从 Java 9
+开始，接口允许包含私有方法。</p>
+<h3 id="接口和抽象类的区别">接口和抽象类的区别</h3>
+<p>接口可以多继承，而且一个类可以实现多个接口。但类（抽象类当然也是类）不能多继承，类只能单继承，不过可以取巧：多重继承。</p>
+<p>接口用来表示行为、动作，类多用来表示属性。比如，男人、女人是两个类，抽象类可以描述为：人。男人、女人（人）总要吃东西的，狗、鸡也要吃东西，“吃东西”这个行为可以定义成接口，由类去实现。</p>
+<p>一个子类继承了某个父类，那么就具备了其父类的属性（继承过来的），也包括一些方法。该子类也可以拥有新的方法（行为能力），此时可以通过接口进行新功能的实现。</p>
+<p>抽象类的功能比接口多一些，但是抽象类定义的代价也较高，每个类只能继承一个抽象类。因此在这个父类中，必须包含其所有子类的大部分共性。对于接口而言，接口只针对某一个动作的描述，且可以在一个类中实现多个接口，因此扩展性极强。</p>
+<h2 id="字段">字段</h2>
+<h3 id="何为字段">何为字段</h3>
+<p>在 Java
+类中，字段（Fields）是用于存储对象状态的变量。它们描述了对象的特征或属性。</p>
+<p>字段可以是基本数据类型（如整数、字符、布尔值等）或其他类的对象（引用数据类型）。通过定义字段，类可以持有和操作对象的数据。</p>
+<p>Java中的字段可以分为两类：</p>
+<ul>
+<li>实例字段（Instance
+Fields），每个对象都有自己独有的实例字段副本，用于存储对象特定的状态和属性。</li>
+<li>静态字段（Static
+Fields），静态字段属于类本身，被该类的所有实例共享，用于存储类级别的共享数据。</li>
+</ul>
+<p>字段通过访问修饰符控制访问权限，用于数据存储、对象间通信和数据封装。字段是一种变量，用于存储数据。它们可以在类的任何方法中使用，并在对象的整个生命周期中保持存在。</p>
+<p>字段用于描述和记录对象的状态，通过修改字段的值，我们可以改变对象的状态，从而影响对象的行为和属性（数据成员）。</p>
+<h3 id="static-and-final">static and final</h3>
+<p>static
+修饰符用于将类的成员变量或方法与类本身相关联，而不是与类的实例相关联，所有该类的对象共享同一个静态变量。</p>
+<p>final 修饰符用于将类、方法或变量的值锁定，防止它们被更改。</p>
+<ul>
+<li>用 final
+修饰的变量一旦赋值后，不能再更改。这种变量通常被称为常量。如果是对象类型的
+final 变量，引用本身不能改变，但对象的内部状态可以改变。</li>
+<li>用 final
+修饰的方法不能被子类重写（override）。这在需要确保方法逻辑不被修改时非常有用。</li>
+<li>用 final 修饰的类不能被继承。这可用于防止类的设计被改变。</li>
+</ul>
+<h2 id="python-模块和包">Python: 模块和包</h2>
+<p>模块（Module）是最基本的代码组织单元，它是一个包含 Python
+代码的文件，通常以 .py
+扩展名结尾。模块可以包含函数、类、变量以及其他模块可以使用的任何东西，即一个
+Python 文件中包含的东西。使用 import
+导入模块，如：<code>import math</code>。</p>
+<p>包（Package）是模块的容器，用于组织相关的模块。包通常是一个目录，其中包含一个特殊的
+<strong>init</strong>.py
+文件，这个文件可以为空，也可以包含初始化代码。包内可以放入一些模块（.py文件）。包也可以包含子包。若要导入包
+settings 中的 size 模块，可用：<code>import settings.size</code>。</p>
+<div class="code-wrapper"><pre><code class="hljs capnproto"><span class="hljs-keyword">from</span> xxx <span class="hljs-keyword">import</span> zzz  <span class="hljs-comment"># zzz与xxx位于同一层级目录</span>
+<span class="hljs-keyword">from</span> .xxx <span class="hljs-keyword">import</span> zzz  <span class="hljs-comment"># 同上</span>
+<span class="hljs-keyword">from</span> ..xxx <span class="hljs-keyword">import</span> zzz  <span class="hljs-comment"># xxx在zzz的上级目录中</span>
+<span class="hljs-keyword">from</span> ...xxx <span class="hljs-keyword">import</span> zzz  <span class="hljs-comment"># xxx在zzz的上上级目录中</span></code></pre></div>
+<p>第三方库（Library）是由外部开发者创建的一组相关的模块或包，用于扩展
+Python 的功能，如：NumPy、Pandas 等。第三方库通常需要单独安装，可以使用
+pip（Python 的包管理器）来安装，也可以用
+conda（Anaconda项目开发的开源包管理系统和环境管理器）安装。安装后，可以通过导入相应的模块或包来使用库的功能。</p>
 <h2 id="os篇进程的并发与同步">OS篇：进程的并发与同步</h2>
 <p>操作系统（Operating
 System，OS）是整个计算机系统的管理和控制中心。</p>
@@ -959,6 +1152,65 @@ consumer: &#123;
 对象离开其作用域后，若互斥锁 mutex 还处于锁定状态，那么在 unique_lock
 对象的析构之时会自动解锁（对象被销毁了）。在某些循环中，用户或许需要使用
 lock.unlock() 进行手动解锁。</p>
+<h2 id="设计模式">设计模式</h2>
+<p>设计模式是在软件工程中被反复使用的一种解决方案的范式，它提供了一种通用且可重用的方法来解决常见的设计问题。以下是根据目的和范围对设计模式进行的分类：</p>
+<h3 id="创建型模式creational-patterns">创建型模式(Creational
+Patterns)</h3>
+<p>这些模式提供了一种在创建对象时控制对象创建过程的方法。它们隐藏了创建逻辑的复杂性，以便于使用者可以更加专注于逻辑的实现。</p>
+<ul>
+<li>工厂模式 (Factory Method)</li>
+<li>抽象工厂模式 (Abstract Factory)</li>
+<li>单例模式 (Singleton)</li>
+<li>建造者模式 (Builder)</li>
+<li>原型模式 (Prototype)</li>
+</ul>
+<h3 id="结构型模式structural-patterns">结构型模式(Structural
+Patterns)</h3>
+<p>这些模式关注类和对象的组合，以及如何通过继承机制来扩展这些结构。</p>
+<ul>
+<li>适配器模式 (Adapter)</li>
+<li>桥接模式 (Bridge)</li>
+<li>组合模式 (Composite)</li>
+<li>装饰器模式 (Decorator)</li>
+<li>外观模式 (Facade)</li>
+<li>享元模式 (Flyweight)</li>
+<li>代理模式 (Proxy)</li>
+</ul>
+<h3 id="行为型模式behavioral-patterns">行为型模式(Behavioral
+Patterns)</h3>
+<p>这些模式关注对象之间的通信，以及如何通过交互来实现更大的功能。</p>
+<ul>
+<li>责任链模式 (Chain of Responsibility)</li>
+<li>命令模式 (Command)</li>
+<li>解释器模式 (Interpreter)</li>
+<li>迭代器模式 (Iterator)</li>
+<li>中介者模式 (Mediator)</li>
+<li>备忘录模式 (Memento)</li>
+<li>观察者模式 (Observer)</li>
+<li>状态模式 (State)</li>
+<li>策略模式 (Strategy)</li>
+<li>模板方法模式 (Template Method)</li>
+<li>访问者模式 (Visitor)</li>
+</ul>
+<h3 id="并发模式concurrency-patterns">并发模式(Concurrency
+Patterns)</h3>
+<p>这些模式关注如何管理多个线程或进程，以提高程序的性能和响应能力。</p>
+<ul>
+<li>生产者-消费者模式 (Producer-Consumer)</li>
+<li>读写锁模式 (Read-Write Lock)</li>
+<li>线程池模式 (Thread Pool)</li>
+<li>双缓冲模式 (Double Buffer)</li>
+</ul>
+<h3 id="其他模式">其他模式</h3>
+<p>这些模式不属于上述四大类别，但也非常重要。</p>
+<ul>
+<li>空对象模式 (Null Object)</li>
+<li>标记接口模式 (Marker Interface)</li>
+<li>类型对象模式 (Type Object)</li>
+<li>依赖注入模式 (Dependency Injection)</li>
+<li>服务定位器模式 (Service Locator)</li>
+</ul>
+<p>每种模式都有其特定的用途和适用场景，选择合适的模式可以帮助开发者构建出更加灵活、可维护和可扩展的软件系统。</p>
 
                 
               </div>
@@ -1023,7 +1275,7 @@ lock.unlock() 进行手动解锁。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>August 21, 2024</div>
+          <div>August 23, 2024</div>
         </div>
       
       
@@ -1038,9 +1290,9 @@ lock.unlock() 进行手动解锁。</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/28/Programming3/" title="软件开发">
+                      <a href="/2024/07/28/Programming3/" title="开发者笔记">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">软件开发</span>
+                        <span class="hidden-mobile">开发者笔记</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -1119,6 +1371,15 @@ lock.unlock() 进行手动解锁。</p>
     
       
       
+        <a href="/2024/07/28/Programming3/" title="开发者笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">开发者笔记</span>
+        </a>
+      
+    
+      
+      
         <a href="/2024/03/21/Programming/" title="码农日记 · 壹"
            class="list-group-item list-group-item-action
            ">
@@ -1132,15 +1393,6 @@ lock.unlock() 进行手动解锁。</p>
            class="list-group-item list-group-item-action
            active">
           <span class="category-post">码农日记 · 贰</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/07/28/Programming3/" title="软件开发"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">软件开发</span>
         </a>
       
     

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/011.png">
 <meta property="article:published_time" content="2024-03-16T05:30:24.899Z">
-<meta property="article:modified_time" content="2024-08-21T15:10:34.281Z">
+<meta property="article:modified_time" content="2024-08-23T13:21:27.548Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.8k words
+          10k words
         
       </span>
     
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on August 21, 2024 pm
+                    Last updated on August 23, 2024 pm
                   
                 
               </p>
@@ -502,10 +502,11 @@ pdb.set_trace()
 
 (Pdb) h  <span class="hljs-comment"># 帮助（h: help）</span>
 (Pdb) q  <span class="hljs-comment"># 退出调试（q: quit）</span></code></pre></div>
-<h2 id="anaconda常用命令">Anaconda常用命令</h2>
+<h2 id="anacondapip常用命令">Anaconda/pip常用命令</h2>
 <p>Anaconda是可以便捷获取包且能对包和环境进行统一管理的发行版本。Anaconda包含了conda、Python在内的超过180个科学包及其依赖项。</p>
 <p>conda是包及其依赖项和虚拟环境的管理工具，pip是用于安装和管理软件包的包管理器。conda结合了pip和virtualenv（用于创建独立的Python环境的工具）的功能，安装包时自动安装其依赖项，可以便捷地在包的不同版本中自由切换，且适配很多编程语言，因此推荐使用conda。</p>
 <h3 id="environment">environment</h3>
+<p>虚拟环境是隔离不同Python项目（或不同的Python版本、不同的包）的机制。</p>
 <p>新建虚拟环境：</p>
 <div class="code-wrapper"><pre><code class="hljs routeros">conda create -n env_name <span class="hljs-attribute">python</span>=x.x
 conda create --name env_name <span class="hljs-attribute">python</span>=3.8</code></pre></div>
@@ -519,6 +520,13 @@ conda <span class="hljs-built_in">info</span> --envs</code></pre></div>
 <div class="code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">conda deactivate</span></code></pre></div>
 <p>（完整）删除虚拟环境：</p>
 <div class="code-wrapper"><pre><code class="hljs lua">conda <span class="hljs-built_in">remove</span> -n env_name <span class="hljs-comment">--all</span></code></pre></div>
+<p>如果要创建一个轻量化的虚拟环境，也可以使用Python标准库自带的 venv
+模块，下面的命令创建了python3.8版本的虚拟环境（python3.8要事先安装）：</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">python3</span>.<span class="hljs-number">8</span> -m venv env_name</code></pre></div>
+<p>此时虚拟环境会保存在当前目录中，若需要删除该环境，手动删除文件夹即可。</p>
+<p>启动虚拟环境：</p>
+<div class="code-wrapper"><pre><code class="hljs bash">. env_name/bin/activate
+<span class="hljs-built_in">source</span> env_name/bin/activate</code></pre></div>
 <h3 id="packages">packages</h3>
 <p>查看所有已安装的包：</p>
 <div class="code-wrapper"><pre><code class="hljs lsl">conda <span class="hljs-type">list</span>
@@ -691,7 +699,7 @@ torch<span class="hljs-selector-class">.cuda</span><span class="hljs-selector-cl
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>August 21, 2024</div>
+          <div>August 23, 2024</div>
         </div>
       
       
@@ -787,6 +795,15 @@ torch<span class="hljs-selector-class">.cuda</span><span class="hljs-selector-cl
     
       
       
+        <a href="/2024/07/28/Programming3/" title="开发者笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">开发者笔记</span>
+        </a>
+      
+    
+      
+      
         <a href="/2024/03/21/Programming/" title="码农日记 · 壹"
            class="list-group-item list-group-item-action
            ">
@@ -800,15 +817,6 @@ torch<span class="hljs-selector-class">.cuda</span><span class="hljs-selector-cl
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">码农日记 · 贰</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2024/07/28/Programming3/" title="软件开发"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">软件开发</span>
         </a>
       
     
