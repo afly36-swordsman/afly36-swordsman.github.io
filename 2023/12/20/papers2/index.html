@@ -16,17 +16,17 @@
   <meta name="author" content="Zenitsu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="声明：本文是根据Visual Information Processing Laboratory (VIP Lab)的一位博学多才的博士师兄的知乎专栏内容进行归纳总结的，地址：部分基于深度学习的红外与可见光图像融合模型总结  引言 传统方法用于图像融合的一些问题： 1.没有完全考虑不同模态图像的特性，使用同种方法对不同模态图像进行特征提取可能不会提取到最有效的信息； 2.融合规则是人工">
+    <meta name="description" content="声明：本文是根据Visual Information Processing Laboratory (VIP Lab)的一位博学多才的博士师兄的知乎专栏内容进行归纳总结的，地址：部分基于深度学习的红外与可见光图像融合模型总结  引言 传统方法用于图像融合的一些问题：  没有完全考虑不同模态图像的特性，使用同种方法对不同模态图像进行特征提取可能不会提取到最有效的信息； 融合规则是人工设计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="文献整理 · 脉络篇（一）">
 <meta property="og:url" content="https://afly36-swordsman.github.io/2023/12/20/papers2/index.html">
 <meta property="og:site_name" content="Mark | Learning &amp; Routine">
-<meta property="og:description" content="声明：本文是根据Visual Information Processing Laboratory (VIP Lab)的一位博学多才的博士师兄的知乎专栏内容进行归纳总结的，地址：部分基于深度学习的红外与可见光图像融合模型总结  引言 传统方法用于图像融合的一些问题： 1.没有完全考虑不同模态图像的特性，使用同种方法对不同模态图像进行特征提取可能不会提取到最有效的信息； 2.融合规则是人工">
+<meta property="og:description" content="声明：本文是根据Visual Information Processing Laboratory (VIP Lab)的一位博学多才的博士师兄的知乎专栏内容进行归纳总结的，地址：部分基于深度学习的红外与可见光图像融合模型总结  引言 传统方法用于图像融合的一些问题：  没有完全考虑不同模态图像的特性，使用同种方法对不同模态图像进行特征提取可能不会提取到最有效的信息； 融合规则是人工设计">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/2_3.png">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/3_4.png">
 <meta property="article:published_time" content="2023-12-20T02:32:23.965Z">
-<meta property="article:modified_time" content="2024-05-12T06:20:46.316Z">
+<meta property="article:modified_time" content="2024-09-29T14:02:20.873Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="summarize">
 <meta name="twitter:card" content="summary_large_image">
@@ -289,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on May 12, 2024 pm
+                    Last updated on September 29, 2024 pm
                   
                 
               </p>
@@ -303,15 +303,20 @@ target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/467039982"
 title="温柔的博士师兄写的文章~">部分基于深度学习的红外与可见光图像融合模型总结</a></p>
 <hr />
 <h2 id="引言">引言</h2>
-<p>传统方法用于图像融合的一些问题：
-1.没有完全考虑不同模态图像的特性，使用同种方法对不同模态图像进行特征提取可能不会提取到最有效的信息；
-2.融合规则是人工设计的简单规则，例如最大值法、平均值法，对于融合结果有限制。</p>
-<p>深度学习方法做融合的优势：
-1.不同的网络分支可以对不同模态的图像进行特征提取，甚至对同种模态使用不同分支提取多种信息；
-2.融合策略可以通过学习得到，可不经过人工设计的融合规则获取融合结果。</p>
-<p>近两年做红外-可见光图像融合的深度学习模型也是以下面的模态特点为基础的：
-&gt;
-红外图像独有的信息为像素值幅度信息，能够体现温度显著性，温度越高的目标像素值越大；可见光图像独有的信息为纹理细节信息，多数红外图像中模糊的区域在可见光图像中则具有良好的细节，所以一些自监督模型在设计损失函数时针对红外图像的损失项使用的是MSE/L2-norm，保持温度显著性信息，而针对可见光图像使用的是SSIM或者梯度算子，保持细节纹理信息。自监督方法需要设计出合理的指标作为损失函数。</p>
+<p>传统方法用于图像融合的一些问题：</p>
+<ol type="1">
+<li>没有完全考虑不同模态图像的特性，使用同种方法对不同模态图像进行特征提取可能不会提取到最有效的信息；</li>
+<li>融合规则是人工设计的简单规则，例如最大值法、平均值法，对于融合结果有限制。</li>
+</ol>
+<p>深度学习方法做融合的优势：</p>
+<ol type="1">
+<li>不同的网络分支可以对不同模态的图像进行特征提取，甚至对同种模态使用不同分支提取多种信息；</li>
+<li>融合策略可以通过学习得到，可不经过人工设计的融合规则获取融合结果。</li>
+</ol>
+<p>近两年做红外-可见光图像融合的深度学习模型也是以下面的模态特点为基础的：</p>
+<blockquote>
+<p>红外图像独有的信息为像素值幅度信息，能够体现温度显著性，温度越高的目标像素值越大；可见光图像独有的信息为纹理细节信息，多数红外图像中模糊的区域在可见光图像中则具有良好的细节，所以一些自监督模型在设计损失函数时针对红外图像的损失项使用的是MSE/L2-norm，保持温度显著性信息，而针对可见光图像使用的是SSIM或者梯度算子，保持细节纹理信息。自监督方法需要设计出合理的指标作为损失函数。</p>
+</blockquote>
 <p>根据时间来分类，2019年之前基本都是有监督模型或者直接套用预训练模型，2020年开始有自监督和GAN模型出现，整体还是修改网络结构和损失函数，个别模型思考了不同模态信息的保留方式，亦有加入了self-attention机制的融合模型。到了2021年，涌现了很多的深度学习模型，也相应诞生了很多新的处理思路。很多学者开始思考到底在红外与可见光图像融合中该如何定义互补信息、如何计算每种模态下图像具有的互补信息，以及如何有效地融合这些信息？展现在模型上，就有了基于显著性的模型、基于transformer的模型等，不再是简单地修改损失函数和网络结构，不再简单地将红外图像的特有信息定义为像素幅度、可见光图像的特有信息定义为纹理细节。同时，还出现了多任务融合模型，例如将超分和融合一起做的端对端模型CF-Net。任务驱动的融合方法也是一种趋势，如SeAFusion。</p>
 <p>总体来说，红外与可见光图像融合包含有监督模型、无监督/自监督模型、GAN、显著性模型、transformer/self-attention、多任务驱动、不同分辨率下的融合模型、引导滤波辅助的模型等。下面根据年份对其中一部分模型做简单的介绍。</p>
 <h2 id="densefuse">1.DenseFuse</h2>
@@ -608,7 +613,7 @@ loss</a></p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 12, 2024</div>
+          <div>September 29, 2024</div>
         </div>
       
       

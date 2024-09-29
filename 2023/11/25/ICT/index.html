@@ -23,11 +23,14 @@
 <meta property="og:site_name" content="Mark | Learning &amp; Routine">
 <meta property="og:description" content="显示器接口  VGA接口   采用模拟协议，常用于老式显示器。目前不常用了，像一个四圆角梯形。    VGA接口   DVI接口   有很多种类，算是VGA到HDMI的过渡产物。    DVI-D接口   HDMI接口   音视频同时传输，支持高动态范围HDR成像，很常用，像带两个弯角的矩形。    HDMI接口   DP接口">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/stage3/06.png">
+<meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/stage3/07.png">
 <meta property="article:published_time" content="2023-11-25T14:14:38.972Z">
-<meta property="article:modified_time" content="2024-07-28T03:12:50.165Z">
+<meta property="article:modified_time" content="2024-09-29T13:43:54.672Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://afly36-swordsman.github.io/img/stage2/stage3/06.png">
   
   
   
@@ -220,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8k words
+          8.1k words
         
       </span>
     
@@ -286,7 +289,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on July 28, 2024 am
+                    Last updated on September 29, 2024 pm
                   
                 
               </p>
@@ -376,6 +379,8 @@ Service，质量服务）优先处理重要的网络流量（如视频会议、�
 <li><p>连接不同类型的网络：路由器可以连接不同类型的网络，如有线网络和无线网络、以太网和光纤网络等。作为网关，路由器需要有处理这些不同类型网络之间通信的能力。</p></li>
 <li><p>管理和监控：路由器通常还提供了管理和监控功能，如远程访问、配置、诊断和日志记录等。这些功能使得网络管理员可以轻松地管理和维护网络。</p></li>
 </ul>
+<h4 id="路由和交换">路由和交换</h4>
+<p>根据ip地址转发数据报文的技术叫路由，根据mac地址转发数据包的技术叫交换。路由工作在网络层，交换工作在数据链路层。</p>
 <h4 id="猫">猫</h4>
 <p>猫(Modem)，即光猫，调制解调器，进行光电转换。为了取代之前慢速的电话线上网，目前运营商多采用光纤传输，利用高速的光信号（会被限速，按你交的钱让你使用相应的带宽）进行数据传输。光信号无法直接被设备利用，经过光猫，将其转换为数字信号（即电信号），即可被设备使用。</p>
 <p>运营商的光纤接入到光猫，光猫的输出则是普通的以太网接口（RJ45接口）。如果你需要多个设备同时上网，或者需要无线网络，那么你需要一台路由器，将光猫的输出接入到路由器的WAN口，然后通过路由器的LAN口或WiFi连接设备上网。此时，带有无线网卡的设备（笔记本电脑、手机等）可通过WiFi连接上网，不需要网线。</p>
@@ -454,6 +459,14 @@ Link）可以实现应用层的应用程序通信互联。应用层只需要关�
 Protocol，传输控制协议/网际协议）是指能够在多个不同网络间实现信息传输的协议簇。TCP/IP协议不仅仅指的是TCP和IP两个协议，而是指一个由FTP、SMTP、TCP、UDP、IP等协议构成的协议簇，只是因为在TCP/IP协议中TCP协议和IP协议最具代表性，所以被称为TCP/IP协议。</p>
 <p>TCP/IP传输协议是在网络使用中最基本的通信协议，对互联网中各部分进行通信的标准和方法进行了规定。TCP/IP传输协议是保证网络数据信息及时、完整传输的重要协议，其严格来说是一个四层的体系结构，应用层、传输层、网络层和数据链路层都包含在其中。</p>
 <p>只有四层体系结构的TCP/IP协议，与有七层体系结构的OSI相比要简单了不少，也正是这样，TCP/IP协议在实际的应用中效率更高，成本更低。</p>
+<figure>
+<img src="/img/stage2/stage3/06.png" srcset="/img/loading.gif" lazyload alt="TCP/IP协议栈" />
+<figcaption aria-hidden="true">TCP/IP协议栈</figcaption>
+</figure>
+<figure>
+<img src="/img/stage2/stage3/07.png" srcset="/img/loading.gif" lazyload alt="TCP/IP与OSI模型比较" />
+<figcaption aria-hidden="true">TCP/IP与OSI模型比较</figcaption>
+</figure>
 <h4 id="ip地址">IP地址</h4>
 <p><strong>IP（Internet
 Protocol）</strong>，即互联网协议地址，IP地址是一个网卡在网络世界的通讯地址，相当于我们现实世界的门牌号码。为互联网上每一个网络和每一台主机配置一个逻辑地址，与物理地址区分。</p>
@@ -588,7 +601,7 @@ title="存储技术入门详解">点击跳转：存储技术入门详解</a></p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>July 28, 2024</div>
+          <div>September 29, 2024</div>
         </div>
       
       

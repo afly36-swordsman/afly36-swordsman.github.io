@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/011.png">
 <meta property="article:published_time" content="2024-03-16T05:30:24.899Z">
-<meta property="article:modified_time" content="2024-08-23T13:21:27.548Z">
+<meta property="article:modified_time" content="2024-08-28T14:33:43.062Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          10k words
+          11k words
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          13 mins
+          14 mins
         
       </span>
     
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on August 23, 2024 pm
+                    Last updated on August 28, 2024 pm
                   
                 
               </p>
@@ -602,6 +602,32 @@ pip <span class="hljs-keyword">install</span> gpustat  作为Python库进行安�
 <p>高亮展示完整详细的GPU信息：</p>
 <div class="code-wrapper"><pre><code class="hljs sql">nvitop  (<span class="hljs-keyword">default</span>)
 nvitop <span class="hljs-operator">-</span>m <span class="hljs-keyword">full</span></code></pre></div>
+<h2 id="显存和batchsize的关系">显存和BatchSize的关系</h2>
+<p>显存用于存储图形数据和计算中间结果，深度学习中的“batch_size”指的是每次训练时输入到模型中的样本数（批次）。显存在深度学习训练过程中主要用于存储这些数据：输入数据（例如图像）、中间计算结果（例如激活值）、模型参数和梯度信息、优化过程中额外需要的内存（如动量或自适应学习率的缓存）。</p>
+<p>batch_size
+越大，显存的占用也越多，因为需要同时存储更多的数据和中间结果。因此，显存的大小直接限制了
+batch_size 的取值。如果显存不足，过大的 batch_size
+会导致显存溢出，从而导致程序崩溃或性能下降。</p>
+<p>如果显存足够大，batch_size
+取值也可以很大，但这并不意味着训练速度更快。训练速度受多种因素影响，包括显存大小、计算资源、模型架构以及数据集特性等。显存越大，确实可以允许更大的
+batch_size，因为更大的 batch_size
+需要同时处理更多的数据，占用更多的显存空间。更大的 batch_size
+可以减少梯度更新的次数（每个 epoch 的迭代次数减少），GPU
+可以更好地利用其并行计算能力，通常会提高单次迭代的速度，从而提高每个
+epoch 的计算效率。同时，大 batch_size
+会产生更平滑的梯度估计，也可能要调整学习率。</p>
+<p>即使显存足够大，batch_size
+增大也可能受到内存带宽、数据传输速率或其他硬件瓶颈的限制，这些因素可能会减慢训练速度。当
+batch_size
+增加到一定程度后，训练速度的提升可能会减弱，甚至由于硬件瓶颈反而变慢。此外，过大的
+batch_size
+可能导致模型难以从噪声中学习，从而降低模型的泛化能力。反之，如果
+batch_size 太小，虽然显存占用较少，但每个 batch
+的梯度估计噪声较大，且需要更多的迭代次数才能收敛，从而增加总的训练时间。</p>
+<p>在实际应用中，需要在 batch_size
+和训练速度之间找到一个平衡点。一般来说，找到一个能够充分利用显存而不过度增加计算负担的
+batch_size 是最佳选择。故为了充分利用显存资源，同时确保训练稳定性，在
+batch_size 和显存使用之间进行权衡是必不可少的。</p>
 <h2 id="runtimeerror-cuda-out-of-memory">RuntimeError: CUDA out of
 memory</h2>
 <p>这个Bug的出现往往是直接采用了作者源代码中的指令，因为自己电脑/服务器的算力不一定能满足其所需。有以下解决方法：</p>
@@ -699,7 +725,7 @@ torch<span class="hljs-selector-class">.cuda</span><span class="hljs-selector-cl
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>August 23, 2024</div>
+          <div>August 28, 2024</div>
         </div>
       
       
