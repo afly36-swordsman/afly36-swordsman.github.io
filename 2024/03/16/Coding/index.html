@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/011.png">
 <meta property="article:published_time" content="2024-03-16T05:30:24.899Z">
-<meta property="article:modified_time" content="2024-08-28T14:33:43.062Z">
+<meta property="article:modified_time" content="2024-11-09T03:19:26.808Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k words
+          15k words
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          14 mins
+          19 mins
         
       </span>
     
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on August 28, 2024 pm
+                    Last updated on November 9, 2024 am
                   
                 
               </p>
@@ -557,6 +557,115 @@ pip uninstall some_package</code></pre></div>
 &gt;&gt;&gt; torch.cuda.is_available()  <span class="hljs-comment"># 输出: True</span>
 &gt;&gt;&gt; <span class="hljs-keyword">exit</span>()  <span class="hljs-comment"># 大功告成！退出即可</span></code></pre></div>
 <p>建议首选conda进行管理。若conda没有相应的包，再使用pip指令。不过pip下载安装的响应很快，且基本不会报错，而conda容易报错，尤其是用conda安装torch的时候。</p>
+<h2 id="非root用户安装cuda和cudnn">非root用户安装CUDA和cudnn</h2>
+<h3 id="cuda和cudnn介绍">CUDA和cudnn介绍</h3>
+<p>CUDA 是 NVIDIA 推出的一个并行计算平台和编程模型，允许开发者使用 GPU
+进行高性能计算。CUDA
+本质上是一个软件架构（框架），包含一些开发工具包（如编译器、库和驱动程序），使得开发者可以使用类似于
+C 语言的 CUDA C/C++ 代码直接控制 GPU 的计算资源。</p>
+<p>CUDA 是许多高层库（例如 cuDNN、TensorRT、Thrust）构建的基础，所有基于
+NVIDIA GPU 的计算都依赖于 CUDA 支持。CUDA
+主要用于加速各类计算密集型任务，比如科学计算、图像处理、机器学习和人工智能等。</p>
+<blockquote>
+<p>有人说：CUDA是一门编程语言，像 C,C++,python
+一样，也有人说CUDA是API。</p>
+</blockquote>
+<blockquote>
+<p>官方说：CUDA是一个并行计算平台和编程模型，能够使得使用GPU进行通用计算变得简单和优雅。</p>
+</blockquote>
+<blockquote>
+<p>运行CUDA应用程序要求系统至少具有一个具有CUDA功能的GPU和与CUDA
+Toolkit兼容的驱动程序。</p>
+</blockquote>
+<blockquote>
+<p>查看CUDA版本命令：nvcc -V 或 nvcc --version 或 cat
+/usr/local/cuda/version.txt</p>
+</blockquote>
+<p>cuDNN 是一个深度学习专用的 GPU 加速库，基于 CUDA
+构建。它提供高效的底层实现，支持卷积神经网络（CNN）所需的关键操作，比如卷积运算、池化、归一化等，是为深度学习框架量身定制的库。</p>
+<p>cuDNN
+针对深度学习任务进行了大量优化，特别是卷积运算和反向传播的实现，使得训练和推理的速度大大提升。cuDNN
+为高层深度学习框架（如 TensorFlow、PyTorch、Caffe 等）提供
+API，这些框架通过 cuDNN 来调用 GPU 加速深度学习的操作。</p>
+<p>CUDA
+不仅用于深度学习，也适用于广泛的并行计算领域，如数值分析、物理仿真、金融建模等；而
+cuDNN 主要用于深度学习，特别是 CNN 相关的模型训练和推理加速，但必须依赖
+CUDA 才能正常运行。</p>
+<h3 id="查看电脑支持的最高cuda版本">查看电脑支持的最高CUDA版本</h3>
+<p>下载的CUDA版本不能超过系统最高的支持版本，可以用命令查看，右上角的CUDA
+Version就是系统能支持的最高版本（Driver API）：</p>
+<div class="code-wrapper"><pre><code class="hljs ebnf"><span class="hljs-attribute">nvidia-smi</span></code></pre></div>
+<h3 id="下载cuda-10.1">下载：CUDA 10.1</h3>
+<p>首先，提前建好cuda的自定义目录，我拟安装在/mnt/sda的cuda-10.1目录下，故需要创建两个空文件夹：</p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> /mnt/sda/cuda-10.1
+<span class="hljs-built_in">mkdir</span> /mnt/sda/cuda-10.1/mylib</code></pre></div>
+<p>进入下面的网站下载CUDA-10.1（下载update2的原因是：其他版本无法自定义目录）：</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">https</span>://developer.nvidia.com/cuda-<span class="hljs-number">10</span>.<span class="hljs-number">1</span>-download-archive-update2</code></pre></div>
+<p>选择对应的配置后，格式选"runfile(local)"，根据弹出的命令进行安装。一般弹出两条命令，上面的wget命令是下载到本地，第二条sh命令是安装到指定目录，此时可由cd命令进入创建好的cuda-10.1文件夹，在其中安装CUDA。命令如下：</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">wget</span> https://developer.download.nvidia.com/compute/cuda/<span class="hljs-number">10</span>.<span class="hljs-number">1</span>/Prod/local_installers/cuda_10.<span class="hljs-number">1</span>.<span class="hljs-number">243</span>_418.<span class="hljs-number">87</span>.<span class="hljs-number">00</span>_linux.run
+
+<span class="hljs-attribute">sudo</span> sh cuda_10.<span class="hljs-number">1</span>.<span class="hljs-number">243</span>_418.<span class="hljs-number">87</span>.<span class="hljs-number">00</span>_linux.run</code></pre></div>
+<h3 id="降低gcc和g版本">降低gcc和g++版本</h3>
+<p>运行.run命令后，弹出新的对话框，选择"Continue"，若弹出了gcc相关的错误，说明gcc版本过高，需要重新安装低版本的gcc。因为Ubuntu20.04自带的gcc版本为9.x，而cuda10.1不支持gcc-9，因此要手动安装gcc-7，命令如下：</p>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> apt-get install gcc-<span class="hljs-number">7</span> g++-<span class="hljs-number">7</span></code></pre></div>
+<p>安装完gcc-7，系统中就存在两个版本的gcc，因此要设置默认的gcc，通过update-alternatives设置gcc各版本的优先级：</p>
+<div class="code-wrapper"><pre><code class="hljs awk">sudo update-alternatives --install <span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/gcc gcc /u</span>sr<span class="hljs-regexp">/bin/g</span>cc-<span class="hljs-number">7</span> <span class="hljs-number">9</span>
+sudo update-alternatives --install <span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/gcc gcc /u</span>sr<span class="hljs-regexp">/bin/g</span>cc-<span class="hljs-number">9</span> <span class="hljs-number">1</span></code></pre></div>
+<p>设置默认的g++也是如此：</p>
+<div class="code-wrapper"><pre><code class="hljs brainfuck"><span class="hljs-comment">sudo update</span><span class="hljs-literal">-</span><span class="hljs-comment">alternatives</span> <span class="hljs-literal">--</span><span class="hljs-comment">install /usr/bin/g</span><span class="hljs-literal">++</span> <span class="hljs-comment">g</span><span class="hljs-literal">++</span> <span class="hljs-comment">/usr/bin/g</span><span class="hljs-literal">++-</span><span class="hljs-comment">7 9</span>
+<span class="hljs-comment">sudo update</span><span class="hljs-literal">-</span><span class="hljs-comment">alternatives</span> <span class="hljs-literal">--</span><span class="hljs-comment">install /usr/bin/g</span><span class="hljs-literal">++</span> <span class="hljs-comment">g</span><span class="hljs-literal">++</span> <span class="hljs-comment">/usr/bin/g</span><span class="hljs-literal">++-</span><span class="hljs-comment">9 1</span></code></pre></div>
+<p>上面是独立配置gcc和g++的版本，优点是可以自由组合各个版本。还可以使用
+"--slave"
+参数将gcc和g++绑定在一起，使得选择gcc版本的同时，也会自动选择对应的g++版本，gcc和g++的替换会同步进行：</p>
+<div class="code-wrapper"><pre><code class="hljs awk">sudo update-alternatives --install <span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/gcc gcc /u</span>sr<span class="hljs-regexp">/bin/g</span>cc-<span class="hljs-number">7</span> <span class="hljs-number">9</span> --slave <span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/g++ g++ /u</span>sr<span class="hljs-regexp">/bin/g</span>++-<span class="hljs-number">7</span>
+sudo update-alternatives --install <span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/gcc gcc /u</span>sr<span class="hljs-regexp">/bin/g</span>cc-<span class="hljs-number">9</span> <span class="hljs-number">1</span> --slave <span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/g++ g++ /u</span>sr<span class="hljs-regexp">/bin/g</span>++-<span class="hljs-number">9</span></code></pre></div>
+<p>用下述命令显示所有gcc/g++的优先级，优先级最高的为系统默认版本：</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql">sudo <span class="hljs-keyword">update</span>-alternatives <span class="hljs-comment">--display gcc</span>
+sudo <span class="hljs-keyword">update</span>-alternatives <span class="hljs-comment">--display g++</span></code></pre></div>
+<p>在已经安装了多个gcc/g++版本的系统中切换当前版本：</p>
+<div class="code-wrapper"><pre><code class="hljs sql">sudo <span class="hljs-keyword">update</span><span class="hljs-operator">-</span>alternatives <span class="hljs-comment">--config gcc</span></code></pre></div>
+<p>查看当前gcc/g++版本：</p>
+<div class="code-wrapper"><pre><code class="hljs ada">gcc <span class="hljs-comment">--version</span></code></pre></div>
+<h3 id="安装cuda-10.1">安装：CUDA 10.1</h3>
+<p>（继续）运行.run命令，选择"Continue"，此时可以正常进入下一个窗口，填写"accept"，回车。</p>
+<p>由于系统中已经有了NVIDIA显卡驱动，如果不想安装CUDA
+10.1中附带的驱动，就移动上下箭头到Driver选项上，按空格键将该项取消。前面方括号内有"X"则表示选中状态，为空则是取消状态。</p>
+<p>只安装CUDA Toolkit即可。一般不搞CUDA编程的话，单跑深度学习够了。</p>
+<p>选中"Options"，回车进入，更改"Toolkit
+Options"（/usr这种非用户目录的全都取消选择，因为需要权限，可以将该页面所有选项全取消，之后进入"Change
+Toolkit Install
+Path"设置cuda安装到有写入权限的路径（提前建好的），我这里是"/mnt/sda/cuda-10.1/"）。</p>
+<p>做完"Done"，回到Options菜单，更改"Library install path (Blank for
+system
+default)"防止写入/var/lib："/mnt/sda/cuda-10.1/mylib/"（不用加双引号）。</p>
+<p>一路"Done"，回到最初页面，点击"Install"，开始安装。安装好后，会有个Summary的提示。</p>
+<p>下一步，修改环境变量：</p>
+<div class="code-wrapper"><pre><code class="hljs vim"><span class="hljs-keyword">vim</span> ~/.<span class="hljs-keyword">profile</span></code></pre></div>
+<p>在末尾添加：</p>
+<div class="code-wrapper"><pre><code class="hljs routeros"><span class="hljs-comment"># CUDA</span>
+<span class="hljs-built_in">export</span> <span class="hljs-attribute">PATH</span>=<span class="hljs-string">&quot;/mnt/sda/cuda-10.1/bin:<span class="hljs-variable">$PATH</span>&quot;</span>
+<span class="hljs-built_in">export</span> <span class="hljs-attribute">LD_LIBRARY_PATH</span>=<span class="hljs-string">&quot;/mnt/sda/cuda-10.1/lib64:/mnt/sda/cuda-10.1/mylib/lib64:<span class="hljs-variable">$LD_LIBRARY_PATH</span>&quot;</span></code></pre></div>
+<p>重新加载环境变量使变动生效（用下面两种命令都可以）：</p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ~/.profile
+. ~/.profile</code></pre></div>
+<p>测试CUDA（下面两种都可），显示的是Runtime API：</p>
+<div class="code-wrapper"><pre><code class="hljs ada">nvcc -V
+nvcc <span class="hljs-comment">--version</span></code></pre></div>
+<p>如果想恢复原来的CUDA版本，将配置文件（~/.profile）中加在末尾的那几行命令注释即可。</p>
+<h3 id="下载安装cudnn-7.6.5">下载安装：cudnn 7.6.5</h3>
+<p>然后下载cudnn，选择CUDA10.1对应的版本：v7.6.5（从"Archive of Previous
+Releases"中进入寻找）：</p>
+<div class="code-wrapper"><pre><code class="hljs dts"><span class="hljs-symbol">https:</span><span class="hljs-comment">//developer.nvidia.com/cudnn-downloads</span></code></pre></div>
+<p>选择"cuDNN Library for Linux"下载，下载下来是一个.tgz的压缩包。</p>
+<p>解压，然后进入解压缩的目录：</p>
+<div class="code-wrapper"><pre><code class="hljs bash">tar -zxvf <span class="hljs-variable">$&#123;your PATH of cudnn-xxx.tgz&#125;</span>
+<span class="hljs-built_in">cd</span> cuda  <span class="hljs-comment"># 此处进入cudnn解压的目录</span></code></pre></div>
+<p>复制文件cudnn.h到CUDA目录的include子目录中：</p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> ./include/cudnn.h /mnt/sda/cuda-10.1/include</code></pre></div>
+<p>复制所有文件到CUDA（也即libcudnn开头的文件）：</p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> ./lib64/libcudnn* /mnt/sda/cuda-10.1/lib64</code></pre></div>
+<p>为上述文件添加读取和执行权限：</p>
+<div class="code-wrapper"><pre><code class="hljs bash">sudo <span class="hljs-built_in">chmod</span> 755 /mnt/sda/cuda-10.1/include/cudnn.h /mnt/sda/cuda-10.1/lib64/libcudnn*</code></pre></div>
 <h2 id="git下载代码">Git下载代码</h2>
 <p>Git是一个软件（需要下载安装），可以帮助你在Github网站进行代码操作。GitHub是一个面向开源及私有软件项目的托管平台，即代码仓库。</p>
 <p>在Github上找到了你所需要的项目，只需要在“code”按钮上点击，进入Clone界面，复制代码地址，然后在本地打开Git
@@ -725,7 +834,7 @@ torch<span class="hljs-selector-class">.cuda</span><span class="hljs-selector-cl
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>August 28, 2024</div>
+          <div>November 9, 2024</div>
         </div>
       
       

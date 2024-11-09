@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="article:published_time" content="2024-07-28T03:17:07.894Z">
-<meta property="article:modified_time" content="2024-08-23T14:42:43.005Z">
+<meta property="article:modified_time" content="2024-11-09T03:43:27.658Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.4k words
+          4.6k words
         
       </span>
     
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on August 23, 2024 pm
+                    Last updated on November 9, 2024 am
                   
                 
               </p>
@@ -304,7 +304,7 @@ openSUSE...</p>
 <p>由于Linux网上各种教程很多，因此本节只对我（现阶段）在日常工作和学习中最常用的命令（文件相关）进行总结。</p>
 <h3 id="远程登录">远程登录</h3>
 <p>Linux系统启用了sshd服务后，可以进行远程操作。该服务监听22号端口。</p>
-<h3 id="vi-and-vim">vi and vim</h3>
+<h3 id="vivim">vi/vim</h3>
 <p>Linux系统会内建vi文本编辑器，vim是vi的增强版本。</p>
 <p>vi和vim的三种常见模式：</p>
 <ul>
@@ -374,7 +374,9 @@ top  实时显示进程状态用户
 <span class="hljs-keyword">w</span>  查看当前活动用户
 <span class="hljs-keyword">last</span>  查看用户登录日志</code></pre></div>
 <h3 id="设备">设备</h3>
-<div class="code-wrapper"><pre><code class="hljs tcl">uname -a  查看当前Linux操作系统的内核信息
+<div class="code-wrapper"><pre><code class="hljs tcl">uname -a  查看当前Linux操作系统的所有信息（包括系统名称、内核版本、硬件架构等）
+uname -s  显示操作系统的名称（Linux or Windows?）
+uname -m  显示机器的硬件架构（如：x86_64）
 cat /etc/issue  查看当前操作系统发行版信息
 cat /<span class="hljs-keyword">proc</span>/version  查看当前操作系统的版本信息<span class="hljs-title"></span>
 <span class="hljs-title">hostname</span>  查看服务器的名称<span class="hljs-title"></span>
@@ -384,10 +386,15 @@ cat /<span class="hljs-keyword">proc</span>/version  查看当前操作系统的
 <span class="hljs-title">lsblk</span>  查看磁盘信息，列出所有可用块设备的信息及其依赖关系<span class="hljs-title"></span>
 <span class="hljs-title"></span>
 <span class="hljs-title">nvidia-smi</span>  查看显卡、驱动等相关信息<span class="hljs-title"></span>
+<span class="hljs-title">fuser</span> -v /dev/nvidia*  显示更全的进程（包括一些“隐藏”进程）<span class="hljs-title"></span>
 <span class="hljs-title">watch</span> -n 1<span class="hljs-title"> nvidia-smi</span>  实时追踪显卡使用情况（每隔1秒自动刷新）<span class="hljs-title"></span>
 <span class="hljs-title">gpustat</span>  高亮显示GPU信息<span class="hljs-title"></span>
 <span class="hljs-title">gpustat</span> -i  高亮显示GPU信息·实时版（每秒刷新1次）<span class="hljs-title"></span>
-<span class="hljs-title">nvitop</span> [-m<span class="hljs-title"> full]</span>  彩色 [完整] 显示GPU信息</code></pre></div>
+<span class="hljs-title">nvitop</span> [-m<span class="hljs-title"> full]</span>  彩色 [完整] 显示GPU信息<span class="hljs-title"></span>
+<span class="hljs-title"></span>
+<span class="hljs-title">kill</span> PID  杀掉ID为PID的进程<span class="hljs-title"></span>
+<span class="hljs-title">kill</span> -15<span class="hljs-title"> PID</span>  同上，kill命令默认发送SIGTERM（信号15）请求进程终止<span class="hljs-title"></span>
+<span class="hljs-title">kill</span> -9<span class="hljs-title"> PID</span>  立即（强制）结束进程，不能被忽略或捕获</code></pre></div>
 <h3 id="网络">网络</h3>
 <div class="code-wrapper"><pre><code class="hljs dos"><span class="hljs-built_in">ping</span> ip_address  检测当前主机/服务器是否可以连接ip_address所在的主机/服务器/网址（检查网络连接）
 ifconfig  查看当前网络信息
@@ -561,7 +568,7 @@ Shell，提供跨平台管理功能。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>August 23, 2024</div>
+          <div>November 9, 2024</div>
         </div>
       
       

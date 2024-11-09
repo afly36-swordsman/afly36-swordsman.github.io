@@ -24,7 +24,7 @@
 <meta property="og:description" content="一、标题 在文字前加井号 # 表示标题，共支持六级标题。 注：几乎所有语法符号后要跟个空格再接内容 示例： # 一级标题 ## 二级标题 ### 三级标题 ···以此类推··· 二、文字与排版  加粗 文本前后各两个*或者两个_是加粗，如**文本** 斜体 文本前后各一个*或者一个_是倾斜，如*文本* 斜体加粗 文本前后各三个 * 删除线 前后各两个 ~ 文本高亮 HTML">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-24T15:11:20.545Z">
-<meta property="article:modified_time" content="2024-09-29T14:14:02.922Z">
+<meta property="article:modified_time" content="2024-11-09T04:03:54.701Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="auxiliary">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k words
+          2.2k words
         
       </span>
     
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on September 29, 2024 pm
+                    Last updated on November 9, 2024 pm
                   
                 
               </p>
@@ -350,8 +350,8 @@ height="高度" /&gt;等</p>
 <span class="hljs-bullet">2.</span> list2</code></pre></div></p></li>
 <li><p>嵌套列表 上下两级之间敲两个空格即可</p></li>
 </ul></li>
-<li><p>代码块 (``````)
-用括号中的反引号将需要标注的块区域包起来，三个就行，但是自动补全机制写六个更省事（不加括号，自成一行）</p>
+<li><p>代码块 (```)
+用括号中的反引号将需要标注的块区域包起来，三个就行（不加括号，自成一行）</p>
 <p>单行代码：前后各用一个 ` 就行</p>
 <p>代码块： <div class="code-wrapper"><pre><code class="hljs">这里是代码块</code></pre></div> 单行代码： <code>这里是单行代码</code></p>
 <p>支持语法高亮，在首行 ` 后紧跟着写相应语言即可，如python</p></li>
@@ -439,6 +439,7 @@ aria-label="这是一个脚注^_^">[1]</span></a></sup></p></li>
 <p>在分隔行的连字符 - 左侧、右侧或两侧可以加冒号 :
 使得该列内容左对齐、右对齐或居中显示，默认（不加冒号时）左对齐。</p>
 <h3 id="五上传">五、上传</h3>
+<p>使用 Git Bash 进入博客目录：</p>
 <div class="code-wrapper"><pre><code class="hljs actionscript">hexo clean  清除已存在的（旧的）缓存和静态文件
 
 hexo g  生成静态文件，存于<span class="hljs-keyword">public</span>文件夹内
@@ -446,6 +447,7 @@ hexo g  生成静态文件，存于<span class="hljs-keyword">public</span>文�
 hexo d  部署到远程服务器（GitHub Pages）
 
 hexo s  在本地浏览器预览（本地显示和远程显示一般是一致的，可用于检查）</code></pre></div>
+<p>README.md可以直接放在Blog_repo/public中。</p>
 <h3 id="六扩展语法">六、扩展语法</h3>
 <h4 id="任务列表语法">任务列表语法</h4>
 <p>短横杠 - 加方括号 [ ] （都有空格） <br/> 选择（复选框）则用 x
@@ -460,7 +462,7 @@ checked="" />这是一个复选框</label></li>
 <p>使用hexo-renderer-pandoc渲染器，卸载了hexo自带的marked渲染器后，有些Markdown语法格式与LaTex语法格式冲突，因此需要注意以下几点：</p>
 <ol type="1">
 <li>不要在代码块(`划定的区域)中插入公式，会无法解析/渲染</li>
-<li>引用&gt;时，或者用其他符号如任务列表语法-[]、标题#时，最好单独成行，前、后各空一行，LaTex对“吃”空格/行</li>
+<li>引用&gt;时，或者用其他符号如任务列表语法-[]、标题#时，最好单独成行，前、后各空一行，LaTex会“吃”空格/行</li>
 <li>使用公式要在Front-matter中指定："math: true"</li>
 <li>加入文章索引需在Front-matter中指定："category_bar: true"</li>
 <li>有脚注时，要在文末空个两行，防止脚注紧贴正文，正文格式会影响脚注的显示格式(注释会在文章最后显示)</li>
@@ -542,7 +544,7 @@ checked="" />这是一个复选框</label></li>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>September 29, 2024</div>
+          <div>November 9, 2024</div>
         </div>
       
       

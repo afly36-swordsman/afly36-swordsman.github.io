@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-09-29T14:04:34.513Z">
+<meta property="article:modified_time" content="2024-11-09T03:54:16.194Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on September 29, 2024 pm
+                    Last updated on November 9, 2024 am
                   
                 
               </p>
@@ -314,6 +314,7 @@ Java面向对象，每个事物都是对象，各自协同形成系统，耦合�
 <p>new运算符会在JVM（Java Virtual
 Machine，Java虚拟机）的堆内存中开辟一块空间，将创建的对象放入堆内存空间中。程序运行时，JVM中的类加载器class
 loader会先加载类（.class文件），装载到JVM后由解释器将字节码翻译为二进制数据，供操作系统（OS）与硬件交互。</p>
+<p>使用new，本质上就是在调用构造器。</p>
 <p>保存了内存地址并指向堆内存对象的变量叫引用，通过(引用.对象名)的方式可以访问实例变量（堆内存中存储的对象的实例变量）。其他语言如C++、Python等也可以以此类推。引用相当于C语言中的指针（Java没有指针这个概念）。</p>
 <p>构造方法（也叫构造器、Constructor、构造函数）是用来创建对象并对实例变量进行初始化（赋值）的一种特殊方法。无参构造方法是系统默认提供的，也叫缺省构造器，如果用户手动编写了有参构造器，系统就不会再提供缺省构造器了，因此需要加上无参构造器防止出错。构造方法名必须与类名一致，且不需要写返回值类型。</p>
 <div class="code-wrapper"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Animal</span><span class="hljs-params">(形参列表)</span> </span>&#123;
@@ -367,6 +368,12 @@ loader会先加载类（.class文件），装载到JVM后由解释器将字节�
 <p>抽象类除了不能实例化对象之外，类的其它功能依然存在，成员变量、成员方法和构造方法的访问方式和普通类一样。</p>
 <p>由于抽象类不能实例化对象，所以抽象类必须被继承，才能被使用。</p>
 <p>在Java语言中使用abstract class来定义抽象类。</p>
+<p>关于抽象类和接口，请移步：<strong>码农日记·贰 &gt;
+Java:接口vs抽象类</strong>。</p>
+<h3 id="this和super">this和super</h3>
+<p>this()语句，调用本类（调用者）这个对象的（无参）构造器，只能位于类的第一行。this不需要继承也可以使用，有对象即可。</p>
+<p>super()语句，调用父类的（无参）构造器，默认是有这条语句的，只能位于类的第一行。super写在子类中，只有用到了继承，才可以使用。</p>
+<p>this和super都只能写在第一行，所以无法共存，只能存其一。</p>
 <h3 id="多态">多态</h3>
 <p>多态是同一个行为具有多个不同的表现形式或形态的能力，即同一行为发生在不同的对象上会产生不同的效果。换句话说，多态就是同一个接口，使用不同的实例而执行不同的操作。</p>
 <p>多态可以降低类型之间的耦合关系，具有可替换、可扩充的性质，简单而灵活。多态存在有三个必要条件：继承、方法重写、父类引用指向子类对象。</p>
@@ -1747,7 +1754,7 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>September 29, 2024</div>
+          <div>November 9, 2024</div>
         </div>
       
       
