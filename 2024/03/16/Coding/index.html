@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/011.png">
 <meta property="article:published_time" content="2024-03-16T05:30:24.899Z">
-<meta property="article:modified_time" content="2024-11-09T03:19:26.808Z">
+<meta property="article:modified_time" content="2024-11-15T14:29:15.129Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary_large_image">
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on November 9, 2024 am
+                    Last updated on November 15, 2024 pm
                   
                 
               </p>
@@ -551,6 +551,9 @@ conda <span class="hljs-keyword">update</span> --<span class="hljs-keyword">all<
 <p>删除包：</p>
 <div class="code-wrapper"><pre><code class="hljs routeros">conda <span class="hljs-built_in">remove</span> pkg_name
 pip uninstall some_package</code></pre></div>
+<p>导出/安装环境中的包：</p>
+<div class="code-wrapper"><pre><code class="hljs pgsql">pip <span class="hljs-keyword">freeze</span> &gt; ./requirements.txt  # 导出到文件
+pip install -r requirements.txt  # 在线安装</code></pre></div>
 <p>检验torch是否安装成功：</p>
 <div class="code-wrapper"><pre><code class="hljs awk">python  <span class="hljs-comment"># 进入Python开发环境</span>
 &gt;&gt;&gt; import torch  <span class="hljs-comment"># 未报错</span>
@@ -834,7 +837,7 @@ torch<span class="hljs-selector-class">.cuda</span><span class="hljs-selector-cl
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>November 9, 2024</div>
+          <div>November 15, 2024</div>
         </div>
       
       

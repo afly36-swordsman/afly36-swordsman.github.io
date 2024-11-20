@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="article:published_time" content="2024-07-28T03:17:07.894Z">
-<meta property="article:modified_time" content="2024-11-09T03:43:27.658Z">
+<meta property="article:modified_time" content="2024-11-10T13:06:03.004Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k words
+          4.7k words
         
       </span>
     
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on November 9, 2024 am
+                    Last updated on November 10, 2024 pm
                   
                 
               </p>
@@ -441,15 +441,18 @@ tail filename  显示该文件后 <span class="hljs-number">10</span> 行（默�
 tail -n <span class="hljs-number">5</span> filename  显示文件后 <span class="hljs-number">5</span> 行内容。
 tail -f filename  实时追踪该文件的所有更新信息。
 
+tar  打包命令，打包后的文件格式为 .tar，也可以解包，由选项控制。
+Ops：-c 打包；-x 解包；-v 显示详细信息；-f 指定压缩后的文件名；-z 打包的同时压缩
+-z 压缩时使用gzip压缩为<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span>(.tgz)格式，解压时指示tar使用gzip来处理<span class="hljs-selector-class">.tar</span>.gz文件的压缩部分。
+
+tar -zcvf UFO<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.txt</span> <span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.txt</span>  将a、b用一套组合拳打包成UFO并压缩后存入当前路径
+tar -zxvf UFO<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-attr">[-C /*directory*/]</span>  解包和解压缩UFO文件，-C 指定解包后文件的存储路径
+tar -xvf UFO<span class="hljs-selector-class">.tar</span>  解包纯粹的打包文件UFO<span class="hljs-selector-class">.tar</span>
+
 zip destination_file<span class="hljs-selector-class">.zip</span> source_file<span class="hljs-selector-class">.txt</span>  将.txt压缩为.zip文件后存入当前路径。
 Ops：-r 递归压缩整个文件夹
-unzip *<span class="hljs-selector-class">.zip</span>  解压文件
-unzip -d <span class="hljs-comment">/*path*/</span> *<span class="hljs-selector-class">.zip</span>  解压后存入指定路径
-
-tar  打包命令，打包后的文件格式为 <span class="hljs-selector-class">.tar</span>.gz，也可以解包，由选项控制。
-Ops：-c 打包；-x 解包；-v 显示详细信息；-f 指定压缩后的文件名；-z 打包的同时压缩
-tar -zcvf UFO<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.txt</span> <span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.txt</span>  将a、b用一套组合拳打包成UFO后存入当前路径
-tar -zxvf UFO<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span> <span class="hljs-selector-attr">[-C /*directory*/]</span>  解包UFO文件，-C 指定解包后文件的存储路径
+unzip *<span class="hljs-selector-class">.zip</span>  解压.zip文件
+unzip *<span class="hljs-selector-class">.zip</span> -d <span class="hljs-comment">/*path*/</span>  解压后存入指定路径
 
 history  查看所有已经执行过的命令。
 history n  查看最近使用过的 n 条命令。
@@ -568,7 +571,7 @@ Shell，提供跨平台管理功能。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>November 9, 2024</div>
+          <div>November 10, 2024</div>
         </div>
       
       
