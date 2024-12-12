@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="article:published_time" content="2024-07-28T03:17:07.894Z">
-<meta property="article:modified_time" content="2024-11-10T13:06:03.004Z">
+<meta property="article:modified_time" content="2024-12-08T12:26:58.883Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.7k words
+          4.9k words
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          6 mins
+          7 mins
         
       </span>
     
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on November 10, 2024 pm
+                    Last updated on December 8, 2024 pm
                   
                 
               </p>
@@ -405,6 +405,9 @@ ifconfig  查看当前网络信息
 ls <span class="hljs-selector-attr">[Ops]</span> 目录/文件名  显示目录或文件的内容。
 Ops（Options，选项）：-<span class="hljs-selector-tag">a</span> 显示所有；-l 以列表形式显示
 
+ls -l $&#123;link_name&#125;$  查看符号链接（也叫软链接）所指向的实际文件路径
+realpath $&#123;link_name&#125;$  查看名为link_name的软链接所指向文件的绝对路径
+
 cd addr  切换到指定路径。
 cd 或 cd ~ 回主（家）目录；cd / 回根目录；cd .. 回上级目录
 
@@ -461,6 +464,13 @@ history n  查看最近使用过的 n 条命令。
 <h3 id="终端">终端</h3>
 <div class="code-wrapper"><pre><code class="hljs arduino">clear  清空屏幕，相当于翻页
 reset  重置/初始化终端</code></pre></div>
+<h2 id="简化命令">简化命令</h2>
+<p>命令的缩写：</p>
+<div class="code-wrapper"><pre><code class="hljs bash">vim ~/.bashrc
+<span class="hljs-built_in">alias</span> ns=<span class="hljs-string">&#x27;nvidia-smi&#x27;</span></code></pre></div>
+<p>使之生效：</p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ~/.bashrc
+. ~/.bashrc</code></pre></div>
 <h2 id="命令与指令">命令与指令</h2>
 <p>“命令”和“指令”这两个词在日常使用中有时可以互换，但在计算机科学领域，它们通常有特定的含义。</p>
 <h3 id="命令command">命令(Command)</h3>
@@ -571,7 +581,7 @@ Shell，提供跨平台管理功能。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>November 10, 2024</div>
+          <div>December 8, 2024</div>
         </div>
       
       
