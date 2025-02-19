@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2024-11-09T03:54:16.194Z">
+<meta property="article:modified_time" content="2025-02-19T02:49:43.238Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on November 9, 2024 am
+                    Last updated on February 19, 2025 am
                   
                 
               </p>
@@ -748,7 +748,7 @@ p = &amp;y;  <span class="hljs-comment">// 报错: error: assignment of read-onl
 <div class="code-wrapper"><pre><code class="hljs c++"><span class="hljs-type">int</span> x = <span class="hljs-number">30</span>;
 <span class="hljs-type">const</span> <span class="hljs-type">int</span>&amp; p = x;  <span class="hljs-comment">// Type(p) == i (int)</span>
 p = <span class="hljs-number">15</span>;  <span class="hljs-comment">// 报错: error: assignment of read-only reference &#x27;p&#x27;</span>
-<span class="hljs-type">int</span>&amp; q = p;  <span class="hljs-comment">// 报错: error: binding reference of type &#x27;int&amp;&#x27; to &#x27;const int&#x27; discards qualifiers</span>
+<span class="hljs-type">int</span>&amp; y = p;  <span class="hljs-comment">// 报错: error: binding reference of type &#x27;int&amp;&#x27; to &#x27;const int&#x27; discards qualifiers</span>
              <span class="hljs-comment">// 翻译: 将类型为&quot;int&amp;&quot;的引用绑定到&quot;const int&quot;将丢弃限定符，类型不匹配(y未被const修饰)</span>
 <span class="hljs-type">const</span> <span class="hljs-type">int</span>&amp; z = p;  <span class="hljs-comment">// 合法语句(类型相同，可以赋值)</span></code></pre></div>
 <h3 id="c中引用和指针的区别">C++中引用和指针的区别</h3>
@@ -847,16 +847,16 @@ Pointer），是未初始化的指针，如：<code>int *pt;</code></p>
 <p>（1）初始化空指针 nullptr</p>
 <p>在 C++
 中，未初始化的指针变量会被默认初始化为一个未定义的值，即它们可能指向任意位置。因此，在使用指针变量之前，应该始终确保对其进行初始化，以避免未定义的行为。</p>
-<p><code>int *p = nullptr;</code> 这是 C++11
-中引入的新方式，声明指向整数的指针 p2，并使用 nullptr 初始化。nullptr 是
+<p><code>int *p1 = nullptr;</code> 这是 C++11
+中引入的新方式，声明指向整数的指针 p1，并使用 nullptr 初始化。nullptr 是
 C++11 标准中的一个关键字，专门用于表示空指针。它的类型是
 std::nullptr_t，可以转换为任何其他指针类型，并且优于
 NULL，因为它消除了整数和空指针之间的歧义。</p>
-<p><code>int *p = NULL;</code> 这条语句声明了指向整数的指针
-p1，并将其初始化为 NULL。NULL 是 C++ 中的一个宏，代表空指针，在 C++
+<p><code>int *p2 = NULL;</code> 这条语句声明了指向整数的指针
+p2，并将其初始化为 NULL。NULL 是 C++ 中的一个宏，代表空指针，在 C++
 中它通常被定义为 0。尽管使用 NULL 是合法的，但它是基于 C
 的遗留实践，C++11 后推荐使用 nullptr。</p>
-<p><code>int *p;</code> 这条语句仅仅声明了指向整数的指针
+<p><code>int *p3;</code> 这条语句仅仅声明了指向整数的指针
 p3，没有初始化。在这种情况下，p3
 将包含一个垃圾值（未定义的内存地址）。如果你没有正确初始化而试图使用这个指针，会导致未定义的行为，可能会带来安全风险和难以调试的bug。</p>
 <p>（2）使用智能指针</p>
@@ -1087,7 +1087,7 @@ Time::<span class="hljs-built_in">Time</span>(<span class="hljs-type">int</span>
 <p>有些操作对象只在程序运行时才能确定，这样编译时就无法为它们预定存储空间，只能在程序运行时，系统根据运行时的要求进行内存分配，这种方法称为动态存储分配。所有动态存储分配都在堆区中进行。C++程序中的内存分为两个部分：</p>
 <p>(1)栈：在函数内部声明的所有变量都将占用栈内存。</p>
 <p>(2)堆：这是程序中未使用的内存，在程序运行时可用于动态分配内存。</p>
-<p>很多时候，用户无法提前预知需要多少内存来存储某个定义变量中的特定信息，所需内存的大小需要在运行时才能确定。因此在C++中，可以使用特殊的运算符为给定类型的变量在运行时分配堆内的内存，这会返回所分配的空间地址。这种运算符是new运算符。如果不再需要动态分配的内存空间，可以使用delete运算符，删除之前由new运算符分配的内存。</p>
+<p>很多时候，用户无法提前预知需要多少内存来存储某个已定义的变量中的特定信息，所需内存的大小需要在运行时才能确定。因此在C++中，可以使用特殊的运算符为给定类型的变量在运行时分配堆内的内存，这会返回所分配的空间地址。这种运算符是new运算符。如果不再需要动态分配的内存空间，可以使用delete运算符，删除之前由new运算符分配的内存。</p>
 <div class="code-wrapper"><pre><code class="hljs awk">double *p = nullptr;  <span class="hljs-regexp">//</span> 初始化 null 指针
 p = new double;  <span class="hljs-regexp">//</span> 为变量请求内存
 <span class="hljs-regexp">/* 改进如下 */</span>
@@ -1311,7 +1311,7 @@ B 中的成员函数 show()。</p>
 <p>函数重载、运算符重载就属于静态多态性，在程序编译时系统就能决定调用的是哪个函数，因此静态多态性又称编译时的多态性。静态多态性是通过函数的重载实现的。</p>
 <p>动态多态性是在程序运行过程中才动态地确定操作所针对的对象，它又称运行时的多态性。动态多态性是通过虚函数实现的。</p>
 <h3 id="多态的动态实现虚函数">多态的动态实现：虚函数</h3>
-<p>C++的多态性用一句话概括就是：在基类的函数前加上 virual
+<p>C++的多态性用一句话概括就是：在基类的函数前加上 virtual
 关键字，在派生类中重写该函数，在主函数中用指针进行动态绑定实现多态（疑问：为什么一定要使用指针？）。运行时将会根据对象的实际类型来调用相应的函数。如果对象类型是派生类，就调用派生类的函数；如果对象类型是基类，就调用基类的函数。</p>
 <p>看一个例子：</p>
 <div class="code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
@@ -1493,7 +1493,7 @@ f.<span class="hljs-built_in">insert</span>(f.<span class="hljs-built_in">begin<
 <span class="hljs-comment">// f: 0 1 2 3</span>
 f.<span class="hljs-built_in">insert</span>(f.<span class="hljs-built_in">end</span>(), <span class="hljs-number">3</span>, <span class="hljs-number">1</span>);  <span class="hljs-comment">// 在 f 末尾添加 3 个值为 1 的元素</span>
 <span class="hljs-comment">// f: 0 1 2 3 1 1 1</span>
-f.<span class="hljs-built_in">insert</span>(f.<span class="hljs-built_in">begin</span>()+<span class="hljs-number">1</span>, &amp;arr[<span class="hljs-number">1</span>], &amp;arr[<span class="hljs-number">3</span>]);  <span class="hljs-comment">// 将 arr[1], arr[2] 插入 f 第二个位置处</span>
+f.<span class="hljs-built_in">insert</span>(f.<span class="hljs-built_in">begin</span>()+<span class="hljs-number">1</span>, &amp;arr[<span class="hljs-number">1</span>], &amp;arr[<span class="hljs-number">2</span>]);  <span class="hljs-comment">// 将 arr[1], arr[2] 插入 f 第二个位置处</span>
 <span class="hljs-comment">// f: 0 2 3 1 2 3 1 1 1</span>
 f.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">9</span>);  <span class="hljs-comment">// 在 f 尾部插入元素: 9</span>
 <span class="hljs-comment">// f: 0 2 3 1 2 3 1 1 1 9</span>
@@ -1623,7 +1623,7 @@ map&lt;string, <span class="hljs-type">int</span>&gt;::iterator it;
 
 <span class="hljs-comment">// 查找 key 是否存在 (存在, 返回: 1)</span>
 cout &lt;&lt; M.<span class="hljs-built_in">count</span>(<span class="hljs-string">&quot;55&quot;</span>) &lt;&lt; endl;
-<span class="hljs-comment">// 下面这条命令返回指向改元素的迭代器, 若元素不存在, 则返回 end 迭代器</span>
+<span class="hljs-comment">// 下面这条命令返回指向该元素的迭代器, 若元素不存在, 则返回 end 迭代器</span>
 M.<span class="hljs-built_in">find</span>(<span class="hljs-string">&quot;55&quot;</span>);
 
 <span class="hljs-comment">// 删除元素对, 下面两条语句等价</span>
@@ -1754,7 +1754,7 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>November 9, 2024</div>
+          <div>February 19, 2025</div>
         </div>
       
       
