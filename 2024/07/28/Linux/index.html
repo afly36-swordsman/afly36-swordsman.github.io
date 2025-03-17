@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/004.png">
 <meta property="article:published_time" content="2024-07-28T03:17:07.894Z">
-<meta property="article:modified_time" content="2024-12-08T12:26:58.883Z">
+<meta property="article:modified_time" content="2025-03-17T04:35:04.957Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.9k words
+          5k words
         
       </span>
     
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on December 8, 2024 pm
+                    Last updated on March 17, 2025 pm
                   
                 
               </p>
@@ -471,6 +471,13 @@ reset  重置/初始化终端</code></pre></div>
 <p>使之生效：</p>
 <div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ~/.bashrc
 . ~/.bashrc</code></pre></div>
+<p>一般用户自定义的命令缩写建议集中在：<code>~/.bash_aliases</code>
+文件中。
+在<code>~/.bashrc</code>中查看是否有下列代码，如果没有就添加：</p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-keyword">if</span> [ -f ~/.bash_aliases ]; <span class="hljs-keyword">then</span>
+    . ~/.bash_aliases
+<span class="hljs-keyword">fi</span></code></pre></div>
+<p>这段代码的作用是：每次新打开一个终端窗口或标签页时，别名就会自动加载。</p>
 <h2 id="命令与指令">命令与指令</h2>
 <p>“命令”和“指令”这两个词在日常使用中有时可以互换，但在计算机科学领域，它们通常有特定的含义。</p>
 <h3 id="命令command">命令(Command)</h3>
@@ -581,7 +588,7 @@ Shell，提供跨平台管理功能。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>December 8, 2024</div>
+          <div>March 17, 2025</div>
         </div>
       
       
