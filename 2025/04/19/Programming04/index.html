@@ -1,0 +1,1027 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/planet.png">
+  <link rel="icon" href="/img/planet.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zenitsu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="C++技术百问 指针常量和常量指针  指针常量 ，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是 底层const ，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="码农日记 · 叁">
+<meta property="og:url" content="https://afly36-swordsman.github.io/2025/04/19/Programming04/index.html">
+<meta property="og:site_name" content="Mark | Learning &amp; Routine">
+<meta property="og:description" content="C++技术百问 指针常量和常量指针  指针常量 ，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是 底层const ，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-04-19T05:35:38.649Z">
+<meta property="article:modified_time" content="2025-04-19T05:56:56.079Z">
+<meta property="article:author" content="Zenitsu">
+<meta property="article:tag" content="study">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>码农日记 · 叁 - Mark | Learning &amp; Routine</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"afly36-swordsman.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":40,"cursorChar":"✨","loop":false,"scope":["home"]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":1},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>M.E.Mark&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/taiji.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">码农日记 · 叁</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-19 13:35" pubdate>
+          2025.04.19 13:35
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.6k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">码农日记 · 叁</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on April 19, 2025 pm
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="c技术百问">C++技术百问</h2>
+<h3 id="指针常量和常量指针">指针常量和常量指针</h3>
+<p><font color="red"> 指针常量
+</font>，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是<font color="purple">
+底层const </font>，指针指向的内容不可变：</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-type">int</span> a = <span class="hljs-number">10</span>, b = <span class="hljs-number">50</span>;
+<span class="hljs-type">const</span> <span class="hljs-type">int</span> *p = &amp;a;  <span class="hljs-comment">// 指针常量，底层const</span>
+<span class="hljs-type">int</span> <span class="hljs-type">const</span> *q = &amp;a;  <span class="hljs-comment">// 同上</span>
+cout &lt;&lt; *p &lt;&lt; endl;  <span class="hljs-comment">// 10</span>
+p = &amp;b;  <span class="hljs-comment">// 可以改变指针指向</span>
+cout &lt;&lt; *p &lt;&lt; endl;  <span class="hljs-comment">// 50</span>
+*p = <span class="hljs-number">20</span>;  <span class="hljs-comment">// 报错，不可以修改指向的值！</span></code></pre></div>
+<p><font color="red"> 常量指针
+</font>，理解为：指针是个常量，即指针变量本身不可变，修饰的const类型是<font color="purple">
+顶层const </font>，指针的指向不可变：</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;
+<span class="hljs-type">int</span> * <span class="hljs-type">const</span> p = &amp;a;  <span class="hljs-comment">// 常量指针，顶层const</span>
+<span class="hljs-type">int</span> * <span class="hljs-type">const</span> q;  <span class="hljs-comment">// 报错，必须在定义时初始化</span>
+cout &lt;&lt; *p &lt;&lt; endl;  <span class="hljs-comment">// 10</span>
+*p = <span class="hljs-number">20</span>;  <span class="hljs-comment">// 可以改变指针指向的内容</span>
+cout &lt;&lt; *p &lt;&lt; endl;  <span class="hljs-comment">// 20</span>
+p = &amp;b;  <span class="hljs-comment">// 报错，不可以改变指针的指向！</span></code></pre></div>
+<h3 id="引用和常量指针的关系">引用和常量指针的关系</h3>
+<p>在底层实现上，引用和常量指针的汇编代码完全相同，因此可以认为引用本质上就是一个常量指针。</p>
+<p>在高级语言层面，引用与常量指针有一些相同点和不同点。<strong>相同点</strong>在于它们都占用4或8字节的存储空间，并且必须在定义时初始化。<strong>不同点</strong>在于常量指针毕竟是指针，允许寻址，可以通过
+&amp;p 获取指针变量本身的地址，而引用不允许直接寻址，&amp;r
+返回的是被引用对象的地址。引用不能为空，而指针可以是空（nullptr）。sizeof(引用)得到的是被引用对象的大小，而sizeof(指针)得到的是指针本身的大小。</p>
+<p>此外，数组元素可以是指针但不能是引用，这是为了避免二义性。例如，如果允许数组array的元素是引用类型，那么
+<code>array[0]=8</code> 这样的语句将无法明确是修改数组元素
+array[0]（把int引用替换成int值8）还是该元素所引用的对象（把引用的对象值改为8）。</p>
+<p>另外，在函数参数传递中，<strong>指针传递是值传递</strong>，传递的是地址的副本，被调函数对形式参数的任何操作都是作为局部变量进行，不会影响主调函数实参变量的值，只能通过操作指针的解引用来映射实参。而<strong>引用传递是直接操作实参的地址</strong>，虽然被调函数为形参在栈中开辟了空间，但是存储的是主调函数传入的实参变量的地址，对这个“形参”本身操作就相当于是操作实参。</p>
+<h3 id="面向对象和面向过程的区别">面向对象和面向过程的区别</h3>
+<p>面向对象和面向过程是两种不同的编程思想。面向过程将问题分解为一系列步骤，通过函数逐步实现，使用的时候一个一个依次调用。而面向对象则将问题分解为多个对象，建立对象不是为了完成某一个步骤，而是为了描述其在解决问题过程中的行为。</p>
+<p>例如五子棋，面向过程设计会按照步骤实现游戏流程：1、开始游戏，2、黑子先走，3、绘制画面，4、判断输赢（赢了执行9），5、白子走，6、绘制画面，7、判断输赢（赢了执行9），8、返回步骤2，9、输出最终结果。</p>
+<p>而面向对象设计则会划分为玩家（黑白双方，行为是一样的：在棋盘上选择一个空地落子）、棋盘系统（负责绘制画面）、规则系统（判定输赢、是否犯规等）等对象，各司其职。玩家对象接收用户输入，棋盘对象接收棋子变化并根据变化在屏幕上显示，同时利用规则对象对棋局进行判定。</p>
+<p>面向过程的优势在于性能较高，因为类实例化有一定的开销，但维护性、复用性和扩展性较差；面向对象则更易维护和扩展，更加灵活，耦合程度低，但性能比面向过程低。</p>
+<h3 id="include-和-include">include&lt;&gt; 和 include""</h3>
+<p>#include&lt;&gt; 和 #include"" 的区别在于头文件的查找路径。</p>
+<p>#include&lt;&gt; 用于查找标准库文件，搜索编译器设置的路径，而
+#include"" 优先在当前源文件目录查找，找不到时再按 #include&lt;&gt;
+的方式搜索。</p>
+<p>自定义头文件应使用 #include""，因为标准库路径通常不包含用户文件。</p>
+<h3 id="编译器优化选项">编译器优化选项</h3>
+<p>编译器优化选项包括 -O0、-O1、-O2 和 -O3。</p>
+<p>-O0 不进行优化。</p>
+<p>-O1 优化代码的分支、常量和表达式，会减小代码尺寸、缩短执行周期。</p>
+<p>-O2 在打开 O1
+优化的前提下，增加了寄存器的优化和指令级优化，编译期占用的内存和编译时间也会相应增加。</p>
+<p>-O3 在 O2 的基础上进一步优化，但可能引入不可预测行为，通常推荐使用
+-O2 平衡性能与稳定性。</p>
+<h3
+id="c四种变量存储类型分别是什么">C++四种变量存储类型分别是什么？</h3>
+<p>C++中的变量存储类型分为四种：auto、static、extern和register。</p>
+<p>auto是默认的自动存储类型，在函数内部定义的变量，若不指定其存储类型，那么就是auto类变量。变量在函数内生存，函数结束后消失，初始值不确定。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-type">int</span> a;  <span class="hljs-comment">// auto变量</span>
+    <span class="hljs-keyword">auto</span> <span class="hljs-type">int</span> b;  <span class="hljs-comment">// auto变量</span>
+    <span class="hljs-comment">// 每调用一次函数，就对变量进行一次初始化</span>
+&#125;</code></pre></div>
+<p>static是静态存储类型，使全局或局部变量在程序的整个生命周期内存在，且只初始化一次。静态全局变量只能在本文件内部使用，静态局部变量作用域仍然在其定义的代码块内（比如函数内，但多次调用函数也只会在首次调用时初始化一次，该变量的值会保存到下次调用函数改变为止）。</p>
+<p>extern是外部存储类型，用于声明其他文件中定义的外部变量，便于多文件编程。大型程序为了易于维护和理解，通常需要把程序划分为多个文件来保存，每个文件都可以单独编译，最后再把多个文件的编译结果（即目标文件）链接到一起生成一个可执行程序。这种情况下，如果在一个文件中需要引用另一个文件中的外部变量，就需要利用extern说明。</p>
+<p>register是寄存器存储类型，通知编译器将变量存储在寄存器中以提高访问速度，但不能对其取地址，因为取地址符&amp;只能获取内存空间中的地址。</p>
+<h3 id="this指针相关">this指针相关</h3>
+<p>this指针只有在类的成员函数中才有定义，你获得一个对象后，也不能通过对象使用this指针。但在成员函数内部可以通过
+&amp;this
+获取this指针的位置，也可以直接使用this指针访问该对象的成员变量。</p>
+<p>在类对象的内存空间中，只有数据成员和虚函数表指针，类的成员函数单独放在代码段中。在调用成员函数时，隐含传递一个this指针作为第一个参数，让成员函数知道当前是哪个对象在调用它。</p>
+<p>如果在成员函数中调用
+<code>delete this</code>，会导致该对象的内存被释放，后续任何涉及this指针的操作都可能引发未定义行为。</p>
+<p>如果在析构函数中调用
+<code>delete this</code>，会形成无限递归，导致堆栈溢出和程序崩溃。因为delete的本质是：为将被释放的内存调用一个或多个析构函数，然后释放内存。显然，<code>delete this</code>
+会去调用本对象的析构函数，而析构函数中又调用
+<code>delete this</code>，从而形成无限递归。<strong>这一点很像拷贝构造函数的参数不是引用类型。</strong></p>
+<h3 id="哪些函数不能是虚函数">哪些函数不能是虚函数？</h3>
+<p>虚函数在运行时表现出多态性，通常不能将虚函数作为<strong>内联函数</strong>，因为内联函数的展开是在编译期。但若编译器能确定具体的调用对象（比如不使用动态绑定/运行时多态，直接使用对象调用虚函数），则可能内联。内联函数是编译器的优化建议（只是建议编译器将其看作内联函数，具体是否实践仍取决于编译器的决策），定义需放在头文件中以便编译器可见。</p>
+<p>另外，虚函数表（vtable）通过this指针访问（this指针 -&gt; 虚表指针vptr
+-&gt;
+虚表vtable），而内联函数在编译时展开，没有地址，因此虚函数与内联机制存在冲突。</p>
+<p><font color="blue">
+除了内联函数外，还有一些函数是不能声明为虚函数的，包括：友元函数、静态成员函数、构造函数和成员函数模板。
+</font></p>
+<p><strong>友元函数</strong>不属于类成员，只有类成员（具有继承关系）使用虚函数才有意义。</p>
+<p>若声明<strong>静态成员函数</strong>为virtual会编译失败。因为静态成员函数没有隐含的this指针，与任何对象实例无关，无法调用对象的虚表指针，从而没办法访问对象所属类的虚表，自然就没办法通过虚表找到要调用的那个虚函数。虚函数调用需要运行时确定对象类型，但静态函数调用时根本没有对象上下文，因为即使程序员使用对象名调用静态成员函数（<code>obj.staticFunc()</code>），编译器也会将其转换为：<code>ClassName::staticFunc()</code>，不会使用对象的任何信息（相当于对象名调用是个语法糖），静态和多态机制本身是互斥的，因此静态成员函数自己也没办法作为虚函数的一员存储于虚表中。</p>
+<p><strong>构造函数</strong>负责初始化对象的存储空间，建立对象的类型信息（包括虚表指针），而虚函数依赖已构造的对象的虚表指针来动态决定调用哪个版本的虚函数（基类还是派生类），如果构造函数是虚函数，就需要虚指针（vptr）已经正确初始化，但
+vptr 又需要构造函数来初始化，形成了死锁。</p>
+<p>另外，当创建一个对象时，构造函数的调用顺序是：基类构造函数 →
+派生类构造函数，在基类构造函数执行中，派生类对象还未完全构造，此时 vptr
+指向的是当前类（父类）的虚表。如果构造函数是虚函数，需要通过虚表来动态绑定调用，但此时
+vptr 尚未正确指向派生类的虚表，这与创建派生类对象发生矛盾。</p>
+<p><strong>成员函数模板</strong>是在编译时实例化，但函数模板的实例化是动态的，也就是说，类模板中的成员函数或成员函数模板在调用的时候才会创建具体的函数实例。虚表需要在编译时确定大小和内容，编译器无法预先知道会有多少个模板实例，因此无法在虚表中预留位置。如果允许一个虚函数是模板函数，那么编译器就需要在解析这个类之前扫描所有的代码，找出这个模板成员函数的调用（实例化），然后才能确定虚表的大小，这显然是不可行的，除非改变当前编译器的工作机制。</p>
+<h3 id="成员变量的初始化顺序">成员变量的初始化顺序</h3>
+<p>派生类对象构造顺序严格遵循：基类构造函数（多继承则按继承声明顺序） →
+成员类对象构造函数（按类内声明顺序，与参数初始化表顺序无关） →
+派生类构造函数。析构顺序则完全相反。</p>
+<p>静态成员和静态代码块最先初始化（按出现顺序），普通成员随后初始化。成员变量初始化顺序仅取决于定义顺序，与初始化列表顺序无关。const成员变量必须通过初始化列表进行初始化，static成员变量必须在类外单独初始化。</p>
+<p>综上，变量的初始化顺序如下：</p>
+<ol type="1">
+<li>静态成员初始化（所有类）</li>
+</ol>
+<p>静态成员变量：在程序启动时（main函数之前）按定义顺序初始化（非声明顺序）。</p>
+<ol start="2" type="1">
+<li>基类构造阶段</li>
+</ol>
+<ul>
+<li><p>虚基类构造（如果有）：按继承链从最顶层祖先开始（深度优先）。</p></li>
+<li><p>直接基类构造：若是多继承，则按继承声明顺序（从左到右）。</p></li>
+<li><p>基类成员变量构造：按类内声明顺序（与初始化列表顺序无关）。</p></li>
+<li><p>基类构造函数体执行。</p></li>
+</ul>
+<ol start="3" type="1">
+<li>派生类构造阶段</li>
+</ol>
+<ul>
+<li><p>派生类成员变量构造：按类内声明顺序。</p></li>
+<li><p>派生类构造函数体执行。</p></li>
+</ul>
+<ol start="4" type="1">
+<li>补充说明</li>
+</ol>
+<p>对象的虚表指针（vptr）：在基类构造函数执行开始时初始化，并在进入派生类构造函数前被更新为当前类的虚表地址。当创建派生类对象时，首先调用基类构造函数。在基类构造函数的最开始，编译器插入代码将
+vptr
+指向当前类（基类）的虚表。在基类构造函数中调用虚函数时，调用的是基类的版本（因为此时
+vptr 还未指向派生类的虚表）。父类构造完后，开始构造子类，这时编译器又把
+vptr 改成子类的虚函数表地址。之后调虚函数就是子类的版本了。</p>
+<p>虚函数表（vtable）：在编译时生成，并在程序加载时（main函数执行前）存入内存的只读数据段（.rodata）。虚表是类级别的（每个类只有一个），而非对象级别的，为该类的所有对象共享。</p>
+<p>参数初始化表：在构造函数体执行之前，按成员变量的声明顺序初始化。进入构造函数时，先初始化所有成员变量：如果有初始化列表，按列表中的表达式初始化。如果没有初始化列表，执行默认初始化（基本类型不初始化，类类型调用默认构造函数）。然后按成员在类中的声明顺序初始化。最后执行构造函数体内的代码。</p>
+<h3 id="虚函数表和虚表指针">虚函数表和虚表指针</h3>
+<p>虚函数表（虚表，vtable）是针对类的，同一个类的所有对象共享同一份虚函数表。在gcc编译器中，虚函数表存放在可执行文件的只读数据段.rodata中，由编译器在编译阶段处理完成。虚函数表的内容在编译时就已经确定，是一组常量函数指针，程序运行前会直接加载到内存中。</p>
+<p>虚函数表指针（虚表指针/虚指针，vptr）是对象相关的，作为对象的隐藏成员，其位置取决于对象的分配方式：如果对象分配在堆上，那虚指针也在堆上；如果对象分配在栈上，那么虚指针也在栈上。编译器处理派生类的虚函数表时，会先拷贝基类的虚函数表，然后替换派生类中重写的虚函数地址，最后添加派生类新增的虚函数到自身的虚函数表中。</p>
+<p>在构造函数或析构函数中调用虚函数是不推荐的行为。基类构造函数中调用虚函数时，由于派生类尚未构造完成，虚函数会静态绑定到基类版本，无法实现多态。而基类的析构函数调用虚函数时，派生类部分已经析构，虚函数会绑定到基类版本，同样无法实现多态。因此，在构造和析构期间，虚函数的动态绑定机制会失效，没有意义。</p>
+<h3 id="explicit关键字">explicit关键字</h3>
+<p>explicit关键字用于修饰类的构造函数，禁止隐式类型转换。它主要适用于单参数构造函数或除第一个参数外其余参数均有默认值的构造函数，这类构造函数也被称为转换构造函数。隐式类型转换是编译器自动完成的类型转换行为，例如将int转换为double，或将派生类对象隐式转换为基类的指针/引用。通过explicit关键字，可以避免意外的隐式转换，提高代码的明确性。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-type">int</span> i = <span class="hljs-number">3</span>;
+<span class="hljs-type">double</span> j = <span class="hljs-number">3.1</span>;
+i + j;  <span class="hljs-comment">// i会被转换成double类型，然后才做加法运算</span>
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&#123;&#125;;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>: <span class="hljs-keyword">public</span> A &#123;&#125;;  <span class="hljs-comment">// B是子类</span>
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Fun</span><span class="hljs-params">(A&amp; a)</span> </span>&#123;&#125;
+B b;
+<span class="hljs-built_in">Fun</span>(b);  <span class="hljs-comment">// 隐式类型转换：向上转型，父类型引用/指针指向子类型对象</span>
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Test</span> &#123;
+<span class="hljs-keyword">public</span>：
+    <span class="hljs-built_in">Test</span>(<span class="hljs-type">int</span> i) &#123;&#125;
+&#125;;
+<span class="hljs-comment">// 正确，由于隐式类型转换，1先被Test构造函数构造成Test对象，然后才被赋值给t1</span>
+<span class="hljs-comment">// 相当于：Test t1 = Test(1);</span>
+<span class="hljs-comment">// 若Test构造函数被explicit修饰，那么就无法进行隐式类型转换了，会报错</span>
+Test t1 = <span class="hljs-number">1</span>;
+<span class="hljs-comment">// 正确，直接调用构造函数（无论构造函数是否被explicit修饰）</span>
+<span class="hljs-function">Test <span class="hljs-title">t2</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>;</code></pre></div>
+<h3 id="创建对象的细节">创建对象的细节</h3>
+<p>在C++中，创建对象有两种方式：静态建立和动态建立。</p>
+<p>静态建立由编译器在栈上分配内存并直接调用构造函数；动态建立是通过 new
+运算符在堆上分配内存，分为两步：首先调用 operator new()
+分配内存，然后调用构造函数初始化对象。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 静态创建对象</span>
+A a;
+<span class="hljs-comment">// 动态创建对象</span>
+A *a = <span class="hljs-keyword">new</span> A;</code></pre></div>
+<p>如果希望<strong>类只能在堆上生成对象</strong>，也就意味着不能在栈上构建对象，在栈上是编译器分配内存空间，调用构造函数来构造栈对象。栈上创建的对象当对象生命周期结束后，编译器会调用析构函数来释放栈对象所占的空间，也就是说编译器管理了对象的整个生命周期。编译器在调用构造函数为类的对象分配空间时，会先检查析构函数的访问性（不光是析构函数，编译器会检查所有非静态函数的访问性）。因此，如果类的析构函数是私有的或受保护的，编译器就不会为对象在栈上分配内存空间。</p>
+<p>因此，可以将析构函数设为私有private或受保护protected，这样编译器就不会在栈上创建对象了。但需要注意，私有析构函数会导致new生成的对象无法直接调用delete，因为delete会调用对象的析构函数，但析构函数在类外无法访问。通常需要提供静态工厂方法或自定义销毁函数。如果需要子类析构，那就设为protected。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;
+<span class="hljs-keyword">protected</span>:
+    <span class="hljs-built_in">A</span>() = <span class="hljs-keyword">default</span>;
+    ~<span class="hljs-built_in">A</span>() &#123;&#125;
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">// 构造函数受保护，外部无法创建对象</span>
+    <span class="hljs-comment">// 因此将成员函数create设置为静态，可通过类名直接调用</span>
+    <span class="hljs-function"><span class="hljs-type">static</span> A* <span class="hljs-title">create</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">A</span>();
+    &#125;
+    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">destory</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">delete</span> <span class="hljs-keyword">this</span>;
+    &#125;
+&#125;;
+<span class="hljs-comment">/* 上述代码非线程安全，需要加锁，请参考懒汉单例模式的实现。 */</span></code></pre></div>
+<p>只有使用 new
+运算符才会在堆上创建对象。如果希望<strong>类只能在栈上生成对象</strong>，可以将
+operator new() 和 operator delete() 设为私有，这样 new
+运算符无法被调用，就只能在栈上创建对象了。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-comment">// 重载new运算符</span>
+    <span class="hljs-function"><span class="hljs-type">void</span>* <span class="hljs-keyword">operator</span> <span class="hljs-title">new</span> <span class="hljs-params">(<span class="hljs-type">size_t</span> t)</span> </span>&#123;&#125;
+    <span class="hljs-comment">// 重载new就要重载delete</span>
+    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-keyword">operator</span> <span class="hljs-title">delete</span><span class="hljs-params">(<span class="hljs-type">void</span> *ptr)</span> </span>&#123;&#125;
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-built_in">A</span>() &#123;&#125;
+    ~<span class="hljs-built_in">A</span>() &#123;&#125;
+&#125;</code></pre></div>
+<p><strong>阻止类创建对象</strong>的方法有两种：一是将类声明为抽象类，即包含纯虚函数，这样无法直接实例化；二是将构造函数设为私有，这样外部无法调用构造函数创建对象。抽象类通常用于定义接口，而私有构造函数常用于工具类或单例模式，确保对象的创建方式受控。</p>
+<h3 id="有哪些构造函数">有哪些构造函数？</h3>
+<p>类对象被创建时，编译器为对象分配内存空间，并自动调用构造函数，由构造函数完成成员的初始化工作。</p>
+<p><strong>默认构造函数：</strong>如果没有人为编写构造函数，编译器会自动生成一个无参构造函数（编译器的默认行为）。</p>
+<p><strong>一般构造函数：</strong>用户自定义的带参数的构造函数，支持重载。当用户自定义构造函数后，编译器就不会自动生成默认构造函数了，因此用户最好也写一个无参构造函数。</p>
+<p><strong>拷贝构造函数：</strong>拷贝构造函数的函数参数为对象本身的引用，用于根据一个已存在的对象复制出一个新的该类的对象。一般在函数中会将已存在对象的数据成员的值一一复制到新创建的对象中。如果没有显式的写拷贝构造函数，系统会默认创建一个拷贝构造函数进行浅拷贝。所以当类中有指针成员时，不要使用编译器提供的默认拷贝构造函数，最好自己定义并且在函数中执行深拷贝。</p>
+<p><strong>移动构造函数：</strong>有时候我们会遇到这样一种情况，我们用对象a初始化对象b后，对象a就不再使用了，但是对象a的空间还在（在析构之前）。既然拷贝构造函数是把a对象的内容复制一份到b中，那么为什么我们不能直接使用a的空间呢？这样就避免了新的空间分配，大大降低了构造的成本。这就是移动构造函数设计的初衷。拷贝构造函数中，对于指针我们一定要采用深层复制，而移动构造函数中，对于指针采用浅层复制。浅层复制之所以危险，是因为两个指针共同指向一片内存空间。若第一个指针将其释放，另一个指针的指向就不合法了（悬空指针）。所以我们只要保证空间只释放一次就可以：将对象a的指针置空，析构a的时候（有判空语句）就不会回收其指向的空间，在析构b的时候再回收（是同一块空间）。通过"窃取"临时对象a的资源来提升效率。</p>
+<p><strong>赋值运算符重载：</strong>类似拷贝构造函数但不属于构造函数的范畴，实现对象间的赋值操作。注意：并不是出现
+= 就是拷贝构造或赋值操作，如：</p>
+<div class="code-wrapper"><pre><code class="hljs C++">A a1;
+<span class="hljs-function">A <span class="hljs-title">a2</span><span class="hljs-params">(a1)</span></span>;  <span class="hljs-comment">// 直接调用拷贝构造函数</span>
+A a2 = a1;  <span class="hljs-comment">// 直接调用拷贝构造函数</span>
+
+A a1, a2;
+a1 = a2;  <span class="hljs-comment">// 拷贝赋值操作</span></code></pre></div>
+<p><strong>类型转换构造函数：</strong>支持隐式转换，但可用explicit关键字禁止。一般来说带一个参数的构造函数，或者除第一个参数之外的其他参数都指定默认值的构造函数，也叫类型转换构造函数。</p>
+<p><strong>委托构造函数：</strong>C++11的新特性，构造函数调用同类其他构造函数（委托构造）。</p>
+<h3
+id="构造函数析构函数能否抛出异常">构造函数/析构函数能否抛出异常？</h3>
+<p>对象只有在构造函数执行完成之后才算构造妥当，C++只会析构已经完成的对象。因此如果构造函数中发生异常，控制权就需要转移出构造函数，执行异常处理函数。在这个过程中系统会认为对象没有构造成功，导致不会调用析构函数。</p>
+<p>在构造函数中抛出异常会导致当前函数执行流程终止，在构造函数流程前构造的成员对象会被释放，但是如果在构造函数中申请了内存操作，则会造成内存泄漏。使用智能指针管理内存资源可以解决这个问题。</p>
+<p>另外，如果有继承关系，派生类中的构造函数抛出异常，那么基类的构造函数和析构函数是可以照常执行的。</p>
+<p>C++标准指明析构函数不能、也不应该抛出异常。C++的异常处理模型最大的特点和优势就是对C++中的面向对象提供了强大的无缝支持。如果对象在运行期间出现了异常，C++异常处理模型有责任清除那些由于出现异常所导致的已经失效了的对象（也即对象超
+出了它原来的作用域），并释放对象原来所分配的资源（调用这些对象的析构函数来完成释放资源的任务）。所以从这个意义上说，析构函数已经变成了异常处理的一部分。</p>
+<p>析构函数不能抛出异常原因有两个：</p>
+<ol type="1">
+<li><p>如果析构函数抛出异常，则异常点之后的程序不会执行，如果析构函数在异常点之后执行了某些必要的动作比如释放某些资源，则这些动作不会执行，会造成资源泄漏的问题。</p></li>
+<li><p>异常发生时，C++的异常处理机制在异常的传播过程中会进行栈展开（stack-unwinding）。在栈展开的过程中会调用已经在栈中构造好的对象的析构函数来释放资源，此时若其他析构函数本身也抛出异常，则前一个异常尚未处理又出现新的异常，会造成程序崩溃。</p></li>
+</ol>
+<p>解决办法：把异常完全封装在析构函数内部，决不让异常抛出函数之外。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Programming/" class="category-chain-item">Programming</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/study/" class="print-no-link">#study</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>码农日记 · 叁</div>
+      <div>https://afly36-swordsman.github.io/2025/04/19/Programming04/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Zenitsu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>April 19, 2025</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Updated on</div>
+          <div>April 19, 2025</div>
+        </div>
+      
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/28/Linux/" title="LinuxOS">
+                        <span class="hidden-mobile">LinuxOS</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Programming"
+        id="heading-e6f43c40ab1c07cd29e4e83e4ef6bf85" role="tab" data-toggle="collapse" href="#collapse-e6f43c40ab1c07cd29e4e83e4ef6bf85"
+        aria-expanded="true"
+      >
+        Programming
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-e6f43c40ab1c07cd29e4e83e4ef6bf85"
+           role="tabpanel" aria-labelledby="heading-e6f43c40ab1c07cd29e4e83e4ef6bf85">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/03/16/Coding/" title="Coding Corner"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Coding Corner</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/28/Linux/" title="LinuxOS"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">LinuxOS</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/07/28/Programming03/" title="开发者笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">开发者笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/19/Programming04/" title="码农日记 · 叁"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">码农日记 · 叁</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/21/Programming01/" title="码农日记 · 壹"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">码农日记 · 壹</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/10/Programming02/" title="码农日记 · 贰"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">码农日记 · 贰</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+
+  <div>
+    <span id="timeDate">正在载入天数...</span>
+    <span id="times">载入时分秒...</span>
+    <script>
+    var now = new Date();
+    function createtime(){
+        var grt= new Date("11/24/2023 11:30:00");
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if(String(mnum).length ==1 ){
+                  mnum = "0" + mnum;
+        }
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if(String(snum).length ==1 ){
+                  snum = "0" + snum;
+        }
+        document.getElementById("timeDate").innerHTML = "🚀 for&nbsp"+dnum+"&nbspdays";  
+        document.getElementById("times").innerHTML = hnum + "&nbsphr&nbsp" + mnum + "&nbspmin&nbsp" + snum + "&nbspsec";
+    }
+    setInterval("createtime()",250);
+    </script>
+  </div>  
+
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+
+</div>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/custom.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+
+</body>
+</html>

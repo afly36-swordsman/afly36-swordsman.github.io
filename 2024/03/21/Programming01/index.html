@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2025-03-23T03:48:13.428Z">
+<meta property="article:modified_time" content="2025-04-19T05:55:40.249Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on March 23, 2025 am
+                    Last updated on April 19, 2025 pm
                   
                 
               </p>
@@ -459,11 +459,15 @@ Java:接口vs抽象类</strong>。</p>
 <p>方法覆盖与重载的详细对比点此查看：<a
 target="_blank" rel="noopener" href="https://www.runoob.com/java/java-override-overload.html">runnoob:
 java - override and overload</a></p>
-<p>C++中有一个概念叫：<font color="purple">命名空间</font>，是一个由程序设计者命名的内存区域，它定义了一个包含多个变量和函数的范围，使其不会与命名空间以外的任何变量和函数发生重名的冲突。每个程序员可以定义自己的命名空间，多个工程师开发同一个项目时，对程序的管理更加便捷和高效。命名空间的关键字是namespace，命名空间可以相互分隔不同的全局实体，但是命名空间不能同名。在成员名字这个方面，我觉得命名空间与方法覆盖和方法重载有异曲同工之妙。下面是关于命名空间的简单C++示例：</p>
+<p>C++中有一个概念叫：<font color="purple">命名空间</font>，是一个由程序设计者命名的内存区域，它定义了一个包含多个变量和函数的范围，使其不会与命名空间以外的任何变量和函数发生重名的冲突。每个程序员可以定义自己的命名空间，多个工程师开发同一个项目时，对程序的管理更加便捷和高效。命名空间的关键字是namespace，命名空间可以相互分隔不同的全局实体，但是命名空间不能同名。在成员名字这个方面，我觉得命名空间与方法覆盖和方法重载有异曲同工之妙。当然，C++概念中也有函数的重载和重写/覆盖，前者是静态绑定/编译时多态，后者是动态绑定/运行时多态，详细介绍参见下文：C++核心之继承与多态。</p>
+<p>C++标准库提供了大量有用的功能（如输入输出、容器、算法等），但这些名称可能会与用户自定义的名称冲突。为了避免命名冲突，C++引入了命名空间（namespace）的概念，将标准库的所有内容封装在
+std 命名空间中。std 是标准命名空间（Standard
+Namespace）的缩写，它包含了C++标准库（Standard
+Library）中的所有标识符，比如：cin、cout、vector、string等。</p>
+<p>下面是关于命名空间的简单C++示例：</p>
 <div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-comment">// std是输入输出标准的类，它包括了cin和cout成员（内置对象）</span>
-<span class="hljs-comment">// 利用此语句可以直接使用这些成员函数</span>
-<span class="hljs-comment">// 如果没有此语句，那么需要用 std::cin 或者 std::cout 进行使用</span>
+<span class="hljs-comment">// 这条语句告诉编译器在当前代码中默认使用std中的所有标识符（包括cin和cout成员（内置对象））</span>
+<span class="hljs-comment">// 这样在代码中就可以直接使用这些名称，而不需要在前面加上 std:: 前缀</span>
 <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
 <span class="hljs-keyword">namespace</span> first_field  <span class="hljs-comment">/* 第一个命名空间 */</span>
 &#123;
@@ -494,7 +498,7 @@ java - override and overload</a></p>
 <p>内存一般分成以下6个区：</p>
 <p>栈区（Stack）：编译器自行分配、自行释放，存放局部变量的值、函数（方法）参数、寄存器内容、函数返回的地址等。栈相当于一个受限的线性表，主要用于数据交换、函数调用、断点保护等，空间不大，随用随消。</p>
 <p>堆区（Heap）：由程序员进行分配、释放，如Java中的new操作。堆相当于一个特殊的完全二叉树，空间大，主要用来存放大量文件，操作类似于链表。</p>
-<p>自由存储区：由malloc等进行分配的内存块，用free释放空间。与堆的new生成和delete释放类似。</p>
+<p>自由存储区：由malloc等进行分配的内存块，用free释放空间。与堆的new生成和delete释放类似。一般是在堆内存中创建、设计的。</p>
 <div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-comment">/* C语言申请内存空间 */</span>
 <span class="hljs-comment">// 顺序表的指针变量</span>
 SeqList *L;
@@ -507,6 +511,8 @@ Student stu = <span class="hljs-keyword">new</span> <span class="hljs-built_in">
 <p>文字常量区：存放常量、字符串。</p>
 <p>程序代码区：存放函数的二进制代码。</p>
 <p>全局/静态存储区：分配全局、静态变量。</p>
+<h3 id="linux系统的内存空间">Linux系统的内存空间</h3>
+<p>zz</p>
 <h3 id="引申字面量常量和变量">引申：字面量、常量和变量</h3>
 <p>先看下面的C++代码例子：</p>
 <div class="code-wrapper"><pre><code class="hljs axapta"><span class="hljs-built_in">int</span> a;  <span class="hljs-comment">// 变量</span>
@@ -760,7 +766,7 @@ p = <span class="hljs-number">15</span>;  <span class="hljs-comment">// 报错: 
 <code>&amp;</code> 来获取变量的地址，并使用解引用运算符 <code>*</code>
 来访问存储在该地址上的值。指针可以被赋值为 <code>nullptr</code>
 或者另一个变量的地址，可以进行指针算术运算。</p>
-<p>引用是一个别名，它本质上是一个指针常量，必须在创建时初始化，并且不能被重新赋值为另一个变量的引用。引用使用
+<p>引用是一个别名，它本质上是一个常量指针，必须在创建时初始化，并且不能被重新赋值为另一个变量的引用。引用使用
 <code>&amp;</code>
 符号进行声明，并且在声明时必须绑定到一个已经存在的变量。对引用的操作就像对变量本身的操作一样，不需要使用解引用运算符。</p>
 <h4 id="空值安全性和错误">2.空值、安全性和错误</h4>
@@ -1756,7 +1762,7 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 23, 2025</div>
+          <div>April 19, 2025</div>
         </div>
       
       
@@ -1820,7 +1826,7 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
         aria-expanded="true"
       >
         Programming
-        <span class="list-group-count">(5)</span>
+        <span class="list-group-count">(6)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1856,6 +1862,15 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">开发者笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/19/Programming04/" title="码农日记 · 叁"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">码农日记 · 叁</span>
         </a>
       
     
