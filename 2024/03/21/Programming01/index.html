@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2025-04-19T05:55:40.249Z">
+<meta property="article:modified_time" content="2025-04-19T09:39:22.143Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          41k words
+          42k words
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          52 mins
+          53 mins
         
       </span>
     
@@ -512,7 +512,70 @@ Student stu = <span class="hljs-keyword">new</span> <span class="hljs-built_in">
 <p>程序代码区：存放函数的二进制代码。</p>
 <p>全局/静态存储区：分配全局、静态变量。</p>
 <h3 id="linux系统的内存空间">Linux系统的内存空间</h3>
-<p>zz</p>
+<p>以32位的Linux为例，虚拟内存空间分布如下（从上到下按照地址由高到低的顺序）：</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">虚拟内存空间划分</th>
+<th style="text-align: center;">内存地址/说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">内核空间 =1G</td>
+<td style="text-align: center;">0xFFFFFFFF➡0xC0000000</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">环境变量与命令行参数</td>
+<td style="text-align: center;">程序运行的信息</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">栈区</td>
+<td
+style="text-align: center;">存放局部变量、函数调用上下文，地址由高到底增长↓</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">文件映射区</td>
+<td
+style="text-align: center;">存放动态库、共享内存等，地址由低到高增长↑</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">堆区</td>
+<td
+style="text-align: center;">用于动态分配的内存块，地址由低到高增长↑</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">BSS段 .bss</td>
+<td style="text-align: center;">存储未初始化的静态变量、全局变量</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">数据段 .data</td>
+<td style="text-align: center;">存储已初始化的静态变量、全局变量</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">代码段 .text</td>
+<td style="text-align: center;">存储二进制可执行代码</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">受保护的地址 ≈128M</td>
+<td style="text-align: center;">0x08048000➡0x00000000</td>
+</tr>
+</tbody>
+</table>
+<p>保留地址大小的128M是按照1024相除计算的，若除以1000那就是135M。</p>
+<p>32位的Linux指针寻址范围是 <span
+class="math inline">\(2^{32}\)</span>，因此虚拟内存大小有4GB，其中内核态空间占1G，用户态空间大小占3G。</p>
+<p>64位的Linux指针寻址范围是 <span
+class="math inline">\(2^{64}\)</span>，虚拟内存共计16EB！事实上目前64位系统只使用了48位来描述虚拟内存空间，即实际的寻址范围是
+<span
+class="math inline">\(2^{48}\)</span>，实际虚拟内存大小是256TB。其中低128T是用户态虚拟内存空间，高128T是内核态虚拟内存空间。</p>
+<h3 id="c内存分配">C++内存分配</h3>
+<p>在C++的内存分区中，数据段和BSS段在一起，因为C++默认会对静态变量和全局变量进行初始化。C++的内存与数据结构内存划分差不多：</p>
+<p>栈区：由编译器自动分配和回收空间，存放局部变量和函数参数。栈内存分配只是移动栈指针，内存分配和释放完全由程序控制（用户态），无需操作系统介入。且栈数据通常位于CPU缓存中（有良好的缓存局部性，预读命中率高），顺序结构不会产生内存碎片，访问速度极快。多线程中，每个线程都有自己的栈，不需要考虑线程同步问题。</p>
+<p>堆区：由程序员管理，手动分配和释放内存，空间较大，但可能出现空闲碎片和内存泄漏的问题。堆内存分配时需要先搜索合适大小的内存块，需要操作系统介入（通过brk或mmap系统调用），涉及用户态和内核态的切换（这会增加额外开销）。分配内存随机，若出现内存碎片会影响分配器的效率（分割、合并内存块），且堆内存分散，缓存局部性较差。若多线程，可能还需要加锁。</p>
+<p>全局/静态存储区：存储静态变量和全局变量。</p>
+<p>常量存储区：是数据段中的只读区（.rodata），存放常量字段，一般不允许修改。</p>
+<p>代码区：存放程序的二进制代码，比如各种函数。</p>
 <h3 id="引申字面量常量和变量">引申：字面量、常量和变量</h3>
 <p>先看下面的C++代码例子：</p>
 <div class="code-wrapper"><pre><code class="hljs axapta"><span class="hljs-built_in">int</span> a;  <span class="hljs-comment">// 变量</span>
