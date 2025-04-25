@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/008.jpg">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/010.jpg">
 <meta property="article:published_time" content="2024-04-10T13:52:25.975Z">
-<meta property="article:modified_time" content="2025-03-23T03:28:16.260Z">
+<meta property="article:modified_time" content="2025-04-25T13:21:04.201Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -236,7 +236,7 @@
         
         
         
-          35 mins
+          36 mins
         
       </span>
     
@@ -291,7 +291,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on March 23, 2025 am
+                    Last updated on April 25, 2025 pm
                   
                 
               </p>
@@ -641,6 +641,12 @@ T Compare&lt;T&gt;::<span class="hljs-built_in">min</span>() &#123;
 <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T1</span>&gt;  <span class="hljs-comment">// 这里必须要列出未特化的模板参数: T1</span>
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&lt;T1, <span class="hljs-type">int</span>&gt;  <span class="hljs-comment">// A 的后面要列出全部模板参数, 并指定特化的类型: 指定 int 为 T2 的特化类型</span>
 &#123; ... &#125;;</code></pre></div>
+<h2 id="指针和句柄">指针和句柄</h2>
+<p>指针和句柄都是用于引用其他资源的抽象，但它们在具体实现和用途上有所不同。</p>
+<p>指针：指针是一个变量，其值为另一个变量的地址，即，直接引用内存中的位置。通过指针，可以直接访问和操作其指向的内存。因此，指针提供了一种强大且灵活的机制，用于操作数据和创建复杂的数据结构（如链表和树）。</p>
+<p>句柄：句柄是一个抽象，它提供了一个间接引用或者是对某种资源的抽象引用。句柄可能是一个指针、一个整数、一个对象或者其他代表资源的标识符。操作系统通常使用句柄来管理和引用系统资源，如文件、窗口、连接等。句柄的实际实现通常对用户透明，用户只需要知道如何使用它。</p>
+<p>指针和句柄的主要区别在于，指针直接引用内存位置，而句柄则是对资源的抽象引用。句柄提供了一种更高级别的抽象，可以隐藏资源的实现细节，使得资源的管理更加灵活和强大。例如，通过使用句柄，操作系统可以在不影响用户的情况下，改变资源的物理位置，或者在需要时，控制对资源的访问。</p>
+<p>在某些情况下，句柄可能实际上就是一个指针，但是用户通常不需要（也不应该）知道这个细节，也不应该试图像操作指针那样直接操作句柄。</p>
 <h2 id="java-接口vs抽象类">Java: 接口vs抽象类</h2>
 <h3 id="抽象类abstract-class">抽象类(abstract class)</h3>
 <p>类，由 class 定义。类是对事物的抽象，表示这个对象是什么。</p>
@@ -1317,7 +1323,7 @@ Patterns)</h3>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>March 23, 2025</div>
+          <div>April 25, 2025</div>
         </div>
       
       
@@ -1381,7 +1387,7 @@ Patterns)</h3>
         aria-expanded="true"
       >
         Programming
-        <span class="list-group-count">(6)</span>
+        <span class="list-group-count">(7)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1444,6 +1450,15 @@ Patterns)</h3>
            class="list-group-item list-group-item-action
            active">
           <span class="category-post">码农日记 · 贰</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/25/Programming05/" title="编程天地"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">编程天地</span>
         </a>
       
     

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2025-04-19T09:39:22.143Z">
+<meta property="article:modified_time" content="2025-04-25T13:19:52.187Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          42k words
+          44k words
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          53 mins
+          56 mins
         
       </span>
     
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 19, 2025 pm
+                    Last updated on April 25, 2025 pm
                   
                 
               </p>
@@ -1761,6 +1761,76 @@ vector 和 deque 实现。</p>
 prq.<span class="hljs-built_in">push</span>(<span class="hljs-number">2</span>);  <span class="hljs-comment">// 插入新元素: 2</span>
 prq.<span class="hljs-built_in">pop</span>();  <span class="hljs-comment">// 删除队首元素(最大值元素)</span>
 prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返回队列中最大元素的引用</span></code></pre></div>
+<h3 id="关于vector容器的其他用法">关于vector容器的其他用法</h3>
+<h4 id="vector的下标访问">vector的下标访问</h4>
+<p>vector只有在有具体的空间（存储了值）的时候，才可以使用下标进行访问和赋新的值。因此，可以在定义的时候进行初始化：</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-type">int</span> len = <span class="hljs-number">5</span>;
+<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">v</span><span class="hljs-params">(len, <span class="hljs-number">0</span>)</span></span>;  <span class="hljs-comment">// 初始化len个元素并全部赋初值0</span></code></pre></div>
+<p>接下来，就可以使用 <code>v[i]</code> 进行访问和重新赋值了。</p>
+<p>如果在定义容器的时候不能确定要初始化多少元素（即len的数值不确定），那么可以在后面利用resize函数修改容器的空间，再利用下标进行读写。</p>
+<div class="code-wrapper"><pre><code class="hljs C++">vector&lt;<span class="hljs-type">int</span>&gt; v;
+<span class="hljs-type">int</span> len = <span class="hljs-number">5</span>;
+v.<span class="hljs-built_in">resize</span>(len);  <span class="hljs-comment">// 默认赋初值0</span></code></pre></div>
+<p>否则，就只能用 <code>push_back() / emplace_back()</code>
+进行尾插元素。</p>
+<h4 id="vector的空间变换">vector的空间变换</h4>
+<p>vector容器有两个与空间相关的成员函数：resize、reserve。</p>
+<p><font color="red">resize函数</font>用于改变 std::vector
+的大小，即修改容器中存储的元素数量。它有以下两个版本：</p>
+<p><code>resize(size_type count)</code>：将容器的大小调整为
+count。如果当前容器的长度小于
+count，则会添加默认构造的元素；如果当前容器的长度大于
+count，则会从尾部删除多余的元素。</p>
+<p><code>resize(size_type count, const value_type&amp; value)</code>：将容器的大小调整为
+count。如果当前容器的长度小于 count，则会添加指定值 value
+的元素；如果当前容器的长度大于 count，则会从尾部删除多余的元素。</p>
+<p><font color="green">reserve函数</font>用于预留内存空间，以提高性能。它不会改变容器的大小（即不会改变容器中存储的元素数量：<code>v.size()</code>可以获取实际存储的元素个数），但会分配足够的内存来容纳指定数量的元素（即容量：<code>v.capacity()</code>可以获取容器已分配的空间大小）。</p>
+<p><code>reserve(size_type new_capacity)</code>：预留足够的内存空间，使容器的容量（capacity）至少为
+new_capacity。如果 new_capacity 小于当前容量，则不作任何处理；如果
+new_capacity 大于当前容量，则会分配大小为 new_capacity
+的新内存，并将容器中现有元素复制到新的内存空间中。</p>
+<p>注意：reserve预留的空间是扩展capacity，只有size才能使用下标进行访问，所以一定要注意二者的区别，防止索引越界。</p>
+<h4 id="vector的元素操作">vector的元素操作</h4>
+<p>交换容器或容器的值：</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 交换容器中的两个值的位置，可以用&lt;algorithm&gt;头文件中的标准库函数swap</span>
+<span class="hljs-built_in">swap</span>(v[i], v[j]);
+<span class="hljs-comment">// 使用标准库函数iter_swap也行，这个函数操作的是迭代器</span>
+<span class="hljs-built_in">iter_swap</span>(v.<span class="hljs-built_in">begin</span>() + i, v.<span class="hljs-built_in">begin</span>() + j);
+
+<span class="hljs-comment">// 如果需要交换两个容器，可以用容器的成员函数swap，避免拷贝操作</span>
+<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">v1</span><span class="hljs-params">(<span class="hljs-number">3</span>, <span class="hljs-number">0</span>)</span></span>;
+vector&lt;<span class="hljs-type">int</span>&gt; v2 = &#123;<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>&#125;;
+v1.<span class="hljs-built_in">swap</span>(v2);
+
+<span class="hljs-comment">// 使用标准库函数也可以交换两个容器，底层交换的是指针，非常高效</span>
+<span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">v1</span><span class="hljs-params">(<span class="hljs-number">3</span>, <span class="hljs-number">0</span>)</span></span>;
+vector&lt;<span class="hljs-type">int</span>&gt; v2 = &#123;<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>&#125;;
+<span class="hljs-built_in">swap</span>(v1, v2);</code></pre></div>
+<p>容器所有元素置0：</p>
+<div class="code-wrapper"><pre><code class="hljs C++">std::vector&lt;<span class="hljs-type">int</span>&gt; vec = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;
+    
+<span class="hljs-comment">// 方法1: 使用 std::fill 标准库函数</span>
+std::<span class="hljs-built_in">fill</span>(vec.<span class="hljs-built_in">begin</span>(), vec.<span class="hljs-built_in">end</span>(), <span class="hljs-number">0</span>);
+    
+<span class="hljs-comment">// 方法2: 使用 std::fill_n 标准库函数</span>
+std::<span class="hljs-built_in">fill_n</span>(vec.<span class="hljs-built_in">begin</span>(), vec.<span class="hljs-built_in">size</span>(), <span class="hljs-number">0</span>);
+    
+<span class="hljs-comment">// 方法3: 使用 assign (适用于所有元素类型)</span>
+vec.<span class="hljs-built_in">assign</span>(vec.<span class="hljs-built_in">size</span>(), <span class="hljs-number">0</span>);
+    
+<span class="hljs-comment">// 方法4: 使用范围for循环</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; elem : vec) &#123;
+    elem = <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>清空容器：</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 方法1: clear (适用于后续重用的情况，避免重新分配空间)</span>
+<span class="hljs-comment">// size()：立即变为 0（容器变为空），capacity()：保持不变（内存未被释放）</span>
+<span class="hljs-function">std::vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">vec</span><span class="hljs-params">(<span class="hljs-number">100</span>)</span></span>;
+vec.<span class="hljs-built_in">clear</span>();
+
+<span class="hljs-comment">// 方法2: 使用 clear + shrink_to_fit (C++11引入)</span>
+vec.<span class="hljs-built_in">clear</span>();  <span class="hljs-comment">// size=0, capacity不变</span>
+vec.<span class="hljs-built_in">shrink_to_fit</span>();  <span class="hljs-comment">// 请求释放多余内存（capacity可能降为0，但非强制）</span></code></pre></div>
 
                 
               </div>
@@ -1825,7 +1895,7 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 19, 2025</div>
+          <div>April 25, 2025</div>
         </div>
       
       
@@ -1889,7 +1959,7 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
         aria-expanded="true"
       >
         Programming
-        <span class="list-group-count">(6)</span>
+        <span class="list-group-count">(7)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1952,6 +2022,15 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">码农日记 · 贰</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/25/Programming05/" title="编程天地"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">编程天地</span>
         </a>
       
     
