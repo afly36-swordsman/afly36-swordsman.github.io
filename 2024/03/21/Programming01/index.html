@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2025-04-25T13:19:52.187Z">
+<meta property="article:modified_time" content="2025-04-26T14:04:42.291Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 25, 2025 pm
+                    Last updated on April 26, 2025 pm
                   
                 
               </p>
@@ -1771,7 +1771,7 @@ prq.<span class="hljs-built_in">top</span>();  <span class="hljs-comment">// 返
 <div class="code-wrapper"><pre><code class="hljs C++">vector&lt;<span class="hljs-type">int</span>&gt; v;
 <span class="hljs-type">int</span> len = <span class="hljs-number">5</span>;
 v.<span class="hljs-built_in">resize</span>(len);  <span class="hljs-comment">// 默认赋初值0</span></code></pre></div>
-<p>否则，就只能用 <code>push_back() / emplace_back()</code>
+<p>否则，就只能用 <code>push_back()</code> / <code>emplace_back()</code>
 进行尾插元素。</p>
 <h4 id="vector的空间变换">vector的空间变换</h4>
 <p>vector容器有两个与空间相关的成员函数：resize、reserve。</p>
@@ -1806,6 +1806,13 @@ v1.<span class="hljs-built_in">swap</span>(v2);
 <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">v1</span><span class="hljs-params">(<span class="hljs-number">3</span>, <span class="hljs-number">0</span>)</span></span>;
 vector&lt;<span class="hljs-type">int</span>&gt; v2 = &#123;<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>&#125;;
 <span class="hljs-built_in">swap</span>(v1, v2);</code></pre></div>
+<p>用一个容器初始化另一个容器：</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">/* 使用 std::move 将 t 的资源移动到 v */</span>
+vector&lt;<span class="hljs-type">int</span>&gt; t = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>&#125;;
+<span class="hljs-comment">// move()将t转换为右值引用，触发vector的移动构造函数，直接将t的资源转移给v</span>
+vector&lt;<span class="hljs-type">int</span>&gt; v = <span class="hljs-built_in">move</span>(t);
+<span class="hljs-comment">// 若v已经定义，那么这条语句将触发vector重载的移动赋值运算符进行移动拷贝赋值</span>
+v = <span class="hljs-built_in">move</span>(t);</code></pre></div>
 <p>容器所有元素置0：</p>
 <div class="code-wrapper"><pre><code class="hljs C++">std::vector&lt;<span class="hljs-type">int</span>&gt; vec = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;
     
@@ -1895,7 +1902,7 @@ vec.<span class="hljs-built_in">shrink_to_fit</span>();  <span class="hljs-comme
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 25, 2025</div>
+          <div>April 26, 2025</div>
         </div>
       
       

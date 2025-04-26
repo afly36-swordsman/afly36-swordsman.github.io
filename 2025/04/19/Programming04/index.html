@@ -24,7 +24,7 @@
 <meta property="og:description" content="C++技术百问 指针常量和常量指针  指针常量 ，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是 底层const ，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-19T05:35:38.649Z">
-<meta property="article:modified_time" content="2025-04-25T13:22:53.534Z">
+<meta property="article:modified_time" content="2025-04-26T13:56:37.802Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 25, 2025 pm
+                    Last updated on April 26, 2025 pm
                   
                 
               </p>
@@ -607,7 +607,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
 <h3 id="堆排序">堆排序</h3>
 <p>不稳定，时间复杂度稳定为<code>O(nlogn)</code>，简单选择排序的升级版，性能强于冒泡、简单选择和直接插入。利用大顶堆排序，每次弹出堆顶元素（最大值），与待排序序列末尾元素交换（最大值在最后，是升序排序），然后"去掉"最后的已排序序列，对剩余元素重构大顶堆……如此反复执行。由于初始构建堆需要的比较次数较多，不适用于待排序序列个数较少的情况。</p>
 <div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 堆排序</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Sorter::heapSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v)</span> </span>&#123;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">heapSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v)</span> </span>&#123;
     <span class="hljs-type">int</span> n = v.<span class="hljs-built_in">size</span>();  <span class="hljs-comment">//元素个数</span>
     <span class="hljs-keyword">if</span> (n &lt;= <span class="hljs-number">1</span>) &#123;
         <span class="hljs-keyword">return</span>;  <span class="hljs-comment">//v为空或只有一个值，不需要排序</span>
@@ -636,7 +636,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
 
 <span class="hljs-comment">// 堆排序辅助函数：构建大顶堆（堆就是一棵特殊的完全二叉树，根据节点值的有序性分为大顶堆和小顶堆）</span>
 <span class="hljs-comment">// 若父节点下标是i，则左孩子节点下标是2*i+1，右孩子是2*i+2（注意判空），最后一个非叶子节点下标是n/2-1</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Sorter::buildHeap</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> len)</span> </span>&#123;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">buildHeap</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> len)</span> </span>&#123;
     <span class="hljs-type">int</span> root = i;  <span class="hljs-comment">//定义堆顶&quot;指针&quot;，应该存放最大值</span>
     <span class="hljs-type">int</span> leftChild = <span class="hljs-number">2</span> * i + <span class="hljs-number">1</span>;  <span class="hljs-comment">//左孩子节点下标</span>
     <span class="hljs-type">int</span> rightChild = <span class="hljs-number">2</span> * i + <span class="hljs-number">2</span>;  <span class="hljs-comment">//右孩子节点下标</span>
@@ -658,7 +658,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
 <h3 id="归并排序">归并排序</h3>
 <p>稳定，时间复杂度稳定在<code>O(nlogn)</code>，空间复杂度较高。思想：分治，每次将子序列一分为二，直到分割为单个元素（必定有序），再两两归并为一个有序序列。归并排序是一种比较占用内存，但效率高且稳定的排序算法，这里的是递归实现，实际工程应用中优先考虑非递归实现。</p>
 <div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 归并排序</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Sorter::mergeSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span> </span>&#123;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">mergeSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span> </span>&#123;
     <span class="hljs-comment">// 递归终止条件</span>
     <span class="hljs-keyword">if</span> (left &gt;= right) &#123;
         <span class="hljs-keyword">return</span>;
@@ -675,7 +675,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
 
 <span class="hljs-comment">// 归并排序辅助函数：将有序的两个分组合并/归并为一个</span>
 <span class="hljs-comment">// 将有序的 v[i,...,m] 和 v[m+1,...,n] 归并为一个有序的 v[i,...,n]</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Sorter::merge</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;
     <span class="hljs-comment">// 临时存放归并的结果</span>
     vector&lt;<span class="hljs-type">int</span>&gt; record&#123;&#125;;
     record.<span class="hljs-built_in">reserve</span>(n - i + <span class="hljs-number">1</span>);
@@ -709,7 +709,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
 <h3 id="快速排序">快速排序</h3>
 <p>不稳定，平均时间复杂度是<code>n(logn)</code>，是冒泡排序的升级版（属于交换排序）。快排有各种优化版本，优化后的综合性能最好，这里给出的是部分优化的结果。</p>
 <div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 快速排序</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Sorter::quickSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> low, <span class="hljs-type">int</span> high)</span> </span>&#123;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> low, <span class="hljs-type">int</span> high)</span> </span>&#123;
     <span class="hljs-comment">// 递归终止条件</span>
     <span class="hljs-keyword">if</span> (low &gt;= high) &#123;
         <span class="hljs-keyword">return</span>;
@@ -817,7 +817,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 25, 2025</div>
+          <div>April 26, 2025</div>
         </div>
       
       
