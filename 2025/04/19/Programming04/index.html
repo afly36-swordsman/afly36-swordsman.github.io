@@ -16,15 +16,15 @@
   <meta name="author" content="Zenitsu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="C++技术百问 指针常量和常量指针  指针常量 ，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是 底层const ，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt;">
+    <meta name="description" content="C++技术百问 指针常量和常量指针 指针常量，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是底层const，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt; endl;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="码农日记 · 叁">
 <meta property="og:url" content="https://afly36-swordsman.github.io/2025/04/19/Programming04/index.html">
 <meta property="og:site_name" content="Mark | Learning &amp; Routine">
-<meta property="og:description" content="C++技术百问 指针常量和常量指针  指针常量 ，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是 底层const ，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt;">
+<meta property="og:description" content="C++技术百问 指针常量和常量指针 指针常量，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是底层const，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt; endl;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-19T05:35:38.649Z">
-<meta property="article:modified_time" content="2025-04-26T13:56:37.802Z">
+<meta property="article:modified_time" content="2025-04-27T14:06:34.207Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          14k words
+          15k words
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          18 mins
+          20 mins
         
       </span>
     
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 26, 2025 pm
+                    Last updated on April 27, 2025 pm
                   
                 
               </p>
@@ -296,9 +296,7 @@
                 
                 <h2 id="c技术百问">C++技术百问</h2>
 <h3 id="指针常量和常量指针">指针常量和常量指针</h3>
-<p><font color="red"> 指针常量
-</font>，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是<font color="purple">
-底层const </font>，指针指向的内容不可变：</p>
+<p><font color="red">指针常量</font>，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是<font color="purple">底层const</font>，指针指向的内容不可变：</p>
 <div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-type">int</span> a = <span class="hljs-number">10</span>, b = <span class="hljs-number">50</span>;
 <span class="hljs-type">const</span> <span class="hljs-type">int</span> *p = &amp;a;  <span class="hljs-comment">// 指针常量，底层const</span>
 <span class="hljs-type">int</span> <span class="hljs-type">const</span> *q = &amp;a;  <span class="hljs-comment">// 同上</span>
@@ -306,9 +304,7 @@ cout &lt;&lt; *p &lt;&lt; endl;  <span class="hljs-comment">// 10</span>
 p = &amp;b;  <span class="hljs-comment">// 可以改变指针指向</span>
 cout &lt;&lt; *p &lt;&lt; endl;  <span class="hljs-comment">// 50</span>
 *p = <span class="hljs-number">20</span>;  <span class="hljs-comment">// 报错，不可以修改指向的值！</span></code></pre></div>
-<p><font color="red"> 常量指针
-</font>，理解为：指针是个常量，即指针变量本身不可变，修饰的const类型是<font color="purple">
-顶层const </font>，指针的指向不可变：</p>
+<p><font color="red">常量指针</font>，理解为：指针是个常量，即指针变量本身不可变，修饰的const类型是<font color="purple">顶层const</font>，指针的指向不可变：</p>
 <div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;
 <span class="hljs-type">int</span> * <span class="hljs-type">const</span> p = &amp;a;  <span class="hljs-comment">// 常量指针，顶层const</span>
 <span class="hljs-type">int</span> * <span class="hljs-type">const</span> q;  <span class="hljs-comment">// 报错，必须在定义时初始化</span>
@@ -344,6 +340,54 @@ array[0]（把int引用替换成int值8）还是该元素所引用的对象（�
 优化的前提下，增加了寄存器的优化和指令级优化，编译期占用的内存和编译时间也会相应增加。</p>
 <p>-O3 在 O2 的基础上进一步优化，但可能引入不可预测行为，通常推荐使用
 -O2 平衡性能与稳定性。</p>
+<h3 id="编译过程">编译过程</h3>
+<p>GCC编译的过程包括：预处理、编译、汇编和链接。</p>
+<h4 id="预处理preprocessing">预处理（Preprocessing）</h4>
+<p>预处理是C++编译的第一阶段，也叫预编译，主要处理源代码文件中的预处理指令（以#开头的指令）。</p>
+<p>预处理器的主要任务包括：头文件展开、宏替换、删除注释等。</p>
+<p>预处理器的具体任务如下：</p>
+<ul>
+<li>宏展开：将宏定义替换为相应的代码（直接文本替换，不进行类型检测）。</li>
+<li>包含头文件：将<code>#include</code>指令指定的头文件内容插入到源代码中。</li>
+<li>条件编译：根据<code>#ifdef</code>、<code>#ifndef</code>、<code>#if</code>、<code>#else</code>、<code>#elif</code>和<code>#endif</code>指令，选择性地包含或排除代码块。</li>
+<li>删除注释：移除源代码中的注释。</li>
+</ul>
+<p>预处理器的输入：源代码文件（<code>.cpp</code>或<code>.c</code>），输出：通常是<code>.i</code>（一般是C）或<code>.ii</code>（C++）文件。</p>
+<h4 id="编译compilation">编译（Compilation）</h4>
+<p>编译阶段将预处理后的文件转换为汇编语言代码。</p>
+<p>编译器的主要任务包括：词法分析、语法分析（语法树）、语义分析（类型检查、构建符号表）、代码优化等。</p>
+<p>编译器具体任务如下：</p>
+<ul>
+<li>词法分析：将源代码分解为标记（tokens）。</li>
+<li>语法分析：根据C++的语法规则，将标记组合成抽象语法树（abstract syntax
+tree，AST）。</li>
+<li>语义分析：检查代码的语义是否正确，例如类型检查、符号表的构建等。</li>
+<li>中间代码生成：将AST转换为中间代码（如三地址代码）。</li>
+<li>优化：对中间代码进行优化，提高代码的执行效率。</li>
+<li>目标代码生成：将优化后的中间代码转换为汇编语言代码。</li>
+</ul>
+<p>编译器的输入：预处理后的文件（<code>.i</code>或<code>.ii</code>），输出：汇编语言文件（<code>.s</code>）。</p>
+<h4 id="汇编assembly">汇编（Assembly）</h4>
+<p>汇编阶段将汇编语言代码转换/翻译为机器代码。</p>
+<p>汇编器的主要任务有：</p>
+<ul>
+<li>符号解析：将汇编语言中的符号（如标签、变量名等）解析为具体的地址。</li>
+<li>指令转换：将汇编指令转换为机器指令。</li>
+<li>生成目标文件：生成可重定位的目标文件。</li>
+</ul>
+<p>汇编器的输入：汇编语言文件（<code>.s</code>），输出：目标文件（<code>.o</code>）。</p>
+<h4 id="链接linking">链接（Linking）</h4>
+<p>链接阶段将多个目标文件和库文件组合成一个可执行文件。</p>
+<p>链接器的主要任务有：</p>
+<ul>
+<li>符号解析：解析目标文件中的符号引用，将它们与定义符号的目标文件或库文件关联起来。</li>
+<li>地址分配：为每个目标文件分配内存地址，确保它们在内存中正确加载。</li>
+<li>重定位：根据分配的地址，调整目标文件中的指令和数据的地址。</li>
+<li>生成可执行文件：生成最终的可执行文件。</li>
+</ul>
+<p>链接器的输入是汇编生成的多个目标文件（.o）和库文件，库文件有两种：静态库（Linux：<code>.a</code>；Windows：<code>.lib</code>）、动态库（Linux：<code>.so</code>；Windows：<code>.dll</code>）。</p>
+<p>链接器的输出是可执行文件（Linux：<code>.out</code>，一般不显示扩展名；Windows：<code>.exe</code>），在命令行窗口用
+<code>./$FILE_NAME$</code> 可以运行。</p>
 <h3
 id="c四种变量存储类型分别是什么">C++四种变量存储类型分别是什么？</h3>
 <p>C++中的变量存储类型分为四种：auto、static、extern和register。</p>
@@ -613,7 +657,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
         <span class="hljs-keyword">return</span>;  <span class="hljs-comment">//v为空或只有一个值，不需要排序</span>
     &#125;
     
-    <span class="hljs-comment">// 堆排序Stage1：建堆阶段，建堆阶段：初始数组是无序的，必须确保所有子树都满足堆的性质</span>
+    <span class="hljs-comment">// 堆排序Stage1：建堆阶段，由于初始数组是无序的，必须确保所有子树都满足堆的性质</span>
     <span class="hljs-comment">// 叶子节点没有孩子，所以从第一个非叶子节点开始，从下往上逐层构造大顶堆</span>
     <span class="hljs-comment">// 根据构建大顶堆函数可知，每次构建只比较当前层的父节点与孩子节点大小，然后向下递归</span>
     <span class="hljs-comment">// 所以必须保证自底向上构造，才能将最大值向上传递，确保每棵子树都是堆</span>
@@ -817,7 +861,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 26, 2025</div>
+          <div>April 27, 2025</div>
         </div>
       
       
