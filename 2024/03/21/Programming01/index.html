@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://afly36-swordsman.github.io/img/stage2/005.jpg">
 <meta property="article:published_time" content="2024-03-21T04:27:51.582Z">
-<meta property="article:modified_time" content="2025-04-26T14:04:42.291Z">
+<meta property="article:modified_time" content="2025-04-29T12:09:21.594Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          44k words
+          45k words
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          56 mins
+          57 mins
         
       </span>
     
@@ -288,7 +288,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 26, 2025 pm
+                    Last updated on April 29, 2025 pm
                   
                 
               </p>
@@ -1094,7 +1094,7 @@ Box::~<span class="hljs-built_in">Box</span>() &#123;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 <h3 id="静态数据成员">静态数据成员</h3>
-<p>静态数据成员，为类的所有对象共享，内存中只占用一份空间。在创建第一个对象时，所有的静态数据都会被初始化为0，因此不能将静态成员的初始化放在类中定义，否则会冲突。</p>
+<p>静态数据成员，为类的所有对象共享，内存中只占用一份空间。不能将静态成员的初始化放在类中定义，静态成员变量的存储空间需要在程序启动时分配，而不是在对象创建时分配。如果在类中定义静态成员变量，编译器无法确定它的存储位置和初始化时机。</p>
 <div class="code-wrapper"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Box</span> &#123;
     <span class="hljs-keyword">public</span>:
         <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">volume</span><span class="hljs-params">()</span></span>;
@@ -1380,6 +1380,8 @@ B 中的成员函数 show()。</p>
 <p>在面向对象方法中一般是这样表述多态性的：向不同的对象发送同一个消息，不同的对象在接收时会产生不同的行为（即各自的方法）。也就是说，每个对象可以用自己的方式去响应共同的消息。所谓消息，就是调用（基类）函数，不同的行为就是指不同的实现，即执行不同的函数。函数重载就是一种多态性。</p>
 <p>从系统实现的角度看，多态性分为两类：静态多态性和动态多态性。</p>
 <p>函数重载、运算符重载就属于静态多态性，在程序编译时系统就能决定调用的是哪个函数，因此静态多态性又称编译时的多态性。静态多态性是通过函数的重载实现的。</p>
+<p>模板也属于静态多态：通过模板参数的不同实例化方式实现静态多态。模板的实例化主要发生在编译期间，编译器会根据模板的使用情况生成具体的代码。编译器会根据传入函数模板的参数类型实例化模板函数，当试图使用某个类模板创建对象时，编译器会根据模板参数实例化模板类。在某些情况下，模板的实例化可能会被延迟到链接阶段，这通常发生在模板的定义和使用位于不同的编译单元（translation
+unit）时。模板的实例化不仅生成代码，还会进行类型检查。</p>
 <p>动态多态性是在程序运行过程中才动态地确定操作所针对的对象，它又称运行时的多态性。动态多态性是通过虚函数实现的。</p>
 <h3 id="多态的动态实现虚函数">多态的动态实现：虚函数</h3>
 <p>C++的多态性用一句话概括就是：在基类的函数前加上 virtual
@@ -1645,7 +1647,7 @@ lst.<span class="hljs-built_in">pop_back</span>();  <span class="hljs-comment">/
 <p>deque 的语法与 vector 类似，但是可以用 list
 中的一些成员函数（用于两端插入和删除）。</p>
 <h3 id="关联容器">关联容器</h3>
-<p>用非线性的二叉树结构实现，具体的说是：平衡二叉搜索（排序）树（AVL树，以两位发明此法的俄罗斯数学家的名字命名），更具体的说是：红黑树。</p>
+<p>用非线性的二叉树结构实现，具体的说是：<strong>红黑树</strong>（弱平衡的二叉搜索树）。AVL树（以两位发明此法的俄罗斯数学家的名字命名）是一个平衡二叉搜索（排序）树，是严格平衡的，左右子树高度差的绝对值不超过1，但是维护平衡的开销较大。而红黑树通过着色配合旋转操作，可以保证旋转次数最高不超过3次，查询、插入、删除性能都很好，时间复杂度稳定在<code>O(log n)</code>。</p>
 <p>各元素间没有严格的物理顺序，元素通过关键字来保存和访问，即键（key），有的还包括对应的值（value）。支持通过键来高效地查找和读取元素。关键字是有序的，默认按照升序排列。</p>
 <p>常见的关联容器有两种：map、set。</p>
 <h4 id="map">map</h4>
@@ -1902,7 +1904,7 @@ vec.<span class="hljs-built_in">shrink_to_fit</span>();  <span class="hljs-comme
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 26, 2025</div>
+          <div>April 29, 2025</div>
         </div>
       
       

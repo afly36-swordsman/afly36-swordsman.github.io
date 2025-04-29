@@ -24,7 +24,7 @@
 <meta property="og:description" content="C++技术百问 指针常量和常量指针 指针常量，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是底层const，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt; endl;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-19T05:35:38.649Z">
-<meta property="article:modified_time" content="2025-04-27T14:06:34.207Z">
+<meta property="article:modified_time" content="2025-04-29T11:47:47.494Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          15k words
+          16k words
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          20 mins
+          21 mins
         
       </span>
     
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 27, 2025 pm
+                    Last updated on April 29, 2025 pm
                   
                 
               </p>
@@ -499,6 +499,46 @@ Test t1 = <span class="hljs-number">1</span>;
 <p>静态建立由编译器在栈上分配内存并直接调用构造函数；动态建立是通过 new
 运算符在堆上分配内存，分为两步：首先调用 operator new()
 分配内存，然后调用构造函数初始化对象。</p>
+<p>operator new() 不是对 new
+的重载（不要被名字误导了，不过它的存在就像是 new 的重载版本），new
+操作符是 C++
+语言中的一个<strong>运算符</strong>（也是关键字），用于动态分配内存并构造对象。它是一个语法糖，封装了内存分配和对象构造的过程。</p>
+<p>使用 new 时，编译器会自动调用 <code>operator new()</code>
+函数来分配内存，然后在分配的内存上调用类的构造函数实例化一个对象。operator
+new() 是一个全局函数，返回一个指向分配内存的 void*
+指针，默认实现通常会调用底层的内存分配机制（malloc），但可以重载它以提供自定义的内存分配策略。</p>
+<div class="code-wrapper"><pre><code class="hljs csharp"><span class="hljs-comment">// operator new 分配内存</span>
+<span class="hljs-keyword">void</span>* rawMemory = <span class="hljs-function"><span class="hljs-keyword">operator</span> <span class="hljs-keyword">new</span>(<span class="hljs-params"><span class="hljs-keyword">sizeof</span>(MyClass</span>))</span>;
+<span class="hljs-comment">// placement new 创建对象</span>
+MyClass* obj = <span class="hljs-keyword">new</span> (rawMemory) MyClass();</code></pre></div>
+<p>想在一块已经获得指针的内存里建立一个对象，就用：placement new。</p>
+<p>使用 delete
+时，首先调用对象的析构函数清理资源，接着调用标准库的全局函数
+<code>operator delete()</code>
+释放分配的内存（返还给内存池或被操作系统回收）。</p>
+<p>使用 new[] 可以创建对象数组，若一个对象大小为<span
+class="math inline">\(N\)</span>，数组长度是<span
+class="math inline">\(K\)</span>，那么需要申请 <span
+class="math inline">\(K*N\)</span>
+的堆内存空间。释放数组对象的内存时，delete[]
+需要处理多个对象的内存。为了正确释放数组内存，delete[]
+需要知道数组的大小。通常，new[]
+在分配数组内存时会在数组空间的头部额外申请一个 int
+类型的空间，这4字节的空间用于存储数组的长度（K），delete[]
+会使用这个信息来逐个调用析构函数（析构K次，释放 <span
+class="math inline">\(K*N+4\)</span> 字节大小的内存空间）。</p>
+<p>对于一些非内部数据类型（类对象）来说，仅使用 malloc/free
+无法满足要求。对象在创建的同时要自动执行构造函数，对象在消亡的时候要自动执行析构函数，而由于
+malloc/free
+是库函数而不是运算符，不在编译器的控制权限内（库函数是编译好的代码，由链接器链接到我们的代码中），也就不能自动执行构造函数和析构函数。所以，在
+C++ 中需要一个能完成动态内存分配和初始化工作的运算符
+new，以及一个能完成清理和释放内存工作的运算符 delete。</p>
+<p>C++ 不把 malloc/free 淘汰的原因是： C++ 程序经常要调用 C 代码，而 C
+程序只能用 malloc/free 管理动态内存。如果用 free 释放 new
+创建的动态对象，该对象是无法执行析构函数的，极有可能导致程序出错。如果用
+delete 释放 malloc
+申请的动态内存，理论上讲程序不会出错，但是可读性很差。所以 new/delete
+尽量（必须）配对使用，malloc/free 也一样。</p>
 <div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 静态创建对象</span>
 A a;
 <span class="hljs-comment">// 动态创建对象</span>
@@ -522,13 +562,13 @@ A *a = <span class="hljs-keyword">new</span> A;</code></pre></div>
 <span class="hljs-comment">/* 上述代码非线程安全，需要加锁，请参考懒汉单例模式的实现。 */</span></code></pre></div>
 <p>只有使用 new
 运算符才会在堆上创建对象。如果希望<strong>类只能在栈上生成对象</strong>，可以将
-operator new() 和 operator delete() 设为私有，这样 new
-运算符无法被调用，就只能在栈上创建对象了。</p>
+C++ 标准库提供的全局函数 operator new() 和 operator delete()
+设为私有，这样 new 运算符无法被调用，就只能在栈上创建对象了。</p>
 <div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;
 <span class="hljs-keyword">private</span>:
-    <span class="hljs-comment">// 重载new运算符</span>
+    <span class="hljs-comment">// 重载 operator new() -&gt; 设为私有</span>
     <span class="hljs-function"><span class="hljs-type">void</span>* <span class="hljs-keyword">operator</span> <span class="hljs-title">new</span> <span class="hljs-params">(<span class="hljs-type">size_t</span> t)</span> </span>&#123;&#125;
-    <span class="hljs-comment">// 重载new就要重载delete</span>
+    <span class="hljs-comment">// 重载 operator delete() 配套使用</span>
     <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-keyword">operator</span> <span class="hljs-title">delete</span><span class="hljs-params">(<span class="hljs-type">void</span> *ptr)</span> </span>&#123;&#125;
 <span class="hljs-keyword">public</span>:
     <span class="hljs-built_in">A</span>() &#123;&#125;
@@ -861,7 +901,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 27, 2025</div>
+          <div>April 29, 2025</div>
         </div>
       
       
