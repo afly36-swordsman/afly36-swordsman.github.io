@@ -454,11 +454,11 @@
   
   
   <entry>
-    <title>随笔系列5：数码</title>
+    <title>随笔系列5：玩转计算机</title>
     <link href="/2023/11/25/NumericalCode/"/>
     <url>/2023/11/25/NumericalCode/</url>
     
-    <content type="html"><![CDATA[<p>正在施工中……</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="常用快捷键">常用快捷键</h2><ul><li><p><code>win + E</code>：打开文件资源管理器</p></li><li><p><code>win + I</code>：打开设置</p></li><li><p><code>Ctrl + C/V/X/Z/S/A</code>：复制/粘贴/剪切/撤销/保存/全选</p></li><li><p><code>win + Tab</code>：切换/显示任务视图（配合鼠标点击）</p></li><li><p><code>Alt + Tab</code>：自动切换窗口/标签</p></li><li><p><code>Ctrl + F</code>：查找</p></li><li><p><code>win + L</code>：锁定屏幕</p></li><li><p><code>win + D</code>：回到桌面</p></li><li><p><code>F2 (Fn + F2)</code>：重命名</p></li><li><p><code>F5 (Fn + F5)</code>：刷新</p></li><li><p><code>F11 (Fn + F11)</code>：全屏</p></li><li><p><code>Ctrl + B/U/I</code>：加粗/下划线/斜体</p></li><li><p><code>Ctrl Shift N</code>：新建文件夹</p></li><li><p><code>Ctrl + Home/End</code>：光标快速移动到文件头/文件尾</p></li><li><p><code>Home/End</code>：光标快速移动到这一行的开头/结尾</p></li><li><p><code>Shift + Home/End</code>：当光标在尾部/头部时，选中一行内容</p></li><li><p><code>Tab / Shift Tab</code>：右移/左移一个单元、一个缩进</p></li></ul><h2 id="快捷打开软件">快捷打开软件</h2><p>创建快捷方式，放入一个文件夹内，将该文件夹路径加入环境变量，然后就可以通过<code>win + R</code> 键入快捷方式名，打开一个APP。</p><p>win + R 键入：</p><ul><li><p><code>control</code> 控制面板</p></li><li><p><code>notepad</code> 记事本</p></li><li><p><code>taskmg</code> 任务管理器</p></li><li><p><code>calc</code> 计算器</p></li></ul><h2 id="滑动关机">滑动关机</h2><p>炫酷的滑动关机是系统自带的功能，可以通过：<strong>此电脑 -&gt; C盘-&gt; Windows -&gt; System32</strong> 文件夹里查找SlideToShutDown.exe，然后创建桌面快捷方式，双击即可。</p><p>这里给出一个简单的方式：</p><ol type="1"><li><p>新建快捷方式（桌面右键）</p></li><li><p>键入对象的位置（<code>%windir\%System32\SlideToShutDown.exe</code>）</p></li><li><p>改个喜欢的名字，换个喜欢的图标</p></li><li><p>双击即可滑动关机，也可固定到任务栏</p></li></ol>]]></content>
     
     
     <categories>
