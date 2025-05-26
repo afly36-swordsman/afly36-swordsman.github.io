@@ -24,7 +24,7 @@
 <meta property="og:description" content="C++技术百问 指针常量和常量指针 指针常量，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是底层const，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt; endl;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-19T05:35:38.649Z">
-<meta property="article:modified_time" content="2025-04-29T11:47:47.494Z">
+<meta property="article:modified_time" content="2025-05-23T13:09:58.149Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          16k words
+          18k words
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          21 mins
+          23 mins
         
       </span>
     
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on April 29, 2025 pm
+                    Last updated on May 23, 2025 pm
                   
                 
               </p>
@@ -472,6 +472,71 @@ vptr 改成子类的虚函数表地址。之后调虚函数就是子类的版本
 <p>虚函数表（虚表，vtable）是针对类的，同一个类的所有对象共享同一份虚函数表。在gcc编译器中，虚函数表存放在可执行文件的只读数据段.rodata中，由编译器在编译阶段处理完成。虚函数表的内容在编译时就已经确定，是一组常量函数指针，程序运行前会直接加载到内存中。</p>
 <p>虚函数表指针（虚表指针/虚指针，vptr）是对象相关的，作为对象的隐藏成员，其位置取决于对象的分配方式：如果对象分配在堆上，那虚指针也在堆上；如果对象分配在栈上，那么虚指针也在栈上。编译器处理派生类的虚函数表时，会先拷贝基类的虚函数表，然后替换派生类中重写的虚函数地址，最后添加派生类新增的虚函数到自身的虚函数表中。</p>
 <p>在构造函数或析构函数中调用虚函数是不推荐的行为。基类构造函数中调用虚函数时，由于派生类尚未构造完成，虚函数会静态绑定到基类版本，无法实现多态。而基类的析构函数调用虚函数时，派生类部分已经析构，虚函数会绑定到基类版本，同样无法实现多态。因此，在构造和析构期间，虚函数的动态绑定机制会失效，没有意义。</p>
+<h3 id="再谈多态性">再谈多态性</h3>
+<p>C++的多态剖析：</p>
+<div class="code-wrapper"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Base</span> &#123;  <span class="hljs-comment">// 基类</span>
+  <span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">// 成员变量</span>
+    <span class="hljs-type">int</span> a;
+    
+    <span class="hljs-comment">// 构造函数</span>
+    <span class="hljs-built_in">Base</span>() : <span class="hljs-built_in">a</span>(<span class="hljs-number">0</span>) &#123;&#125;
+    <span class="hljs-built_in">Base</span>(<span class="hljs-type">int</span> _a) : <span class="hljs-built_in">a</span>(_a) &#123;&#125;
+    <span class="hljs-keyword">virtual</span> ~<span class="hljs-built_in">Base</span>() &#123;&#125;
+    
+    <span class="hljs-comment">// 基类虚函数</span>
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> </span>&#123;
+        cout &lt;&lt; a &lt;&lt; endl;
+    &#125;
+&#125;;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Derive</span> : <span class="hljs-keyword">public</span> Base &#123;  <span class="hljs-comment">// 派生类</span>
+  <span class="hljs-keyword">public</span>:
+    <span class="hljs-comment">// 子类成员变量</span>
+    <span class="hljs-type">int</span> b;
+    
+    <span class="hljs-comment">// 构造函数</span>
+    <span class="hljs-built_in">Derive</span>() : <span class="hljs-built_in">b</span>(<span class="hljs-number">1</span>) &#123;&#125;
+    <span class="hljs-built_in">Derive</span>(<span class="hljs-type">int</span> _b) : <span class="hljs-built_in">b</span>(_b) &#123;&#125;
+    <span class="hljs-built_in">Derive</span>(<span class="hljs-type">int</span> _a, <span class="hljs-type">int</span> _b) : <span class="hljs-built_in">Base</span>(_a), <span class="hljs-built_in">b</span>(_b) &#123;&#125;
+    <span class="hljs-keyword">virtual</span> ~<span class="hljs-built_in">Derive</span>() &#123;&#125;
+    
+    <span class="hljs-comment">// 重写的虚函数</span>
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">print</span><span class="hljs-params">()</span> <span class="hljs-keyword">override</span> </span>&#123;
+        cout &lt;&lt; b &lt;&lt; endl;
+    &#125;
+    <span class="hljs-comment">// 子类新的虚函数</span>
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">print1</span><span class="hljs-params">()</span> </span>&#123;
+        cout &lt;&lt; <span class="hljs-string">&quot;new virtual func&quot;</span> &lt;&lt; endl;
+    &#125;
+    <span class="hljs-comment">// 子类新的成员函数</span>
+    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">print2</span><span class="hljs-params">()</span> </span>&#123;
+        cout &lt;&lt; <span class="hljs-string">&quot;new func&quot;</span> &lt;&lt; endl;
+    &#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-comment">// 多态实现</span>
+    Base *ptr = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Derive</span>();
+    ptr-&gt;<span class="hljs-built_in">print</span>();  <span class="hljs-comment">// 输出：1</span>
+
+    <span class="hljs-comment">// 用基类指针访问派生类对象的成员</span>
+    cout &lt;&lt; ptr-&gt;a &lt;&lt; endl;  <span class="hljs-comment">// 输出：0</span>
+    cout &lt;&lt; ptr-&gt;b &lt;&lt; endl;  <span class="hljs-comment">// 报错</span>
+    ptr-&gt;<span class="hljs-built_in">print1</span>();  <span class="hljs-comment">// 报错</span>
+    ptr-&gt;<span class="hljs-built_in">print2</span>();  <span class="hljs-comment">// 报错</span>
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>多态机制，是针对虚函数进行的，基类指针指向派生类对象后，可以根据不同的派生类重写的虚函数版本进行相应的实现，实现方法的多态性。</p>
+<p>如果将派生类对象赋值给基类对象，会存在<strong>对象切片</strong>问题，派生类中超出基类的那部分数据（新增的成员变量）会被“切掉”，即只保留基类部分的信息。</p>
+<p>编译时，派生类新增的成员对基类来说不可见。若用基类指针访问派生类自己的成员变量或调用派生类新增的成员函数，编译器在编译时会因为基类中不存在相关成员而报错。如果确实想通过基类指针访问派生类的成员，只能通过类型转换（如
+dynamic_cast）的方法进行操作。</p>
+<p>注意：基类有默认构造函数（无参构造函数）时，派生类中可以不显式调用基类的构造函数进行初始化，此时编译器会自动调用基类的默认构造函数进行基类成员变量的初始化。如果基类没有默认构造函数，派生类需要利用初始化列表（参数初始化表）显式调用基类的构造函数。</p>
 <h3 id="explicit关键字">explicit关键字</h3>
 <p>explicit关键字用于修饰类的构造函数，禁止隐式类型转换。它主要适用于单参数构造函数或除第一个参数外其余参数均有默认值的构造函数，这类构造函数也被称为转换构造函数。隐式类型转换是编译器自动完成的类型转换行为，例如将int转换为double，或将派生类对象隐式转换为基类的指针/引用。通过explicit关键字，可以避免意外的隐式转换，提高代码的明确性。</p>
 <div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-type">int</span> i = <span class="hljs-number">3</span>;
@@ -901,7 +966,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>April 29, 2025</div>
+          <div>May 23, 2025</div>
         </div>
       
       
