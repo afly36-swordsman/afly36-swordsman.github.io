@@ -24,7 +24,7 @@
 <meta property="og:description" content="C++技术百问 指针常量和常量指针 指针常量，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是底层const，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt; endl;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-19T05:35:38.649Z">
-<meta property="article:modified_time" content="2025-05-23T13:09:58.149Z">
+<meta property="article:modified_time" content="2025-06-07T04:08:07.719Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          18k words
+          20k words
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          23 mins
+          26 mins
         
       </span>
     
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on May 23, 2025 pm
+                    Last updated on June 7, 2025 pm
                   
                 
               </p>
@@ -386,7 +386,9 @@ tree，AST）。</li>
 <li>生成可执行文件：生成最终的可执行文件。</li>
 </ul>
 <p>链接器的输入是汇编生成的多个目标文件（.o）和库文件，库文件有两种：静态库（Linux：<code>.a</code>；Windows：<code>.lib</code>）、动态库（Linux：<code>.so</code>；Windows：<code>.dll</code>）。</p>
-<p>链接器的输出是可执行文件（Linux：<code>.out</code>，一般不显示扩展名；Windows：<code>.exe</code>），在命令行窗口用
+<p>链接器的输出是可执行文件（Linux：<code>.out</code>，GCC编译默认带后缀名，但可以
+<code>-o</code>
+指定不带后缀的文件名；Windows：<code>.exe</code>），在命令行窗口用
 <code>./$FILE_NAME$</code> 可以运行。</p>
 <h3
 id="c四种变量存储类型分别是什么">C++四种变量存储类型分别是什么？</h3>
@@ -668,6 +670,101 @@ id="构造函数析构函数能否抛出异常">构造函数/析构函数能否�
 <li><p>异常发生时，C++的异常处理机制在异常的传播过程中会进行栈展开（stack-unwinding）。在栈展开的过程中会调用已经在栈中构造好的对象的析构函数来释放资源，此时若其他析构函数本身也抛出异常，则前一个异常尚未处理又出现新的异常，会造成程序崩溃。</p></li>
 </ol>
 <p>解决办法：把异常完全封装在析构函数内部，决不让异常抛出函数之外。</p>
+<h3 id="智能指针">智能指针</h3>
+<p>C++ 标准库中提供了用于智能指针创建的函数：<code>make_unique</code> 和
+<code>make_shared</code>，包含在头文件 <code>&lt;memory&gt;</code>
+中。</p>
+<h4 id="unique_ptr">unique_ptr</h4>
+<p>常规使用：</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-function">unique_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ptr</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">10</span>))</span></span>;  <span class="hljs-comment">// 创建一个指向整数 10 的 unique_ptr</span></code></pre></div>
+<p>推荐使用：</p>
+<div class="code-wrapper"><pre><code class="hljs C++">unique_ptr&lt;<span class="hljs-type">int</span>&gt; ptr = <span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">10</span>);  <span class="hljs-comment">// 创建一个指向整数 10 的 unique_ptr</span></code></pre></div>
+<p>注：make_unique 是 C++14 开始支持的用法。</p>
+<p>unique_ptr
+是一种独占所有权的智能指针，它不允许拷贝构造，但支持移动语义 move，这意味着同一时刻只能有一个
+unique_ptr
+指向给定的资源，避免了多个指针指向同一块内存的情况，减少了内存泄漏的风险。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-keyword">auto</span> ptr1 = <span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">10</span>);
+unique_ptr&lt;<span class="hljs-type">int</span>&gt; ptr2 = <span class="hljs-built_in">move</span>(ptr1);  <span class="hljs-comment">// 转移所有权给 ptr2，此时 ptr1 为空</span>
+unique_ptr&lt;<span class="hljs-type">int</span>&gt; ptr2 = ptr1;  <span class="hljs-comment">// 错误，单一所有权不可复制</span></code></pre></div>
+<h4 id="shared_ptr">shared_ptr</h4>
+<p>shared_ptr
+是一种引用计数智能指针，它允许多个指针拥有同一个对象（共享所有权）。当最后一个拥有该对象的
+shared_ptr 被销毁时，它会自动释放所指向的内存。使用
+<code>std::make_shared</code> 可以高效地创建一个 shared_ptr 实例。</p>
+<p>make_shared
+通过一次性分配内存来存储控制块和对象（在堆上开辟连续空间，一次性为对象和控制块分配空间），减少了内存分配的次数，而手动创建
+shared_ptr（使用
+new）需要两次内存分配：一次用于对象本身，一次用于控制块（用于引用计数等）。如果在第一次分配内存（用于对象）后，第二次分配内存（用于控制块）失败，或者构造函数抛出异常，可能会导致第一次分配的内存无法被释放（未成功构造，就不会析构，或者发生异常后跳转异常处理代码，如果没有手动释放则会跳过第一次分配的内存释放），从而导致内存泄漏。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 不推荐╳✘✗</span>
+<span class="hljs-function">shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ptr</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">20</span>))</span></span>;
+
+<span class="hljs-comment">// 推荐✓✔</span>
+shared_ptr&lt;<span class="hljs-type">int</span>&gt; ptr = <span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">20</span>);
+cout &lt;&lt; *ptr &lt;&lt; endl;  <span class="hljs-comment">// 输出：20</span>
+
+<span class="hljs-comment">// 可以共享所有权</span>
+<span class="hljs-keyword">auto</span> ptr1 = <span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">10</span>);
+cout &lt;&lt; ptr1.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;  <span class="hljs-comment">// 获取引用计数，输出：1</span>
+shared_ptr&lt;<span class="hljs-type">int</span>&gt; ptr2 = ptr1;  <span class="hljs-comment">// ptr2 也指向 ptr1 指向的空间</span>
+cout &lt;&lt; *ptr2 &lt;&lt; endl;  <span class="hljs-comment">// 输出：10</span>
+cout &lt;&lt; ptr1.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;  <span class="hljs-comment">// 获取引用计数，输出：2</span></code></pre></div>
+<h4 id="weak_ptr">weak_ptr</h4>
+<p>weak_ptr 是为了配合 shared_ptr 而引入的一种智能指针，主要用于解决
+shared_ptr 循环引用的问题。weak_ptr 指向一个由 shared_ptr
+管理的对象而不影响所指对象的生命周期。将一个 weak_ptr 绑定到一个
+shared_ptr 不会改变 shared_ptr
+的引用计数，因此可以用来打破潜在的循环引用，防止内存无法释放。</p>
+<p>weak_ptr
+用来表达临时所有权的概念：当某个对象只有存在时才需要被访问，而且随时可能被他人删除时，可以使用
+std::weak_ptr 来跟踪该对象。与 shared_ptr 不同，weak_ptr
+不能直接访问所指向的对象。要访问对象，需要先调用 lock() 方法将其转换为
+shared_ptr。如果所指向的对象已经被销毁，则 lock() 方法返回空指针。</p>
+<p>weak_ptr 只可以从一个 shared_ptr 或另一个 weak_ptr
+对象构造，它的构造和析构不会引起引用记数的增加或减少。弱引用能检测到所管理的对象是否已经被释放，从而避免访问非法内存。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 创建一个 shared_ptr 管理一个 int</span>
+<span class="hljs-keyword">auto</span> sp = <span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">42</span>);
+cout &lt;&lt; *sp &lt;&lt; endl;  <span class="hljs-comment">// 42  </span>
+
+<span class="hljs-comment">// 创建一个 weak_ptr 指向 shared_ptr</span>
+weak_ptr&lt;<span class="hljs-type">int</span>&gt; wp = sp;
+cout &lt;&lt; *wp.<span class="hljs-built_in">lock</span>() &lt;&lt; endl;  <span class="hljs-comment">// 42</span>
+
+<span class="hljs-comment">// weak_ptr 不会增加引用计数</span>
+cout &lt;&lt; sp.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;  <span class="hljs-comment">// 1</span>
+
+### 原子操作
+
+C++<span class="hljs-number">11</span> 标准引入了原子操作，在头文件 `&lt;atomic&gt;` 中，std::atomic 是 C++ 标准库中的一个模板类，用于对单个变量进行原子操作。它支持多种数据类型，包括基本数据类型（如 <span class="hljs-type">int</span>、<span class="hljs-type">float</span>、<span class="hljs-type">double</span> 等）和指针类型。
+
+定义一个原子变量（保证多线程环境中对该变量的访问和修改都是原子的，即线程安全的）并使用：
+
+```C++
+<span class="hljs-function">atomic&lt;<span class="hljs-type">bool</span>&gt; <span class="hljs-title">a_z</span><span class="hljs-params">(<span class="hljs-literal">true</span>)</span></span>;
+atomic&lt;<span class="hljs-type">int</span>&gt; a_y;  <span class="hljs-comment">// 默认：0</span>
+
+atomic&lt;<span class="hljs-type">int</span>&gt; a_x&#123;<span class="hljs-number">4</span>&#125;;
+cout &lt;&lt; a_x &lt;&lt; endl;  <span class="hljs-comment">// 4</span>
+
+<span class="hljs-comment">// load 加载：获取原子变量的值</span>
+<span class="hljs-type">int</span> value = a_x.<span class="hljs-built_in">load</span>();
+cout &lt;&lt; value &lt;&lt; endl;  <span class="hljs-comment">// 4</span>
+
+<span class="hljs-comment">// store 存储：设置原子变量的值</span>
+a_x.<span class="hljs-built_in">store</span>(<span class="hljs-number">10</span>);
+value = a_x.<span class="hljs-built_in">load</span>();
+cout &lt;&lt; value &lt;&lt; endl;  <span class="hljs-comment">// 10</span>
+
+<span class="hljs-comment">// exchange 交换：将原子变量的值与另一个值交换</span>
+<span class="hljs-type">int</span> old_value = a_x.<span class="hljs-built_in">exchange</span>(<span class="hljs-number">100</span>);  <span class="hljs-comment">// 返回旧值</span>
+value = a_x.<span class="hljs-built_in">load</span>();
+cout &lt;&lt; old_value &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; value &lt;&lt; endl;  <span class="hljs-comment">// 10 100</span>
+
+<span class="hljs-comment">// 原子运算</span>
+a_x.<span class="hljs-built_in">fetch_add</span>(<span class="hljs-number">10</span>);  <span class="hljs-comment">// 原子加</span>
+a_x.<span class="hljs-built_in">fetch_sub</span>(<span class="hljs-number">5</span>);  <span class="hljs-comment">// 原子减</span>
+value = a_x.<span class="hljs-built_in">load</span>();
+cout &lt;&lt; value &lt;&lt; endl;  <span class="hljs-comment">// 105</span></code></pre></div>
 <h2 id="排序算法">排序算法</h2>
 <p>总结七大排序算法。</p>
 <h3 id="冒泡排序">冒泡排序</h3>
@@ -966,7 +1063,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>May 23, 2025</div>
+          <div>June 7, 2025</div>
         </div>
       
       
