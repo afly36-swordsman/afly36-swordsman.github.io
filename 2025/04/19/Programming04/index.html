@@ -24,7 +24,7 @@
 <meta property="og:description" content="C++技术百问 指针常量和常量指针 指针常量，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是底层const，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt; endl;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-19T05:35:38.649Z">
-<meta property="article:modified_time" content="2025-06-07T04:12:09.025Z">
+<meta property="article:modified_time" content="2025-08-02T14:07:40.938Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          20k words
+          23k words
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          26 mins
+          29 mins
         
       </span>
     
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on June 7, 2025 pm
+                    Last updated on August 2, 2025 pm
                   
                 
               </p>
@@ -609,7 +609,7 @@ delete 释放 malloc
 <div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 静态创建对象</span>
 A a;
 <span class="hljs-comment">// 动态创建对象</span>
-A *a = <span class="hljs-keyword">new</span> A;</code></pre></div>
+A *a = <span class="hljs-keyword">new</span> <span class="hljs-built_in">A</span>();</code></pre></div>
 <p>如果希望<strong>类只能在堆上生成对象</strong>，也就意味着不能在栈上构建对象，在栈上是编译器分配内存空间，调用构造函数来构造栈对象。栈上创建的对象当对象生命周期结束后，编译器会调用析构函数来释放栈对象所占的空间，也就是说编译器管理了对象的整个生命周期。编译器在调用构造函数为类的对象分配空间时，会先检查析构函数的访问性（不光是析构函数，编译器会检查所有非静态函数的访问性）。因此，如果类的析构函数是私有的或受保护的，编译器就不会为对象在栈上分配内存空间。</p>
 <p>因此，可以将析构函数设为私有private或受保护protected，这样编译器就不会在栈上创建对象了。但需要注意，私有析构函数会导致new生成的对象无法直接调用delete，因为delete会调用对象的析构函数，但析构函数在类外无法访问。通常需要提供静态工厂方法或自定义销毁函数。如果需要子类析构，那就设为protected。</p>
 <div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;
@@ -658,6 +658,10 @@ A a1, a2;
 a1 = a2;  <span class="hljs-comment">// 拷贝赋值操作</span></code></pre></div>
 <p><strong>类型转换构造函数：</strong>支持隐式转换，但可用explicit关键字禁止。一般来说带一个参数的构造函数，或者除第一个参数之外的其他参数都指定默认值的构造函数，也叫类型转换构造函数。</p>
 <p><strong>委托构造函数：</strong>C++11的新特性，构造函数调用同类其他构造函数（委托构造）。</p>
+<h3 id="拷贝和移动">拷贝和移动</h3>
+<p>浅拷贝，是指创建一个新对象，将原对象的成员变量直接复制到新对象中。如果成员变量是指针或引用，浅拷贝只是复制值，这会导致两个对象共享同一块内存资源，可能会出现悬挂指针或资源释放的问题。</p>
+<p>深拷贝，针对指针或引用类型的成员变量，会重新开辟一块内存空间，然后将原对象该成员变量的值复制到新空间中，相当于创建一个副本，互不影响。浅拷贝和深拷贝通常通过拷贝构造函数实现。</p>
+<p>移动构造函数是将资源从一个对象<strong>转移</strong>到另一个对象，不是复制资源，而是强调资源的移动。移动构造函数是为了避免不必要的拷贝操作，提高性能，特别是在处理大型对象时。</p>
 <h3
 id="构造函数析构函数能否抛出异常">构造函数/析构函数能否抛出异常？</h3>
 <p>对象只有在构造函数执行完成之后才算构造妥当，C++只会析构已经完成的对象。因此如果构造函数中发生异常，控制权就需要转移出构造函数，执行异常处理函数。在这个过程中系统会认为对象没有构造成功，导致不会调用析构函数。</p>
@@ -696,10 +700,10 @@ shared_ptr 被销毁时，它会自动释放所指向的内存。使用
 通过一次性分配内存来存储控制块和对象（在堆上开辟连续空间，一次性为对象和控制块分配空间），减少了内存分配的次数，而手动创建
 shared_ptr（使用
 new）需要两次内存分配：一次用于对象本身，一次用于控制块（用于引用计数等）。如果在第一次分配内存（用于对象）后，第二次分配内存（用于控制块）失败，或者构造函数抛出异常，可能会导致第一次分配的内存无法被释放（未成功构造，就不会析构，或者发生异常后跳转异常处理代码，如果没有手动释放则会跳过第一次分配的内存释放），从而导致内存泄漏。</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 不推荐╳✘✗</span>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 不推荐✘</span>
 <span class="hljs-function">shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">ptr</span><span class="hljs-params">(<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>(<span class="hljs-number">20</span>))</span></span>;
 
-<span class="hljs-comment">// 推荐✓✔</span>
+<span class="hljs-comment">// 推荐✔</span>
 shared_ptr&lt;<span class="hljs-type">int</span>&gt; ptr = <span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">20</span>);
 cout &lt;&lt; *ptr &lt;&lt; endl;  <span class="hljs-comment">// 输出：20</span>
 
@@ -709,6 +713,27 @@ cout &lt;&lt; ptr1.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;
 shared_ptr&lt;<span class="hljs-type">int</span>&gt; ptr2 = ptr1;  <span class="hljs-comment">// ptr2 也指向 ptr1 指向的空间</span>
 cout &lt;&lt; *ptr2 &lt;&lt; endl;  <span class="hljs-comment">// 输出：10</span>
 cout &lt;&lt; ptr1.<span class="hljs-built_in">use_count</span>() &lt;&lt; endl;  <span class="hljs-comment">// 获取引用计数，输出：2</span></code></pre></div>
+<p>从语法上来说，允许用裸指针初始化多个共享智能指针，但是这么做会破坏其引用计数机制，导致内存的重复释放。
+因为每个 shared_ptr
+都维护了一个控制块，里面存放引用计数器和释放资源的删除器。如果使用裸指针同时初始化多个共享指针，这些共享指针会分别维护自己的引用计数器（具有各自独立的控制块，但是仍然指向同一块内存空间），此时如果析构这些对象，会多次释放同一块内存，导致未定义行为（通常是崩溃）。</p>
+<p>可以用一个 shared_ptr 初始化（拷贝）另一个
+shared_ptr，或者使用工厂函数 make_shared<T>
+创建对象，从而避免使用裸指针。正确的创建 shared_ptr<T>
+对象，多个对象共享同一控制块，才能利用引用计数跟踪、管理共享指针。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 裸指针</span>
+<span class="hljs-type">int</span> *p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">int</span>(<span class="hljs-number">10</span>);
+
+<span class="hljs-comment">// 用裸指针同时初始化多个shared_ptr</span>
+<span class="hljs-function">shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">sp1</span><span class="hljs-params">(p)</span></span>;
+<span class="hljs-function">shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">sp2</span><span class="hljs-params">(p)</span></span>;  <span class="hljs-comment">// 错误！</span>
+
+<span class="hljs-comment">// 解决1：用shared_ptr初始化</span>
+<span class="hljs-function">shared_ptr&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">sp1</span><span class="hljs-params">(p)</span></span>;
+shared_ptr&lt;<span class="hljs-type">int</span>&gt; sp2 = sp1;  <span class="hljs-comment">// 正确，sp2共享sp1的控制块</span>
+
+<span class="hljs-comment">// 解决2：避免使用裸指针（推荐）</span>
+<span class="hljs-keyword">auto</span> sp1 = <span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">10</span>);
+shared_ptr&lt;<span class="hljs-type">int</span>&gt; sp2 = sp1;  <span class="hljs-comment">// 正确，sp1和sp2共享引用计数器</span></code></pre></div>
 <h4 id="weak_ptr">weak_ptr</h4>
 <p>weak_ptr 是为了配合 shared_ptr 而引入的一种智能指针，主要用于解决
 shared_ptr 循环引用的问题。weak_ptr 指向一个由 shared_ptr
@@ -767,235 +792,286 @@ cout &lt;&lt; value &lt;&lt; endl;  <span class="hljs-comment">// 105</span></co
 <p>总结七大排序算法。</p>
 <h3 id="冒泡排序">冒泡排序</h3>
 <p>稳定，时间复杂度<code>O(n^2)</code>，比较和移动次数可能都很多。</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 冒泡排序（优化版）</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">bubbleSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v)</span> </span>&#123;
-    <span class="hljs-comment">// 定义标记，当某一轮都没有元素移动时，说明已经有序了，无需进行后面的遍历比较了</span>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">bubbleSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr)</span> </span>&#123;
+    <span class="hljs-type">int</span> len = arr.<span class="hljs-built_in">size</span>();
+    <span class="hljs-comment">// 优化1：定义标记，当某一轮都没有元素移动时，说明已经有序了，无需进行后面的遍历比较了</span>
     <span class="hljs-type">bool</span> flag = <span class="hljs-literal">true</span>;
-    <span class="hljs-comment">// flag为false则退出循环</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; v.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span> &amp;&amp; flag; i++) &#123;
+    <span class="hljs-comment">// 外层for循环控制小值冒泡的存放位置，flag为false则退出循环</span>
+    <span class="hljs-comment">// 相邻元素两两交换，所以只需要遍历到 len-1 位置处即可</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span> &amp;&amp; flag; i++) &#123;
         flag = <span class="hljs-literal">false</span>;
-        <span class="hljs-comment">// 从后往前进行两两相邻元素比较，可以尽可能地将小元素向前移动，会提高效率</span>
-        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = v.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>; j &gt;= i; j--) &#123;
-            <span class="hljs-comment">// 不断把小的交换到j的位置，直到与i进行比较，最小元素&quot;冒泡&quot;到最左边，升序排序</span>
-            <span class="hljs-keyword">if</span> (v[j] &gt; v[j+<span class="hljs-number">1</span>]) &#123;
-                <span class="hljs-built_in">swap</span>(v[j], v[j+<span class="hljs-number">1</span>]);
-                flag = <span class="hljs-literal">true</span>;  <span class="hljs-comment">//只要有交换，就继续遍历下一轮</span>
+        <span class="hljs-comment">// 内层for循环进行相邻元素的比较，将小值向前传递，升序排序</span>
+        <span class="hljs-comment">// 优化2：从后往前比较，可以尽可能地将小元素向前移动，提高效率</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = len - <span class="hljs-number">2</span>; j &gt;= i; j--) &#123;
+            <span class="hljs-comment">// 不断把小值交换到j的位置，直到与i进行比较，最小元素&quot;冒泡&quot;到最左边</span>
+            <span class="hljs-keyword">if</span> (arr[j] &gt; arr[j + <span class="hljs-number">1</span>]) &#123;
+                <span class="hljs-built_in">swap</span>(arr[j], arr[j + <span class="hljs-number">1</span>]);
+                flag = <span class="hljs-literal">true</span>;  <span class="hljs-comment">//只要交换，就继续遍历</span>
             &#125;
         &#125;
     &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    vector&lt;<span class="hljs-type">int</span>&gt; v&#123;<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">3</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>&#125;;
+    <span class="hljs-built_in">bubbleSort</span>(v);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 <h3 id="简单选择排序">简单选择排序</h3>
 <p>不稳定，时间复杂度<code>O(n^2)</code>，由于交换次数相对较少，性能略优于冒泡。</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 简单选择排序</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">selectSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v)</span> </span>&#123;
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>, mi; i &lt; v.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>; ++i) &#123;
-        mi = i;  <span class="hljs-comment">//记录待排序区最小值的索引</span>
-        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i+<span class="hljs-number">1</span>; j &lt; v.<span class="hljs-built_in">size</span>(); ++j) &#123;
-            <span class="hljs-keyword">if</span> (v[mi] &gt; v[j]) &#123;  <span class="hljs-comment">//找待排序区的最小值</span>
-                mi = j;
-            &#125;
-            <span class="hljs-keyword">if</span> (mi != i) &#123;  <span class="hljs-comment">//只要最小值与当前i不同，就与i交换，若相同就不交换（最小化交换次数）</span>
-                <span class="hljs-built_in">swap</span>(v[mi], v[i]);  <span class="hljs-comment">//i代表待排序区的最开头，每次将最小值选出，与i交换，进行升序排序</span>
-                <span class="hljs-comment">// i与mi交换，mi可能是任意位置，次序会乱，即不稳定</span>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">selectSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr)</span> </span>&#123;
+    <span class="hljs-type">int</span> len = arr.<span class="hljs-built_in">size</span>();
+    <span class="hljs-comment">// 外层for循环控制小值存放的位置</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123;
+        <span class="hljs-comment">// 记录&quot;待排序区&quot;最小值的索引/下标</span>
+        <span class="hljs-type">int</span> idx = i;
+        <span class="hljs-comment">// 内层for循环，逐个比较找最小值</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i + <span class="hljs-number">1</span>; j &lt; len; j++) &#123;
+            <span class="hljs-keyword">if</span> (arr[idx] &gt; arr[j]) &#123;
+                <span class="hljs-comment">// 从&quot;待排序区&quot;找最小并记录下标，后续交换该值到i位置</span>
+                idx = j;
             &#125;
         &#125;
+        <span class="hljs-comment">// 交换最小值到i位置，实现升序排序</span>
+        <span class="hljs-comment">// 由于idx位置不定，交换过程会导致该排序&quot;不稳定&quot;</span>
+        <span class="hljs-keyword">if</span> (idx != i) &#123;
+            <span class="hljs-built_in">swap</span>(arr[idx], arr[i]);
+        &#125;
     &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    vector&lt;<span class="hljs-type">int</span>&gt; v&#123;<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">3</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>&#125;;
+    <span class="hljs-built_in">selectSort</span>(v);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 <h3 id="直接插入排序">直接插入排序</h3>
 <p>稳定，时间复杂度<code>O(n^2)</code>，比较和移动次数在概率上相近/固定，性能略优于冒泡和选择。当记录本身基本有序（小的基本在前、大的基本在后），或者记录数较少时，直接插入排序的优势较明显。</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 直接插入排序</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insertSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v)</span> </span>&#123;
-    <span class="hljs-comment">// 默认首元素是已排序元素，已排序区长度为1，未排序区从第二个元素开始</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>, j; i &lt; v.<span class="hljs-built_in">size</span>(); i++) &#123;
-        j = i;
-        <span class="hljs-keyword">while</span> (j &gt; <span class="hljs-number">0</span> &amp;&amp; v[j] &lt; v[j<span class="hljs-number">-1</span>]) &#123;
-            <span class="hljs-built_in">swap</span>(v[j], v[j<span class="hljs-number">-1</span>]);
-            j--;
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insertSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr)</span> </span>&#123;
+    <span class="hljs-type">int</span> len = arr.<span class="hljs-built_in">size</span>();
+    <span class="hljs-comment">// 默认首元素是已排序元素，已排序区初始长度为1，未排序区从第二个元素开始</span>
+    <span class="hljs-comment">// 外层for循环遍历&quot;未排序区&quot;</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;
+        <span class="hljs-type">int</span> idx = i;
+        <span class="hljs-comment">// 内层while循环将当前值与&quot;有序区&quot;中的值逐个（从后往前）比较，归入有序区</span>
+        <span class="hljs-keyword">while</span> (idx &gt; <span class="hljs-number">0</span> &amp;&amp; arr[idx] &lt; arr[idx - <span class="hljs-number">1</span>]) &#123;
+            <span class="hljs-built_in">swap</span>(arr[idx], arr[idx - <span class="hljs-number">1</span>]);
+            idx--;
         &#125;
     &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    vector&lt;<span class="hljs-type">int</span>&gt; v&#123;<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">3</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>&#125;;
+    <span class="hljs-built_in">insertSort</span>(v);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 <h3 id="希尔排序">希尔排序</h3>
 <p>不稳定，时间复杂度不固定，取决于gap序列，一般介于<code>O(nlogn) ~ O(n^2)</code>之间，如<span
 class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，每组记录数变少，在各子序列中用直接插入排序，然后全局再用一次。相当于直接插入的升级版。</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 希尔排序</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">shellSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v)</span> </span>&#123;
-    <span class="hljs-type">int</span> len = v.<span class="hljs-built_in">size</span>();
-    
-    <span class="hljs-comment">// 定义间隔（经典gap序列，从大到小，每次是长度向下除以2，直到1，复杂度n^2）</span>
-    <span class="hljs-type">int</span> gap = len / <span class="hljs-number">2</span>;
+<p>分组间隔gap有多种序列定义方法，不同的方法最后更新也不相同，但有一个准则：最后必须收敛到1。常见的两种定义方式如下:</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-type">int</span> len = arr.<span class="hljs-built_in">size</span>();
 
-    <span class="hljs-comment">// 也可以定义其他缩小规则，这里使用Knuth序列，复杂度是O(n^(3/2))，性能更优</span>
+<span class="hljs-comment">// 经典gap序列，从大到小，每次除以2，直到1，时间复杂度O(n^2)</span>
+<span class="hljs-type">int</span> gap = len / <span class="hljs-number">2</span>;
+<span class="hljs-comment">// 更新</span>
+gap /= <span class="hljs-number">2</span>;
+
+<span class="hljs-comment">// Knuth序列，时间复杂度是O(n^(1.5))，性能更优</span>
+<span class="hljs-type">int</span> gap = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">while</span> (gap &lt; len / <span class="hljs-number">3</span>) &#123;
+    gap = gap * <span class="hljs-number">3</span> + <span class="hljs-number">1</span>;
+&#125;
+<span class="hljs-comment">// 更新</span>
+gap /= <span class="hljs-number">3</span>;</code></pre></div>
+<p>排序算法：</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">shellSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr)</span> </span>&#123;
+    <span class="hljs-type">int</span> len = arr.<span class="hljs-built_in">size</span>();
+    <span class="hljs-comment">// 使用Knuth序列定义gap</span>
     <span class="hljs-type">int</span> gap = <span class="hljs-number">1</span>;
     <span class="hljs-keyword">while</span> (gap &lt; len / <span class="hljs-number">3</span>) &#123;
-        gap = <span class="hljs-number">3</span> * gap + <span class="hljs-number">1</span>;
+        gap = gap * <span class="hljs-number">3</span> + <span class="hljs-number">1</span>;
     &#125;
-
-    <span class="hljs-comment">// 希尔排序的最后一步必须是gap=1，否则无法保证完全有序</span>
+    
+    <span class="hljs-comment">// 分组+直插，希尔排序的最后一步必须是gap=1，否则无法保证完全有序</span>
     <span class="hljs-keyword">while</span> (gap &gt;= <span class="hljs-number">1</span>) &#123;
-        <span class="hljs-comment">// 从gap处开始遍历，每次与 v[i-gap] 比较，就是在与该分组子序列中前面的元素比较</span>
+        <span class="hljs-comment">// 从gap处开始遍历，每次与 arr[i-gap] 比较，就是与该分组子序列中前面的元素比较</span>
         <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = gap; i &lt; len; i++) &#123;
-            <span class="hljs-comment">// 每个子序列使用直接插入排序的思想</span>
             <span class="hljs-type">int</span> j = i;
-            <span class="hljs-comment">// j&lt;gap说明j到该分组的首元素位置了，gap下标之前的元素，分别是当前各个分组的首元素</span>
-            <span class="hljs-comment">// 相当于在分组区间（子序列）中应用直接插入排序算法，所以只是判断条件变一变</span>
-            <span class="hljs-keyword">while</span> (j &gt;= gap &amp;&amp; v[j] &lt; v[j-gap]) &#123;
-                <span class="hljs-built_in">swap</span>(v[j], v[j-gap]);
+            <span class="hljs-comment">// 每个分组子序列使用直接插入排序，分组即以间隔gap从arr中取值作为一组</span>
+            <span class="hljs-comment">// j&lt;gap说明j到该分组的首元素位置了，下标gap之前的元素，分别是当前各个分组的首元素</span>
+            <span class="hljs-comment">// 相当于在分组区间（子序列）中应用直插算法，所以只是判断条件变一变</span>
+            <span class="hljs-keyword">while</span> (j &gt;= gap &amp;&amp; arr[j] &lt; arr[j - gap]) &#123;
+                <span class="hljs-built_in">swap</span>(arr[j], arr[j - gap]);
                 j -= gap;
             &#125;
         &#125;
-
-        <span class="hljs-comment">// 一轮希尔排序结束，按照既定规则缩小gap</span>
+        <span class="hljs-comment">// 一轮希尔排序结束，按照既定规则缩小gap，最终保证缩小至1</span>
         gap /= <span class="hljs-number">3</span>;
     &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    vector&lt;<span class="hljs-type">int</span>&gt; v&#123;<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">3</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>&#125;;
+    <span class="hljs-built_in">shellSort</span>(v);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 <h3 id="堆排序">堆排序</h3>
-<p>不稳定，时间复杂度稳定为<code>O(nlogn)</code>，简单选择排序的升级版，性能强于冒泡、简单选择和直接插入。利用大顶堆排序，每次弹出堆顶元素（最大值），与待排序序列末尾元素交换（最大值在最后，是升序排序），然后"去掉"最后的已排序序列，对剩余元素重构大顶堆……如此反复执行。由于初始构建堆需要的比较次数较多，不适用于待排序序列个数较少的情况。</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 堆排序</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">heapSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v)</span> </span>&#123;
-    <span class="hljs-type">int</span> n = v.<span class="hljs-built_in">size</span>();  <span class="hljs-comment">//元素个数</span>
-    <span class="hljs-keyword">if</span> (n &lt;= <span class="hljs-number">1</span>) &#123;
-        <span class="hljs-keyword">return</span>;  <span class="hljs-comment">//v为空或只有一个值，不需要排序</span>
-    &#125;
-    
-    <span class="hljs-comment">// 堆排序Stage1：建堆阶段，由于初始数组是无序的，必须确保所有子树都满足堆的性质</span>
-    <span class="hljs-comment">// 叶子节点没有孩子，所以从第一个非叶子节点开始，从下往上逐层构造大顶堆</span>
-    <span class="hljs-comment">// 根据构建大顶堆函数可知，每次构建只比较当前层的父节点与孩子节点大小，然后向下递归</span>
-    <span class="hljs-comment">// 所以必须保证自底向上构造，才能将最大值向上传递，确保每棵子树都是堆</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = n/<span class="hljs-number">2</span><span class="hljs-number">-1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
-        <span class="hljs-built_in">buildHeap</span>(v, i, n<span class="hljs-number">-1</span>);  <span class="hljs-comment">//传入数组尾元素下标，左闭右闭用于判断是否到叶子节点了</span>
-    &#125;
+<p>不稳定，时间复杂度为<code>O(nlogn)</code>，是简单选择排序的升级版，性能强于冒泡、简单选择和直接插入。利用大顶堆排序，每次弹出堆顶元素（最大值），与待排序序列末尾元素交换（最大值在最后，是升序排序），然后"去掉"最后的已排序序列，对剩余元素重构大顶堆……如此反复执行。由于初始构建堆需要的比较次数较多，不适用于待排序序列个数较少的情况。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Heap</span> &#123;
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">heapSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr)</span> </span>&#123;
+        <span class="hljs-type">int</span> len = arr.<span class="hljs-built_in">size</span>();
+        <span class="hljs-keyword">if</span> (len &lt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>;  <span class="hljs-comment">// arr为空或只有一个值，不需要排序</span>
+        
+        <span class="hljs-comment">// 堆排序Stage1：建堆阶段，由于初始数组是无序的，必须确保所有子树都满足堆的性质</span>
+        <span class="hljs-comment">// 若父节点下标是i，则左孩子节点下标是2*i+1，右孩子是2*i+2，最后一个非叶子节点下标是N/2-1</span>
+        <span class="hljs-comment">// 叶子节点没有孩子，所以从第一个非叶子节点开始，从下往上逐层构造大顶堆，堆原地存储在arr中</span>
+        <span class="hljs-comment">// 根据构建大顶堆的过程可知，每次构建只比较当前层的父节点与孩子节点大小，然后向下递归</span>
+        <span class="hljs-comment">// 所以必须保证自底向上构造，才能将最大值向上传递，确保每棵子树都是堆</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = len / <span class="hljs-number">2</span> - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
+            <span class="hljs-built_in">heapBuild</span>(arr, i, len);  <span class="hljs-comment">// 参数i表示从i开始构造，参数len用于防止数组越界</span>
+        &#125;
 
-    <span class="hljs-comment">// 堆排序Stage2：排序阶段，只需从上往下调整（从根节点开始）修复破坏的部分即可</span>
-    <span class="hljs-comment">// 构建好大顶堆后，可以进行正儿八经的堆排序了</span>
-    <span class="hljs-comment">// j控制待排序序列，j指向待排序序列的末尾元素</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = n<span class="hljs-number">-1</span>; j &gt;= <span class="hljs-number">0</span>; j--) &#123;
-        <span class="hljs-comment">// 交换堆顶元素与待排序区间的尾元素，让最大值放在末尾，下次循环j--更新待排序区间</span>
-        <span class="hljs-built_in">swap</span>(v[<span class="hljs-number">0</span>], v[j]);
-        <span class="hljs-comment">// 将剩余元素重构大顶堆，由于事先已经构造了大顶堆，数据有序（除了根节点，其他子树已经是堆）</span>
-        <span class="hljs-comment">// 把尾元素换上来只有根节点被破坏了（原根节点换到尾部，是有序区，不参与构建堆进行排序了）</span>
-        <span class="hljs-comment">// 因此只需要自顶向下修复根节点即可</span>
-        <span class="hljs-built_in">buildHeap</span>(v, <span class="hljs-number">0</span>, j<span class="hljs-number">-1</span>);
-    &#125;
-&#125;
-
-<span class="hljs-comment">// 堆排序辅助函数：构建大顶堆（堆就是一棵特殊的完全二叉树，根据节点值的有序性分为大顶堆和小顶堆）</span>
-<span class="hljs-comment">// 若父节点下标是i，则左孩子节点下标是2*i+1，右孩子是2*i+2（注意判空），最后一个非叶子节点下标是n/2-1</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">buildHeap</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> len)</span> </span>&#123;
-    <span class="hljs-type">int</span> root = i;  <span class="hljs-comment">//定义堆顶&quot;指针&quot;，应该存放最大值</span>
-    <span class="hljs-type">int</span> leftChild = <span class="hljs-number">2</span> * i + <span class="hljs-number">1</span>;  <span class="hljs-comment">//左孩子节点下标</span>
-    <span class="hljs-type">int</span> rightChild = <span class="hljs-number">2</span> * i + <span class="hljs-number">2</span>;  <span class="hljs-comment">//右孩子节点下标</span>
-    <span class="hljs-comment">// 先判空：len是末尾元素下标（防止超界），比较节点值让堆顶元素指向最大值</span>
-    <span class="hljs-keyword">if</span> (leftChild &lt;= len &amp;&amp; v[root] &lt; v[leftChild]) &#123;
-        root = leftChild;
-    &#125;
-    <span class="hljs-keyword">if</span> (rightChild &lt;= len &amp;&amp; v[root] &lt; v[rightChild]) &#123;
-        root = rightChild;
-    &#125;
-    <span class="hljs-comment">// 若需要，则交换</span>
-    <span class="hljs-keyword">if</span> (root != i) &#123;
-        <span class="hljs-built_in">swap</span>(v[root], v[i]);
-        <span class="hljs-comment">// 交换后，子树节点排布改变了，需要对子树重新按大顶堆排序</span>
-        <span class="hljs-built_in">buildHeap</span>(v, root, len);  <span class="hljs-comment">//递归构造子树大顶堆，传入子树的根节点下标root</span>
-    &#125;
-    <span class="hljs-comment">// 到这里则结束递归，递归终止条件：到叶子节点了，或不需要交换（当前层父节点比孩子节点的值大）</span>
-&#125;</code></pre></div>
-<h3 id="归并排序">归并排序</h3>
-<p>稳定，时间复杂度稳定在<code>O(nlogn)</code>，空间复杂度较高。思想：分治，每次将子序列一分为二，直到分割为单个元素（必定有序），再两两归并为一个有序序列。归并排序是一种比较占用内存，但效率高且稳定的排序算法，这里的是递归实现，实际工程应用中优先考虑非递归实现。</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 归并排序</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">mergeSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span> </span>&#123;
-    <span class="hljs-comment">// 递归终止条件</span>
-    <span class="hljs-keyword">if</span> (left &gt;= right) &#123;
-        <span class="hljs-keyword">return</span>;
-    &#125;
-
-    <span class="hljs-type">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;
-    <span class="hljs-comment">// 递归开始</span>
-    <span class="hljs-built_in">mergeSort</span>(v, left, mid);  <span class="hljs-comment">//递归分解左区间</span>
-    <span class="hljs-built_in">mergeSort</span>(v, mid+<span class="hljs-number">1</span>, right);  <span class="hljs-comment">//递归分解右区间</span>
-    <span class="hljs-comment">// 递归到最底层后（单个元素为一组），两两合并，然后返回</span>
-    <span class="hljs-comment">// 每次返回之前都会归并区间，先左后右，直到最后一层归并左右半区间后得到完整的有序序列</span>
-    <span class="hljs-built_in">merge</span>(v, left, mid, right);  <span class="hljs-comment">//归并左右区间</span>
-&#125;
-
-<span class="hljs-comment">// 归并排序辅助函数：将有序的两个分组合并/归并为一个</span>
-<span class="hljs-comment">// 将有序的 v[i,...,m] 和 v[m+1,...,n] 归并为一个有序的 v[i,...,n]</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> n)</span> </span>&#123;
-    <span class="hljs-comment">// 临时存放归并的结果</span>
-    vector&lt;<span class="hljs-type">int</span>&gt; record&#123;&#125;;
-    record.<span class="hljs-built_in">reserve</span>(n - i + <span class="hljs-number">1</span>);
-
-    <span class="hljs-comment">// j遍历前一个有序子区间，k遍历后一个有序子区间</span>
-    <span class="hljs-type">int</span> j = i, k = m + <span class="hljs-number">1</span>;
-
-    <span class="hljs-comment">// 归并两个子序列，&quot;双指针法&quot;，小值先放，升序排列</span>
-    <span class="hljs-keyword">while</span> (j &lt;= m &amp;&amp; k &lt;= n) &#123;
-        <span class="hljs-keyword">if</span> (v[j] &lt;= v[k]) &#123;
-            record.<span class="hljs-built_in">push_back</span>(v[j++]);
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            record.<span class="hljs-built_in">push_back</span>(v[k++]);
+        <span class="hljs-comment">// 堆排序Stage2：排序阶段，只需从上往下调整（从根节点开始）修复堆结构破坏的部分即可</span>
+        <span class="hljs-comment">// 构建好大顶堆后，可以正式进行堆排序了，每次从堆顶arr[0]取最大值</span>
+        <span class="hljs-comment">// 此处for循环控制待排序区序列，i指向待排序区的末尾元素</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = len - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
+            <span class="hljs-comment">// 交换堆顶元素与待排序区间的尾元素，让最大值放在末尾，下次循环i--更新待排序区间</span>
+            <span class="hljs-built_in">swap</span>(arr[<span class="hljs-number">0</span>], arr[i]);
+            <span class="hljs-comment">// 将剩余元素重构大顶堆，由于事先已经构造了大顶堆，数据有序（除了根节点，其他子树已经是堆）</span>
+            <span class="hljs-comment">// 把尾元素换上来只有根节点被破坏了（原根节点换到尾部，是有序区，不再参与构建堆排序的过程了）</span>
+            <span class="hljs-comment">// 因此只需要自顶向下修复根节点即可</span>
+            <span class="hljs-built_in">heapBuild</span>(arr, <span class="hljs-number">0</span>, i);
         &#125;
     &#125;
 
-    <span class="hljs-comment">// 比较归并后会有遗漏（j或k中的一方遍历完超界了另一方还没完），需要处理剩余的数据（另一方）</span>
-    <span class="hljs-keyword">while</span> (j &lt;= m) &#123;
-        record.<span class="hljs-built_in">push_back</span>(v[j++]);
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-comment">// 堆排序辅助函数：构建大顶堆（堆是一棵特殊的完全二叉树，根据节点值的有序性分为大顶堆和小顶堆）</span>
+    <span class="hljs-comment">// 大顶堆：父节点的值&gt;=孩子节点的值；小顶堆：父节点的值&lt;=孩子节点的值</span>
+    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">heapBuild</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> len)</span> </span>&#123;
+        <span class="hljs-type">int</span> root = i;  <span class="hljs-comment">// 定义堆顶&quot;指针&quot;，存放最大值</span>
+        <span class="hljs-type">int</span> left = <span class="hljs-number">2</span> * i + <span class="hljs-number">1</span>;  <span class="hljs-comment">// 左孩子节点下标</span>
+        <span class="hljs-type">int</span> right = <span class="hljs-number">2</span> * i + <span class="hljs-number">2</span>;  <span class="hljs-comment">// 右孩子节点下标</span>
+        
+        <span class="hljs-comment">// 判空：len是数组长度（防止超界），比较节点值让堆顶元素是最大值</span>
+        <span class="hljs-keyword">if</span> (left &lt; len &amp;&amp; arr[root] &lt; arr[left]) &#123;
+            root = left;
+        &#125;
+        <span class="hljs-keyword">if</span> (right &lt; len &amp;&amp; arr[root] &lt; arr[right]) &#123;
+            root = right;
+        &#125;
+        <span class="hljs-comment">// 需要则交换</span>
+        <span class="hljs-keyword">if</span> (root != i) &#123;
+            <span class="hljs-comment">// i代表旧根节点（父节点），root是新的根节点下标</span>
+            <span class="hljs-built_in">swap</span>(arr[root], arr[i]);
+            <span class="hljs-comment">// 交换后，子树的结构改变了，需要对子树重新按大顶堆排序</span>
+            <span class="hljs-built_in">heapBuild</span>(arr, root, len);  <span class="hljs-comment">// 递归构造子树大顶堆，传入子树的根节点下标root</span>
+        &#125;
     &#125;
-    <span class="hljs-keyword">while</span> (k &lt;= n) &#123;
-        record.<span class="hljs-built_in">push_back</span>(v[k++]);
+&#125;;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    vector&lt;<span class="hljs-type">int</span>&gt; v&#123;<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">3</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>&#125;;
+    Heap heap;
+    heap.<span class="hljs-built_in">heapSort</span>(v);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>口诀：先从非叶子节点开始构建大顶堆，然后倒序遍历数组，每次取出数组首元素（堆顶元素，即最大值）与数组尾元素交换，从大值开始逐渐确定有序区间，最后从顶部调整堆。创建/调整堆，只需要考虑当前的根（父）节点和左右孩子节点的大小即可，之后递归调整子树堆结构。</p>
+<h3 id="归并排序">归并排序</h3>
+<p>稳定，时间复杂度是<code>O(nlogn)</code>，空间复杂度较高。思想：分治，每次将子序列一分为二，直到分割为单个元素（必定有序），再两两归并为一个有序序列。归并排序是一种比较占用内存，但效率高且稳定的排序算法，这里的是递归实现，实际工程应用中优先考虑非递归实现。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Merge</span> &#123;
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">mergeSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span> </span>&#123;
+        <span class="hljs-comment">// 递归终止条件</span>
+        <span class="hljs-keyword">if</span> (left &gt;= right) <span class="hljs-keyword">return</span>;
+        <span class="hljs-comment">// 二分</span>
+        <span class="hljs-type">int</span> mid = left + (right - left) / <span class="hljs-number">2</span>;
+
+        <span class="hljs-comment">// 开始递归，每次将数组一分为二</span>
+        <span class="hljs-built_in">mergeSort</span>(arr, left, mid);  <span class="hljs-comment">// 递归分解左区间</span>
+        <span class="hljs-built_in">mergeSort</span>(arr, mid + <span class="hljs-number">1</span>, right);  <span class="hljs-comment">// 递归分解右区间</span>
+        <span class="hljs-comment">// 递归到最底层（单个元素为一组）后，左右区间两两合并，然后返回</span>
+        <span class="hljs-comment">// 每次返回之前都会归并区间，先左后右，每个半区间默认是有序的</span>
+        <span class="hljs-comment">// 直到最后一层归并左右两个最大的半区间后得到完整的有序序列</span>
+        <span class="hljs-built_in">mergeSection</span>(arr, left, mid, right);
     &#125;
 
-    <span class="hljs-comment">// 利用下标原地更新相应的归并区间</span>
-    <span class="hljs-comment">// 一般情况下，只读访问建议写成：for(const auto&amp; c: xxx)，此处是基本数据类型，拷贝成本低</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> c: record) &#123;
-        v[i++] = c;
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-comment">// 归并排序辅助函数：将有序的两个分组合并/归并为一个</span>
+    <span class="hljs-comment">// 将有序的 arr[left,...,mid] 和 arr[mid+1,...,right] 归并为一个有序的 arr[left,...,right]</span>
+    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">mergeSection</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> mid, <span class="hljs-type">int</span> right)</span> </span>&#123;
+        vector&lt;<span class="hljs-type">int</span>&gt; v;  <span class="hljs-comment">// 暂时存放结果</span>
+        v.<span class="hljs-built_in">reserve</span>(right - left + <span class="hljs-number">1</span>);
+        <span class="hljs-comment">// 分别从头遍历两个有序子区间</span>
+        <span class="hljs-type">int</span> i = left, j = mid + <span class="hljs-number">1</span>;
+
+        <span class="hljs-comment">// 用双指针法归并两个子序列，小值先放，升序排列</span>
+        <span class="hljs-keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= right) &#123;
+            <span class="hljs-keyword">if</span> (arr[i] &lt;= arr[j]) &#123;
+                v.<span class="hljs-built_in">push_back</span>(arr[i]);
+                i++;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                v.<span class="hljs-built_in">push_back</span>(arr[j]);
+                j++;
+            &#125;
+        &#125;
+        <span class="hljs-comment">// 上面归并处理后会有遗漏（一方遍历完了另一方还没完），需要处理剩余的数据</span>
+        <span class="hljs-keyword">while</span> (i &lt;= mid) v.<span class="hljs-built_in">push_back</span>(arr[i++]);
+        <span class="hljs-keyword">while</span> (j &lt;= right) v.<span class="hljs-built_in">push_back</span>(arr[j++]);
+        <span class="hljs-comment">// 利用下标left原地更新相应的归并区间</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> c: v) &#123;
+            arr[left++] = c;
+        &#125;
     &#125;
+&#125;;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    vector&lt;<span class="hljs-type">int</span>&gt; v&#123;<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">3</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>&#125;;
+    Merge merge;
+    merge.<span class="hljs-built_in">mergeSort</span>(v, <span class="hljs-number">0</span>, v.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 <h3 id="快速排序">快速排序</h3>
 <p>不稳定，平均时间复杂度是<code>n(logn)</code>，是冒泡排序的升级版（属于交换排序）。快排有各种优化版本，优化后的综合性能最好，这里给出的是部分优化的结果。</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-comment">// 快速排序</span>
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; v, <span class="hljs-type">int</span> low, <span class="hljs-type">int</span> high)</span> </span>&#123;
+<p>快排算法，就是找枢轴（即一个关键字、基准值），想办法让其左边的值都比它小，右边的值都比它大。找到枢轴后，左半边和右半边就"基本"有序了，然后通过递归分别对两个半边的数组找枢轴……与归并排序的逆过程有点类似。</p>
+<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">quickSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span> </span>&#123;
     <span class="hljs-comment">// 递归终止条件</span>
-    <span class="hljs-keyword">if</span> (low &gt;= high) &#123;
-        <span class="hljs-keyword">return</span>;
-    &#125;
+    <span class="hljs-keyword">if</span> (left &gt;= right) <span class="hljs-keyword">return</span>;
+    <span class="hljs-comment">// 直接取区间首元素作为枢轴（可以优化为三数取中或九数取中）</span>
+    <span class="hljs-type">int</span> pivot = arr[left];
+    <span class="hljs-type">int</span> i = left, j = right;
 
-    <span class="hljs-comment">// 枢轴，即一个关键字/基准值，想办法让其左边的值都比它小，右边的值都比它大，是快排的关键所在</span>
-    <span class="hljs-comment">// 这里直接取区间首元素作为枢轴，可以优化为三数取中或九数取中</span>
-    <span class="hljs-type">int</span> pivot = v[low];
-
-    <span class="hljs-type">int</span> i = low, j = high;
-
-    <span class="hljs-comment">// 下标有效，就找枢轴并将其放在正确位置，i==j就说明指针重合了，已经遍历完了</span>
+    <span class="hljs-comment">// 下标有效，就找枢轴并将其放在正确位置，i==j说明遍历完了</span>
     <span class="hljs-keyword">while</span> (i &lt; j) &#123;
         <span class="hljs-comment">// &quot;分区&quot;排序，将待排序数组划分成两部分，将小于pivot的数全移到左边，大于pivot的数全移到右边</span>
-        <span class="hljs-comment">// 枢轴定的首元素，那么要先遍历j（从右向左遍历）</span>
-        <span class="hljs-keyword">while</span> (i &lt; j &amp;&amp; v[j] &gt;= pivot) &#123;
-            <span class="hljs-comment">// 要找第一个小于基准的值，如果j指向的元素&gt;=基准，那就继续找</span>
-            j--;
-        &#125;
-        <span class="hljs-keyword">while</span> (i &lt; j &amp;&amp; v[i] &lt;= pivot) &#123;
-            <span class="hljs-comment">// 要找第一个大于基准的值，如果i指向的元素&lt;=基准，那就继续找</span>
-            i++;
-        &#125;
-
-        <span class="hljs-comment">// 当前处i指向的元素是大于基准的，j指向的元素是小于基准的</span>
+        <span class="hljs-comment">// 枢轴定的首元素，那么要先从右向左遍历（遍历j），找第一个小于基准的值</span>
+        <span class="hljs-keyword">while</span> (i &lt; j &amp;&amp; arr[j] &gt;= pivot) j--;
+        <span class="hljs-comment">// 然后找第一个大于基准的值，如果i指向的元素arr[i]&lt;=基准pivot，那就继续找</span>
+        <span class="hljs-keyword">while</span> (i &lt; j &amp;&amp; arr[i] &lt;= pivot) i++;
+        <span class="hljs-comment">// 两个值都找到了，交换位置，使其符合排序规则：小的在左，大的在右</span>
         <span class="hljs-keyword">if</span> (i &lt; j) &#123;
-            <span class="hljs-comment">// 交换元素值，使其符合排序规则：小的在左，大的在右</span>
-            <span class="hljs-built_in">swap</span>(v[i], v[j]);
+            <span class="hljs-built_in">swap</span>(arr[i], arr[j]);
         &#125;
     &#125;
 
-    <span class="hljs-comment">// i和j相遇，正常情况下，j停留的位置是第一个小于pivot的位置，i是第一个大于pivot的位置</span>
-    <span class="hljs-comment">// i==j的两种可能之一：j--后j==i，j是先执行的，说明此时i往后（i肯定&lt;=枢轴，上次交换的结果）全是大于枢轴的</span>
-    <span class="hljs-comment">// i==j的两种可能之二：i++后i==j，此时已经寻找过j了，i&lt;j成立说明j肯定&lt;=枢轴，j往前也全是小于枢轴的</span>
-    <span class="hljs-comment">// 交换枢轴与相遇点的值，就可以正确放置枢轴了，然后整个区间就&quot;基本&quot;有序（小的全在枢轴左边，大的全在枢轴右边）</span>
-    v[low] = v[i];
-    <span class="hljs-comment">// pivot存的是枢轴值，即交换前的v[low]，i是枢轴的位置（索引/下标）</span>
-    v[i] = pivot;
-
+    <span class="hljs-comment">// 此时i和j相遇</span>
+    <span class="hljs-comment">// 正常情况下，j是第一个小于pivot的位置，i是第一个大于pivot的位置</span>
+    <span class="hljs-comment">// i==j情况1：j--后j==i，由于j先执行，此时i往后（i肯定&lt;=枢轴，上次交换的结果）全是大于枢轴的</span>
+    <span class="hljs-comment">// i==j情况2：i++后i==j，此时已经找过j了，i&lt;j成立说明j肯定&lt;=枢轴，i往前也全是小于枢轴的</span>
+    <span class="hljs-comment">// 由此分析：i的位置就是当前区间枢轴应该存在的位置</span>
+    <span class="hljs-comment">// 将枢轴arr[left]交换到正确位置i处，整个区间就&quot;基本&quot;有序了（小的全在枢轴左边，大的全在枢轴右边）</span>
+    <span class="hljs-built_in">swap</span>(arr[left], arr[i]);
+    
     <span class="hljs-comment">// 递归，对分区后的左右子序列进行上述排序操作（不包含枢轴，因为枢轴本身位置是有序的）</span>
-    <span class="hljs-built_in">quickSort</span>(v, low, i<span class="hljs-number">-1</span>);
-    <span class="hljs-built_in">quickSort</span>(v, i+<span class="hljs-number">1</span>, high);
+    <span class="hljs-built_in">quickSort</span>(arr, left, i - <span class="hljs-number">1</span>);
+    <span class="hljs-built_in">quickSort</span>(arr, i + <span class="hljs-number">1</span>, right);
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    vector&lt;<span class="hljs-type">int</span>&gt; v&#123;<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">8</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">3</span>,<span class="hljs-number">9</span>,<span class="hljs-number">1</span>&#125;;
+    <span class="hljs-built_in">quickSort</span>(v, <span class="hljs-number">0</span>, v.<span class="hljs-built_in">size</span>() - <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 
                 
@@ -1061,7 +1137,7 @@ class="math inline">\(n^{1.5}\)</span>。当记录数很多时，对其分组，
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>June 7, 2025</div>
+          <div>August 2, 2025</div>
         </div>
       
       
