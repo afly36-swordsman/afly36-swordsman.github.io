@@ -24,7 +24,7 @@
 <meta property="og:description" content="C++技术百问 指针常量和常量指针 指针常量，理解为：常量的指针，即指向一个常量的指针，修饰的const类型是底层const，指针指向的内容不可变： int a &#x3D; 10, b &#x3D; 50; const int *p &#x3D; &amp;a;  &#x2F;&#x2F; 指针常量，底层const int const *q &#x3D; &amp;a;  &#x2F;&#x2F; 同上 cout &lt;&lt; *p &lt;&lt; endl;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-19T05:35:38.649Z">
-<meta property="article:modified_time" content="2025-08-02T14:07:40.938Z">
+<meta property="article:modified_time" content="2025-08-07T02:47:39.998Z">
 <meta property="article:author" content="Zenitsu">
 <meta property="article:tag" content="study">
 <meta name="twitter:card" content="summary_large_image">
@@ -286,7 +286,7 @@
               <p class="note note-info">
                 
                   
-                    Last updated on August 2, 2025 pm
+                    Last updated on August 7, 2025 am
                   
                 
               </p>
@@ -386,10 +386,12 @@ tree，AST）。</li>
 <li>生成可执行文件：生成最终的可执行文件。</li>
 </ul>
 <p>链接器的输入是汇编生成的多个目标文件（.o）和库文件，库文件有两种：静态库（Linux：<code>.a</code>；Windows：<code>.lib</code>）、动态库（Linux：<code>.so</code>；Windows：<code>.dll</code>）。</p>
-<p>链接器的输出是可执行文件（Linux：<code>.out</code>，GCC编译默认带后缀名，但可以
+<p>链接器的输出是可执行文件（Linux：<code>.out</code>，GCC编译默认带.out，但可以
 <code>-o</code>
-指定不带后缀的文件名；Windows：<code>.exe</code>），在命令行窗口用
+指定不带.out的文件名；Windows：<code>.exe</code>），在命令行窗口用
 <code>./$FILE_NAME$</code> 可以运行。</p>
+<p>注：C++编译最终输出的可执行文件，其文件名默认会加上<code>.out</code>，这是默认名称历史遗留问题，并非后缀。可以使用<code>-o</code>指定一个名称。
+Linux不要求执行文件必须有特定后缀，<strong>文件是否可执行是由权限决定的，与文件名是否有后缀无关</strong>。Linux不依赖“后缀名”判断文件类型（权限）。由此可知，C++编译后默认输出<code>xxx.out</code>，但<code>.out</code>是完整文件名而非后缀。</p>
 <h3
 id="c四种变量存储类型分别是什么">C++四种变量存储类型分别是什么？</h3>
 <p>C++中的变量存储类型分为四种：auto、static、extern和register。</p>
@@ -1137,7 +1139,7 @@ gap /= <span class="hljs-number">3</span>;</code></pre></div>
       
         <div class="license-meta-item license-meta-date">
           <div>Updated on</div>
-          <div>August 2, 2025</div>
+          <div>August 7, 2025</div>
         </div>
       
       
